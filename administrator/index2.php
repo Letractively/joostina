@@ -56,20 +56,18 @@ $id	= (int)mosGetParam($_REQUEST,'id',0);
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
 $mainframe = mosMainFrame::getInstance(true);
 
-// объект работы с базой данных
-//$database = $mainframe->getDBO();
-
-// класс работы с правами пользователей
-$acl = gacl::getInstance( true );
-
-// установка языка систему
-//$mainframe->set('lang', $mosConfig_lang);
-
 require_once($mainframe->getLangFile());
 require_once($mainframe->getLangFile('administrator'));
 
 // запуск сессий панели управления
 $my = $mainframe->initSessionAdmin($option,$task);
+
+// класс работы с правами пользователей
+mosMainFrame::addLib('acl');
+// загружаем набор прав для панели управления
+Jacl::init_admipanel();
+Jacl::isAllowed( 'adminpanel' ) ? null : mosRedirect( JPATH_SITE, 'В доступе отказано' ) ;
+
 
 // страница панели управления по умолчанию
 $option = $_REQUEST['option'] = ($option == '') ? 'com_admin' : $option;

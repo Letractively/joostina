@@ -12,11 +12,8 @@ defined('_VALID_MOS') or die();
 
 global $my;
 
-$acl = gacl::getInstance( true );
+Jacl::isDeny('modules','edit') ? ajax_acl_error() : null;
 
-if(!($acl->acl_check('administration','edit','users',$my->usertype,'modules','all') | $acl->acl_check('administration','install','users',$my->usertype,'modules','all'))) {
-	die('error-acl');
-}
 
 $task	= mosGetParam($_GET,'task','publish');
 $id		= intval(mosGetParam($_GET,'id',0));

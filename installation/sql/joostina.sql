@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `#__comments` (
   PRIMARY KEY (`id`),
   KEY `obj_id` (`obj_id`,`obj_option`),
   KEY `state` (`state`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `#__comments`
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `#__components` (
   `iscore` tinyint(4) NOT NULL DEFAULT '0',
   `params` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `#__components`
@@ -87,109 +87,10 @@ CREATE TABLE IF NOT EXISTS `#__config` (
   `value` text,
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `#__config`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `#__core_acl_aro`
---
-
-CREATE TABLE IF NOT EXISTS `#__core_acl_aro` (
-  `aro_id` int(11) NOT NULL AUTO_INCREMENT,
-  `section_value` varchar(240) NOT NULL DEFAULT '0',
-  `value` varchar(240) NOT NULL DEFAULT '',
-  `order_value` int(11) NOT NULL DEFAULT '0',
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `hidden` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`aro_id`),
-  UNIQUE KEY `value` (`value`),
-  UNIQUE KEY `gacl_section_value_value_aro` (`section_value`(100),`value`(100)),
-  KEY `gacl_hidden_aro` (`hidden`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `#__core_acl_aro`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `#__core_acl_aro_groups`
---
-
-CREATE TABLE IF NOT EXISTS `#__core_acl_aro_groups` (
-  `group_id` int(11) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) NOT NULL DEFAULT '0',
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `lft` int(11) NOT NULL DEFAULT '0',
-  `rgt` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`group_id`),
-  KEY `#__gacl_parent_id_aro_groups` (`parent_id`),
-  KEY `#__gacl_lft_rgt_aro_groups` (`lft`,`rgt`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
-
---
--- Дамп данных таблицы `#__core_acl_aro_groups`
---
-
-INSERT INTO `#__core_acl_aro_groups` (`group_id`, `parent_id`, `name`, `lft`, `rgt`) VALUES
-(17, 0, 'ROOT', 1, 22),
-(28, 17, 'USERS', 2, 21),
-(29, 28, 'Public Frontend', 3, 12),
-(18, 29, 'Registered', 4, 11),
-(19, 18, 'Author', 5, 10),
-(20, 19, 'Editor', 6, 9),
-(21, 20, 'Publisher', 7, 8),
-(30, 28, 'Public Backend', 13, 20),
-(23, 30, 'Manager', 14, 19),
-(24, 23, 'Administrator', 15, 18),
-(25, 24, 'Super Administrator', 16, 17);
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `#__core_acl_aro_sections`
---
-
-CREATE TABLE IF NOT EXISTS `#__core_acl_aro_sections` (
-  `section_id` int(11) NOT NULL AUTO_INCREMENT,
-  `value` varchar(230) NOT NULL DEFAULT '',
-  `order_value` int(11) NOT NULL DEFAULT '0',
-  `name` varchar(230) NOT NULL DEFAULT '',
-  `hidden` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`section_id`),
-  UNIQUE KEY `value_aro_sections` (`value`),
-  KEY `hidden_aro_sections` (`hidden`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `#__core_acl_aro_sections`
---
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `#__core_acl_groups_aro_map`
---
-
-CREATE TABLE IF NOT EXISTS `#__core_acl_groups_aro_map` (
-  `group_id` int(11) NOT NULL DEFAULT '0',
-  `section_value` varchar(240) NOT NULL DEFAULT '',
-  `aro_id` int(11) NOT NULL DEFAULT '0',
-  UNIQUE KEY `group_id_aro_id_groups_aro_map` (`group_id`,`section_value`,`aro_id`),
-  KEY `aro_id` (`aro_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `#__core_acl_groups_aro_map`
+-- Дамп данных таблицы `#__config`
 --
 
 
@@ -228,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `#__hits` (
   `hit` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `obj_id` (`obj_id`,`obj_option`,`obj_task`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `#__hits`
@@ -256,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `#__mambots` (
   `params` text,
   PRIMARY KEY (`id`),
   KEY `idx_folder` (`published`,`client_id`,`access`,`folder`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `#__mambots`
@@ -291,14 +192,14 @@ CREATE TABLE IF NOT EXISTS `#__menu` (
   PRIMARY KEY (`id`),
   KEY `componentid` (`componentid`,`menutype`,`published`,`access`),
   KEY `menutype` (`menutype`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `#__menu`
 --
 
 INSERT INTO `#__menu` (`id`, `menutype`, `name`, `link_title`, `link`, `type`, `published`, `parent`, `componentid`, `sublevel`, `ordering`, `checked_out`, `checked_out_time`, `pollid`, `browserNav`, `access`, `utaccess`, `params`) VALUES
-(1, 'mainmenu', 'Главная', 'Главнее не бывает', 'index.php?option=com_pages', 'components', 1, 0, 1, 0, 9999, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, '{ "page_id": "7" }');
+(1, 'mainmenu', 'Главная', 'Главнее не бывает', 'index.php?option=com_pages', 'components', 1, 0, 1, 0, 9999, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, '{ "page_id": "8" }');
 
 -- --------------------------------------------------------
 
@@ -326,7 +227,7 @@ CREATE TABLE IF NOT EXISTS `#__modules` (
   PRIMARY KEY (`id`),
   KEY `published` (`published`,`access`),
   KEY `newsfeeds` (`module`,`published`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `#__modules`
@@ -336,7 +237,7 @@ INSERT INTO `#__modules` (`id`, `title`, `content`, `ordering`, `position`, `che
 (3, 'Главное меню', '', 2, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_menu', 0, 0, 0, '', 0, 0, 32767),
 (4, 'Авторизация', '', 1, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_login', 0, 0, 0, '""', 0, 0, 0),
 (19, 'Компоненты', '', 2, 'cpanel', 0, '0000-00-00 00:00:00', 1, 'mod_components', 0, 99, 1, '', 0, 1, 0),
-(23, 'Последние зарегистрированные пользователи', '', 4, 'advert2', 0, '0000-00-00 00:00:00', 0, 'mod_latest_users', 0, 99, 1, '', 0, 1, 0),
+(23, 'Последние зарегистрированные пользователи', '', 4, 'advert2', 0, '0000-00-00 00:00:00', 1, 'mod_latest_users', 0, 99, 1, '', 0, 1, 0),
 (26, 'Полное меню', '', 1, 'top', 0, '0000-00-00 00:00:00', 1, 'mod_fullmenu', 0, 99, 1, '', 0, 1, 0),
 (27, 'Путь', '', 1, 'pathway', 0, '0000-00-00 00:00:00', 1, 'mod_pathway', 0, 99, 1, '', 0, 1, 0),
 (28, 'Панель инструментов', '', 1, 'toolbar', 0, '0000-00-00 00:00:00', 1, 'mod_toolbar', 0, 99, 1, '', 0, 1, 0),
@@ -398,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `#__pages` (
   `state` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `state` (`state`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `#__pages`
@@ -424,7 +325,7 @@ CREATE TABLE IF NOT EXISTS `#__quickicons` (
   `access` int(11) unsigned NOT NULL DEFAULT '0',
   `gid` int(3) DEFAULT '25',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `#__quickicons`
@@ -470,12 +371,12 @@ CREATE TABLE IF NOT EXISTS `#__session` (
 CREATE TABLE IF NOT EXISTS `#__tags` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `obj_id` int(11) NOT NULL,
-  `obj_option` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `tag` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `obj_option` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `tag` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `obj_id` (`obj_id`,`obj_option`),
   KEY `tag_text` (`tag`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `#__tags`
@@ -514,7 +415,7 @@ CREATE TABLE IF NOT EXISTS `#__template_positions` (
   `position` varchar(10) NOT NULL DEFAULT '',
   `description` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `#__template_positions`
@@ -564,7 +465,7 @@ CREATE TABLE IF NOT EXISTS `#__trash` (
   `user_id` int(11) NOT NULL,
   `deleted_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `#__trash`
@@ -599,7 +500,7 @@ CREATE TABLE IF NOT EXISTS `#__users` (
   KEY `idxemail` (`email`),
   KEY `block_id` (`block`,`id`),
   KEY `username` (`username`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `#__users`
@@ -609,13 +510,13 @@ CREATE TABLE IF NOT EXISTS `#__users` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `#__users_extra`
+-- Структура таблицы `#__user_extra`
 --
 
-CREATE TABLE IF NOT EXISTS `#__users_extra` (
+CREATE TABLE IF NOT EXISTS `#__user_extra` (
   `user_id` int(11) NOT NULL,
-  `gender` varchar(10) NOT NULL,
-  `about` tinytext,
+  `gender` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `about` text,
   `location` varchar(255) NOT NULL,
   `url` varchar(255) NOT NULL,
   `icq` varchar(255) NOT NULL,
@@ -626,37 +527,40 @@ CREATE TABLE IF NOT EXISTS `#__users_extra` (
   `phone` varchar(255) NOT NULL,
   `fax` varchar(255) NOT NULL,
   `mobil` varchar(255) NOT NULL,
-  `birthdate` datetime DEFAULT '0000-00-00 00:00:00',
+  `birthdate` date DEFAULT '0000-00-00',
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `#__users_extra`
+-- Дамп данных таблицы `#__user_extra`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `#__usertypes`
+-- Структура таблицы `#__user_groups`
 --
 
-CREATE TABLE IF NOT EXISTS `#__usertypes` (
-  `id` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `name` varchar(50) NOT NULL DEFAULT '',
-  `mask` varchar(11) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `#__user_groups` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `parent_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `title` varchar(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_usergroup_title_lookup` (`title`),
+  KEY `idx_usergroup_adjacency_lookup` (`parent_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `#__usertypes`
+-- Дамп данных таблицы `#__user_groups`
 --
 
-INSERT INTO `#__usertypes` (`id`, `name`, `mask`) VALUES
-(0, 'superadministrator', ''),
-(1, 'administrator', ''),
-(2, 'editor', ''),
-(3, 'user', ''),
-(4, 'author', ''),
-(5, 'publisher', ''),
-(6, 'manager', '');
+INSERT INTO `#__user_groups` (`id`, `parent_id`, `title`) VALUES
+(1, 0, 'Public'),
+(2, 1, 'Registered'),
+(3, 2, 'Author'),
+(4, 3, 'Editor'),
+(5, 4, 'Publisher'),
+(6, 1, 'Manager'),
+(7, 6, 'Administrator'),
+(8, 7, 'Super Administrator');

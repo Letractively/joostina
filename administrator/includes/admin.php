@@ -13,7 +13,6 @@ defined('_VALID_MOS') or die();
 // получаем название шаблона для панели управления
 define('JTEMPLATE', 'joostfree' );
 
-mosMainFrame::addLib('gacl');
 mosMainFrame::addClass('mosAdminMenus');
 mosMainFrame::addClass('mosHTML');
 
@@ -72,7 +71,7 @@ function mosCountAdminModules($position = 'left') {
  * @param int 0 = no style, 1 = tabbed
  */
 function mosLoadAdminModules($position = 'left',$style = 0) {
-	global $acl,$my;
+	global $my;
 
 	static $all_modules;
 	if(!isset($all_modules)) {
@@ -98,9 +97,9 @@ function mosLoadAdminModules($position = 'left',$style = 0) {
 			$tabs->startPane('modules-'.$position);
 			foreach($modules as $module) {
 				$params = new mosParameters($module->params);
-				$editAllComponents = $acl->acl_check('administration','edit','users',$my->usertype,'components','all');
+
 				// special handling for components module
-				if($module->module != 'mod_components' || ($module->module == 'mod_components' && $editAllComponents)) {
+				if($module->module != 'mod_components' || ($module->module == 'mod_components')) {
 					$tabs->startTab($module->title,'module'.$module->id);
 					if($module->module == '') {
 						mosLoadCustomModule($module,$params);
@@ -144,7 +143,7 @@ function mosLoadAdminModules($position = 'left',$style = 0) {
  * Loads an admin module
  */
 function mosLoadAdminModule($name,$params = null) {
-	global $task,$acl,$my,$option;
+	global $task,$my,$option;
 
 	$mainframe = mosMainFrame::getInstance(true);
 	$database = $mainframe->getDBO();
@@ -424,4 +423,8 @@ function js_menu_cache_clear($echo = true) {
 /* вывод информационного поля*/
 function joost_info($msg) {
 	return '<div class="message">'.$msg.'</div>';
+}
+
+function ajax_acl_error(){
+	echo json_encode( array('error'=>'acl') );
 }

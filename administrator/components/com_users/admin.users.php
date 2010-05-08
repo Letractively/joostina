@@ -10,13 +10,11 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-if(!$acl->acl_check('administration','manage','users',$my->usertype,'components','com_users')) {
-	mosRedirect('index2.php',_NOT_AUTH);
-}
+Jacl::isDeny('users') ? mosRedirect('index2.php?', _NOT_AUTH) : null;
 
 require_once ($mainframe->getPath('admin_html'));
 require_once ($mainframe->getPath('class'));
-require_once ($mainframe->getPath('config','com_users'));
+//require_once ($mainframe->getPath('config','com_users'));
 
 $cid = josGetArrayInts('cid');
 
@@ -35,9 +33,7 @@ switch($task) {
 
 	case 'save':
 	case 'apply':
-
-			saveUser($task);
-
+		saveUser($task);
 		break;
 
 	case 'remove':
@@ -45,9 +41,7 @@ switch($task) {
 		break;
 
 	case 'block':
-
-			changeUserBlock($cid,1,$option);
-
+		changeUserBlock($cid,1,$option);
 		break;
 
 	case 'unblock':
@@ -66,43 +60,9 @@ switch($task) {
 		cancelUser($option);
 		break;
 
-	case 'contact':
-		$contact_id = mosGetParam($_POST,'contact_id','');
-		mosRedirect('index2.php?option=com_contact&task=editA&id='.$contact_id);
-		break;
-
-	case 'config':
-		config($option);
-		break;
-
-	case 'save_config':
-		save_config();
-		break;
-
 	default:
 		showUsers($option);
 		break;
-}
-
-function config($option) {
-	$database = database::getInstance();
-
-	$act = mosGetParam($_REQUEST,'act','');
-	$config_class = 'configUser_'.$act;
-	$config = new $config_class($database);
-	$config->display_config($option);
-
-}
-
-function save_config() {
-	$database = database::getInstance();
-
-	$act = mosGetParam($_REQUEST,'act','');
-	$config_class = 'configUser_'.$act;
-	$config = new $config_class($database);
-	$config->save_config();
-
-	mosRedirect('index2.php?option=com_users&task=config&act='.$act, _CONFIG_SAVED);
 }
 
 function showUsers($option) {
@@ -110,17 +70,19 @@ function showUsers($option) {
 
 	$database = database::getInstance();
 	$mainframe = mosMainFrame::getInstance(true);
-	$acl = gacl::getInstance( true );
+	$acl = gacl::getInstance( );
 
 	$filter_type = $mainframe->getUserStateFromRequest("filter_type{$option}",'filter_type',0);
 	$filter_logged = intval($mainframe->getUserStateFromRequest("filter_logged{$option}",'filter_logged',0));
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mainframe->getCfg('list_limit')));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0));
 	$search = $mainframe->getUserStateFromRequest("search{$option}",'search','');
+
 	if(get_magic_quotes_gpc()) {
 		$filter_type = stripslashes($filter_type);
 		$search = stripslashes($search);
 	}
+
 	$where = array();
 
 	if(isset($search) && $search != "") {
@@ -159,8 +121,8 @@ function showUsers($option) {
 	}
 
 	$query .= (count($where)?"\n WHERE ".implode(' AND ',$where):'');
-	$database->setQuery($query);
-	$total = $database->loadResult();
+	$total = $database->setQuery($query)->loadResult();
+
 
 	require_once (JPATH_BASE.DS.JADMIN_BASE.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
@@ -271,24 +233,19 @@ function editUser($uid = '0',$option = 'users') {
 	// build the html select list
 	$lists['sendEmail'] = mosHTML::yesnoRadioList('sendEmail','class="inputbox" size="1"',$row->sendEmail);
 
-	$file = $mainframe->getPath('com_xml','com_users');
-	$params = new mosUserParameters($row->params,$file,'component');
-
 	$user_extra = new userUsersExtra($database);
 	$user_extra->load((int)$uid);
 	$row->user_extra = $user_extra;
 
-	HTML_users::edituser($row,$lists,$option,$uid,$params);
+	HTML_users::edituser($row,$lists,$option,$uid);
 }
 
 function saveUser($task) {
 	global $my;
-	global $mosConfig_mailfrom,$mosConfig_fromname,$mosConfig_sitename;
 
 	josSpoofCheck();
 
 	$database = database::getInstance();
-	$mainframe = mosMainFrame::getInstance(true);
 	$acl = gacl::getInstance();
 
 	$userIdPosted = mosGetParam($_POST,'id');
@@ -378,14 +335,7 @@ function saveUser($task) {
 			} // ensure user can't add group higher than themselves done below
 		}
 	}
-	/*
-	* // if user is made a Super Admin group and user is NOT a Super Admin		
-	* if ( $row->gid == 25 && $my->gid != 25 ) {
-	* // disallow creation of Super Admin by non Super Admin users
-	* echo "<script> alert('Вы не можете создать пользователя с этим уровнем доступа. Это может сделать только Главный администратор сайта'); window.history.go(-1); </script>\n";
-	* exit();
-	* }
-	*/
+
 	// Security check to avoid creating/editing user to higher level than himself: response to artf4529.
 	if(!in_array($row->gid,getGIDSChildren($my->gid))) {
 		// disallow creation of Super Admin by non Super Admin users
@@ -393,21 +343,15 @@ function saveUser($task) {
 		exit();
 	}
 
-	// save usertype to usertype column
 	$query = "SELECT name FROM #__core_acl_aro_groups WHERE group_id = ".(int)$row->gid;
-	$database->setQuery($query);
-	$usertype = $database->loadResult();
+	$usertype = $database->setQuery($query)->loadResult();
 	$row->usertype = $usertype;
 
 	// save params
 	$params = mosGetParam($_POST,'params','');
-	if(is_array($params)) {
-		$txt = array();
-		foreach($params as $k => $v) {
-			$txt[] = "$k=$v";
-		}
-		$row->params = implode("\n",$txt);
-	}
+	// TODO тут бедас русским языком...
+	mosMainFrame::addLib('json');
+	$_POST['params'] = php2js($params);
 
 	if(!$row->check()) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
@@ -434,11 +378,8 @@ function saveUser($task) {
 	}
 	$user_extra->store();
 
-	$row->checkin();
-
 	// updates the current users param settings
 	if($my->id == $row->id) {
-		//session_start();
 		$_SESSION['session_user_params'] = $row->params;
 		session_write_close();
 	}
@@ -446,36 +387,11 @@ function saveUser($task) {
 	// update the ACL
 	if(!$isNew) {
 		$query = "SELECT aro_id FROM #__core_acl_aro WHERE value = ".(int)$row->id;
-		$database->setQuery($query);
-		$aro_id = $database->loadResult();
+		$aro_id = $database->setQuery($query)->loadResult();
 
 		$query = "UPDATE #__core_acl_groups_aro_map SET group_id = ".(int)$row->gid." WHERE aro_id = ".(int)$aro_id;
 		$database->setQuery($query);
 		$database->query() or die($database->stderr());
-	}
-
-	// for new users, email username and password
-	if($isNew) {
-		$query = "SELECT email FROM #__users WHERE id = ".(int)$my->id;
-		$database->setQuery($query);
-		$adminEmail = $database->loadResult();
-
-		$subject = _NEW_USER_MESSAGE_SUBJECT;
-		$message = sprintf(_NEW_USER_MESSAGE,$row->name,$mosConfig_sitename,JPATH_SITE,$row->username,$pwd);
-
-		if($mosConfig_mailfrom != "" && $mosConfig_fromname != "") {
-			$adminName = $mosConfig_fromname;
-			$adminEmail = $mosConfig_mailfrom;
-		} else {
-			$query = "SELECT name, email FROM #__users WHERE gid = 25";
-			$database->setQuery($query);
-			$admins = $database->loadObjectList();
-			$admin = $admins[0];
-			$adminName = $admin->name;
-			$adminEmail = $admin->email;
-		}
-
-		mosMail($adminEmail,$adminName,$row->email,$subject,$message);
 	}
 
 	if(!$isNew) {
@@ -486,6 +402,7 @@ function saveUser($task) {
 		}
 	}
 
+return;
 	switch($task) {
 		case 'apply':
 			$msg = _PROFILE_SAVE_SUCCESS.': '.$row->name;
@@ -711,10 +628,8 @@ function getGIDSChildren($gid) {
 
 	$standardlist = array(-2,);
 
-	$query = "SELECT g1.group_id, g1.name FROM #__core_acl_aro_groups g1"
-			."\n LEFT JOIN #__core_acl_aro_groups g2 ON g2.lft >= g1.lft WHERE g2.group_id = ".(int)$gid."\n ORDER BY g1.name";
-	$database->setQuery($query);
-	$array = $database->loadResultArray();
+	$query = "SELECT g1.group_id, g1.name FROM #__core_acl_aro_groups g1 LEFT JOIN #__core_acl_aro_groups g2 ON g2.lft >= g1.lft WHERE g2.group_id = ".(int)$gid."\n ORDER BY g1.name";
+	$array = $database->setQuery($query)->loadResultArray();
 
 	if($gid > 0) {
 		$standardlist[] = -1;

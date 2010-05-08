@@ -10,10 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-// ensure user has access to this function
-if(!($acl->acl_check('administration','edit','users',$my->usertype,'modules','all') | $acl->acl_check('administration','install','users',$my->usertype,'modules','all'))) {
-	mosRedirect('index2.php',_NOT_AUTH);
-}
+Jacl::isDeny('modules','view') ? mosRedirect('index2.php?', _NOT_AUTH) : null;
 
 require_once ($mainframe->getPath('admin_html'));
 
@@ -523,13 +520,12 @@ function publishModule($cid = null,$publish = 1,$option,$client) {
 /**
  * Cancels an edit operation
  */
-function cancelModule($option,$client) {
-	global $database;
+function cancelModule($option,$client) {;
 	josSpoofCheck();
-	$row = new mosModule($database);
-	// ignore array elements
+
+
+	$row = new mosModule();
 	$row->bind($_POST,'selections params');
-	$row->checkin();
 
 	mosRedirect('index2.php?option='.$option.'&client='.$client);
 }
@@ -540,18 +536,19 @@ function cancelModule($option,$client) {
  * @param integer The increment to reorder by
  */
 function orderModule($uid,$inc,$option) {
-	global $database;
 	josSpoofCheck();
+
 	$client = strval(mosGetParam($_POST,'client',''));
 
-	$row = new mosModule($database);
+	$row = new mosModule();
 	$row->load((int)$uid);
 	if($client == 'admin') {
 		$where = "client_id = 1";
 	} else {
 		$where = "client_id = 0";
 	}
-
+	
+	$database = database::getInstance();
 	$row->move($inc,"position = ".$database->Quote($row->position)." AND ( $where )");
 	if($client) {
 		$client = '&client=admin';

@@ -10,6 +10,8 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
+Jacl::isDeny('admin','edit') ? ajax_acl_error() : null;
+
 // параметр выполняемого действия
 $task	= mosGetParam($_GET,'task','publish');
 

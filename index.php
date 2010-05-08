@@ -104,55 +104,8 @@ include_once($mainframe->getLangFile('',$mosConfig_lang));
 
 $my = $mainframe->getUser();
 
-$gid = intval($my->gid);
-
-// авторизация
-
-if($option == 'login') {
-	$mainframe->login();
-
-	$return	= strval(mosGetParam($_REQUEST,'return',null));
-	if($return && !(strpos($return,'com_registration') || strpos($return,'com_login'))) {
-		// checks for the presence of a return url
-		// and ensures that this url is not the registration or login pages
-		// Если sessioncookie существует, редирект на заданную страницу. Otherwise, take an extra round for a cookiecheck
-		if(isset($_COOKIE[mosMainFrame::sessionCookieName()])) {
-			mosRedirect($return);
-		} else {
-			mosRedirect($mosConfig_live_site.'/index.php?option=cookiecheck&return='.urlencode($return));
-		}
-	} else {
-		// If a sessioncookie exists, redirect to the start page. Otherwise, take an extra round for a cookiecheck
-		if(isset($_COOKIE[mosMainFrame::sessionCookieName()])) {
-			mosRedirect($mosConfig_live_site.'/index.php');
-		} else {
-			mosRedirect($mosConfig_live_site.'/index.php?option=cookiecheck&return='.urlencode($mosConfig_live_site.'/index.php'));
-		}
-	}
-// разлогинивание
-} elseif($option == 'logout') {
-	$mainframe->logout();
-
-	$return	= strval(mosGetParam($_REQUEST,'return',null));
-	if($return && !(strpos($return,'com_registration') || strpos($return,'com_login'))) {
-		mosRedirect($return);
-	} else {
-		mosRedirect($mosConfig_live_site.'/index.php');
-	}
-// проверка куков
-} elseif($option == 'cookiecheck') {
-	// No cookie was set upon login. If it is set now, redirect to the given page. Otherwise, show error message.
-	if(isset($_COOKIE[mosMainFrame::sessionCookieName()])) {
-		$return	= strval(mosGetParam($_REQUEST,'return',null));
-		mosRedirect($return);
-	} else {
-		mosErrorAlert(_ALERT_ENABLED);
-	}
-}
-
 // получение шаблона страницы
-$cur_template = $mainframe->getTemplate();
-define('JTEMPLATE', $cur_template );
+define('JTEMPLATE', $mainframe->getTemplate() );
 
 /*** * @global - Места для хранения информации обработки компонента*/
 $_MOS_OPTION = array();
@@ -167,7 +120,7 @@ ob_start();
 
 if($path = $mainframe->getPath('front')) {
 	$task = strval(mosGetParam($_REQUEST,'task',''));
-	$ret = mosMenuCheck($Itemid,$option,$task,$gid,$mainframe);
+	$ret = mosMenuCheck($Itemid,$option,$task,$my->gid,$mainframe);
 	if($ret) {
 		//Подключаем язык компонента
 		if($mainframe->getLangFile($option)) {
@@ -212,10 +165,10 @@ if(defined('_ADMIN_OFFLINE')) {
 // буферизация итогового содержимого, необходимо для шаблонов группы templates
 ob_start();
 // загрузка файла шаблона
-if(!file_exists(JPATH_BASE.'/templates/'.$cur_template.'/index.php')) {
-	echo _TEMPLATE_WARN.$cur_template;
+if(!file_exists(JPATH_BASE.'/templates/'.JTEMPLATE.'/index.php')) {
+	echo _TEMPLATE_WARN.JTEMPLATE;
 } else {
-	require_once (JPATH_BASE.'/templates/'.$cur_template.'/index.php');
+	require_once (JPATH_BASE.'/templates/'.JTEMPLATE.'/index.php');
 }
 $_template_body = ob_get_contents(); // главное содержимое - стек вывода компонента - mainbody
 ob_end_clean();

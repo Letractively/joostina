@@ -10,9 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-if(!$acl->acl_check('administration','config','users',$my->usertype)) {
-	mosRedirect('index2.php?',_NOT_AUTH);
-}
+Jacl::isDeny('quickicons') ? mosRedirect('index2.php?', _NOT_AUTH) : null;
 
 require_once ($mainframe->getPath('class'));
 require_once ($mainframe->getPath('admin_html'));
@@ -115,7 +113,6 @@ function editIcon($id,$option) {
 	global $my;
 
 	$database = database::getInstance();
-	$acl = gacl::getInstance();
 
 	$row = new CustomQuickIcons();
 	$row->load($id);
@@ -135,36 +132,8 @@ function editIcon($id,$option) {
 	$ccheck = $database->setQuery($query)->loadObjectList();
 	$lists['components_check'] = mosHTML::selectList($ccheck,'ccheck','id="ccheck" class="inputbox" size="1"','value','text',null);
 
-	$my_group = strtolower($acl->get_group_name($row->gid,'ARO'));
-	if($my_group == 'siteowner') {
-		$lists['gid'] = '<input class="inputbox" type="hidden" name="gid" value="'.$my->gid.'" /><strong>Site Owner</strong>';
-	} else {
-		$my_groups = $acl->get_object_groups('users',$my->id,'ARO');
-		if(is_array($my_groups) && count($my_groups) > 0) {
-			$ex_groups = $acl->get_group_children($my_groups[0],'ARO','RECURSE');
-		} else {
-			$ex_groups = array();
-		}
+	$lists['gid'] = '<input class="inputbox" type="hidden" name="gid" value="'.$my->gid.'" /><strong>Тратата</strong>';
 
-		$ex_groups[] = '29'; // Public Frontend
-		$ex_groups[] = '18'; // Registered
-		$ex_groups[] = '19'; // Author
-		$ex_groups[] = '20'; // Editor
-		$ex_groups[] = '21'; // Publisher
-		$ex_groups[] = '30'; // Public Backend
-
-		$gtree = $acl->get_group_children_tree(null,'USERS',false);
-
-		$i = 0;
-		while($i < count($gtree)) {
-			if(in_array($gtree[$i]->value,$ex_groups)) {
-				array_splice($gtree,$i,1);
-			} else {
-				$i++;
-			}
-		}
-		$lists['gid'] = mosHTML::selectList($gtree,'gid','class="inputbox" size="4"','value','text',$row->gid);
-	}
 
 	$display[] = mosHTML::makeOption('',_DISPLAY_TEXT_AND_ICON);
 	$display[] = mosHTML::makeOption('1',_DISPLAY_ONLY_TEXT);

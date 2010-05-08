@@ -22,11 +22,6 @@ include_once(mosMainFrame::getInstance()->getLangFile('com_users'));
 class userlist_menu_html {
 
 	function edit($menu,$lists,$params,$option) {
-		global $acl;
-		
-
-		$gtree = $acl->get_group_children_tree(null,'USERS',false);
-		$gtree[0] = mosHTML::makeOption(0, 'All');
 
 ?>
 		<div id="overDiv" style="position:absolute; visibility:hidden; z-index:10000;"></div>
@@ -95,8 +90,8 @@ class userlist_menu_html {
 				</tr>
 				<tr>
 					<td align="right"><?php echo _GROUP?>:</td>
-					<td width="70%">
-					<?php echo mosHTML::selectList($gtree,'gid','size="1"','value','text',$params->get('group',''));?>
+					<td width="70%"> // Тут какбэ список пользователей
+					<?php //echo mosHTML::selectList($gtree,'gid','size="1"','value','text',$params->get('group',''));?>
 					<br />
 					<?php echo $menu->link; ?>
 					<input class="inputbox" type="hidden" name="link" size="50" maxlength="250" value="<?php echo $menu->link; ?>" />

@@ -10,10 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-// ensure user has access to this function
-if(!$acl->acl_check('administration','config','users',$my->usertype)) {
-	mosRedirect('index2.php',_NOT_AUTH);
-}
+Jacl::isDeny('languages') ? mosRedirect('index2.php?', _NOT_AUTH) : null;
 
 require_once ($mainframe->getPath('admin_html'));
 // XML library

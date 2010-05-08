@@ -10,6 +10,8 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
+Jacl::isDeny('menumanager') ? mosRedirect('index2.php?', _NOT_AUTH) : null;
+
 require_once ($mainframe->getPath('admin_html'));
 
 $path = JPATH_BASE_ADMIN.DS.'components'.DS.'com_menus'.DS;

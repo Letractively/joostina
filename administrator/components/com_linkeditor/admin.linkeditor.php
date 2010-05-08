@@ -10,6 +10,8 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
+Jacl::isDeny('linkeditor') ? mosRedirect('index2.php?', _NOT_AUTH) : null;
+
 require_once ($mainframe->getPath('admin_html'));
 
 $cid = josGetArrayInts('cid');

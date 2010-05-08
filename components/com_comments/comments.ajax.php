@@ -87,13 +87,13 @@ class actionsComments {
 
 		$comment_arr = array();
 
-/*
+		/*
 		if( !$my->id ) {
 			$comment_arr['error'] = '<div>Комментарии могут оставлять только авторизованные пользователи</div>';
 			echo json_encode($comment_arr);
 			return false;
 		}
-*/
+		*/
 		mosMainFrame::addLib( 'text' );
 
 		$comment = new Comments;
@@ -113,7 +113,7 @@ class actionsComments {
 		}
 		else {
 			$comment->check();
-                        $comment->store();
+			$comment->store();
 			echo json_encode($comment_arr);
 		}
 

@@ -9,8 +9,8 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-global $my;
 
+Jacl::isDeny('menumanager','edit') ? ajax_acl_error() : null;
 
 $task = mosGetParam($_REQUEST,'task','publish');
 $id = intval(mosGetParam($_GET,'id','0'));

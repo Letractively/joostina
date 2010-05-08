@@ -10,9 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-if (!$acl->acl_check('administration', 'config', 'users', $my->usertype)) {
-	mosRedirect('index2.php?', _NOT_AUTH);
-}
+Jacl::isDeny('sqldump') ? mosRedirect('index2.php?', _NOT_AUTH) : null;
 
 mosMainFrame::addLib('joiadmin');
 JoiAdmin::dispatch();

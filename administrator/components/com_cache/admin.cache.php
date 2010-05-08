@@ -10,14 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-/*
- * Make sure the user is authorized to view this page
-*/
-
-// ensure user has access to this function
-if(!($acl->acl_check('administration', 'edit', 'users', $my->usertype, 'components', 'all') | $acl->acl_check('administration', 'edit', 'users', $my->usertype, 'components', 'com_cache'))) {
-	mosRedirect('index2.php', _NOT_AUTH);
-}
+Jacl::isDeny('cache') ? mosRedirect('index2.php?', _NOT_AUTH) : null;
 
 // Load the html output class and the model class
 require_once ($mainframe->getPath('admin_html'));

@@ -907,10 +907,6 @@ class mosMainFrame {
 
 		$return = $return ? $return : strval(mosGetParam($_SERVER,'HTTP_REFERER',null));
 
-		// подключаем библиотеку работы с правами
-		mosMainFrame::addLib('gacl');
-		$acl = gacl::getInstance( true );
-
 		$bypost = 0;
 		$valid_remember = false;
 
@@ -932,7 +928,6 @@ class mosMainFrame {
 
 		$row = null;
 		if(!$username || !$passwd) {
-
 			mosRedirect($return, _LOGIN_INCOMPLETE);
 			exit();
 		} else {
@@ -999,23 +994,13 @@ class mosMainFrame {
 						exit();
 					}
 				}
-
-				// fudge the group stuff
-				$grp = $acl->getAroGroup($row->id);
-				$row->gid = 1;
-				if($acl->is_group_child_of($grp->name,'Registered','ARO') || $acl->is_group_child_of($grp->name,'Public Backend','ARO')) {
-					// fudge Authors, Editors, Publishers and Super Administrators into the Special Group
-					$row->gid = 2;
-				}
-				$row->usertype = $grp->name;
-
 				// initialize session data
 				$session = &$this->_session;
 				$session->guest = 0;
 				$session->username = $row->username;
-				$session->userid = intval($row->id);
+				$session->userid = $row->id;
 				$session->usertype = $row->usertype;
-				$session->gid = intval($row->gid);
+				$session->gid = $row->gid;
 				$session->update();
 
 				$query = "DELETE FROM #__session WHERE session_id != ".$this->_db->Quote($session->session_id)." AND username = ".$this->_db->Quote($row->username)." AND userid = ".(int)$row->id." AND gid = ".(int)$row->gid." AND guest = 0";
@@ -1099,6 +1084,10 @@ class mosMainFrame {
 			$user->registerDate = $my->registerDate;
 			$user->lastvisitDate = $my->lastvisitDate;
 			$user->activation = $my->activation;
+		}else{
+			$user->name = _GUEST_USER;
+			$user->username = _GUEST_USER;
+			$user->usertype = 'guest';
 		}
 		return $user;
 	}
