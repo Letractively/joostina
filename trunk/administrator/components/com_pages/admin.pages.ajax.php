@@ -10,6 +10,8 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
+Jacl::isDeny('pages','edit') ? ajax_acl_error() : null;
+
 // подключаем библиотеку JoiAdmin
 mosMainFrame::addLib('joiadmin');
 // передаём управление полётом в автоматический Ajax - обработчик

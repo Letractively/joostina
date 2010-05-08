@@ -10,7 +10,4 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-// ensure user has access to this function
-if(!($acl->acl_check('administration','manage','users',$my->usertype,'components','com_trash'))) {
-	mosRedirect('index2.php',_NOT_AUTH);
-}
+Jacl::isDeny('trash') ? mosRedirect('index2.php?', _NOT_AUTH) : null;

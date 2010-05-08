@@ -12,4 +12,5 @@
 defined( '_VALID_MOS' ) or die();
 
 global $my;
-require( 'views/vertical.php' );
+
+require_once $my->id ? 'views/logout/default.php' : 'views/login/default.php';

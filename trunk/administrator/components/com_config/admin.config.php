@@ -10,9 +10,8 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-if (!$acl->acl_check('administration', 'config', 'users', $my->usertype)) {
-	mosRedirect('index2.php?', _NOT_AUTH);
-}
+Jacl::isDeny('config','view') ? mosRedirect('index2.php?', _NOT_AUTH) : null;
+
 
 require_once($mainframe->getPath('admin_html'));
 
@@ -20,6 +19,7 @@ switch ($task) {
 
 	case 'apply':
 	case 'save':
+		Jacl::isDeny('config','save') ? mosRedirect('index2.php?', _NOT_AUTH) : null;
 		js_menu_cache_clear();
 		saveconfig($task);
 		break;

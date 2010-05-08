@@ -55,7 +55,7 @@ class HTML_users {
         <tr class="row<?php echo $k; ?>">
             <td><?php echo $i + 1 + $pageNav->limitstart; ?></td>
             <td><?php echo mosHTML::idBox($i, $row->id); ?></td>
-            <td width="1%"><img width="25" class="miniavatar" src="<?php echo JPATH_SITE . '/' . mosUser::get_avatar($row); ?>" /></td>
+            <td width="1%"><img width="25" class="miniavatar" src="<?php echo JPATH_SITE . '/' . mosUser::avatar($row); ?>" /></td>
             <td align="left"><a href="<?php echo $link; ?>"><?php echo $row->name; ?></a></td>
             <td align="left"><?php echo $row->username; ?></td>
             <td align="center"><?php echo $row->loggedin ? '<img src="' . $cur_file_icons_path . '/tick.png" border="0" alt="" />' : ''; ?></td>
@@ -80,7 +80,7 @@ class HTML_users {
 		<?php
 	}
 
-	public static function edituser( $row,$lists, $option, $uid,$params) {
+	public static function edituser( $row,$lists, $option, $uid) {
 		global $my;
 
 		$acl = gacl::getInstance(true);
@@ -266,32 +266,6 @@ class HTML_users {
 				<?php } ?>
     <input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
 </form>
-
-		<?php $tabs->startTab(_C_USERS_AVATARS, "avatar"); ?>
-<table class="adminform"><tr><td>
-					<?php
-					$form_params = new stdClass();
-					$form_params->id = 'avatar_uploadForm';
-					$form_params->img_field = 'avatar';
-					$form_params->img_path = 'images/avatars';
-					$form_params->default_img = 'images/avatars/none.jpg';
-					$form_params->img_class = 'user_avatar';
-					$form_params->ajax_handler = 'ajax.index.php?option=com_users';
-
-					if (!$row->avatar) {
-						userHelper::_build_img_upload_area($row, $form_params, 'upload');
-					} else {
-						userHelper::_build_img_upload_area($row, $form_params, 'reupload');
-					} ?>
-        </td></tr></table>
-		<?php $tabs->endTab(); ?>
-		<?php $tabs->startTab(_PARAMETERS, "params"); ?>
-<table>
-	<tr>
-		<td><?php echo $params->render('params'); ?></td>
-	</tr>
-</table>
-		<?php $tabs->endTab(); ?>
 		<?php $tabs->endPane(); ?>
 		<?php
 	}

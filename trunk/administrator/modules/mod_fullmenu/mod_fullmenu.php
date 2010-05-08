@@ -18,7 +18,6 @@ class mosFullAdminMenu {
 
 		$database = database::getInstance();
 		$config = Jconfig::getInstance();
-		$acl = gacl::getInstance();
 
 		echo '<div id="myMenuID"></div>'; // в этот слой выводится содержимое меню
 		if($config->config_adm_menu_cache) { // проверяем, активировано ли кэширование в панели управления
@@ -31,7 +30,7 @@ class mosFullAdminMenu {
 				return; // дальнейшую обработку меню не ведём
 			} // файла не было - генерируем его, создаём и всё равно возвращаем ссылку
 		}
-
+/*
 		$canConfig = $acl->acl_check('administration','config','users',$usertype);
 		$manageTemplates = $acl->acl_check('administration','manage','users',$usertype,'components','com_templates');
 		$manageTrash = $acl->acl_check('administration','manage','users',$usertype,'components','com_trash');
@@ -45,7 +44,12 @@ class mosFullAdminMenu {
 		$editAllComponents = $acl->acl_check('administration','edit','users',$usertype,'components','all');
 		$canMassMail = $acl->acl_check('administration','manage','users',$usertype,'components','com_massmail');
 		$canManageUsers = $acl->acl_check('administration','manage','users',$usertype,'components','com_users');
+*/
+
+				$canConfig = $manageTemplates = $manageTrash = $manageMenuMan = $manageLanguages = $installModules = $editAllModules = $installMambots= $editAllMambots = $installComponents = $editAllComponents = $canMassMail = $canManageUsers = true;
+		
 		$menuTypes = mosAdminMenus::menutypes();
+
 
 		// получеполучаем каталог с графикой верхнего меню
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/images/menu/old_ico/';
@@ -135,7 +139,8 @@ _cmSplit,['<img src="<?php echo $cur_file_icons_path ?>trash.png" />','<?php ech
 			$topLevelLimit = 19; //You can get 19 top levels on a 800x600 Resolution
 			$topLevelCount = 0;
 			foreach($comps as $row) {
-				if($editAllComponents | $acl->acl_check('administration','edit','users',$usertype,'components',$row->option)) {
+				//if($editAllComponents | $acl->acl_check('administration','edit','users',$usertype,'components',$row->option)) {
+				if( true ) {
 					if($row->parent == 0 && (trim($row->admin_menu_link) || array_key_exists($row->id,$subs))) {
 						$topLevelCount++;
 						if($topLevelCount > $topLevelLimit) {
@@ -254,15 +259,7 @@ cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
 	}
 
 	public static function showDisabled($usertype = '') {
-		global $acl;
-
-		$canConfig = $acl->acl_check('administration','config','users',$usertype);
-		$installModules = $acl->acl_check('administration','install','users',$usertype,'modules','all');
-		$editAllModules = $acl->acl_check('administration','edit','users',$usertype,'modules','all');
-		$installMambots = $acl->acl_check('administration','install','users',$usertype,'mambots','all');
-		$editAllMambots = $acl->acl_check('administration','edit','users',$usertype,'mambots','all');
-		$installComponents = $acl->acl_check('administration','install','users',$usertype,'components','all');
-		$editAllComponents = $acl->acl_check('administration','edit','users',$usertype,'components','all');
+		$canConfig = $installModules = $editAllModules = $installMambots = $editAllMambots = $installComponents = $editAllComponents = true;
 
 		$text = _MOD_FULLMENU_NO_ACTIVE_MENU_ON_THIS_PAGE;
 		?><div id="myMenuID" class="inactive"></div>

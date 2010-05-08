@@ -10,6 +10,8 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
+Jacl::isDeny('installer') ? mosRedirect('index2.php?', _NOT_AUTH) : null;
+
 require_once ($mainframe->getPath('admin_html'));
 require_once ($mainframe->getPath('installer_class','installer'));
 
@@ -21,10 +23,6 @@ $client		= mosGetParam($_REQUEST,'client','');
 $option		= mosGetParam($_REQUEST,'option','');
 $url		= mosGetParam($_REQUEST,'url','');
 
-// ensure user has access to this function
-if(!$acl->acl_check('administration','install','users',$my->usertype,$element.'s','all')) {
-	mosRedirect('index2.php',_NOT_AUTH);
-}
 
 $path = JPATH_BASE_ADMIN."/components/com_installer/$element/$element.php";
 

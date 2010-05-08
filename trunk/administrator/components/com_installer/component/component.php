@@ -10,9 +10,6 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-if(!$acl->acl_check('administration','install','users',$my->usertype,$element.'s','all')) {
-	mosRedirect('index2.php',_NOT_AUTH);
-}
 
 require_once ($mainframe->getPath('installer_html','component'));
 require_once ($mainframe->getPath('installer_class','component'));

@@ -10,9 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-if(!$acl->acl_check('administration','manage','users',$my->usertype,'components','com_menumanager')) {
-	mosRedirect('index2.php',_NOT_AUTH);
-}
+Jacl::isDeny('menumanager') ? mosRedirect('index2.php?', _NOT_AUTH) : null;
 
 require_once ($mainframe->getPath('admin_html'));
 

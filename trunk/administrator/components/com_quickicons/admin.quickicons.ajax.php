@@ -10,10 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-
-global $my;
-/* всех не авторизованных игнорируем*/
-if(!$my->id) exit;
+Jacl::isDeny('quickicons','edit') ? ajax_acl_error() : null;
 
 $task = mosGetParam($_GET,'task','publish');
 $id = intval(mosGetParam($_GET,'id','0'));

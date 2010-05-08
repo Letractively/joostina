@@ -10,11 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-$acl = gacl::getInstance(true);
-
-if (!$acl->acl_check('administration', 'manage', 'users', $my->usertype, 'components', 'com_users')) {
-    die('error-acl');
-}
+Jacl::isDeny('users','edit') ? ajax_acl_error() : null;
 
 $task = mosGetParam($_REQUEST, 'task', '');
 $id = intval(mosGetParam($_REQUEST, 'id', '0'));

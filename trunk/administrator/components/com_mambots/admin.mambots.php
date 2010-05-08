@@ -11,9 +11,7 @@
 defined('_VALID_MOS') or die();
 
 // ensure user has access to this function
-if(!($acl->acl_check('administration','edit','users',$my->usertype,'mambots','all') | $acl->acl_check('administration','install','users',$my->usertype,'mambots','all'))) {
-	mosRedirect('index2.php',_NOT_AUTH);
-}
+Jacl::isDeny('mambots','view') ? mosRedirect('index2.php?', _NOT_AUTH) : null;
 
 require_once ($mainframe->getPath('admin_html'));
 
@@ -25,19 +23,23 @@ switch($task) {
 
 	case 'new':
 	case 'edit':
+		Jacl::isDeny('mambots','edit') ? mosRedirect('index2.php?', _NOT_AUTH) : null;
 		editMambot($option,intval($cid[0]),$client);
 		break;
 
 	case 'editA':
+		Jacl::isDeny('mambots','edit') ? mosRedirect('index2.php?', _NOT_AUTH) : null;
 		editMambot($option,$id,$client);
 		break;
 
 	case 'save':
 	case 'apply':
+		Jacl::isDeny('mambots','edit') ? mosRedirect('index2.php?', _NOT_AUTH) : null;
 		saveMambot($option,$client,$task);
 		break;
 
 	case 'remove':
+		Jacl::isDeny('mambots','edit') ? mosRedirect('index2.php?', _NOT_AUTH) : null;
 		removeMambot($cid,$option,$client);
 		break;
 
@@ -45,23 +47,21 @@ switch($task) {
 		cancelMambot($option,$client);
 		break;
 
-	case 'publish':
-	case 'unpublish':
-		publishMambot($cid,($task == 'publish'),$option,$client);
-		break;
-
 	case 'orderup':
 	case 'orderdown':
+		Jacl::isDeny('mambots','edit') ? mosRedirect('index2.php?', _NOT_AUTH) : null;
 		orderMambot(intval($cid[0]),($task == 'orderup'?-1:1),$option,$client);
 		break;
 
 	case 'accesspublic':
 	case 'accessregistered':
 	case 'accessspecial':
+		Jacl::isDeny('mambots','edit') ? mosRedirect('index2.php?', _NOT_AUTH) : null;
 		accessMenu(intval($cid[0]),$task,$option,$client);
 		break;
 
 	case 'saveorder':
+		Jacl::isDeny('mambots','edit') ? mosRedirect('index2.php?', _NOT_AUTH) : null;
 		saveOrder($cid);
 		break;
 
@@ -280,47 +280,8 @@ function removeMambot(&$cid,$option,$client) {
 	mosRedirect( 'index2.php?option=com_installer&element=mambot&client='. $client .'&task=remove&cid[]='. $cid[0] . '&' . josSpoofValue() . '=1');
 }
 
-function publishMambot($cid = null,$publish = 1,$option,$client) {
-	global $my;
-	josSpoofCheck();
-
-
-	if(count($cid) < 1) {
-		$action = $publish?'publish':'unpublish';
-		echo "<script> alert('"._CHOOSE_MAMBOT_FOR." $action'); window.history.go(-1);</script>\n";
-		exit;
-	}
-
-	$database = database::getInstance();
-
-	mosArrayToInts($cid);
-	$cids = 'id='.implode(' OR id=',$cid);
-
-	$query = "UPDATE #__mambots SET published = ".(int)$publish."\n WHERE ( $cids ) AND ( checked_out = 0 OR ( checked_out = ".(int)$my->id." ) )";
-	$database->setQuery($query);
-	if(!$database->query()) {
-		echo "<script> alert('".$database->getErrorMsg()."'); window.history.go(-1); </script>\n";
-		exit();
-	}
-
-	if(count($cid) == 1) {
-		$row = new mosMambot($database);
-		$row->checkin($cid[0]);
-	}
-
-	mosRedirect('index2.php?option='.$option.'&client='.$client);
-}
-
-
 function cancelMambot($option,$client) {
 	josSpoofCheck();
-
-	$database = database::getInstance();
-
-	$row = new mosMambot($database);
-	$row->bind($_POST);
-	$row->checkin();
-
 	mosRedirect('index2.php?option='.$option.'&client='.$client);
 }
 

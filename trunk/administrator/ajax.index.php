@@ -54,6 +54,15 @@ require_once($mainframe->getLangFile('administrator'));
 
 $my = $mainframe->initSessionAdmin($option,$task);
 
+// класс работы с правами пользователей
+mosMainFrame::addLib('acl');
+Jacl::init_admipanel();
+
+if( Jacl::isDeny('adminpanel') ){
+	echo json_encode( array('error'=>'acl') );
+}
+
+
 if(!$my->id) {
 	die('error-my');
 }

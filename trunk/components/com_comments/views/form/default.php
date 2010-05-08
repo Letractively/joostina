@@ -10,8 +10,9 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
+mosMainFrame::addLib('acl');
 
-if($my->id) { ?>
+if( Jacl::isAllowed('comments', 'add') ) { ?>
 <div class="block_wrap">
     <div class="comment_form">
         <span> Ваш комментарий </span>

@@ -10,6 +10,8 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
+Jacl::isDeny('installer','edit') ? ajax_acl_error() : null;
+
 global $my;
 
 $task	= mosGetParam($_GET,'task','publish');

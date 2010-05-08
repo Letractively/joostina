@@ -21,7 +21,7 @@ class database {
 	 * Объект активного соединения с базой данных
 	 * @var database
 	 */
-	private static $_instance;
+	protected static $_db_instance;
 	/**
 	 * Переменныя хранения активной или готовящейся к выполнению SQL команды
 	 * @var string
@@ -138,7 +138,7 @@ class database {
 		// отметка получения инстенции базы данных
 		JDEBUG ? jd_inc('database::getInstance()') : null;
 
-		if (self::$_instance === NULL) {
+		if (self::$_db_instance === NULL) {
 			$config = Jconfig::getInstance();
 
 			$database = new database($config->config_host, $config->config_user, $config->config_password, $config->config_db, $config->config_dbprefix, true, JDEBUG);
@@ -147,9 +147,9 @@ class database {
 				include JPATH_BASE . DS . 'templates/system/offline.php';
 				exit();
 			}
-			self::$_instance = $database;
+			self::$_db_instance = $database;
 		}
-		return self::$_instance;
+		return self::$_db_instance;
 	}
 
 	/**
@@ -550,35 +550,15 @@ class database {
 		return (bool) $this->query();
 	}
 
-	/**
-	 *
-	 * @param <type> $showSQL
-	 * @return <type>
-	 */
 	public function stderr($showSQL = false) {
+		JDEBUG ? jd_log($this->_errorMsg ."\n\t". $this->_sql  ) : null;
 		return "DB function failed with error number $this->_errorNum <br /><font color=\"red\">$this->_errorMsg</font>" . ($showSQL ? "<br />SQL = <pre>$this->_sql</pre>" : '');
 	}
 
-	/**
-	 *
-	 * @return <type>
-	 */
 	public function insertid() {
 		return mysql_insert_id($this->_resource);
 	}
 
-	/**
-	 * Fudge method for ADOdb compatibility
-	 */
-	// TODO убрать
-	public function GenID() {
-		return 0;
-	}
-
-	/**
-	 *
-	 * @return <type>
-	 */
 	public function getCursor() {
 		return $this->_cursor;
 	}
@@ -774,17 +754,17 @@ class UtulsDB extends database {
 	}
 }
 
-class mosDBTable {
+class mosDBTable extends database {
 
-	public $_tbl;
-	public $_tbl_key;
-	public $_error;
-	public $_db;
+	protected $_tbl;
+	protected $_tbl_key;
+	protected $_error;
+	protected $_db;
 
 	public function  mosDBTable($table, $key, $db = null) {
 		$this->_tbl = $table;
 		$this->_tbl_key = $key;
-		$this->_db = $db ? $db : database::getInstance();
+		$this->_db = $db ? $db : parent::$_db_instance;
 	}
 
 	/**

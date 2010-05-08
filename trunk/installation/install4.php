@@ -318,17 +318,8 @@ if($siteUrl) {
 	// создание администратора
 	$installdate = date('Y-m-d H:i:s');
 	$adminLogin = $database->getEscaped($adminLogin);
-	$query = "INSERT INTO `#__users` VALUES (62, 'Administrator', '$adminLogin', '$adminEmail', '$cryptpass', 'Super Administrator', 0, 1, 25, '$installdate', '$nullDate', '', '',0, '')";
-	$database->setQuery($query);
-	$database->query();
-	// добавить ARO (Access Request Object)
-	$query = "INSERT INTO `#__core_acl_aro` VALUES (10,'users','62',0,'Administrator',0)";
-	$database->setQuery($query);
-	$database->query();
-	// add the map between the ARO and the Group
-	$query = "INSERT INTO `#__core_acl_groups_aro_map` VALUES (25,'',10)";
-	$database->setQuery($query);
-	$database->query();
+	$query = "INSERT INTO `#__users` VALUES (null, 'Суперчеловек', '$adminLogin', '$adminEmail', '$cryptpass', 'superadmin', 0, 1, 8, '$installdate', '$nullDate', '', '',0, '')";
+	$database->setQuery($query)->query();;
 
 	// chmod files and directories if desired
 	$chmod_report = "Права доступа к файлам и каталогам не изменены.";
