@@ -19,6 +19,8 @@ defined('_VALID_MOS') or die();
 
 global $mosConfig_sef;
 
+// TODO тут надо сделать класс-синглтон типа Jurl, и собирать все параметры в него
+
 // редиректить ли с не-sef адресов
 DEFINE('_SEF_REDIRECT', true);
 // удалять из ссылок парамтер ItemId
@@ -52,6 +54,14 @@ if($mosConfig_sef) {
 			$theURI .= '?' . $_SERVER['QUERY_STRING'];
 		}
 	}
+
+
+	if (false !== ($pos = strpos( $theURI , '.')) ) {
+		// расширение страницы
+		$_GET[':extension']  = $_REQUEST[':extension'] = substr($theURI, $pos);
+		$theURI = substr($theURI, 0, $pos);
+	}
+	
 	$theURI = str_replace(JPATH_SITE,'',$theURI);
 
 

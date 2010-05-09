@@ -318,7 +318,7 @@ if($siteUrl) {
 	// создание администратора
 	$installdate = date('Y-m-d H:i:s');
 	$adminLogin = $database->getEscaped($adminLogin);
-	$query = "INSERT INTO `#__users` VALUES (null, 'Суперчеловек', '$adminLogin', '$adminEmail', '$cryptpass', 'superadmin', 0, 1, 8, '$installdate', '$nullDate', '', '',0, '')";
+	$query = "INSERT INTO `#__users` VALUES (null, 'Суперчеловек', '$adminLogin', '$adminEmail', '$cryptpass', 'superadministrator', 0, 1, 8, '$installdate', '$nullDate', '', '',0, '')";
 	$database->setQuery($query)->query();;
 
 	// chmod files and directories if desired

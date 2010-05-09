@@ -30,6 +30,171 @@ class mosUser extends mosDBTable {
 		$this->mosDBTable('#__users','id');
 	}
 
+
+	public function get_fieldinfo() {
+		return array(
+				'id' => array(
+						'name' => 'ID',
+						'editable' => false,
+						'sortable' => false,
+						'in_admintable' => true,
+						'html_table_element' => 'value',
+						'html_table_element_param' => array(
+								'width' => '20px',
+								'align' => 'center'
+						)
+				),
+				'name' => array(
+						'name' => 'Имя пользователя',
+						'editable' => true,
+						'sortable' => true,
+						'in_admintable' => true,
+						'html_edit_element' => 'edit',
+						'html_table_element' => 'editlink',
+				),
+				'username' => array(
+						'name' => 'Логин',
+						'editable' => true,
+						'sortable' => true,
+						'in_admintable' => true,
+						'html_edit_element' => 'edit',
+						'html_table_element' => 'editlink',
+				),
+				'block' => array(
+						'name' => 'Разрешен',
+						'editable' => true,
+						'sortable' => true,
+						'in_admintable' => true,
+						'editlink' => true,
+						'html_edit_element' => 'checkbox',
+						'html_table_element' => 'state_box',
+						'html_edit_element_param' => array(
+								'text' => 'Заблокирован',
+						),
+						'html_table_element' => 'statuschanger',
+						'html_table_element_param' => array(
+								'statuses' => array(
+										0 => 'Разрешён',
+										1 => 'Заблокирован',
+								),
+								'images' => array(
+										0 => 'publish_g.png',
+										1 => 'publish_x.png',
+								),
+								'align' => 'center',
+								'class' => 'td-state-joiadmin',
+						)
+				),
+				'email' => array(
+						'name' => 'email адрес',
+						'editable' => true,
+						'in_admintable' => true,
+						'html_edit_element' => 'edit',
+						'html_table_element' => 'value',
+				),
+				'sendEmail' => array(
+						'name' => 'Получать системные email',
+						'editable' => true,
+						'sortable' => true,
+						'in_admintable' => true,
+						'editlink' => true,
+						'html_edit_element' => 'checkbox',
+						'html_table_element' => 'state_box',
+						'html_edit_element_param' => array(
+								'text' => 'Получать сообщения на email',
+						),
+						'html_table_element' => 'statuschanger',
+						'html_table_element_param' => array(
+								'statuses' => array(
+										0 => 'Разрешён',
+										1 => 'Заблокирован',
+								),
+								'images' => array(
+										0 => 'publish_g.png',
+										1 => 'publish_x.png',
+								),
+								'align' => 'center',
+						)
+				),
+				'password' => array(
+						'name' => 'Пароль',
+						'editable' => true,
+						'in_admintable' => true,
+						'html_edit_element' => 'edit',
+						'html_table_element' => 'value',
+				),
+				'usertype' => array(
+						'name' => 'Группа',
+						'editable' => true,
+						'sortable' => true,
+						'in_admintable' => true,
+						'html_edit_element' => 'option',
+						'html_edit_element_param' => array(
+								'call_from' => 'mosUser::get_usergroup_name'
+						),
+						'html_table_element' => 'one_from_array',
+						'html_table_element_param' => array(
+								'call_from' => 'mosUser::get_usergroup_name'
+						),
+				),
+				'gid' => array(
+						'name' => 'Группа2',
+						'editable' => true,
+						'sortable' => true,
+						'in_admintable' => true,
+						'html_edit_element' => 'option',
+						'html_edit_element_param' => array(
+								'call_from' => 'mosUser::get_usergroup'
+						),
+						'html_table_element' => 'one_from_array',
+						'html_table_element_param' => array(
+								'call_from' => 'mosUser::get_usergroup'
+						),
+				),
+
+				'registerDate' => array(
+						'name' => 'Дата регистрации',
+						'editable' => true,
+						'in_admintable' => true,
+						'html_edit_element' => 'edit',
+						'html_table_element' => 'value',
+				),
+				'lastvisitDate' => array(
+						'name' => 'Последнее посещение',
+						'editable' => true,
+						'in_admintable' => true,
+						'html_edit_element' => 'edit',
+						'html_table_element' => 'value',
+				),
+				'activation' => array(
+						'name' => 'Код активации',
+						'editable' => true,
+						'in_admintable' => true,
+						'html_edit_element' => 'edit',
+						'html_table_element' => 'value',
+				),
+
+		);
+	}
+
+	public function get_tableinfo() {
+		return array(
+				'header_list' => 'Пользователи',
+				'header_new' => 'Создание пользователя',
+				'header_edit' => 'Редактирование данных пользователя'
+		);
+	}
+
+	public static function get_usergroup( ) {
+		$games = new Usergroup;
+		return $games->get_selector(array('key' => 'id', 'value' => 'title'), array('select' => 'id, title'));
+	}
+
+	public static function get_usergroup_name( ) {
+		$games = new Usergroup;
+		return $games->get_selector(array('key' =>'title', 'value' => 'title'), array('select' => 'id, title'));
+	}
+
 	function check() {
 
 		// Validate user information
@@ -86,6 +251,15 @@ class mosUser extends mosDBTable {
 		}
 
 		return true;
+	}
+
+	function before_store() {
+		if( !$this->id ) {
+			$salt = mosMakePassword(16);
+			$crypt = md5($this->password.$salt);
+			$this->password = $crypt.':'.$salt;
+			$this->registerDate = _CURRENT_SERVER_TIME;
+		}
 	}
 
 	public static function avatar($user) {
@@ -171,9 +345,10 @@ class userUserExtra extends mosDBTable {
 	public $mobil;
 	public $birthdate;
 
-	function userUsersExtra(  ) {
+	function  __construct() {
 		$this->mosDBTable('#__user_extra','user_id');
 	}
+
 	function insert( $id ) {
 		$this->user_id = $id;
 		return $this->_db->insertObject('#__user_extra', $this, 'user_id');
@@ -273,4 +448,15 @@ class mosSession extends mosDBTable {
 
 		return $this->_db->query();
 	}
+}
+
+class Usergroup extends mosDBTable {
+	public $id;
+	public $parent_id;
+	public $title;
+
+	function  __construct() {
+		$this->mosDBTable('#__user_groups','id');
+	}
+
 }
