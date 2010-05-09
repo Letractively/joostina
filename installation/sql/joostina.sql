@@ -563,4 +563,4 @@ INSERT INTO `#__user_groups` (`id`, `parent_id`, `title`) VALUES
 (5, 4, 'Publisher'),
 (6, 1, 'Manager'),
 (7, 6, 'Administrator'),
-(8, 7, 'Super Administrator');
+(8, 7, 'SuperAdministrator');

@@ -12,22 +12,14 @@
 defined('_VALID_MOS') or die();
 
 ?>
-<?php mosLoadAdminModules('icon',0); ?>
-<form action="index2.php" method="post" name="adminForm" id="adminForm">
-	<table width="100%">
-		<tr>
-			<td width="65%" valign="top">
-				<?php
-				// загрузка модулей панели управления позиции advert1 c использованием деления модулей по вкладкам
-				mosLoadAdminModules('advert1',0);
-				?>
-			</td>
-			<td width="35%" valign="top">
-				<?php
-				// загрузка модулей панели управления позиции advert1 c использованием деления модулей по вкладкам
-				mosLoadAdminModules('advert2',0);
-				?>
-			</td>
-		</tr>
-	</table>
-</form>
+<table width="100%">
+	<tr valign="top">
+		<td width="65%">
+			<?php mosLoadAdminModules('icon',0); ?>
+			<?php mosLoadAdminModules('advert1',0); ?>
+		</td>
+		<td width="35%">
+			<?php mosLoadAdminModules('advert2',0); ?>
+		</td>
+	</tr>
+</table>

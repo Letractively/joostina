@@ -25,7 +25,7 @@ class Jacl {
 
 			if( !$isAdmin ) {
 				global $my;
-				$usertype = ( $my->usertype == 'Super Administrator') ? 'superadmin' : $my->usertype;
+				$usertype = strtolower($my->usertype);
 				$m = '_acl_'.$usertype;
 				call_user_func_array('Jacl::'.$m, array());
 			}
@@ -40,7 +40,7 @@ class Jacl {
 			self::getInstance();
 		}
 
-		$usertype = ( $my->usertype == 'Super Administrator') ? 'superadmin' : $my->usertype;
+		$usertype = strtolower($my->usertype);
 		return self::$acl->isAllowed( $usertype ,$obj, $task );
 	}
 
@@ -51,50 +51,63 @@ class Jacl {
 			self::getInstance();
 		}
 
-		$usertype = ( $my->usertype == 'Super Administrator') ? 'superadmin' : $my->usertype;
+		$usertype = strtolower($my->usertype);
 		return !self::$acl->isAllowed( $usertype ,$obj, $task );
 	}
 
 	/*
 	 * Установка прав доступа для супер - администратора
 	*/
-	private static function _acl_superadmin() {
-		self::$acl->addRole( new Zend_Acl_Role('superadmin') );
+	private static function _acl_superadministrator() {
+		self::$acl->addRole( new Zend_Acl_Role('superadministrator') );
 
 		self::$acl
 				->add( new Zend_Acl_Resource('comments') ); // доступ к комментариям
 
 		self::$acl
-				->allow('superadmin', 'comments'); // супер-админ может с комментариями всё
+				->allow('superadministrator', 'comments'); // супер-админ может с комментариями всё
 	}
 
 	/*
 	 * Установка прав доступа для администратора
 	*/
 	private static function _acl_admin() {
-		self::$acl->addRole( new Zend_Acl_Role('admin') );
+		self::$acl->addRole( new Zend_Acl_Role('administrator') );
 
 		self::$acl
 				->add( new Zend_Acl_Resource('comments') ); // доступ к комментариям
 
 		self::$acl
-				->allow('admin', 'comments', array('view','add','edit', /* 'delete' */ ) ); // админ может с комментариями всё кроме удаления
+				->allow('administrator', 'comments', array('view','add','edit', /* 'delete' */ ) ); // админ может с комментариями всё кроме удаления
 	}
 
 	/*
 	 * Установка прав доступа для авторизованных пользователй фронта сайта
 	*/
-	private static function _acl_user() {
+	private static function _acl_registered() {
 
-		self::$acl->addRole( new Zend_Acl_Role('user') );
+		self::$acl->addRole( new Zend_Acl_Role('registered') );
 
 		self::$acl
 				->add( new Zend_Acl_Resource('comments') );
 
 		self::$acl
-				->allow('user', 'comments', 'view')
-				->allow('user', 'comments', 'add');
+				->allow('registered', 'comments', 'view')
+				->allow('registered', 'comments', 'add');
+	}
 
+	/*
+	 * Установка прав доступа для авторизованных пользователй фронта сайта
+	*/
+	private static function _acl_manager() {
+
+		self::$acl->addRole( new Zend_Acl_Role('manager') );
+
+		self::$acl
+				->add( new Zend_Acl_Resource('comments') );
+
+		self::$acl
+				->allow('manager', 'comments');
 	}
 
 	/*
@@ -118,9 +131,9 @@ class Jacl {
 
 		// собираем роли
 		self::$acl->addRole( new Zend_Acl_Role('guest') )
-				->addRole( new Zend_Acl_Role('user') )
-				->addRole( new Zend_Acl_Role('superadmin') )
-				->addRole( new Zend_Acl_Role('admin')  )
+				->addRole( new Zend_Acl_Role('registered') )
+				->addRole( new Zend_Acl_Role('superadministrator') )
+				->addRole( new Zend_Acl_Role('administrator')  )
 				->addRole( new Zend_Acl_Role('manager')  )
 				//->addRole( new Zend_Acl_Role('podmanager'), 'manager' ) /* это как бэ показывает что мы можем делать подгруппы */
 				->addRole( new Zend_Acl_Role('editor')  );
@@ -146,8 +159,8 @@ class Jacl {
 
 		self::$acl
 				->deny('guest') // неавторизованным ничего нелья
-				->deny('user') // просто пользователям ничего нелья
-				->allow('superadmin'); // суперадмину можно всё
+				->deny('registered') // просто пользователям ничего нелья
+				->allow('superadministrator'); // суперадмину можно всё
 
 		//_xdump(self::$acl);
 		//exit();
