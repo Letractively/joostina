@@ -88,7 +88,8 @@ class Jacl {
 
 		self::$acl->addRole( new Zend_Acl_Role('user') );
 
-		self::$acl->add( new Zend_Acl_Resource('comments') );
+		self::$acl
+				->add( new Zend_Acl_Resource('comments') );
 
 		self::$acl
 				->allow('user', 'comments', 'view')
@@ -107,7 +108,6 @@ class Jacl {
 		self::$acl->add($resource_comments);
 		self::$acl->allow('guest', 'comments', 'view'); // гость может смотреть комментарии
 		//self::$acl->allow('guest', 'comments', 'add'); // но не может их добавлять
-
 
 	}
 
@@ -144,10 +144,10 @@ class Jacl {
 				->add( new Zend_Acl_Resource('cache'));           // управление кешем
 
 
-		self::$acl->deny('guest'); // неавторизованным ничего нелья
-		self::$acl->deny('user'); // просто пользователям ничего нелья
-
-		self::$acl->allow('superadmin'); // суперадмину можно всё
+		self::$acl
+				->deny('guest') // неавторизованным ничего нелья
+				->deny('user') // просто пользователям ничего нелья
+				->allow('superadmin'); // суперадмину можно всё
 
 		//_xdump(self::$acl);
 		//exit();
