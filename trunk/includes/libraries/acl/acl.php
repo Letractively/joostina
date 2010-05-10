@@ -45,14 +45,7 @@ class Jacl {
 	}
 
 	public static function isDeny( $obj, $task = null ) {
-		global $my;
-
-		if (self::$instance === NULL) {
-			self::getInstance();
-		}
-
-		$usertype = strtolower($my->usertype);
-		return !self::$acl->isAllowed( $usertype ,$obj, $task );
+		return !self::isAllowed($obj, $task);
 	}
 
 	/*
