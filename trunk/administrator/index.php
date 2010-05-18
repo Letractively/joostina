@@ -84,11 +84,11 @@ if(isset($_POST['submit'])) {
 	}
 
 	$my = null;
-	$query = 'SELECT * FROM #__users WHERE username ='.$database->Quote($usrname).' AND block = 0';
+	$query = 'SELECT * FROM #__users WHERE username ='.$database->Quote($usrname).' AND state = 1';
 	$database->setQuery($query)->loadObject($my);
 
 	if(isset($my->id)) {
-		
+
 		mosMainFrame::addLib('acl');
 		Jacl::init_admipanel();
 
@@ -102,7 +102,7 @@ if(isset($_POST['submit'])) {
 			$_SESSION['bad_auth'] = $bad_auth_count + 1;
 
 			if($_SESSION['bad_auth']>=$config->config_count_for_user_block) {
-				$query = 'UPDATE #__users SET block = 1 WHERE id = ' . (int)$my->id;
+				$query = 'UPDATE #__users SET state = 0 WHERE id = ' . (int)$my->id;
 				$database->setQuery($query)->query();
 			}
 
@@ -116,14 +116,14 @@ if(isset($_POST['submit'])) {
 
 		// construct Session ID
 		$logintime = time();
-		$session_id = md5($my->id . $my->username . $my->usertype . $logintime);
+		$session_id = md5($my->id . $my->username . $my->groupname . $logintime);
 
 		session_name( md5( JPATH_SITE ) );
 		session_id( $session_id );
 		session_start();
 
 		// add Session ID entry to DB
-		$query = "INSERT INTO #__session SET time = " . $database->Quote($logintime) .", session_id = " . $database->Quote($session_id) . ", userid = " . (int)$my->id . ", usertype = " . $database->Quote($my->usertype) . ", username = " . $database->Quote($my->username);
+		$query = "INSERT INTO #__session SET time = " . $database->Quote($logintime) .", session_id = " . $database->Quote($session_id) . ", userid = " . (int)$my->id . ", groupname = " . $database->Quote($my->groupname) . ", username = " . $database->Quote($my->username);
 		$database->setQuery($query);
 		if(!$database->query()) {
 			echo $database->stderr();
@@ -133,7 +133,7 @@ if(isset($_POST['submit'])) {
 		// for a demo site allow multiple logins with same user account
 		if(coreVersion::get('SITE') == 1) {
 			// delete other open admin sessions for same account
-			$query = "DELETE FROM #__session WHERE userid = " . (int)$my->id . " AND username = " .$database->Quote($my->username) . "\n AND usertype = " . $database->Quote($my->usertype) . "\n AND session_id != " . $database->Quote($session_id). "\n AND guest = 1" . "\n AND gid = 0";
+			$query = "DELETE FROM #__session WHERE userid = " . (int)$my->id . " AND username = " .$database->Quote($my->username) . "\n AND groupname = " . $database->Quote($my->groupname) . "\n AND session_id != " . $database->Quote($session_id). "\n AND guest = 1" . "\n AND gid = 0";
 			$database->setQuery($query);
 			if(!$database->query()) {
 				echo $database->stderr();
@@ -143,10 +143,9 @@ if(isset($_POST['submit'])) {
 		$_SESSION['session_id'] = $session_id;
 		$_SESSION['session_user_id'] = $my->id;
 		$_SESSION['session_USER'] = $my->username;
-		$_SESSION['session_usertype'] = $my->usertype;
 		$_SESSION['session_gid'] = $my->gid;
+		$_SESSION['session_groupname'] = $my->groupname;
 		$_SESSION['session_logintime'] = $logintime;
-		$_SESSION['session_user_params'] = $my->params;
 		$_SESSION['session_bad_auth_count'] = $my->bad_auth_count;
 		$_SESSION['session_userstate'] = array();
 
@@ -154,49 +153,9 @@ if(isset($_POST['submit'])) {
 
 		$expired = 'index2.php';
 
-		// check if site designated as a production site
-		// for a demo site disallow expired page functionality
-		if(coreVersion::get('SITE') == 1 && $mosConfig_admin_expired === '1') {
-			$file = $mainframe->getPath('com_xml','com_users');
-			$params = new mosParameters($my->params,$file,'component');
-
-			$now = time();
-
-			// expired page functionality handling
-			$expired = $params->def('expired','');
-			$expired_time = $params->def('expired_time','');
-
-			// if now expired link set or expired time is more than half the admin session life set, simply load normal admin homepage
-			$checktime = ($mosConfig_session_life_admin ? $mosConfig_session_life_admin : 1800) / 2;
-			if(!$expired || (($now - $expired_time) > $checktime)) {
-				$expired = 'index2.php';
-			}
-			// link must also be a Joomla link to stop malicious redirection
-			if(strpos($expired,'index2.php?option=com_') !== 0) {
-				$expired = 'index2.php';
-			}
-
-			// clear any existing expired page data
-			$params->set('expired','');
-			$params->set('expired_time','');
-
-			// param handling
-			if(is_array($params->toArray())) {
-				$txt = array();
-				foreach($params->toArray() as $k => $v) {
-					$txt[] = "$k=$v";
-				}
-				$saveparams = implode("\n",$txt);
-			}
-
-			// save cleared expired page info to user data
-			$query = "UPDATE #__users SET params = " . $database->Quote($saveparams) ." WHERE id = " . (int)$my->id . " AND username = " . $database->Quote($my->username) . " AND usertype = " . $database->Quote($my->usertype);
-			$database->setQuery($query)->query();
-
-			// скидываем счетчик неудачных авторзаций в админке
-			$query = 'UPDATE #__users SET bad_auth_count = 0 WHERE id = ' . $my->id;
-			$database->setQuery($query)->query();
-		}
+		// скидываем счетчик неудачных авторзаций в админке
+		$query = 'UPDATE #__users SET bad_auth_count = 0 WHERE id = ' . $my->id;
+		$database->setQuery($query)->query();
 
 		/** cannot using mosredirect as this stuffs up the cookie in IIS*/
 		// redirects page to admin homepage by default or expired page

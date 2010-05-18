@@ -25,8 +25,8 @@ class Jacl {
 
 			if( !$isAdmin ) {
 				global $my;
-				$usertype = strtolower($my->usertype);
-				$m = '_acl_'.$usertype;
+				$groupname = strtolower($my->groupname);
+				$m = '_acl_'.$groupname;
 				call_user_func_array('Jacl::'.$m, array());
 			}
 			self::$instance = new self;
@@ -40,8 +40,8 @@ class Jacl {
 			self::getInstance();
 		}
 
-		$usertype = strtolower($my->usertype);
-		return self::$acl->isAllowed( $usertype ,$obj, $task );
+		$groupname = strtolower($my->groupname);
+		return self::$acl->isAllowed( $groupname ,$obj, $task );
 	}
 
 	public static function isDeny( $obj, $task = null ) {
@@ -147,7 +147,8 @@ class Jacl {
 				->add( new Zend_Acl_Resource('templates'))       // управление шаблонами
 				->add( new Zend_Acl_Resource('trash'))           // корзина
 				->add( new Zend_Acl_Resource('users'))           // управление пользователями
-				->add( new Zend_Acl_Resource('cache'));           // управление кешем
+				->add( new Zend_Acl_Resource('cache'))           // управление кешем
+				->add( new Zend_Acl_Resource('sqldump'));        // создание дампа SQL базы
 
 
 		self::$acl

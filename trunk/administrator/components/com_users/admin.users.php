@@ -77,7 +77,7 @@ class actionsUsers{
         $obj_data = new self::$model;
         $obj_data->save($_POST);
 
-        $create_new ? mosRedirect( 'index2.php?option='.$option.'&task=create', 'Пользователь '.$obj_data->name . ', создан успешно!, Создаём еще одного' ) : mosRedirect( 'index2.php?option='.$option , $obj_data->name . ', создан успешно успешно!');
+        $create_new ? mosRedirect( 'index2.php?option='.$option.'&task=create', 'Пользователь '.$obj_data->name . ', создан успешно!, Создаём еще одного' ) : mosRedirect( 'index2.php?option='.$option , $obj_data->username . ', создан успешно!');
     }
 
 	public static function save_and_new( $option ){

@@ -28,12 +28,12 @@ if (!defined('_INSTALL_CHECK')) {
 		$admin = new mosUser($database);
 		$admin->id = intval(mosGetParam($_SESSION, 'session_user_id', ''));
 		$admin->username = strval(mosGetParam($_SESSION, 'session_USER', ''));
-		$admin->usertype = strval(mosGetParam($_SESSION, 'session_usertype', ''));
+		$admin->groupname = strval(mosGetParam($_SESSION, 'session_groupname', ''));
 		$session_id = mosGetParam($_SESSION, 'session_id', '');
 		$logintime = mosGetParam($_SESSION, 'session_logintime', '');
 
 		// проверка наличия строки сессии в базе данных
-		if ($session_id == md5($admin->id.$admin->username.$admin->usertype.$logintime)) {
+		if ($session_id == md5($admin->id.$admin->username.$admin->groupname.$logintime)) {
 			$query = "SELECT* FROM #__session WHERE session_id = " . $database->Quote($session_id) . " AND username = " . $database->Quote($admin->username) . "\n AND userid = " . intval($admin->id);
 			$database->setQuery($query);
 			if (!$result = $database->query()) {

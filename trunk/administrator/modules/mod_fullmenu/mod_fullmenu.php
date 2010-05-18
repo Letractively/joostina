@@ -13,7 +13,7 @@ defined('_VALID_MOS') or die();
 
 class mosFullAdminMenu {
 
-	public static function show($usertype = '') {
+	public static function show($groupname = '') {
 		global $my;
 
 		$database = database::getInstance();
@@ -21,29 +21,29 @@ class mosFullAdminMenu {
 
 		echo '<div id="myMenuID"></div>'; // в этот слой выводится содержимое меню
 		if($config->config_adm_menu_cache) { // проверяем, активировано ли кэширование в панели управления
-			$usertype = $my->usertype;
-			$usertype_menu = str_replace(' ','_',$usertype);
+			$groupname = $my->groupname;
+			$groupname_menu = str_replace(' ','_',$groupname);
 			// название файла меню получим из md5 хеша типа пользователя и секретного слова конкретной установки
-			$menuname = md5($usertype_menu.$config->config_secret);
+			$menuname = md5($groupname_menu.$config->config_secret);
 			echo '<script type="text/javascript" src="'.JPATH_SITE.'/cache/adm_menu_'.$menuname.'.js?r='.$config->config_cache_key.'"></script>';
-			if(js_menu_cache('',$usertype_menu,1) == 'true') { // файл есть, выводим ссылку на него и прекращаем работу
+			if(js_menu_cache('',$groupname_menu,1) == 'true') { // файл есть, выводим ссылку на него и прекращаем работу
 				return; // дальнейшую обработку меню не ведём
 			} // файла не было - генерируем его, создаём и всё равно возвращаем ссылку
 		}
 /*
-		$canConfig = $acl->acl_check('administration','config','users',$usertype);
-		$manageTemplates = $acl->acl_check('administration','manage','users',$usertype,'components','com_templates');
-		$manageTrash = $acl->acl_check('administration','manage','users',$usertype,'components','com_trash');
-		$manageMenuMan = $acl->acl_check('administration','manage','users',$usertype,'components','com_menumanager');
-		$manageLanguages = $acl->acl_check('administration','manage','users',$usertype,'components','com_languages');
-		$installModules = $acl->acl_check('administration','install','users',$usertype,'modules','all');
-		$editAllModules = $acl->acl_check('administration','edit','users',$usertype,'modules','all');
-		$installMambots = $acl->acl_check('administration','install','users',$usertype,'mambots','all');
-		$editAllMambots = $acl->acl_check('administration','edit','users',$usertype,'mambots','all');
-		$installComponents = $acl->acl_check('administration','install','users',$usertype,'components','all');
-		$editAllComponents = $acl->acl_check('administration','edit','users',$usertype,'components','all');
-		$canMassMail = $acl->acl_check('administration','manage','users',$usertype,'components','com_massmail');
-		$canManageUsers = $acl->acl_check('administration','manage','users',$usertype,'components','com_users');
+		$canConfig = $acl->acl_check('administration','config','users',$groupname);
+		$manageTemplates = $acl->acl_check('administration','manage','users',$groupname,'components','com_templates');
+		$manageTrash = $acl->acl_check('administration','manage','users',$groupname,'components','com_trash');
+		$manageMenuMan = $acl->acl_check('administration','manage','users',$groupname,'components','com_menumanager');
+		$manageLanguages = $acl->acl_check('administration','manage','users',$groupname,'components','com_languages');
+		$installModules = $acl->acl_check('administration','install','users',$groupname,'modules','all');
+		$editAllModules = $acl->acl_check('administration','edit','users',$groupname,'modules','all');
+		$installMambots = $acl->acl_check('administration','install','users',$groupname,'mambots','all');
+		$editAllMambots = $acl->acl_check('administration','edit','users',$groupname,'mambots','all');
+		$installComponents = $acl->acl_check('administration','install','users',$groupname,'components','all');
+		$editAllComponents = $acl->acl_check('administration','edit','users',$groupname,'components','all');
+		$canMassMail = $acl->acl_check('administration','manage','users',$groupname,'components','com_massmail');
+		$canManageUsers = $acl->acl_check('administration','manage','users',$groupname,'components','com_users');
 */
 
 				$canConfig = $manageTemplates = $manageTrash = $manageMenuMan = $manageLanguages = $installModules = $editAllModules = $installMambots= $editAllMambots = $installComponents = $editAllComponents = $canMassMail = $canManageUsers = true;
@@ -139,7 +139,7 @@ _cmSplit,['<img src="<?php echo $cur_file_icons_path ?>trash.png" />','<?php ech
 			$topLevelLimit = 19; //You can get 19 top levels on a 800x600 Resolution
 			$topLevelCount = 0;
 			foreach($comps as $row) {
-				//if($editAllComponents | $acl->acl_check('administration','edit','users',$usertype,'components',$row->option)) {
+				//if($editAllComponents | $acl->acl_check('administration','edit','users',$groupname,'components',$row->option)) {
 				if( true ) {
 					if($row->parent == 0 && (trim($row->admin_menu_link) || array_key_exists($row->id,$subs))) {
 						$topLevelCount++;
@@ -251,14 +251,14 @@ cmDraw ('myMenuID', myMenu, 'hbr', cmThemeOffice, 'ThemeOffice');
 		$cur_menu = ob_get_contents();
 		ob_end_clean();
 		if($config->config_adm_menu_cache) {
-			js_menu_cache($cur_menu,$usertype_menu);
+			js_menu_cache($cur_menu,$groupname_menu);
 		}else {
 			echo '<script language="JavaScript" type="text/javascript">'.$cur_menu.'</script>';
 		}
 
 	}
 
-	public static function showDisabled($usertype = '') {
+	public static function showDisabled($groupname = '') {
 		$canConfig = $installModules = $editAllModules = $installMambots = $editAllMambots = $installComponents = $editAllComponents = true;
 
 		$text = _MOD_FULLMENU_NO_ACTIVE_MENU_ON_THIS_PAGE;
@@ -300,7 +300,7 @@ $hide = intval(mosGetParam($_REQUEST,'hidemainmenu',0));
 global $my;
 
 if($hide) {
-	mosFullAdminMenu::showDisabled($my->usertype);
+	mosFullAdminMenu::showDisabled($my->groupname);
 } else {
-	mosFullAdminMenu::show($my->usertype);
+	mosFullAdminMenu::show($my->groupname);
 }

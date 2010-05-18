@@ -27,27 +27,27 @@ $show_total = $params->get('show_total', 1);
 $show_logged = $params->get('show_logged', 1);
 
 // запрос из базы параметров пользователей
-$query = "SELECT id, name, username, registerDate, usertype, block, bad_auth_count FROM #__users ORDER BY registerDate DESC";
+$query = "SELECT id, name, username, registerDate, groupname, state, bad_auth_count FROM #__users ORDER BY registerDate DESC";
 $database->setQuery($query, 0, $limit);
 $rows = $database->loadObjectList();
 
 if ($show_today == 1) {
-	$query = "SELECT count(id) FROM #__users WHERE to_days(registerDate) = to_days(curdate()) AND usertype <> 'administrator' AND usertype <> 'superadministrator'";
+	$query = "SELECT count(id) FROM #__users WHERE to_days(registerDate) = to_days(curdate()) AND groupname <> 'administrator' AND groupname <> 'superadministrator'";
 	$database->setQuery($query);
 	$show_today = $database->loadResult();
 };
 if ($show_week == 1) {
-	$query = "SELECT count(id) FROM #__users WHERE yearweek(registerDate) = yearweek(curdate()) AND usertype <> 'administrator' AND usertype <> 'superadministrator'";
+	$query = "SELECT count(id) FROM #__users WHERE yearweek(registerDate) = yearweek(curdate()) AND groupname <> 'administrator' AND groupname <> 'superadministrator'";
 	$database->setQuery($query);
 	$show_week = $database->loadResult();
 };
 if ($show_month == 1) {
-	$query = "SELECT count(id) FROM #__users WHERE month(registerDate) = month(curdate()) AND year(registerDate) = year(curdate()) AND usertype <> 'administrator' AND usertype <> 'superadministrator'";
+	$query = "SELECT count(id) FROM #__users WHERE month(registerDate) = month(curdate()) AND year(registerDate) = year(curdate()) AND groupname <> 'administrator' AND groupname <> 'superadministrator'";
 	$database->setQuery($query);
 	$show_month = $database->loadResult();
 };
 if ($show_total == 1) {
-	$query = "SELECT count(id) as registered FROM #__users WHERE usertype <> 'administrator' AND usertype <> 'superadministrator'";
+	$query = "SELECT count(id) as registered FROM #__users WHERE groupname <> 'administrator' AND groupname <> 'superadministrator'";
 	$database->setQuery($query);
 	$show_total = $database->loadResult();
 }
@@ -75,7 +75,7 @@ if ($show_logged == 1) {
 		} else {
 			$username = $row->name . ' (' . $row->username . ')';
 		}
-		$img = ($row->block == 0) ? 'tick.png' : 'publish_x.png';
+		$img = ($row->state == 0) ? 'tick.png' : 'publish_x.png';
 		$img = $cur_file_icons_path . '/' . $img;
 		?>
     <tr class="row<?php echo $k; ?>">
@@ -83,7 +83,7 @@ if ($show_logged == 1) {
         <td width="5%" align="center" class="td-state<?php echo $row->id==$my->id ? '-my' : '' ?>">
 			<img id="img-pub-<?php echo $row->id;?>" obj_id="<?php echo $row->id;?>" obj_task="publish" obj_option="com_users" alt="<?php echo _USER_BLOCK?>" src="<?php echo $img;?>"/>
         </td>
-        <td align="center"><?php echo $row->usertype;?></td>
+        <td align="center"><?php echo $row->groupname;?></td>
         <td align="center"><?php echo mosFormatDate($row->registerDate); ?></td>
     </tr>
 		<?php

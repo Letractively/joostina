@@ -718,7 +718,7 @@ class mosMainFrame {
 		$my = new mosUser($this->_db);
 		$my->id = intval(mosGetParam($_SESSION,'session_user_id',''));
 		$my->username = strval(mosGetParam($_SESSION,'session_USER',''));
-		$my->usertype = strval(mosGetParam($_SESSION,'session_usertype',''));
+		$my->groupname = strval(mosGetParam($_SESSION,'session_groupname',''));
 		$my->gid = intval(mosGetParam($_SESSION,'session_gid',''));
 		$my->params = mosGetParam($_SESSION,'session_user_params','');
 		$my->bad_auth_count = mosGetParam($_SESSION,'session_bad_auth_count','');
@@ -733,7 +733,7 @@ class mosMainFrame {
 		}
 
 		// check to see if session id corresponds with correct format
-		if($session_id == md5($my->id.$my->username.$my->usertype.$logintime)) {
+		if($session_id == md5($my->id.$my->username.$my->groupname.$logintime)) {
 			// if task action is to `save` or `apply` complete action before doing session checks.
 			if($task != 'save' && $task != 'apply') {
 				// test for session_life_admin
@@ -794,7 +794,7 @@ class mosMainFrame {
 							$saveparams = implode("\n",$txt);
 						}
 
-						$query = "UPDATE #__users SET params = ".$this->_db->Quote($saveparams)." WHERE id = ".(int)$my->id." AND username = ".$this->_db->Quote($my->username)." AND usertype = ".$this->_db->Quote($my->usertype);
+						$query = "UPDATE #__users SET params = ".$this->_db->Quote($saveparams)." WHERE id = ".(int)$my->id." AND username = ".$this->_db->Quote($my->username)." AND groupname = ".$this->_db->Quote($my->groupname);
 						$this->_db->setQuery($query)->query();
 					}
 
@@ -900,9 +900,6 @@ class mosMainFrame {
 	 */
 	public function login($username = null,$passwd = null,$remember = 0,$userid = null) {
 
-		// если сесии на фронте отключены - прекращаем выполнение процедуры
-		if($this->getCfg('no_session_front')) return;
-
 		$return	= strval(mosGetParam($_REQUEST,'return',false));
 
 		$return = $return ? $return : strval(mosGetParam($_SERVER,'HTTP_REFERER',null));
@@ -936,7 +933,7 @@ class mosMainFrame {
 				// query used for remember me cookie
 				$harden = mosHash(@$_SERVER['HTTP_USER_AGENT']);
 
-				$query = "SELECT id, name, username, password, usertype, block, gid FROM #__users WHERE id = ".(int)$userid;
+				$query = "SELECT id, username, password, state, gid FROM #__users WHERE id = ".(int)$userid;
 				$user = null;
 
 				$this->_db->setQuery($query)->loadObject($user);
@@ -952,41 +949,27 @@ class mosMainFrame {
 				}
 			} else {
 				// query used for login via login module
-				$query = "SELECT id, name, username, password, usertype, block, gid FROM #__users WHERE username = ".$this->_db->Quote($username);
+				$query = "SELECT id,  username, password, state, gid,groupname FROM #__users WHERE username = ".$this->_db->Quote($username);
 				$this->_db->setQuery($query)->loadObject($row);
 			}
 
 			if(is_object($row)) {
 
-				// user blocked from login
-				if($row->block == 1) {
+				// если акаунт заблокирован
+				if($row->state == 0) {
 					mosRedirect($return, _LOGIN_BLOCKED);
 					exit();
 				}
 
 				if(!$valid_remember) {
-					// Conversion to new type
-					if((strpos($row->password,':') === false) && $row->password == md5($passwd)) {
-						// Old password hash storage but authentic ... lets convert it
-						$salt = mosMakePassword(16);
-						$crypt = md5($passwd.$salt);
-						$row->password = $crypt.':'.$salt;
-
-						// Now lets store it in the database
-						$query = 'UPDATE #__users SET password = '.$this->_db->Quote($row->password).' WHERE id = '.(int)$row->id;
-
-						if(!$this->_db->setQuery($query)->query()) {
-							echo 'error';
-						}
-
-					}
 					list($hash,$salt) = explode(':',$row->password);
-					$cryptpass = md5($passwd.$salt);
+					echo $cryptpass = md5($passwd.$salt);
 
+					echo '--'.$salt;
+//die(1);
 					if($hash != $cryptpass) {
 						if($bypost) {
 							mosRedirect($return, _LOGIN_INCORRECT);
-							//mosErrorAlert(_LOGIN_INCORRECT);
 						} else {
 							$this->logout();
 							mosRedirect('index.php');
@@ -999,7 +982,7 @@ class mosMainFrame {
 				$session->guest = 0;
 				$session->username = $row->username;
 				$session->userid = $row->id;
-				$session->usertype = $row->usertype;
+				$session->groupname = $row->groupname;
 				$session->gid = $row->gid;
 				$session->update();
 
@@ -1044,7 +1027,7 @@ class mosMainFrame {
 		$session->guest = 1;
 		$session->username = '';
 		$session->userid = '';
-		$session->usertype = '';
+		$session->groupname = '';
 		$session->gid = 0;
 		$session->update();
 		// kill remember me cookie
@@ -1069,25 +1052,23 @@ class mosMainFrame {
 
 		$user->id = intval($this->_session->userid);
 		$user->username = $this->_session->username;
-		$user->usertype = $this->_session->usertype;
+		$user->groupname = $this->_session->groupname;
 		$user->gid = intval($this->_session->gid);
 		if($user->id) {
-			$query = "SELECT id, name, email, avatar, block, sendEmail, registerDate, lastvisitDate, activation, params FROM #__users WHERE id = ".(int)$user->id;
+			$query = "SELECT id, username, email, state, gid, registerDate, lastvisitDate FROM #__users WHERE id = ".$user->id;
 			$this->_db->setQuery($query,0,1)->loadObject($my);
 
-			$user->params = $my->params;
-			$user->name = $my->name;
+			$user->username = $my->username;
 			$user->email = $my->email;
-			$user->avatar = $my->avatar;
-			$user->block = $my->block;
-			$user->sendEmail = $my->sendEmail;
+			$user->state = $my->state;
 			$user->registerDate = $my->registerDate;
 			$user->lastvisitDate = $my->lastvisitDate;
-			$user->activation = $my->activation;
-		}else{
+			$user->gid = $my->gid;
+		}else {
 			$user->name = _GUEST_USER;
 			$user->username = _GUEST_USER;
-			$user->usertype = 'guest';
+			$user->gid = 0;
+			$user->groupname = 'guest';
 		}
 		return $user;
 	}
@@ -3577,7 +3558,7 @@ class Jhit {
 	 * @param string $hook название события
 	 * @return boolean разрешение на подсчет хитов на событие
 	 */
-	public static function allow($hook){
+	public static function allow($hook) {
 		return isset( self::$hook[$hook] );
 	}
 
@@ -3591,39 +3572,39 @@ class Jhit {
 	public static function add( $option, $id, $task='' ) {
 		$sql = sprintf("INSERT INTO `#__hits` (`id`, `obj_id`, `obj_option`, `obj_task`, `hit`) VALUES (NULL, %s, '%s', '%s', 1)
 									ON DUPLICATE KEY UPDATE hit=hit+1;;",
-					(int)$id, $option, $task );
+				(int)$id, $option, $task );
 		return database::getInstance()->setQuery($sql)->query();
 	}
 }
 
 /*
  * Общесистемная "Корзина" для хранения удалённых объектов
- */
- class Jtrash extends mosDBTable {
-	 public $id;
-	 public $obj_id;
-	 public $obj_table;
-	 public $title;
-	 public $data;
-	 public $user_id;
-	 public $deleted_at;
+*/
+class Jtrash extends mosDBTable {
+	public $id;
+	public $obj_id;
+	public $obj_table;
+	public $title;
+	public $data;
+	public $user_id;
+	public $deleted_at;
 
-	 public function  __construct() {
-        $this->mosDBTable('#__trash', 'id');
-	 }
+	public function  __construct() {
+		$this->mosDBTable('#__trash', 'id');
+	}
 
-	 /**
-	  * Добавление копии удалённого объекта в корзину
-	  * @global mosUser $my - объект текущего пользователя
-	  * @param stdClass $obj - удаляемый объект
-	  * @return boolean результат сохранения копии удаляемого объекта в корзину
-	  */
-	 public static function add( $obj_original ){
-		 global $my;
+	/**
+	 * Добавление копии удалённого объекта в корзину
+	 * @global mosUser $my - объект текущего пользователя
+	 * @param stdClass $obj - удаляемый объект
+	 * @return boolean результат сохранения копии удаляемого объекта в корзину
+	 */
+	public static function add( $obj_original ) {
+		global $my;
 
-		 $obj = clone $obj_original;
+		$obj = clone $obj_original;
 
-		 // ключевое индексное поле объекта
+		// ключевое индексное поле объекта
 		$_tbl_key =  $obj->_tbl_key;
 
 		// если у удаляемого объекта отсутствует ключ - то объет не определён
@@ -3634,17 +3615,17 @@ class Jhit {
 
 		// собираем данные для сохранения резервной копии
 		$trash = new self;
-	    $trash->obj_id = $obj->$_tbl_key;
+		$trash->obj_id = $obj->$_tbl_key;
 		$trash->obj_table = $obj->_tbl;
 		$trash->title = isset( $obj->title ) ? $obj->title : $obj->$_tbl_key;
 		$trash->data = json_encode( $obj );
 		$trash->user_id = $my->id;
 		$trash->deleted_at = _CURRENT_SERVER_TIME;
-		
-		return (bool) $trash->store();
-	 }
 
- }
+		return (bool) $trash->store();
+	}
+
+}
 
 // отладка определённой переменной
 function _xdump( $var, $text='<pre>' ) {

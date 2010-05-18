@@ -49,12 +49,12 @@ if(!isset($my)) {
 
 $my->id = intval(mosGetParam($_SESSION,'session_user_id',''));
 $my->username = strval(mosGetParam($_SESSION,'session_USER',''));
-$my->usertype = strval(mosGetParam($_SESSION,'session_usertype',''));
+$my->groupname = strval(mosGetParam($_SESSION,'session_groupname',''));
 $my->gid = intval(mosGetParam($_SESSION,'session_gid',''));
 $session_id = strval(mosGetParam($_SESSION,'session_id',''));
 $logintime = strval(mosGetParam($_SESSION,'session_logintime',''));
 
-if($session_id != md5($my->id.$my->username.$my->usertype.$logintime)) {
+if($session_id != md5($my->id.$my->username.$my->groupname.$logintime)) {
 	mosRedirect('index.php');
 	die;
 }

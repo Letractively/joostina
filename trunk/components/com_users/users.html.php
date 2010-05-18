@@ -8,16 +8,23 @@
  */
 
 // запрет прямого доступа
-defined('_VALID_MOS') or die();
+defined( '_VALID_MOS' ) or die();
 
-// управлятор
-mosMainFrame::addLib('joiadmin');
-JoiAdmin::dispatch();
+class userHTML{
 
-class actionsTest {
-	
-	public static function index( ) {
-		global $my;
-		_xdump($my);
-	}
+  public static function index(){
+
+  }
+
+  /**
+   * Форма регистрации пользователя
+   */
+  public static function register( User $user ){
+    require_once 'views/register/default.php';
+  }
+
+  public static function after_register(){
+	  ?>Всё прекрасно - хорошо!<?php
+  }
+
 }

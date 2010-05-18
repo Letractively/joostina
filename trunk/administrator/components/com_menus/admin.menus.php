@@ -146,7 +146,7 @@ function viewMenuItems($menutype,$option) {
         $search_rows = $database->loadResultArray();
     }
 
-    $query = "SELECT m.*, u.name AS editor, g.name AS groupname, com.name AS com_name".
+    $query = "SELECT m.*, u.username AS editor, g.name AS groupname, com.name AS com_name".
             "\n FROM #__menu AS m".
             "\n LEFT JOIN #__users AS u ON u.id = m.checked_out".
             "\n LEFT JOIN #__groups AS g ON g.id = m.access".

@@ -212,7 +212,7 @@ class Comments extends mosDBTable {
      * @return array массив объектов комментариев
      */
     public function get_comments($offset = 0, $limit = 0) {
-        $sql = 'SELECT c.*, u.name
+        $sql = 'SELECT c.*, u.username
             FROM #__comments AS c
             LEFT JOIN `#__users` AS u ON (u.id = c.user_id)
             WHERE  c.state=1 AND c.obj_option = \''.$this->obj_option.'\' AND c.obj_id = \''.$this->obj_id.'\'

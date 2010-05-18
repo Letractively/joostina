@@ -23,7 +23,7 @@ class thisHTML {
      */
     public static function index( $obj, $obj_list, $pagenav) {
         // массив названий элементов для отображения в таблице списка
-        $fields_list = array( 'id', 'username', 'name', 'usertype', 'block');
+        $fields_list = array( 'id', 'username', 'lastvisitDate', 'state');
         // передаём информацию о объекте и настройки полей в формирование представления
         JoiAdmin::listing( $obj, $obj_list, $pagenav, $fields_list );
     }
