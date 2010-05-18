@@ -12,6 +12,6 @@ defined( '_VALID_MOS' ) or die();
 
 ?>
 <form action="<?php echo sefRelToAbs('index.php?option=com_users&task=logout', true) ?>" method="post" name="logout">
-	<input type="submit" name="Submit" id="logout_button" class="button" value="<?php echo $my->name; ?>" />
+	<input type="submit" name="Submit" id="logout_button" class="button" value="<?php echo $my->username; ?>" />
 	<input type="hidden" name="<?php echo josSpoofValue(1); ?>" value="1" />
 </form>

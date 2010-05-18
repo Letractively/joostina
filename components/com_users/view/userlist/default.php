@@ -16,9 +16,9 @@ if(!$menu) {
 }
 
 //Общее количество
-$users->total = $users->get_total($usertype);
+$users->total = $users->get_total($groupname);
 // список
-$users->user_list = $users->get_users($usertype, $limitstart, $limit);
+$users->user_list = $users->get_users($groupname, $limitstart, $limit);
 
 //пагинация
 if($users->total>0) {

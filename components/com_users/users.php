@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-//require_once ($mainframe->getPath('front_html'));
+require_once ($mainframe->getPath('front_html'));
 require_once ($mainframe->getPath('class'));
 
 // управлятор
@@ -28,7 +28,7 @@ class actionsUsers {
 		// на главной странице постраничка - это id параметр
 		$page = $id;
 
-		$obj = new mosUser;
+		$obj = new User;
 		$obj_count = $obj->count('WHERE block=0');
 
 		mosMainFrame::addLib('pager');
@@ -85,5 +85,17 @@ class actionsUsers {
 			mosRedirect( JPATH_SITE );
 		}
 	}
+
+  public static function register(){
+    $_POST ? self::save_register() : userHTML::register( new User );
+  }
+
+  public static function save_register(){
+    $user = new User;
+    $user->save($_POST);
+
+   $user->id ? userHTML::after_register() : userHTML::register($user);
+
+  }
 
 }

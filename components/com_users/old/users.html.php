@@ -73,7 +73,7 @@ class HTML_user {
 
 		//Если используются разные шаблоны для разных групп пользователей
 		if(!$config->get('template')) {
-			$template=strtolower(str_replace(' ', '', $user->usertype )).'.php';
+			$template=strtolower(str_replace(' ', '', $user->groupname )).'.php';
 		}
 
 		if($config->get('template_dir')) {
@@ -123,8 +123,8 @@ class HTML_user {
 		//Шаблон
 		$template_file='default.php';
 		if(!$user_config->get('template_edit')) {
-			if(is_file(JPATH_BASE.DS.'components'.DS.'com_users'.DS.'view'.DS.'edit'.DS.strtolower(str_replace(' ', '', $user->usertype )).'.php')) {
-				$template_file=strtolower(str_replace(' ', '', $user->usertype )).'.php';
+			if(is_file(JPATH_BASE.DS.'components'.DS.'com_users'.DS.'view'.DS.'edit'.DS.strtolower(str_replace(' ', '', $user->groupname )).'.php')) {
+				$template_file=strtolower(str_replace(' ', '', $user->groupname )).'.php';
 			}
 		}
 

@@ -107,7 +107,7 @@ function viewMambots($option,$client) {
 	require_once (JPATH_BASE.DS.JADMIN_BASE.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
-	$query = "SELECT m.*, u.name AS editor, g.name AS groupname"
+	$query = "SELECT m.*, u.username AS editor, g.name AS groupname"
 			."\n FROM #__mambots AS m"
 			."\n LEFT JOIN #__users AS u ON u.id = m.checked_out"
 			."\n LEFT JOIN #__groups AS g ON g.id = m.access"

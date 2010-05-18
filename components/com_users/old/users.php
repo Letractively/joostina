@@ -15,10 +15,10 @@ global $my, $task, $option;
 mosMainFrame::addLib('gacl');
 $acl = gacl::getInstance();
 
-// Editor usertype check
+// Editor groupname check
 $access = new stdClass();
-$access->canEdit = $acl->acl_check('action','edit','users',$my->usertype,'content','all');
-$access->canEditOwn = $acl->acl_check('action','edit','users',$my->usertype,'content','own');
+$access->canEdit = $acl->acl_check('action','edit','users',$my->groupname,'content','all');
+$access->canEditOwn = $acl->acl_check('action','edit','users',$my->groupname,'content','own');
 
 require_once ($mainframe->getPath('front_html'));
 require_once ($mainframe->getPath('config','com_users'));
@@ -197,7 +197,7 @@ function userSave($option,$uid) {
 	$orig_password = $row->password;
 	$orig_USER = $row->username;
 
-	if(!$row->bind($_POST,'gid usertype')) {
+	if(!$row->bind($_POST,'gid groupname')) {
 		echo "<script> alert('".$row->getError()."'); window.history.go(-1); </script>\n";
 		exit();
 	}
@@ -293,7 +293,7 @@ function userList($gid,$limit,$limitstart=0) {
 
 	$params = new mosParameters($mainframe->menu->params);
 
-	$usertype = $acl->get_group_name($params->get('group', 0));
+	$groupname = $acl->get_group_name($params->get('group', 0));
 	$limit = $limit ? $limit : $params->get('limit',20);
 
 	$template = $params->get('template', 'default.php');
@@ -563,7 +563,7 @@ function saveRegistration() {
 
 	$row = new mosUser($database);
 
-	if(!$row->bind($_POST,'usertype')) {
+	if(!$row->bind($_POST,'groupname')) {
 		mosErrorAlert($row->getError());
 	}
 
@@ -593,7 +593,7 @@ function saveRegistration() {
 		mosErrorAlert('Ooops!');
 	}
 
-	$row->usertype = $acl->get_group_name($row->gid,'ARO');
+	$row->groupname = $acl->get_group_name($row->gid,'ARO');
 
 	if($mainframe->getCfg('useractivation') == 1) {
 		$row->activation = md5(mosMakePassword());
@@ -644,7 +644,7 @@ function saveRegistration() {
 		$email_info['adminEmail'] = $mainframe->getCfg('mailfrom');
 	} else {
 		// use email address and name of first superadmin for use in email sent to user
-		$query = "SELECT name, email FROM #__users WHERE LOWER( usertype ) = 'superadministrator' OR LOWER( usertype ) = 'super administrator'";
+		$query = "SELECT name, email FROM #__users WHERE LOWER( groupname ) = 'superadministrator' OR LOWER( groupname ) = 'super administrator'";
 		$database->setQuery($query);
 		$rows = $database->loadObjectList();
 		$row2 = $rows[0];

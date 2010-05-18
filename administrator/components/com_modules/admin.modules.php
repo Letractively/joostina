@@ -130,7 +130,7 @@ function viewModules($option,$client) {
 	require_once (JPATH_BASE_ADMIN.'/includes/pageNavigation.php');
 	$pageNav = new mosPageNav($total,$limitstart,$limit);
 
-	$query = "SELECT m.*, u.name AS editor, g.name AS groupname, MIN(mm.menuid) AS pages"
+	$query = "SELECT m.*, u.username AS editor, g.name AS groupname, MIN(mm.menuid) AS pages"
 			."\n FROM #__modules AS m"
 			."\n LEFT JOIN #__users AS u ON u.id = m.checked_out"
 			."\n LEFT JOIN #__groups AS g ON g.id = m.access"

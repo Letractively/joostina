@@ -351,13 +351,13 @@ function mosMainBody_Admin() {
 }
 
 // boston, кэширование меню администратора
-function js_menu_cache($data,$usertype,$state = 0) {
+function js_menu_cache($data,$groupname,$state = 0) {
 	global $mosConfig_secret,$mosConfig_cachepath,$mosConfig_adm_menu_cache;
 	if(!is_writeable($mosConfig_cachepath) && $mosConfig_adm_menu_cache) {
 		echo '<script>alert(\''._CACHE_DIR_IS_NOT_WRITEABLE.'\');</script>';
 		return false;
 	}
-	$menuname = md5($usertype.$mosConfig_secret);
+	$menuname = md5($groupname.$mosConfig_secret);
 	$file = $mosConfig_cachepath.'/adm_menu_'.$menuname.'.js';
 	if(!file_exists($file)) { // файла нету
 		if($state == 1) return false; // файла у нас не было и получен сигнал 0 - продолжаем вызывающую функцию, а отсюда выходим
@@ -407,8 +407,8 @@ function js_menu_cache_clear($echo = true) {
 
 	if(!$mosConfig_adm_menu_cache) return;
 
-	$usertype = str_replace(' ','_',$my->usertype);
-	$menuname = md5($usertype.$mosConfig_secret);
+	$groupname = str_replace(' ','_',$my->groupname);
+	$menuname = md5($groupname.$mosConfig_secret);
 	$file = JPATH_BASE.'/cache/adm_menu_'.$menuname.'.js';
 	if(file_exists($file)) {
 		if(unlink($file))

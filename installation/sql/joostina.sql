@@ -237,7 +237,7 @@ INSERT INTO `#__modules` (`id`, `title`, `content`, `ordering`, `position`, `che
 (3, 'Главное меню', '', 2, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_menu', 0, 0, 0, '', 0, 0, 32767),
 (4, 'Авторизация', '', 1, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_login', 0, 0, 0, '""', 0, 0, 0),
 (19, 'Компоненты', '', 2, 'cpanel', 0, '0000-00-00 00:00:00', 1, 'mod_components', 0, 99, 1, '', 0, 1, 0),
-(23, 'Последние зарегистрированные пользователи', '', 4, 'advert2', 0, '0000-00-00 00:00:00', 1, 'mod_latest_users', 0, 99, 1, '', 0, 1, 0),
+(23, 'Последние зарегистрированные пользователи', '', 4, 'advert2', 0, '0000-00-00 00:00:00', 0, 'mod_latest_users', 0, 99, 1, '', 0, 1, 0),
 (26, 'Полное меню', '', 1, 'top', 0, '0000-00-00 00:00:00', 1, 'mod_fullmenu', 0, 99, 1, '', 0, 1, 0),
 (27, 'Путь', '', 1, 'pathway', 0, '0000-00-00 00:00:00', 1, 'mod_pathway', 0, 99, 1, '', 0, 1, 0),
 (28, 'Панель инструментов', '', 1, 'toolbar', 0, '0000-00-00 00:00:00', 1, 'mod_toolbar', 0, 99, 1, '', 0, 1, 0),
@@ -349,10 +349,10 @@ CREATE TABLE IF NOT EXISTS `#__session` (
   `session_id` varchar(200) NOT NULL DEFAULT '0',
   `guest` tinyint(4) DEFAULT '1',
   `userid` int(11) DEFAULT '0',
-  `usertype` varchar(50) DEFAULT '',
+  `groupname` varchar(50) DEFAULT NULL,
   `gid` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`session_id`(64)),
-  KEY `whosonline` (`guest`,`usertype`),
+  KEY `whosonline` (`guest`,`groupname`),
   KEY `userid` (`userid`),
   KEY `time` (`time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -361,6 +361,9 @@ CREATE TABLE IF NOT EXISTS `#__session` (
 -- Дамп данных таблицы `#__session`
 --
 
+INSERT INTO `#__session` (`username`, `time`, `session_id`, `guest`, `userid`, `groupname`, `gid`) VALUES
+('', '1274214892', '408b0b69c30059baebc7c974434fbdf6', 1, 0, '', 0),
+('admin', '1274215861', '20223cacf2ce42ab4323831f3006834d', 1, 1, 'SuperAdministrator', 0);
 
 -- --------------------------------------------------------
 
@@ -480,25 +483,20 @@ CREATE TABLE IF NOT EXISTS `#__trash` (
 
 CREATE TABLE IF NOT EXISTS `#__users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL DEFAULT '',
   `username` varchar(25) NOT NULL DEFAULT '',
   `email` varchar(100) NOT NULL DEFAULT '',
+  `openid` varchar(200) NOT NULL,
   `password` varchar(100) NOT NULL DEFAULT '',
-  `usertype` varchar(25) NOT NULL DEFAULT '',
-  `block` tinyint(4) NOT NULL DEFAULT '0',
-  `sendEmail` tinyint(4) DEFAULT '0',
+  `state` tinyint(1) NOT NULL DEFAULT '1',
   `gid` tinyint(3) unsigned NOT NULL DEFAULT '1',
+  `groupname` varchar(50) NOT NULL,
   `registerDate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `lastvisitDate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `activation` varchar(100) NOT NULL DEFAULT '',
-  `params` text,
   `bad_auth_count` int(2) DEFAULT '0',
-  `avatar` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
-  KEY `usertype` (`usertype`),
-  KEY `idx_name` (`name`),
   KEY `idxemail` (`email`),
-  KEY `block_id` (`block`,`id`),
+  KEY `block_id` (`state`,`id`),
   KEY `username` (`username`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
