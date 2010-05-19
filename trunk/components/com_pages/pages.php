@@ -13,10 +13,6 @@ defined('_VALID_MOS') or die();
 require_once ($mainframe->getPath('front_html'));
 require_once ($mainframe->getPath('class'));
 
-// управлятор
-mosMainFrame::addLib('joiadmin');
-JoiAdmin::dispatch();
-
 class actionsPages {
 
 	public static function index( ) {
@@ -36,6 +32,10 @@ class actionsPages {
 		// если для текущего действия аквирован счетчик хитов - то обновим его
 		Jhit::$hook['pages::view'] = true;
 		Jhit::allow('pages::view') ? Jhit::add('pages', $page->id, 'view') : null;
+
+		
+		require_once (mosMainFrame::getInstance()->getPath('class','com_bookmarks'));
+		echo Bookmarks::addlink( $page );
 	}
 
 	public static function blog( $option, $id, $page, $task ) {

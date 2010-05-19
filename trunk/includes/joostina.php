@@ -3571,7 +3571,7 @@ class Jhit {
 	 */
 	public static function add( $option, $id, $task='' ) {
 		$sql = sprintf("INSERT INTO `#__hits` (`id`, `obj_id`, `obj_option`, `obj_task`, `hit`) VALUES (NULL, %s, '%s', '%s', 1)
-									ON DUPLICATE KEY UPDATE hit=hit+1;;",
+									ON DUPLICATE KEY UPDATE hit=hit+1;",
 				(int)$id, $option, $task );
 		return database::getInstance()->setQuery($sql)->query();
 	}

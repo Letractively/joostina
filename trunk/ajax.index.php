@@ -73,6 +73,8 @@ header("Cache-Control: no-cache, must-revalidate ");
 // проверяем, какой файл необходимо подключить, данные берутся из пришедшего GET запроса
 if (file_exists(JPATH_BASE . "/components/$option/$commponent.ajax.php")) {
 	include_once (JPATH_BASE . "/components/$option/$commponent.ajax.php");
+	mosMainFrame::addLib('joiadmin');
+	JoiAdmin::dispatch();
 } else {
 	die('error-1');
 }

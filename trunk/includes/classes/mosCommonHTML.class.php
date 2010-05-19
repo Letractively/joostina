@@ -256,11 +256,11 @@ class mosCommonHTML {
 			define($const,1);
 			if($ret) {
 				echo JHTML::js_file( JPATH_SITE.'/media/js/jquery.plugins/'. $name.'.js' );
-				echo ($css) ? JHTML::css_file( JPATH_SITE.'/media/js/jquery.plugins/'. $name.'.css' ) : '';
+				echo ($css) ? JHTML::css_file( JPATH_SITE.'/media/js/jquery.plugins/'. $name .'/'. $name.'.css' ) : '';
 			}else {
 				$mainframe = mosMainFrame::getInstance();
 				$mainframe->addJS(JPATH_SITE.'/media/js/jquery.plugins/'.$name.'.js', $footer);
-				$css ? $mainframe->addCSS(JPATH_SITE.'/media/js/jquery.plugins/'.$name.'.css'): null;
+				$css ? $mainframe->addCSS(JPATH_SITE.'/media/js/jquery.plugins/'.$name.'/'.$name.'.css'): null;
 			}
 		}
 	}

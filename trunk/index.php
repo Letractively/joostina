@@ -120,7 +120,8 @@ if($path = $mainframe->getPath('front')) {
 			require_once($mainframe->getLangFile($option));
 		}
 		require_once ($path);
-
+		mosMainFrame::addLib('joiadmin');
+		JoiAdmin::dispatch();
 	} else {
 		mosNotAuth();
 	}

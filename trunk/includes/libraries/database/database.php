@@ -931,7 +931,7 @@ class mosDBTable extends database {
 	 */
 	public function before_store() {
 	}
-	
+
 	/**
 	 * Метод выполняемый после удаления конкретной записи модели
 	 */
@@ -1226,4 +1226,23 @@ class mosDBTable extends database {
 
 		return implode("\n\t", $rets);
 	}
+	
+	// поиск записи через указание группы свойств объекта
+	public function find( array $params = array( 'select'=>'*' ) ) {
+		$fmtsql = "SELECT {$params['select']} FROM $this->_tbl WHERE %s";
+		$tmp = array();
+		foreach (get_object_vars($this) as $k => $v) {
+			if (is_array($v) or is_object($v) or $k[0] == '_' or empty ($v) ) {
+				continue;
+			}
+			if ($v == '') {
+				$val = "''";
+			} else {
+				$val = $this->_db->Quote($v);
+			}
+			$tmp[] = $this->NameQuote($k) . '=' . $val;
+		}
+		return $this->_db->setQuery(sprintf($fmtsql, implode(' AND ', $tmp)))->loadObject( $this );
+	}
+
 }

@@ -21,7 +21,7 @@ class Pages extends mosDBTable {
     public $created_at;
     public $meta_keywords;
     public $meta_description;
-    public $state = 1;
+    public $state;
 
     function __construct() {
         $this->mosDBTable('#__pages', 'id');

@@ -10,8 +10,16 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-class bookmarksHTML {
-	public static function addlink(){
-		return '<button class="to_bookmarks">в закладки!</button>';
+require_once ($mainframe->getPath('class'));
+
+
+class actionsBookmarks {
+
+	public static function add() {
+		$option = mosGetParam($_POST, 'obj_option','all');
+		$id = (int)mosGetParam($_POST, 'obj_id',0);
+		$task = mosGetParam($_POST, 'obj_task','all');
+		echo Bookmarks::add($option, $id, $task);
 	}
+
 }
