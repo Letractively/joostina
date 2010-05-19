@@ -183,7 +183,7 @@ if($siteUrl) {
 	$config .= "\$mosConfig_showEmail = '1';\n";
 	$config .= "\$mosConfig_enable_log_items = '0';\n";
 	$config .= "\$mosConfig_enable_log_searches = '0';\n";
-	$config .= "\$mosConfig_sef = '0';\n";
+	$config .= "\$mosConfig_sef = '1';\n";
 	$config .= "\$mosConfig_vote = '1';\n";
 	$config .= "\$mosConfig_gzip = '0';\n";
 	$config .= "\$mosConfig_multipage_toc = '1';\n";
@@ -318,8 +318,8 @@ if($siteUrl) {
 	// создание администратора
 	$installdate = date('Y-m-d H:i:s');
 	$adminLogin = $database->getEscaped($adminLogin);
-	$query = "INSERT INTO `#__users` VALUES (null, 'Суперчеловек', '$adminLogin', '$adminEmail', '$cryptpass', 'superadministrator', 0, 1, 8, '$installdate', '$nullDate', '', '',0, '')";
-	$database->setQuery($query)->query();;
+	$query = "INSERT INTO `#__users` VALUES (null,  '$adminLogin', '$adminEmail', '','$cryptpass',1,8, 'superadministrator','$installdate', '$nullDate',0, '')";
+	$database->setQuery($query)->query();
 
 	// chmod files and directories if desired
 	$chmod_report = "Права доступа к файлам и каталогам не изменены.";

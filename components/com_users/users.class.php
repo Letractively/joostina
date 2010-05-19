@@ -258,6 +258,11 @@ class User extends mosDBTable {
 		}
 	}
 
+	public static function current(){
+		global $my;
+		return $my;
+	}
+
 }
 
 /* расширенная информация о пользователе */

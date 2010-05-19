@@ -13,10 +13,6 @@ defined('_VALID_MOS') or die();
 require_once ($mainframe->getPath('class'));
 require_once ($mainframe->getPath('front_html'));
 
-// управлятор
-mosMainFrame::addLib('joiadmin');
-JoiAdmin::dispatch();
-
 class actionsTags {
 
 	/**

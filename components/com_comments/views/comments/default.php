@@ -16,9 +16,9 @@ global $my;
 <div class="comment_list comments_list">
 	<ul class="comments_list_ul comments_list_ul">
 		<?php foreach($comments_list as $item) : // комментарии ?>
-			<?php $linkuser = sefRelToAbs('index.php?option=com_user&id='.sprintf('%s:%s',$item->user_id, $item->name)); ?>
+			<?php $linkuser = sefRelToAbs('index.php?option=com_user&id='.sprintf('%s:%s',$item->user_id, $item->username)); ?>
 		<li>
-			<a class="username user" id="<?php echo $item->user_id;?>" href="<?php echo $linkuser; ?>"><?php echo $item->name; ?></a>
+			<a class="username user" id="<?php echo $item->user_id;?>" href="<?php echo $linkuser; ?>"><?php echo $item->username; ?></a>
 			<span class="date"><?php echo $item->created_at; ?></span>
 			<p>
 					<?php echo $item->comment_text;?>

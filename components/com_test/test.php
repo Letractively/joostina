@@ -10,10 +10,6 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-// управлятор
-mosMainFrame::addLib('joiadmin');
-JoiAdmin::dispatch();
-
 class actionsTest {
 	
 	public static function index( ) {
