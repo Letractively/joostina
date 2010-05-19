@@ -13,9 +13,6 @@ defined('_VALID_MOS') or die();
 require_once ($mainframe->getPath('front_html'));
 require_once ($mainframe->getPath('class'));
 
-mosMainFrame::addLib('joiadmin');
-JoiAdmin::dispatch();
-
 class actionsComments {
 
 	/**

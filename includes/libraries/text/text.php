@@ -12,7 +12,14 @@ defined('_VALID_MOS') or die();
 
 
 class Text {
-	//var $text = null;
+
+	public static  $abc_ru = array(
+			'А','Б','В','Г','Д','Е','Ж','З','И','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Э','Ю','Я'
+	);
+
+	public static  $abc_en = array(
+			'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'
+	);
 
 	/**
 	 * Вывод численных результатов с учетом склонения слов
@@ -20,7 +27,7 @@ class Text {
 	 * @param integer $int
 	 * @param array $expressions Например: array("ответ", "ответа", "ответов")
 	 */
-	public static function _declension($int, $expressions) {
+	public static function declension($int, $expressions) {
 		if (count($expressions) < 3) {
 			$expressions[2] = $expressions[1];
 		};
