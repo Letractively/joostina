@@ -71,6 +71,10 @@ $_SERVER['REQUEST_URI'] = $request_uri;
 unset($request_uri);
 */
 
+class Jstatic{
+    public static $data = array();
+}
+
 /**
  * Joostina! Mainframe class
  *

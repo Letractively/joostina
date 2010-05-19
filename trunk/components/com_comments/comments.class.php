@@ -184,7 +184,7 @@ class Comments extends mosDBTable {
 
         $mf = mosMainFrame::getInstance();
 
-        $this->obj_option = $obj->_tbl;
+        $this->obj_option = get_class($obj->_tbl);
         $this->obj_id = $obj->{$obj->_tbl_key}; // настоящая уличная магия
 
         //Подключаем пагинацию
