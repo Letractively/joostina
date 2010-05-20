@@ -49,7 +49,7 @@ class Bookmarks extends mosDBTable {
 	}
 
 	public static function addlink( $obj ) {
-		return sprintf('<button class="to_bookmarks" _obj_option="%s" _obj_id="%s">в закладки!</button>', get_class($obj), $obj->id ) ;
+		return sprintf('<button class="to_bookmarks" obj_option="%s" obj_id="%s">в закладки!</button>', get_class($obj), $obj->id ) ;
 	}
 
 }

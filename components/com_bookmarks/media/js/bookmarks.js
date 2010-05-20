@@ -5,8 +5,8 @@ $(document).ready(function(){
 			url: _live_site + "/ajax.index.php",
 			type: 'post',
 			data:{
-				obj_option: $(this).attr('_obj_option'),
-				obj_id: $(this).attr('_obj_id'),
+				obj_option: $(this).attr('obj_option'),
+				obj_id: $(this).attr('obj_id'),
 				task : 'add',
 				option: 'com_bookmarks'
 			},

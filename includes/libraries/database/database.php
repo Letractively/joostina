@@ -767,6 +767,10 @@ class mosDBTable extends database {
 		$this->_db = $db ? $db : parent::$_db_instance;
 	}
 
+	public function classname(){
+		return get_class( $this );
+	}
+
 	/**
 	 * Магический метод восстановления объекта
 	 * Используется при прямом кэшировании модели

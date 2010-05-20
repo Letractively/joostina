@@ -527,9 +527,8 @@ class JoiAdmin {
 				break;
 
 			case 'tags':
-				require_once ( mosMainFrame::getInstance()->getPath('class','com_joitags'));
-				$tags = new joiTags;
-				$tags->obj_type = 'com_nodes';
+				require_once ( mosMainFrame::getInstance()->getPath('class','com_tags'));
+				$tags = new Tags;
 
 				$element .= $params['label_begin'];
 				$element .= form::label(

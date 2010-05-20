@@ -69,11 +69,12 @@ class Tags extends mosDBTable {
 	 */
 	function display_object_tags_edit($obj) {
 
-		$plugin = new tagsPlugins($this->obj_option);
+		$this->obj_option =  strtolower( $obj->classname() ) ;
+		$plugin = new tagsPlugins($obj);
 
 		if($plugin->check()) {
 			require_once($plugin->plugin);
-			$func = 'tags_'.$plugin->option.'_object_tags_edit';
+			echo $func = 'tags_'.$plugin->option.'_object_tags_edit';
 			return call_user_func($func,$obj, $this);
 		}
 
@@ -291,9 +292,12 @@ class Tags extends mosDBTable {
 	 * @param mixed $obj_id
 	 * @return
 	 */
-	function save_tags($obj_id) {
+	function save_tags($obj) {
 
-		$sql = 'DELETE FROM '.$this->_tbl.' WHERE obj_id = '.$obj_id.' AND obj_option = \''.$this->obj_option.'\'';
+		$obj_option = strtolower($obj->classname());
+		$obj_id = $obj->{$obj->_tbl_key};
+
+		$sql = 'DELETE FROM '.$this->_tbl.' WHERE obj_id = '.$obj_id.' AND obj_option = \''.$obj_option.'\'';
 		$this->_db->setQuery($sql)->Query();
 
 		$tags = $this->clear_tags( explode(',', mosGetParam($_REQUEST, 'tags')));
@@ -307,7 +311,7 @@ class Tags extends mosDBTable {
 		$sql_ = '';
 		$n = 1;
 		foreach($tags as $tag) {
-			$sql_ .= '('.$obj_id.', \''.$this->obj_option.'\',   \''.$tag.'\')';
+			$sql_ .= '('.$obj_id.', \''.$obj_option.'\',   \''.$tag.'\')';
 			if($n<$max) {
 				$sql_ .= ',';
 			}
@@ -500,8 +504,8 @@ class tagsPlugins {
 	 * @param string $option
 	 * @return
 	 */
-	function  __construct($option = '') {
-		$this->option = $option;
+	function  __construct( $obj ) {
+		$this->option = strtolower($obj->classname());
 	}
 
 	/**

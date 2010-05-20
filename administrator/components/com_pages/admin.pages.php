@@ -24,76 +24,81 @@ JoiAdmin::dispatch();
  */
 class actionsPages {
 
-    /**
-     * Название обрабатываемой модели
-     * @var mosDBTable модель
-     */
-    public static $model = 'Pages';
+	/**
+	 * Название обрабатываемой модели
+	 * @var mosDBTable модель
+	 */
+	public static $model = 'Pages';
 
-    /**
-     * Список объектов
-     */
-    public static function index( $option ) {
-        $obj = new self::$model;
-        $obj_count = $obj->count();
+	/**
+	 * Список объектов
+	 */
+	public static function index( $option ) {
+		$obj = new self::$model;
+		$obj_count = $obj->count();
 
-        $pagenav = JoiAdmin::pagenav( $obj_count , $option );
+		$pagenav = JoiAdmin::pagenav( $obj_count , $option );
 
-        $param = array(
-                'offset'=>$pagenav->limitstart,
-                'limit'=>$pagenav->limit,
-                'order'=>'id DESC'
-        );
-        $obj_list = $obj->get_list($param);
+		$param = array(
+				'offset'=>$pagenav->limitstart,
+				'limit'=>$pagenav->limit,
+				'order'=>'id DESC'
+		);
+		$obj_list = $obj->get_list($param);
 
-        // передаём данные в представление
-        thisHTML::index( $obj, $obj_list, $pagenav );
-    }
+		// передаём данные в представление
+		thisHTML::index( $obj, $obj_list, $pagenav );
+	}
 
-    /**
-     * Редактирование
-     */
-    public static function create( $option ) {
-        self::edit( $option, 0 );
-    }
+	/**
+	 * Редактирование
+	 */
+	public static function create( $option ) {
+		self::edit( $option, 0 );
+	}
 
-    /**
-     * Редактирование объекта
-     * @param integer $id - номер редактируемого объекта
-     */
-    public static function edit( $option, $id ) {
-        $obj_data = new self::$model;
-        $obj_data->load( $id );
+	/**
+	 * Редактирование объекта
+	 * @param integer $id - номер редактируемого объекта
+	 */
+	public static function edit( $option, $id ) {
+		$obj_data = new self::$model;
+		$obj_data->load( $id );
 
-        thisHTML::edit( $obj_data, $obj_data);
-    }
+		thisHTML::edit( $obj_data, $obj_data);
+	}
 
-    /**
-     * Сохранение отредактированного или созданного объекта
-     */
-    public static function save( $option, $id, $page, $task, $create_new = false ) {
-        josSpoofCheck();
-        
-        $obj_data = new self::$model;
-        $obj_data->save($_POST);
+	/**
+	 * Сохранение отредактированного или созданного объекта
+	 */
+	public static function save( $option, $id, $page, $task, $create_new = false ) {
+		josSpoofCheck();
 
-        $create_new ? mosRedirect( 'index2.php?option='.$option.'&task=create', $obj_data->title . ', cохранено успешно!, Создаём новое' ) : mosRedirect( 'index2.php?option='.$option , $obj_data->title . ', cохранено успешно!');
-    }
+		$obj_data = new self::$model;
+		$obj_data->save($_POST);
 
-	public static function save_and_new( $option ){
+		//Сохраняем тэги
+		require_once ( mosMainFrame::getInstance()->getPath('class','com_tags'));
+		$tags = new Tags;
+		$tags->save_tags($obj_data);
+
+		$create_new ? mosRedirect( 'index2.php?option='.$option.'&task=create', $obj_data->title . ', cохранено успешно!, Создаём новое' ) : mosRedirect( 'index2.php?option='.$option , $obj_data->title . ', cохранено успешно!');
+	}
+
+	public static function save_and_new( $option ) {
 		self::save($option, null, null, null, true);
 	}
 
-    /**
-     * Удаление одного или группы объектов
-     */
-    public static function remove( $option ) {
-        josSpoofCheck();
+	/**
+	 * Удаление одного или группы объектов
+	 */
+	public static function remove( $option ) {
+		josSpoofCheck();
 
-        // идентификаторы удаляемых объектов
-        $cid = (array) josGetArrayInts('cid');
+		// идентификаторы удаляемых объектов
+		$cid = (array) josGetArrayInts('cid');
 
-        $obj_data = new self::$model;
-        $obj_data->delete_array( $cid, 'id') ?  mosRedirect( 'index2.php?option='.$option, 'Удалено успешно!') : mosRedirect( 'index2.php?option='.$option , 'Ошибка удаления');
-    }
+		$obj_data = new self::$model;
+		$obj_data->delete_array( $cid, 'id') ?  mosRedirect( 'index2.php?option='.$option, 'Удалено успешно!') : mosRedirect( 'index2.php?option='.$option , 'Ошибка удаления');
+	}
 }
