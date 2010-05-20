@@ -1,7 +1,7 @@
 <?php
 /**
  * @package Joostina
- * @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
+ * @copyright Авторские права (C) 2007-2010 Joostina team. Все права защищены.
  * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
  * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
  * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
@@ -2282,12 +2282,9 @@ class mosModule extends mosDBTable {
 		$Itemid = intval($Itemid);
 		$check_Itemid = ($Itemid) ? "OR mm.menuid = ".$Itemid:'';
 
-		$where_ac = $mainframe->get('config')->config_disable_access_control ? '' : "\n AND (m.access=3 OR m.access <= ".(int)$my_gid.') ';
-
 		$query = "SELECT id, title, module, position,showtitle,params,access,cache_time FROM #__modules AS m"
 				."\n INNER JOIN #__modules_menu AS mm ON mm.moduleid = m.id"
 				."\n WHERE m.published = 1"
-				.$where_ac
 				."\n AND m.client_id != 1 AND ( mm.menuid = 0 $check_Itemid )"
 				."\n ORDER BY ordering";
 
@@ -3413,9 +3410,11 @@ function josSpoofCheck( $header=NULL, $alt=NULL , $method = 'post') {
 		case 'get':
 			$validate 	= mosGetParam( $_GET, josSpoofValue($alt), 0 );
 			break;
+		
 		case 'request':
 			$validate 	= mosGetParam( $_REQUEST, josSpoofValue($alt), 0 );
 			break;
+
 		case 'post':
 		default:
 			$validate 	= mosGetParam( $_POST, josSpoofValue($alt), 0 );
@@ -3487,15 +3486,13 @@ function _josSpoofCheck($array,$badStrings) {
  * @static
  */
 function josSpoofValue($alt=NULL) {
-	global $my;
-
 	if ($alt) {
 		$random = ( $alt == 1 ) ? $random = date( 'Ymd' ) : $alt . date( 'Ymd' );
 	} else {
 		$random	= date( 'dmY' );
 	}
 
-	return 'j' . mosHash( JPATH_BASE . $random . $my->id );
+	return 'j' . mosHash( JPATH_BASE . $random . User::current()->id );
 }
 /**
  * A simple helper function to salt and hash a clear-text password.
