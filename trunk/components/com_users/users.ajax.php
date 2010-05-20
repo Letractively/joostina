@@ -8,25 +8,17 @@
  */
 
 // запрет прямого доступа
-defined( '_VALID_MOS' ) or die();
+defined('_VALID_MOS') or die();
 
-class attached {
+class actionsUsers {
 
-	public $id;
-	public $created_at;
-	public $user_id;
-	public $file_name;
-	public $file_ext;
-	public $file_mime;
-	public $file_size;
+	public static function index() {
 
-
-	public function  __construct() {
-		$this->mosDBTable('#__attached', 'id');
 	}
 
-	public static function upload(){
-		mosMainFrame::addLib('files');
+	public static function uploadavatar() {
+		mosMainFrame::addLib('plupload');
+		Plupload::upload( JPATH_BASE.'/attachments/avatars' );
 	}
 
 }
