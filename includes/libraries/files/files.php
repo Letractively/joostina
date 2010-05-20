@@ -186,8 +186,9 @@ class File {
 			if($path[strlen($path)-1] != '/') {
 				$path .= '/';
 			}
-			if(!file_exists($path))
+			if(!file_exists($path)){
 				mkdir($path, $this->chmod, true);
+			}
 		}
 
 		return rename($from, $to);
@@ -547,8 +548,9 @@ class File {
 		}
 	}
 
-	function mime_content_type($filename) {
+	public static function mime_content_type($filename) {
 		$mime_types = array(
+				// all
 				'txt' => 'text/plain',
 				'htm' => 'text/html',
 				'html' => 'text/html',
@@ -573,6 +575,8 @@ class File {
 				'tif' => 'image/tiff',
 				'svg' => 'image/svg+xml',
 				'svgz' => 'image/svg+xml',
+				'tga' => 'image/x-targa',
+				'psd' => 'image/vnd.adobe.photoshop',
 
 				// archives
 				'zip' => 'application/zip',
@@ -580,11 +584,28 @@ class File {
 				'exe' => 'application/x-msdownload',
 				'msi' => 'application/x-msdownload',
 				'cab' => 'application/vnd.ms-cab-compressed',
+				'gz' => 'application/x-gzip',
+				'tgz' => 'application/x-gzip',
+				'bz' => 'application/x-bzip2',
+				'bz2' => 'application/x-bzip2',
+				'tbz' => 'application/x-bzip2',
+				'zip' => 'application/zip',
+				'rar' => 'application/x-rar',
+				'tar' => 'application/x-tar',
+				'7z' => 'application/x-7z-compressed',
 
 				// audio/video
 				'mp3' => 'audio/mpeg',
 				'qt' => 'video/quicktime',
 				'mov' => 'video/quicktime',
+				'avi' => 'video/x-msvideo',
+				'dv' => 'video/x-dv',
+				'mp4' => 'video/mp4',
+				'mpeg' => 'video/mpeg',
+				'mpg' => 'video/mpeg',
+				'wm' => 'video/x-ms-wmv',
+				'flv' => 'video/x-flv',
+				'mkv' => 'video/x-matroska',
 
 				// adobe
 				'pdf' => 'application/pdf',
@@ -618,6 +639,16 @@ class File {
 		else {
 			return 'application/octet-stream';
 		}
+	}
+	/**
+	 * Формирование вложенного пути к фацлу с учетом разделения по каталогам
+	 * @param integer $id - номер файла в БД
+	 * @return string - путь к файлу в структуре подкаталогов
+	 */
+	public static function makefilename( $id ) {
+		$p = sprintf('%09d', $id);
+		$h = str_split($p, 3);
+		return implode('/', $h);
 	}
 
 }

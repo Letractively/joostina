@@ -93,7 +93,7 @@ class actionsUsers {
 		$user->id ? userHTML::after_register() : userHTML::register($user);
 
 	}
-	
+
 	public static function view( $option, $id ) {
 		$user = new User;
 		$user->load($id);
@@ -114,7 +114,7 @@ class actionsUsers {
 		$_POST ? self::save_profile($user) : userHTML::edit($user);
 	}
 
-	private static function save_profile( $user ){
+	private static function save_profile( $user ) {
 
 		josSpoofCheck();
 
@@ -122,7 +122,7 @@ class actionsUsers {
 		$user->save();
 	}
 
-	public static function file(){
+	public static function file() {
 
 		mosMainFrame::addLib('files');
 
@@ -132,11 +132,11 @@ class actionsUsers {
 		$uploadfile = $file->upload($pach, 'file');
 
 		echo $f = $pach.$uploadfile;
-echo '<br />';
+		echo '<br />';
 		echo $file->mime_content_type( $f );
-echo '<br />';
-echo filesize($f);
-
+		echo '<br />';
+		echo filesize($f);
+		
 
 		self::edit();
 

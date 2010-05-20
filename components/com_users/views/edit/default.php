@@ -41,9 +41,9 @@ $mf->addJS( JPATH_SITE.'/media/js/jquery.plugins/jquery.plupload.queue.min.js' )
 			runtimes : 'html5,gears,flash',
 			browse_button : 'pickfiles',
 			max_file_size : '3mb',
-			url : 'upload.php',
+			url : _live_site + '/ajax.index.php?option=com_users&task=uploadavatar',
 			flash_swf_url : '/media/swf/plupload.flash.swf',
-			multi_selection: false,
+			multi_selection: true,
 			filters : [
 				{title : "Image files", extensions : "jpg,gif,png"},
 			]
