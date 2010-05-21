@@ -1,4 +1,27 @@
 --
+-- Структура таблицы `#__attached`
+--
+
+CREATE TABLE IF NOT EXISTS `#__attached` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `user_id` int(11) unsigned NOT NULL,
+  `file_name` varchar(200) NOT NULL,
+  `file_ext` varchar(5) NOT NULL,
+  `file_mime` varchar(20) NOT NULL,
+  `file_size` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `#__attached`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `#__bookmarks`
 --
 
@@ -39,12 +62,15 @@ CREATE TABLE IF NOT EXISTS `#__comments` (
   PRIMARY KEY (`id`),
   KEY `obj_id` (`obj_id`,`obj_option`),
   KEY `state` (`state`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `#__comments`
 --
 
+INSERT INTO `#__comments` (`id`, `obj_id`, `obj_option`, `user_id`, `user_name`, `user_email`, `user_ip`, `comment_text`, `created_at`, `state`) VALUES
+(1, 1, 'Pages', 1, 'admin', '', '', 'qwewq ew', '2010-05-21 00:42:39', 1),
+(2, 1, 'Pages', 1, 'admin', '', '', '1 3ewqe wqeПоддржвает компоненты через плагины, возрождающие добрую традицию register globals. * VirtueMart, очень многофункциональный интернет-магазин, мамонтдинозавр среди расширений сабжа. Это стороннее расширение имеет сотни сторонних расширений. За три года существования версии 1.5 этот монстр так и не переписан на архитектуру MVC и только дополнен множеством костылей в использовании API для работы с этой версией. Ещё один нюанс, который раньше&#8230;', '2010-05-21 00:42:43', 1);
 
 -- --------------------------------------------------------
 
@@ -65,6 +91,8 @@ CREATE TABLE IF NOT EXISTS `#__comments_counter` (
 -- Дамп данных таблицы `#__comments_counter`
 --
 
+INSERT INTO `#__comments_counter` (`obj_id`, `obj_option`, `last_user_id`, `last_comment_id`, `counter`) VALUES
+(1, 'Pages', 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -152,12 +180,14 @@ CREATE TABLE IF NOT EXISTS `#__hits` (
   `hit` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `obj_id` (`obj_id`,`obj_option`,`obj_task`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `#__hits`
 --
 
+INSERT INTO `#__hits` (`id`, `obj_id`, `obj_option`, `obj_task`, `hit`) VALUES
+(1, 1, 'pages', 'view', 27);
 
 -- --------------------------------------------------------
 
@@ -387,7 +417,7 @@ CREATE TABLE IF NOT EXISTS `#__session` (
 --
 
 INSERT INTO `#__session` (`username`, `time`, `session_id`, `guest`, `userid`, `groupname`, `gid`) VALUES
-('', '1274301332', '6d45e8b3f2eddf8005ef27b8391c9bc8', 1, 0, NULL, 0);
+('admin', '1274395566', 'e52b8e9518b6942a055d6e138402cd23', 0, 1, 'SuperAdministrator', 8);
 
 -- --------------------------------------------------------
 
@@ -403,12 +433,23 @@ CREATE TABLE IF NOT EXISTS `#__tags` (
   PRIMARY KEY (`id`),
   KEY `obj_id` (`obj_id`,`obj_option`),
   KEY `tag_text` (`tag`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `#__tags`
 --
 
+INSERT INTO `#__tags` (`id`, `obj_id`, `obj_option`, `tag`) VALUES
+(12, 1, 'pages', 'уцй'),
+(11, 1, 'pages', 'уцй'),
+(10, 1, 'pages', 'у12312ууцй'),
+(9, 1, 'pages', 'йуцйуцйу'),
+(8, 1, 'pages', 'йцуцйуцйу'),
+(13, 1, 'pages', 'уцй'),
+(14, 1, 'pages', 'уцйуцйуцйу'),
+(15, 1, 'pages', '555555555'),
+(16, 1, 'pages', '88888'),
+(17, 1, 'pages', '00000000');
 
 -- --------------------------------------------------------
 
@@ -522,12 +563,14 @@ CREATE TABLE IF NOT EXISTS `#__users` (
   KEY `idxemail` (`email`),
   KEY `block_id` (`state`,`id`),
   KEY `username` (`username`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `#__users`
 --
 
+INSERT INTO `#__users` (`id`, `username`, `email`, `openid`, `password`, `state`, `gid`, `groupname`, `registerDate`, `lastvisitDate`, `activation`, `bad_auth_count`) VALUES
+(1, 'admin', 'bost568@gmail.com', '', 'e29ee15d7f622a649e700fb352d67c00:OBzKuRoiLAF8aD12', 1, 8, 'SuperAdministrator', '2010-05-20 14:43:52', '2010-05-21 03:52:33', '0', 0);
 
 -- --------------------------------------------------------
 
