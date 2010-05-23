@@ -259,9 +259,9 @@ class User extends mosDBTable {
 		return $my;
 	}
 
-	public function avatar(){
+	public static function avatar( $id = false ){
 		mosMainFrame::addLib('files');
-		$file = File::makefilename( $this->id );
+		$file = File::makefilename( $id ? $id : $this->id );
 		$base_file = JPATH_BASE.DS.'attachments'.DS.'avatars'.DS.$file.DS.'avatar.png';
 		return is_file($base_file) ? JPATH_SITE.'/attachments/avatars/'.$file.'/avatar.png' : JPATH_SITE.'/attachments/avatars/none.jpg';
 		
