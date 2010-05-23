@@ -14,7 +14,6 @@ $mf = mosMainFrame::getInstance();
 $mf->addJS( JPATH_SITE.'/media/js/plupload.full.min.js' );
 $mf->addJS( JPATH_SITE.'/media/js/jquery.plugins/jquery.plupload.queue.min.js' );
 
-
 ?>
 <form action="<?php echo sefRelToAbs('index.php?option=com_users&task=edit',true);  ?>" method="post" name="userForm" id="userForm">
     <input type="text" value="<?php echo $user->email ?>" name="email" />
@@ -22,16 +21,10 @@ $mf->addJS( JPATH_SITE.'/media/js/jquery.plugins/jquery.plupload.queue.min.js' )
     <input type="hidden" name="<?php echo josSpoofValue(); ?>" value="1" />
 </form>
 
-<form enctype="multipart/form-data" action="<?php echo sefRelToAbs('index.php?option=com_users&task=file',true);  ?>" method="post" name="userForm" id="userForm">
-    <input type="file" name="file" />
-    <input type="submit" value="Тыц!" />
-</form>
-
-
 <div id="filelist">Выберите ка аватар</div>
 <input type="button" value="Выбрать" id="pickfiles" />
 <input type="button" value="Загрузить" id="uploadfiles" />
-
+<img src="<?php echo User::current()->avatar() ?>" id="useravatar" />
 
 
 <script type="text/javascript">
@@ -59,6 +52,11 @@ $mf->addJS( JPATH_SITE.'/media/js/jquery.plugins/jquery.plupload.queue.min.js' )
 
         uploader.bind('UploadProgress', function(up, file) {
             $('#' + file.id + " b").html(file.percent + "%");
+        });
+
+        uploader.bind('FileUploaded', function(up, files, res) {
+			var avatar = $.parseJSON(res.response).avatar;
+            $('#useravatar').attr('src', _live_site + avatar + '/avatar.png' );
         });
 
         $('#uploadfiles').click(function(e) {

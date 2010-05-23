@@ -18,7 +18,15 @@ class actionsUsers {
 
 	public static function uploadavatar() {
 		mosMainFrame::addLib('plupload');
-		Plupload::upload( JPATH_BASE.'/attachments/avatars' );
+		$file = Plupload::upload( 'original_avatar', 'avatars', User::current()->id, false );
+
+		mosMainFrame::addLib('images');
+		$avatar = dirname( $file['basename'] );
+		Thumbnail::output( $file['basename'], $avatar.'/avatar.png', array( 'width'=>100,'height'=>100 ) );
+		Thumbnail::output( $file['basename'], $avatar.'/avatar_25x25.png', array( 'width'=>25,'height'=>25 ) );
+
+		echo json_encode( array( 'avatar'=>$file['location'] ) );
+
 	}
 
 	public static function uploadfiles() {

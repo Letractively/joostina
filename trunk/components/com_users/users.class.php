@@ -199,10 +199,6 @@ class User extends mosDBTable {
 		$this->groupname = self::get_usergroup( $this->gid );
 	}
 
-	public static function avatar($user) {
-
-	}
-
 	function get_link($user) {
 		$url = 'index.php?option=com_users&task=user&user=' . sprintf('%s:%s', $user->id, $user->username);
 		return sefRelToAbs($url);
@@ -261,6 +257,14 @@ class User extends mosDBTable {
 	public static function current(){
 		global $my;
 		return $my;
+	}
+
+	public function avatar(){
+		mosMainFrame::addLib('files');
+		$file = File::makefilename( $this->id );
+		$base_file = JPATH_BASE.DS.'attachments'.DS.'avatars'.DS.$file.DS.'avatar.png';
+		return is_file($base_file) ? JPATH_SITE.'/attachments/avatars/'.$file.'/avatar.png' : JPATH_SITE.'/attachments/avatars/none.jpg';
+		
 	}
 
 }
