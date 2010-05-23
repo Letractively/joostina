@@ -914,7 +914,7 @@ class mosMainFrame {
 		// if no username and password passed from function, then function is being called from login module/component
 		if(!$username || !$passwd) {
 			$username	= stripslashes(strval(mosGetParam($_POST,'username','')));
-			$passwd		= stripslashes(strval(mosGetParam($_POST,'passwd','')));
+			$passwd		= stripslashes(strval(mosGetParam($_POST,'password','')));
 
 			$bypost = 1;
 
