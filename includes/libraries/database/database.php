@@ -1236,10 +1236,11 @@ class mosDBTable extends database {
 		$fmtsql = "SELECT {$params['select']} FROM $this->_tbl WHERE %s";
 		$tmp = array();
 		foreach (get_object_vars($this) as $k => $v) {
-			if (is_array($v) or is_object($v) or $k[0] == '_' or empty ($v) ) {
+           
+                    if (is_array($v) or is_object($v) or $k[0] == '_' or empty ($v) ) {
 				continue;
 			}
-			if ($v == '') {
+                        if ($v == '') {
 				$val = "''";
 			} else {
 				$val = $this->_db->Quote($v);

@@ -142,4 +142,15 @@ class actionsUsers {
 
 	}
 
+        public static function files(){
+
+            mosMainFrame::addLib('files');
+            userHTML::uploadform( User::current() );
+
+            mosMainFrame::addLib('attached');
+            $files = attached::myfiles();
+
+            userHTML::files($files);
+        }
+
 }

@@ -26,6 +26,10 @@ class actionsPages {
 		mosMainFrame::getInstance()->addMetaTag('description',  $page->meta_description );
 		mosMainFrame::getInstance()->addMetaTag('keywords',  $page->meta_keywords );
 		mosMainFrame::getInstance()->setPageTitle( $page->title_page );
+		
+		require_once (mosMainFrame::getInstance()->getPath('class','com_tags'));
+		$tags = new Tags;
+		$page->tags = $tags->display_object_tags($page);
 
 		pagesHTML::index($page);
 
@@ -33,7 +37,7 @@ class actionsPages {
 		Jhit::$hook['pages::view'] = true;
 		Jhit::allow('pages::view') ? Jhit::add('pages', $page->id, 'view') : null;
 
-		
+
 		require_once (mosMainFrame::getInstance()->getPath('class','com_bookmarks'));
 		echo Bookmarks::addlink( $page );
 	}
@@ -78,17 +82,17 @@ class actionsPages {
 
 			Doo::cache('front')->end();
 		endif;
-		
+
 
 		// прямое кеширование модели как реального объекта
 		$cache = Doo::cache('php');
-		if( !($obj_final = $cache->get('555')))	 {
+		if( !($obj_final = $cache->get('555'))) {
 			$obj_final = new Pages;
 			$obj_final->load(8);
 			$obj_cachind = $obj_final->tocache();
 			$cache->set('555', $obj_cachind, 300);
 		}
-		
+
 		_xdump($obj_final);
 
 		// кеширование переменной
