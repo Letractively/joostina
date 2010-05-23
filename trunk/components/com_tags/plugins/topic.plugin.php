@@ -10,7 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die(); 
 
-function Tags_pages_object_tags($row, $tags) {
+function tags_topic_object_tags($row, $tags) {
 	if($_tags = $tags->load_by_obj($row)) {
 		return $tags->print_tags($row);
 	}
@@ -21,12 +21,12 @@ function Tags_pages_object_tags($row, $tags) {
 
 }
 
-function Tags_pages_object_tags_edit($row, $tags) {
+function tags_topic_object_tags_edit($row, $tags) {
 	$_tags = $tags->load_by_obj($row);
 	return $tags->print_tags_edit($row);
 
 }
 
-function Tags_pages_group_tags($rows, $tags) {
+function tags_topic_group_tags($rows, $tags) {
 	$tags->load_by_group($rows, 'id');
 }

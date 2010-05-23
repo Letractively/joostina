@@ -1,7 +1,7 @@
 <?php
 /**
  * @package Joostina
- * @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
+ * @copyright Авторские права (C) 2007-2010 Joostina team. Все права защищены.
  * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
  * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
  * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
@@ -19,8 +19,12 @@ defined('_VALID_MOS') or die();
 
 global $mosConfig_sef;
 
+// TODO тут надо сделать класс-синглтон типа Jurl, и собирать все параметры в него
+
 // редиректить ли с не-sef адресов
 DEFINE('_SEF_REDIRECT', true);
+// удалять из ссылок парамтер ItemId
+DEFINE('_SEF_DELETE_ITEMID', true);
 
 //echo sefRelToAbs( 'index.php?dd=цукцуку&aaa=bbb&id=2010:Новый 2010 год опасносте!&task=task_current_new&option=com_component_name&param1=onepararam&tree:=111/22/333#show' );
 //exit();
@@ -50,7 +54,16 @@ if($mosConfig_sef) {
 			$theURI .= '?' . $_SERVER['QUERY_STRING'];
 		}
 	}
+
+
+	if (false !== ($pos = strpos( $theURI , '.')) ) {
+		// расширение страницы
+		$_GET[':extension']  = $_REQUEST[':extension'] = substr($theURI, $pos);
+		$theURI = substr($theURI, 0, $pos);
+	}
+	
 	$theURI = str_replace(JPATH_SITE,'',$theURI);
+
 
 	$url_array = explode('/', $theURI );
 
@@ -153,6 +166,11 @@ function sefRelToAbs($string,$anti_pref = false) {
 		// break url into component parts
 		parse_str($url['query'],$parts);
 
+		// TODO удаляем Itemid
+		if(_SEF_DELETE_ITEMID==true) {
+			unset($parts['Itemid'], $parts['ItemId'] );
+		}
+
 		if( isset ( $parts['option'] ) ) {
 			$parts['option'] = str_replace('com_', '', $parts['option']);
 			$sefstring[] ='/'.$parts['option'];
@@ -167,14 +185,11 @@ function sefRelToAbs($string,$anti_pref = false) {
 		if( isset ( $parts['id'] ) ) {
 			$id_data = explode(':', $parts['id']);
 			if(isset( $id_data[1] )) {
-                                $id = $id_data[0];
-                                unset($id_data[0]);
-                                $text = implode('', $id_data);
-                                $text = str_replace( array( '?','&','-',',','.','"',"'",'/','\\','(',')','[',']','{','}','+','`','_',':','«','»' ) , '', $text);
-				$text  = Jstring::trim( $text );
-				$text = str_replace(' ', '-', $text);
-				$text = Jstring::strtolower( $text );
-				$id_string = '/'.$id.'-'.$text;
+				$id_data[1] = str_replace( array( '?','&','-',',','.','"',"'",'/','\\','(',')','[',']','{','}','+','`','_' ) , '', $id_data[1]);
+				$id_data[1]  = trim($id_data[1] );
+				$id_data[1] = str_replace(' ', '-', $id_data[1]);
+				$id_data[1] = Jstring::strtolower( $id_data[1] );
+				$id_string = '/'.$id_data[0].'-'.$id_data[1];
 			}else {
 				$id_string = '/'.$id_data[0];
 			}

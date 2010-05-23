@@ -24,14 +24,13 @@ class actionsTags {
 	 */
 	public static function index($option, $page, $task, $tag ) {
 
-		$tag = (string) mosGetParam($_GET, 'tag', '');
+		//$tag = (string) mosGetParam($_GET, 'tag', '');
 		$tag = Jstring::clean( urldecode($tag) );
 
 		mosMainFrame::getInstance()->setPageTitle( $tag );
 
 		$tags = new Tags;
 		$com_nodes_params = array(
-				'group_name' => 'com_pages',
 				'group_title' => 'Cnhfybws',
 				'table'=>'pages',
 				'id'=>'id',
@@ -64,8 +63,7 @@ class actionsTags {
 	public static function cloud() {
 
 		$tags = new Tags;
-		$tags->obj_type = 'com_nodes';
-		$tag_arr = $tags->load_by_type();
+		$tag_arr = $tags->load_all();
 
 		$tags_cloud = new tagsCloud($tag_arr);
 		$tags_cloud = $tags_cloud->get_cloud('', 400);

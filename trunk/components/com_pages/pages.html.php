@@ -16,6 +16,8 @@ class pagesHTML {
 		echo sprintf('<div class="page"><h1>%s</h1></div>', $page->title );
 		echo sprintf('<div class="pc">%s</div>',$page->text);
 
+		echo sprintf('<br /><b>Тэги:</b> %s <br />',$page->tags);
+
 		require_once mosMainFrame::getInstance()->getPath('class','com_comments');
 		$comments = new Comments;
 		echo '<div class="comments">'.$comments->load_comments($page, 5, 5).'</div>';
