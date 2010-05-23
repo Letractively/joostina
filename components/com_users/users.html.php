@@ -15,7 +15,7 @@ class userHTML {
 	public static function index() {
 
 	}
-
+	
 	/**
 	 * Форма регистрации пользователя
 	 */
@@ -35,12 +35,12 @@ class userHTML {
 		require_once 'views/edit/default.php';
 	}
 
-        public static function uploadform( $user ){
-            require_once 'views/uploadform/default.php';
-        }
+	public static function uploadform( $user ) {
+		require_once 'views/uploadform/default.php';
+	}
 
-        public static function files( array $files ){
-            require_once 'views/files/default.php';
-        }
+	public static function files( array $files ) {
+		require_once 'views/files/default.php';
+	}
 
 }
