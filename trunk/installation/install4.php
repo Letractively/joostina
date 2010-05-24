@@ -192,7 +192,7 @@ if($siteUrl) {
 	$config .= "\$mosConfig_error_reporting = '6143';\n";
 	$config .= "\$mosConfig_list_limit = '30';\n";
 	$config .= "\$mosConfig_caching = '0';\n";
-	$config .= "\$mosConfig_cachepath = '{$configArray['absolutePath']}/cache';\n";
+	$config .= "\$mosConfig_cachepath = '{$configArray['absolutePath']}/tmp';\n";
 	$config .= "\$mosConfig_cachetime = '900';\n";
 	$config .= "\$mosConfig_mailer = 'mail';\n";
 	$config .= "\$mosConfig_mailfrom = '$adminEmail';\n";
