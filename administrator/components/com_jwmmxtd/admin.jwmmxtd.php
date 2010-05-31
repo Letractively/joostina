@@ -452,7 +452,7 @@ function create_folder($curdirectory,$folder_name) {
 	$folder_name = str_replace(" ","_",$folder_name);
 	if(strlen($folder_name) > 0) {
 		if(eregi("[^0-9a-zA-Z_]",$folder_name)) {
-			mosRedirect("index2.php?option=com_jwmmxtdcurdirectory=".$curdirectory,_JWMM_FILE_NAME_WARNING);
+			mosRedirect("index2.php?option=com_jwmmxtd&curdirectory=".$curdirectory,_JWMM_FILE_NAME_WARNING);
 		}
 		$folder = JWMMXTD_STARTABSPATH.$curdirectory.DS.$folder_name;
 		if(!is_dir($folder) && !is_file($folder)) {

@@ -149,7 +149,7 @@ function who_online($params_aray,$database) {
 			} else {
 				$user_name = $row->name;
 			}
-			$user_link = 'index.php?option=com_users&amp;task=Profile&amp;user=' . $row->userid;
+			$user_link = 'index.php?option=com_users&amp;task=profile&amp;user=' . $row->userid;
 			$user_seflink = '<a href="' . sefRelToAbs($user_link) . '">' . $user_name . '</a>';
 			$avatar = '<img id="user_avatar_img" src="' . JPATH_SITE .'/'. mosUser::get_avatar($row) . '" style="width:30px" alt="' . $user_name . '"/>';
 			$avatar_link = '<a href="' . sefRelToAbs($user_link) . '">' . $avatar . '</a>';

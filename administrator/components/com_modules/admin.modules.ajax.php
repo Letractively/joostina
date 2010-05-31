@@ -48,7 +48,7 @@ function x_apply() {
 
 	$database = &database::getInstance();
 
-	$params = mosGetParam($_POST,'params','');
+	$params = mosGetParam($_POST,'params', array() );
 	$client = strval(mosGetParam($_REQUEST,'client',''));
 
 	foreach($params as $key => $val) {

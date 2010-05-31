@@ -57,17 +57,17 @@ if(file_exists('installation/index.php') && joomlaVersion::get('SVN') == 0) {
 	exit();
 }
 
+if(file_exists(JPATH_BASE.DS.'components'.DS.'com_sef'.DS.'sef.php')) {
+	require_once (JPATH_BASE.DS.'components'.DS.'com_sef'.DS.'sef.php');
+} else {
+	require_once (JPATH_BASE.DS.'includes'.DS.'sef.php');
+}
+
 // проверяем, разрешено ли использование системных мамботов
 if($mosConfig_mmb_system_off == 0) {
 	$_MAMBOTS->loadBotGroup('system');
 	// триггер событий onStart
 	$_MAMBOTS->trigger('onStart');
-}
-
-if(file_exists(JPATH_BASE.DS.'components'.DS.'com_sef'.DS.'sef.php')) {
-	require_once (JPATH_BASE.DS.'components'.DS.'com_sef'.DS.'sef.php');
-} else {
-	require_once (JPATH_BASE.DS.'includes'.DS.'sef.php');
 }
 
 require_once (JPATH_BASE.DS.'includes'.DS.'frontend.php');
