@@ -76,32 +76,32 @@ global $mosConfig_live_site,$Itemid;
 if($params->get('headings')) {
 ?>
 <tr>
-<td height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _CONTACT_HEADER_NAME; ?></td>
+<td height="20px" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _CONTACT_HEADER_NAME; ?></td>
 <?php
 if($params->get('position')) {
 ?>
-<td height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _CONTACT_HEADER_POS; ?></td>
+<td height="20px" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _CONTACT_HEADER_POS; ?></td>
 <?php
 }
 ?>
 <?php
 if($params->get('email')) {
 ?>
-<td height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _CONTACT_HEADER_EMAIL; ?></td>
+<td height="20px" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _CONTACT_HEADER_EMAIL; ?></td>
 <?php
 }
 ?>
 <?php
 if($params->get('telephone')) {
 ?>
-<td height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _CONTACT_HEADER_PHONE; ?></td>
+<td height="20px" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _CONTACT_HEADER_PHONE; ?></td>
 <?php
 }
 ?>
 <?php
 if($params->get('fax')) {
 ?>
-<td height="20" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _CONTACT_HEADER_FAX; ?></td>
+<td height="20px" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _CONTACT_HEADER_FAX; ?></td>
 <?php
 }
 ?>
@@ -113,7 +113,7 @@ foreach($rows as $row) {
 $link = 'index.php?option=com_contact&amp;task=view&amp;contact_id='.$row->id.'&amp;Itemid='.$Itemid;
 ?>
 <tr>
-<td height="20" class="<?php echo $tabclass[$k]; ?>">
+<td height="20px" class="<?php echo $tabclass[$k]; ?>">
 <a href="<?php echo sefRelToAbs($link); ?>" class="category<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $row->name; ?></a>
 </td>
 <?php

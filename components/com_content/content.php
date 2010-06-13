@@ -1140,7 +1140,7 @@ break;
 // Page Output
 // page header
 if($header) {
-echo '<div class="componentheading'.$params->get('pageclass_sfx').'">'.$header.'</div>';
+echo '<div class="componentheading'.$params->get('pageclass_sfx').'"><h1>'.$header.'</h1></div>';
 }
 if($archive) {
 echo '<br />';
@@ -1155,7 +1155,7 @@ $width = 'width="'.intval($col_with).'%"';
 if($archive) {
 // Search Success message
 $msg = sprintf(_ARCHIVE_SEARCH_SUCCESS,$params->get('month'),$params->get('year'));
-echo "<br /><br /><div align='center'>".$msg."</div><br /><br />";
+echo '<br /><br /><div align="center">'.$msg.'</div><br /><br />';
 }
 echo '<table class="blog'.$params->get('pageclass_sfx').'" cellpadding="0" cellspacing="0">';
 // Secrion/Category Description & Image
@@ -1381,6 +1381,12 @@ $order_method = $mparams->get('orderby','');
 if($order_method == 'front') {
 $order_method = '';
 }
+//Предыдущая, следующая страницы в порядке сортировки по категории start
+else
+{
+$order_method = 'ordering';
+}
+//Предыдущая, следующая страницы в порядке сортировки по категории end
 $orderby = _orderby_sec($order_method);
 $where_ac = (!$mosConfig_disable_access_control?'':"\n AND a.access <= ".(int)$gid);
 $uname = '';

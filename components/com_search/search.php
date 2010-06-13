@@ -52,6 +52,8 @@ $searchphrase = mosGetParam($_REQUEST, 'searchphrase', 'any');
 $searchphrase = preg_replace('/[^a-z]/', '', strtolower($searchphrase));
 $searchword = strval(mosGetParam($_REQUEST,'searchword',''));
 $searchword = trim(stripslashes($searchword));
+//Joomla! com_search glitch 
+$searchword = preg_replace( '/\s{2,}/s', ' ', $searchword );
 // boston, воспользуемся хаком smart'a, увеличим число символов для поиска до 100
 if(strlen($searchword) > 100) {
 $searchword = substr($searchword,0,99);

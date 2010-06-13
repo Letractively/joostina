@@ -19,42 +19,45 @@ $menu->load( $Itemid );
 $title = $menu->name; } ?>
 <div class="componentheading<?php echo $params->get( 'pageclass_sfx' ); ?>"><?php echo $title; ?></div>
 <?php } ?>
-<table width="100%" align="center" class="contentpane<?php echo $params->get( 'pageclass_sfx' ); ?>"><tr><td width="100%"><?php if ( $items ) { HTML_content::showMyTable( $params, $items, $pageNav, $access, $lists, $order ); } else { echo _YOU_HAVE_NO_CONTENT;
-} ?></td></tr></table>
+<table width="100%" align="center" class="contentpane<?php echo $params->get( 'pageclass_sfx' ); ?>"><tr><td width="100%">
+<?php if ($items) { HTML_content::showMyTable($params, $items, $pageNav, $access, $lists, $order); } else { echo _YOU_HAVE_NO_CONTENT;} ?>
+</td></tr></table>
 <?php
-mosHTML::BackButton ( $params ); }
-function showMyTable( &$params, &$items, &$pageNav, &$access, &$lists, $order ) {
+mosHTML::BackButton ($params); }
+function showMyTable(&$params, &$items, &$pageNav, &$access, &$lists, $order) {
 global $mosConfig_live_site, $Itemid,$mosConfig_form_date_full;
-$link = 'index.php?option=com_content&amp;task=mycontent&amp;Itemid='. $Itemid;
+$link = 'index.php?option=com_content&amp;task=mycontent&amp;Itemid='.$Itemid;
 mosCommonHTML::loadFullajax(); ?>
 <script type="text/javascript"><!--
 function ch_publ(elID) { log('Смена статуса публикации содержимого: '+elID); id('img-pub-'+elID).src = ADMINISTRATOR_DIRECTORY.'/images/aload.gif'; dax({ url: 'ajax.index.php?option=com_content&utf=0&task=publish&id='+elID, id:'publ-'+elID, callback: function(resp, idTread, status, ops) { log('Получен ответ: ' + resp.responseText); id('img-pub-'+elID).src = ADMINISTRATOR_DIRECTORY.'/images/'+resp.responseText; } }); }
---></script>
+//--></script>
 <form action="<?php echo sefRelToAbs($link); ?>" method="post" name="adminForm" id="adminForm">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
-<?php if ( $params->get( 'filter' ) || $params->get( 'order_select' ) || $params->get( 'display' ) ) { ?>
+<?php if ($params->get('filter') || $params->get('order_select') || $params->get('display')) { ?>
 <tr>
 <td colspan="5">
 <table>
 <tr>
 <?php if ( $params->get( 'filter' ) ) { ?>
-<td align="right" width="80%"><?php echo _FILTER; ?><br /><input type="text" name="filter" size="50" value="<?php echo $lists['filter'];?>" class="inputbox" onchange="document.adminForm.submit();" /></td>
+<td align="right" width="80%"><?php echo _FILTER; ?><br />
+<input type="text" name="filter" size="50" value="<?php echo $lists['filter'];?>" class="inputbox" onchange="document.adminForm.submit();" /
+></td>
 <?php } if ( $params->get( 'order_select' ) ) { ?>
 <td align="right" width="20%"><?php echo _ORDER_DROPDOWN;?><br /><?php echo $lists['order']; ?></td>
 <?php } if ( $params->get( 'display' ) ) { ?>
 <td align="right" width="80%"><?php echo _PN_DISPLAY_NR;?><br /><?php $link= 'index.php?option=com_content&amp;task=mycontent&amp;Itemid='.$Itemid.'&amp;order='.$order;
-echo $pageNav->getLimitBox( $link ); ?></td>
+echo $pageNav->getLimitBox($link); ?></td>
 <?php } ?>
 </tr>
 </table>
 </td>
 </tr>
 <tr>
-<td class="sectiontableheader<?php echo $params->get( 'pageclass_sfx' ); ?>">&nbsp;</td>
-<td class="sectiontableheader<?php echo $params->get( 'pageclass_sfx' ); ?>" width="60%"><?php echo _HEADER_TITLE;?></td>
-<td class="sectiontableheader<?php echo $params->get( 'pageclass_sfx' ); ?>"><?php echo _E_PUBLISHING;?></td>
-<td class="sectiontableheader<?php echo $params->get( 'pageclass_sfx' ); ?>" width="20%"><?php echo _DATE;?></td>
-<td class="sectiontableheader<?php echo $params->get( 'pageclass_sfx' ); ?>"><?php echo _HEADER_HITS;?></td>
+<td class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>">&nbsp;</td>
+<td class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>" width="60%"><?php echo _HEADER_TITLE;?></td>
+<td class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _E_PUBLISHING;?></td>
+<td class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>" width="20%"><?php echo _DATE;?></td>
+<td class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _HEADER_HITS;?></td>
 </tr>
 <?php }
 $k = 0;
@@ -62,19 +65,21 @@ foreach ( $items as $row ) {
 $row->Itemid_link = '&amp;Itemid='.$Itemid;
 $row->_Itemid = $Itemid;
 $row->created = mosFormatDate ($row->created,$mosConfig_form_date_full,'0');
-$link= sefRelToAbs( 'index.php?option=com_content&amp;task=view&amp;id='.$row->id.'&amp;Itemid='.$Itemid );
+$link= sefRelToAbs('index.php?option=com_content&amp;task=view&amp;id='.$row->id.'&amp;Itemid='.$Itemid);
 $img= $row->published ? 'publish_g.png' : 'publish_x.png';
 $img= $mosConfig_live_site.'/'.ADMINISTRATOR_DIRECTORY.'/images/'.$img; ?>
-<tr class="sectiontableentry<?php echo ($k+1) . $params->get( 'pageclass_sfx' ); ?>" >
+<tr class="sectiontableentry<?php echo ($k+1) . $params->get('pageclass_sfx'); ?>" >
 <td><?php HTML_content::EditIcon( $row, $params, $access );?></td>
-<td><a href="<?php echo $link; ?>"><?php echo $row->title; ?></a><br /><span class="small"><?php if($row->sectionid!=0) echo $row->section.' / '.$row->category; else echo 'Статичное содержимое'; ?></span></td>
+<td><a href="<?php echo $link; ?>"><?php echo $row->title; ?></a><br />
+<span class="small"><?php if($row->sectionid!=0) echo $row->section.' / '.$row->category; else echo 'Статичное содержимое'; ?></span>
+</td>
 <td align="center" <?php echo ($access->canPublish) ? 'onclick="ch_publ('.$row->id.');" class="td-state"' : null ;?>><img class="img-mini-state" src="<?php echo $img;?>" id="img-pub-<?php echo $row->id;?>" alt="Публикация" /></td>
 <td><?php echo $row->created; ?></td>
 <td align="center"><?php echo $row->hits ? $row->hits : 0; ?></td>
 </tr>
-<?php $k = 1 - $k; } if ( $params->get( 'navigation' ) ) { ?>
+<?php $k = 1 - $k; } if ($params->get('navigation')) { ?>
 <tr><td colspan="5">&nbsp;</td></tr>
-<tr><td align="center" colspan="5" class="sectiontablefooter<?php echo $params->get( 'pageclass_sfx' ); ?>"><?php $link = 'index.php?option=com_content&amp;task=mycontent&amp;Itemid='. $Itemid. '&amp;order=' .$order; echo $pageNav->writePagesLinks( $link ); ?></td></tr>
+<tr><td align="center" colspan="5" class="sectiontablefooter<?php echo $params->get('pageclass_sfx'); ?>"><?php $link = 'index.php?option=com_content&amp;task=mycontent&amp;Itemid='.$Itemid.'&amp;order='.$order; echo $pageNav->writePagesLinks($link); ?></td></tr>
 <?php } ?>
 </table>
 <input type="hidden" name="task" value="mycontent" />
@@ -103,7 +108,7 @@ else if($catid) {
 ?><br />
 <?php echo _EMPTY_CATEGORY; ?><br /><br />
 <?php } if(($access->canEdit || $access->canEditOwn) && $categories_exist) { $link = sefRelToAbs('index.php?option=com_content&amp;task=new&amp;sectionid='.$id.'&amp;Itemid='.$Itemid); ?>
-<a href="<?php echo $link; ?>"><img src="<?php echo $mosConfig_live_site; ?>/images/M_images/new.png" width="13" height="14" align="middle" border="0" alt="<?php echo _CMN_NEW; ?>" />&nbsp;<?php echo _CMN_NEW; ?>...</a><br /><br />
+<a href="<?php echo $link; ?>"><img src="<?php echo $mosConfig_live_site; ?>/images/M_images/new.png" width="13" height="14" align="middle" alt="<?php echo _CMN_NEW; ?>" />&nbsp;<?php echo _CMN_NEW; ?>...</a><br /><br />
 <?php } ?>
 </td>
 </tr>
@@ -152,8 +157,7 @@ $order = '&amp;order='.$lists['order_value']; }
 $filter = '';
 if($lists['filter']) {
 $filter = '&amp;filter='.$lists['filter']; }
-$link = 'index.php?option=com_content&amp;task=category&amp;sectionid='.$sectionid.
-'&amp;id='.$catid.'&amp;Itemid='.$Itemid.$order.$filter;
+$link = 'index.php?option=com_content&amp;task=category&amp;sectionid='.$sectionid.'&amp;id='.$catid.'&amp;Itemid='.$Itemid.$order.$filter;
 echo '&nbsp;&nbsp;&nbsp;'._PN_DISPLAY_NR.'&nbsp;';
 echo '<br />';
 echo $pageNav->getLimitBox($link); ?>
@@ -552,7 +556,7 @@ $docinfo .= $row->hits."<br />";
 <tr>
 <?php mosToolBar::save(); mosToolBar::apply(); mosToolBar::cancel(); ?>
 <?php if($access->canPublish || $auto_publish==1 || $my->usertype=="Super Administrator"){?>
-<td><b>&nbsp;&nbsp;Опубликовано:</b>&nbsp;&nbsp;</td><td><?php echo  mosHTML::yesnoRadioList('state','',$row->state);?></td>
+<td>&nbsp;&nbsp;<b>Опубликовано:</b>&nbsp;&nbsp;</td><td><?php echo  mosHTML::yesnoRadioList('state','',$row->state);?></td>
 <?php }?>
 <?php if( ($row->sectionid || !$content_type) && ($allow_frontpage==1 || $my->usertype=="Super Administrator") ){?>
 <td align="right">&nbsp;&nbsp;&nbsp;<b><?php echo $front_label;?>:</b>&nbsp;</td>
@@ -594,7 +598,7 @@ $docinfo .= $row->hits."<br />";
 if( $allow_params || $allow_img) { $tabs->startPane('content-pane');
 if( $allow_img) { $tabs->startTab(_E_IMAGES,'images-page'); ?>
 <table class="adminform">
-<tr><td colspan="4"><?php echo _CMN_SUBFOLDER; ?> :: <?php echo $lists['folders']; ?></td></tr>
+<tr><td colspan="4"><?php echo _CMN_SUBFOLDER; ?>: <?php echo $lists['folders']; ?></td></tr>
 <tr>
 <td align="top"><?php echo _E_GALLERY_IMAGES; ?></td>
 <td width="2%">&nbsp;</td>
