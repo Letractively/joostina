@@ -129,7 +129,6 @@ $text .= 'MAILER: Joostina! vCard for '.$sitename;
 $text .= "\r\n";
 $text .= 'END:VCARD';
 $text .= "\r\n";
-
 return $text;
 }
 }

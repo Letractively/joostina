@@ -20,6 +20,14 @@ switch ($text_pos){
 case 'iside':
 default:
 $output = '<input name="searchword" id="mod_search_searchword" maxlength="100" alt="search" class="inputbox'.$moduleclass_sfx.'" type="text" size="'.$width.'" value="'.$text.'" onblur="if(this.value==\'\') this.value=\''.$text.'\';" onfocus="if(this.value==\''.$text.'\') this.value=\'\';" />';
+//Автозаполнение поля Поиск (in work)
+//$searchword = strval( mosGetParam( $_REQUEST, 'searchword', '' ) );
+//$searchword = trim( stripslashes( $searchword ) );
+//if ($searchword)
+//$mtext=' value="'.$searchword.'" ';
+//else 
+//$mtext='value="'.$text.'" onblur="if(this.value==\'\') this.value=\''.$text.'\';" onfocus="if(this.value==\''.$text.'\') this.value=\'\';" ';
+//$output = '<input name="searchword" id="mod_search_searchword" maxlength="20" alt="search" class="inputbox'. $moduleclass_sfx .'" type="text" size="'.$width.'" '.$mtext.' />'; 
 break;
 case 'left':
 $output = '<strong>'.$text.'</strong>&nbsp;<input name="searchword" id="mod_search_searchword" maxlength="100" alt="search" class="inputbox'.$moduleclass_sfx.'" type="text" size="'.$width.'" value="" />';

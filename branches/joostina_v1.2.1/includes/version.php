@@ -28,7 +28,7 @@ var $DEV_LEVEL = '15';
 /** @var int Номер сборки*/
 var $BUILD = '$: 191';
 /** @var string Кодовое имя*/
-var $CODENAME = 'alpha 1';
+var $CODENAME = 'beta 1 - Delirium Tremens';
 /** @var string Дата*/
 var $RELDATE = '21:02:2009';
 /** @var string Время*/

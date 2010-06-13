@@ -34,6 +34,7 @@ $access->canPublish = 0;
 $now= _CURRENT_SERVER_TIME;
 $noauth= !$mainframe->getCfg('shownoauth');
 $nullDate= $database->getNullDate();
+$sectionid = intval($params->get('sectionid'));
 $catid= intval($params->get('catid'));
 $items= intval($params->get('items', 0));
 $style= $params->get('style', 'flash');
@@ -51,9 +52,10 @@ $query = "SELECT a.id, a.introtext, a.fulltext , a.images, a.attribs, a.title, a
 ."\n INNER JOIN #__sections AS s ON s.id = a.sectionid"
 ."\n WHERE a.state = 1"
 . ( $noauth ? "\n AND a.access <= " . (int) $my->gid . " AND cc.access <= " . (int) $my->gid . " AND s.access <= " . (int) $my->gid : '' )
-."\n AND (a.publish_up = " . $database->Quote( $nullDate ) . " OR a.publish_up <= " . $database->Quote( $now ) . " ) "
-."\n AND (a.publish_down = " . $database->Quote( $nullDate ) . " OR a.publish_down >= " . $database->Quote( $now ) . " )"
-."\n AND a.catid = " . (int) $catid
+."\n AND (a.publish_up = " . $database->Quote( $nullDate ). " OR a.publish_up <= " . $database->Quote( $now ). " ) "
+."\n AND (a.publish_down = " . $database->Quote( $nullDate ). " OR a.publish_down >= " . $database->Quote( $now ). " )"
+.($catid ? "\n   AND a.catid =". (int) $catid : '')
+.((!$catid && $sectionid)? "\n   AND a.sectionid =". (int) $sectionid : '')
 ."\n AND cc.published = 1"
 ."\n AND s.published = 1"
 ."\n ORDER BY a.ordering"

@@ -149,7 +149,7 @@ $Itemid = '&amp;Itemid='.$Itemid;
 $link = sefRelToAbs('index.php?option=com_content&amp;task=view&amp;id='.$row->id.$Itemid);
 $class= ($noncss ? '':' class="mostread'.$moduleclass_sfx.'"');
 ?>
-<li class="<?php echo $class ?>"><a href="<?php echo $link; ?>" title="<?php echo $row->title; ?>" class="<?php echo $class ?>"><?php echo $row->title; ?></a><?php echo $show_hits ? '('.$row->hits.')':'';?></li><?php
+<li class="<?php echo $class ?>"><a href="<?php echo $link; ?>" title="<?php echo $row->title; ?>" class="<?php echo $class ?>"><?php echo $row->title . (($row->hits) ? ' (' .$row->hits. ')' : ''); ?></a></li><?php
 }
 ?>
 </ul>
