@@ -80,36 +80,25 @@ $icon = $mosConfig_live_site.'/images/'.$mosConfig_favicon;
 <link rel="shortcut icon" href="<?php echo $icon; ?>" />
 <meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
 </head>
-<body>
+<body style="height:auto !important;height:100%;min-height:100%;width:100%;margin:0;padding:0;">
 <div id="joo"><img src="<?php echo $mosConfig_live_site;?>/administrator/templates/joostfree/images/logo.png" alt="Joostina!" /></div>
-<div id="ctr1" align="center">
+<div id="ctr1" align="center" style="height:100%;width:100%;margin:0;padding:0;">
 <p>&nbsp;</p><p>&nbsp;</p>
-<table width="550" align="center" class="outline">
+<table width="100%" height="100%" align="center" class="outline">
 <tr><td width="60%" height="50" align="center"><img src="<?php echo $mosConfig_live_site; ?>/images/syte_off.png" alt="Сайт выключен!" align="middle" /></td></tr>
 <tr><td align="center"><h1><?php echo $mosConfig_sitename; ?></h1></td></tr>
 <?php if($mosConfig_offline == 1) { ?>
 <tr><td width="39%" align="center"><b><?php echo $mosConfig_offline_message; ?></b></td></tr>
-<?php
-} else
-if(@$mosSystemError) {
-?>
-<tr>
-<td width="39%" align="center"><b><?php echo $mosConfig_error_message; ?></b><br /><span class="err"><?php echo defined('_SYSERR'.$mosSystemError)?constant('_SYSERR'.$mosSystemError):$mosSystemError; ?></span></td>
-</tr>
-<?php
-} else {
-?>
+<?php } else if(@$mosSystemError) { ?>
+<tr><td width="39%" align="center"><b><?php echo $mosConfig_error_message; ?></b><br /><span class="err"><?php echo defined('_SYSERR'.$mosSystemError)?constant('_SYSERR'.$mosSystemError):$mosSystemError; ?></span></td></tr>
+<?php } else { ?>
 <tr><td width="39%" align="center"><b><?php echo _INSTALL_WARN; ?></b></td></tr>
-<?php
-}
-?>
+<?php } ?>
+<tr><td width="39%" align="center"></td></tr>
 </table>
 </div>
 <div id="break"></div>
-<div id="footer_off" align="center"><div align="center"><?php echo @$_VERSION->URL; ?></div></div>
+<div id="footer_off" style="vertical-align:bottom;" align="center"><div align="center"><?php echo @$_VERSION->URL; ?></div></div>
 </body>
 </html>
-<?php
-exit(0);
-}
-?>
+<?php exit(0); } ?>

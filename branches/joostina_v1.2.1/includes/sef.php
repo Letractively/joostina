@@ -333,6 +333,18 @@ if($mosConfig_sef && $mosConfig_multilingual_support && $string != 'index.php' &
 !eregi("^(([^:/?#]+):)",$string) && !strcasecmp(substr($string,0,9),'index.php') &&
 !eregi('lang=',$string)) {
 $string .= '&amp;lang='.$iso_client_lang;
+/* Поддержка  анкоров/якорей  */
+if(ereg("((#[^&|\/]+))", $string, $resurlarr))
+$string = str_replace($resurlarr[1], '', $string); 
+if(isset($mosConfig_sef) && $mosConfig_sef) {
+if(substr($string, -1) == "/") 
+$string .= 'lang,'.$iso_client_lang.$resurlarr[1]; /*если урл заканчивается слешом*/
+else
+$string .= '/lang,'.$iso_client_lang.$resurlarr[1]; /*если урл не заканчивается слешом*/
+} else {
+$string .= '&lang=$iso_client_lang'.$resurlarr[1]; 
+}
+/* Поддержка  анкоров/якорей  */
 }
 if(eregi("option=com_frontpage",$string) & $mosConfig_com_frontpage_clear & !
 eregi("limit",$string)) $string = ''; // если ссылка идёт на компонент главной страницы - очистим её

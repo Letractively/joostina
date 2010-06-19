@@ -1567,7 +1567,7 @@ $link = sefRelToAbs($secLinkURL.$_Itemid);
 } else {
 $link = sefRelToAbs('index.php?option=com_content&amp;task=section&amp;id='.$row->sectionid.$_Itemid);
 }
-$row->section = '<a href="'.$link.'">'.$row->section.'</a>';
+$row->section = '<a href="'.$link.'" title="'.$row->section.'">'.$row->section.'</a>';
 }
 // loads the link for Category name
 if($params->get('category_link') && $row->catid) {
@@ -1607,7 +1607,7 @@ $link = sefRelToAbs($catLinkURL.$_Itemid);
 $link = sefRelToAbs('index.php?option=com_content&amp;task=category&amp;sectionid='.
 $row->sectionid.'&amp;id='.$row->catid.$_Itemid);
 }
-$row->category = '<a href="'.$link.'">'.$row->category.'</a>';
+$row->category = '<a href="'.$link.'" title="'.$row->category.'">'.$row->category.'</a>';
 }
 }
 // show/hides the intro text
@@ -1615,7 +1615,7 @@ if($params->get('introtext')) {
 if($params->get('jeditable'))
 $row->text = $row->introtext.($params->get('intro_only')?'':chr(13).'</div><div id="jneditf-'.$row->id.'">'.chr(13).$row->fulltext.chr(13).chr(13).$row->notetext);
 else
-$row->text = $row->introtext.($params->get('intro_only')?'':chr(13).chr(13).$row->fulltext.chr(13).chr(13).$row->notetext);
+$row->text = $row->introtext.($params->get('intro_only')?'':chr(13).chr(13).'{begun}'. $row->fulltext.chr(13).chr(13).'{adsense_text}'. $row->notetext);
 } else {
 $row->text = $row->fulltext;
 }
@@ -1917,11 +1917,21 @@ _CURRENT_SERVER_TIME_FORMAT,-$mosConfig_offset);
 // code cleaner for xhtml transitional compliance
 $row->introtext = str_replace('<br>','<br />',$row->introtext);
 $row->fulltext = str_replace('<br>','<br />',$row->fulltext);
+//test start
+$row->notetext = str_replace('<br>','<br />',$row->notetext);
+//test end
 // remove <br /> take being automatically added to empty fulltext
 $length = strlen($row->fulltext) < 9;
 $search = strstr($row->fulltext,'<br />');
+//test start
+$length = strlen($row->notetext) < 9;
+$search = strstr($row->notetext,'<br />');
+//test end
 if($length && $search) {
 $row->fulltext = null;
+//test start
+$row->notetext = null;
+//test end
 }
 $row->title = ampReplace($row->title);
 if(isset($_POST['catid'])){

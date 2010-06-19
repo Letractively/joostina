@@ -294,7 +294,7 @@ HTML_content::URL($row,$params);
 HTML_content::ReadMore($row,$params);
 ?>
 </td></tr></table>
-<span class="article_seperator">&nbsp;</span>
+<span class="article_separator">&nbsp;</span>
 <?php
 $results = $_MAMBOTS->trigger('onAfterDisplayContent',array(&$row,&$params,$page));
 echo trim(implode("\n",$results));
