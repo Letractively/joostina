@@ -51,6 +51,10 @@ exit();
 }
 // отображение страницы выключенного сайта
 if($mosConfig_offline == 1) {
+header('HTTP/1.1 503 Service Temporarily Unavailable');
+header('Status: 503 Service Temporarily Unavailable');
+header('Retry-After: 3600');
+header('X-Powered-By:');
 require ($mosConfig_absolute_path.'/offline.php');
 }
 // (c) boston, проверяем, разрешено ли использование системных мамботов

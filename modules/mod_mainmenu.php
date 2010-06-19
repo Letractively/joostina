@@ -23,6 +23,20 @@ case 'url':
 if (eregi('index.php\?', $mitem->link) && !eregi('http', $mitem->link) && !eregi('https', $mitem->link)) {
 if (!eregi('Itemid=', $mitem->link)) {
 $mitem->link .= '&amp;Itemid='.$mitem->id;
+/* Поддержка  анкоров/якорей  */
+if(ereg("((#[^&|\/]+))", $result2->link, $urlarr))
+$result2->link = str_replace($urlarr[1], '', $result2->link); 
+/* проверяем содержит ли уже URL параметр Itemid */
+if(!strstr($result2->link, 'Itemid')) {
+# проверяем включен ли режим SEF. Если включен преобразуем URL
+if(isset($GLOBALS['mosConfig_sef']) && $GLOBALS['mosConfig_sef']) {
+$result2->link .= 'Itemid,'.$result2->id.'/';
+} else {
+$result2->link .= '&Itemid=$result2->id'; }
+}
+if(isset($urlarr[1]) && $urlarr[1])
+$result2->link .= $urlarr[1];
+/* Поддержка  анкоров/якорей  */
 }
 }
 break;

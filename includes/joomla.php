@@ -2295,7 +2295,8 @@ $this->mosDBTable('#__content','id',$db);
 /** Validation and filtering*/
 function check() {
 // filter malicious code
-$ignoreList = array('introtext','fulltext');
+//add notetext
+$ignoreList = array('introtext','fulltext','notetext');
 $this->filter($ignoreList);
 /*
 * TODO: This filter is too rigorous,
