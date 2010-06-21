@@ -30,13 +30,13 @@ var $BUILD = '$: 191';
 /** @var string Кодовое имя*/
 var $CODENAME = 'beta 1 - Delirium Tremens';
 /** @var string Дата*/
-var $RELDATE = '21:02:2009';
+var $RELDATE = '18.06.2010';
 /** @var string Время*/
-var $RELTIME = '09:32';
+var $RELTIME = '23:57';
 /** @var string Временная зона*/
 var $RELTZ = '+5 GMT';
 /** @var string Текст авторских прав*/
-var $COPYRIGHT = 'Авторские права &copy; 2008 Joostina Team. Все права защищены.';
+var $COPYRIGHT = 'Авторские права &copy; 2008&ndash;2010 Joostina Team. Все права защищены.';
 /** @var string URL*/
 var $URL = '<a href="http://www.joostina.ru" target="_blank" title="Система создания и управления сайтами Joostina CMS">Joostina!</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.';
 /** @var string для реального использования сайта установите = 1 для демонстраций = 0: 1 используется по умолчанию*/
