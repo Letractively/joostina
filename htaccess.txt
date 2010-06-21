@@ -66,14 +66,21 @@ RewriteEngine On
 # Обновите Ваш каталог Joomla (используйте "/" для обозначения корня сервера)
 # RewriteBase /
 
-# Эту страницу покажем, в случае 404 ошибки
+## Начало страниц ошибок
+# 404 ошибка (404 Not found)
 # ErrorDocument 404 /index.php?option=com_content&task=view&id=18 
-# Ссылка дана на условную страницу ошибки 404, при необходимости исправте на ссылку вашей страницы # ошибки. Чаще всего в ее роли выступает статическое содержимое, для получения ссылки опубликуйте страницу в каком-либо из меню (желательно в том, которое не будет отображаться на сайте) и раскомментируйте строку. В качестве страницы ошибки может выступать и отдельная *.html страница, размещенная в корне сайта. Тогда строка будет выглядеть так:
-# ErrorDocument 404 /page404.html (название условно). По аналогии можно создать страницы для других ошибок (400, 403, 500, etc.)
-# Отсылаем 503 ошибку (закомментирована строка для выбора HTTP_USER_AGENT робота)
-# RewriteCond %{HTTP_USER_AGENT} ^.*(Googlebot|Googlebot|Mediapartners|Adsbot|Feedfetcher)-?(Google|Image)? [NC]
+# Ссылка дана на условную страницу ошибки 404, при необходимости исправте на ссылку вашей страницы # ошибки. Чаще всего в ее роли выступает статическое содержимое, для получения ссылки опубликуйте страницу в каком-либо из меню (желательно в том, которое не будет отображаться на сайте) и раскомментируйте строку. В качестве страницы ошибки может выступать и отдельная *.html страница, размещенная в корне сайта. Тогда строка будет выглядеть так: ErrorDocument 404 /page404.html (название условно). По аналогии можно создать страницы для других ошибок (400, 403, 500, etc.)
+# 503 ошибка (503 Service Temporarily Unavailable)
+# Отсылаем 503 ошибку роботам (перечмслены только Google роботы, остальные добавляются по аналогии, список HTTP_USER_AGENT роботов спрашивать у www.google.com)
+RewriteCond %{HTTP_USER_AGENT} ^.*(Googlebot|Googlebot|Mediapartners|Adsbot|Feedfetcher)-?(Google|Image)? [NC]
 RewriteCond %{REQUEST_URI} !^/offline\.php [NC]
 RewriteRule .* /offline.php
+# Людям вместо 503 страницу об ошибке - 404
+RewriteCond %{REMOTE_HOST} !^XXX\.XXX\.XXX\.XXX
+RewriteCond %{REQUEST_URI} !^/templates/404\.php [NC]
+# Страницу 404 мы уже задали выше (line 71), вот ее родимую и отдаем электорату
+RewriteRule .* /index.php?option=com_content&task=view&id=18  [R=302,L]
+## Конец страниц ошибок
 
 ## Начало раздела стандартного SEF
 ## Используйте эту секцию ТОЛЬКО для работы встроенного SEF Joomla
@@ -142,8 +149,8 @@ RewriteRule ^(.*)$ index.php [F,L]
 ## doctorgrif: (на всякий случай) Редирект с FeedBurner для Google AdSence - заворачивает трафик на ваш сайт
 # RewriteCond %{HTTP_USER_AGENT} !FeedBurner
 # RewriteRule ^index.php?option=com_rss&id=1&lang=ru$ http://feeds.feedburner.com/your_rss [R,L] 
-# с index.php (!) в начале и в конце $ (!) прим.: index.php?option=com_rss&id=1&lang=ru$ - смените на ваш адрес rss фида; your_rss - # адрес фида (окончание) в feedburner прим.: http://feeds.feedburner.com/hospsurg
-# RewriteRule ^index\.xml$ http://feeds.feedburner.com/ваша_лента [R,L]
+# Sic!: Ссылку на ленту вносим с index.php в начале (!) и в конце с $ (!) (прим.: index.php?option=com_rss&id=1&lang=ru$) - смените на ваш адрес rss фида; your_rss - # адрес фида (окончание) в feedburner (прим.: http://feeds.feedburner.com/hospsurg/DTON)
+# RewriteRule ^index\.xml$ http://feeds.feedburner.com/your_rss [R,L]
 ## Конец
 
 ## doctorgrif: сжатие css и js файлов на сервере и корректная выдача их затем клиенту
