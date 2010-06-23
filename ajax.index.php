@@ -19,6 +19,10 @@ $mosConfig_live_site = 'https://'.substr($mosConfig_live_site,7);
 require_once ('includes/joomla.php');
 // отображение состояния выключенного сайта
 if($mosConfig_offline == 1) {
+header('HTTP/1.1 503 Service Temporarily Unavailable');
+header('Status: 503 Service Temporarily Unavailable');
+header('Retry-After: 3600');
+header('X-Powered-By:');
 require ($mosConfig_absolute_path.'/offline.php');
 }
 // автоматическая перекодировка в юникод, по умолчанию актвино
