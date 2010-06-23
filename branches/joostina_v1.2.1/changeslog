@@ -1,4 +1,6 @@
 Joostina v 1.2.1
+23.06.10 (doctorgrif)
+1. Настроена отдача 503 Service Temporarily Unavailable для отключенного сайта. Добины ajax страницы и index2.
 18.06.10 (doctorgrif)
 1. Настроена отдача 503 Service Temporarily Unavailable для отключенного сайта. Сообщил: muzhik (http://joomlaforum.ru/index.php?action=profile;u=66416)
 2. Теги в notetext - достигнута частичная работоспособность данной опции, режутся не все :). Сообщил: imss (http://joomlaforum.ru/index.php?action=profile;u=40556)
