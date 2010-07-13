@@ -279,7 +279,6 @@ $enclosure = $currItem->getEnclosure();
 $eUrl = $enclosure->getUrl();
 ?>
 <a href="<?php echo ampReplace($currItem->getLink()); ?>" target="_blank"><?php echo $item_title; ?></a><br />
-<!--doctorgrif: вынес русские слова в языковые переменные, взяв их иж уже имеющегося языкового файла-->
 <?php echo _NEWSFEED_LINK; ?>: 
 <a href="<?php echo $eUrl; ?>" target="_blank"><?php echo ampReplace($eUrl); ?></a>
 <?php

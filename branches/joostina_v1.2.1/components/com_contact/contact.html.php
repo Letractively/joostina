@@ -519,7 +519,6 @@ session_start();
 <div>
 <img id="captchaimg" alt="Нажмите чтобы обновить изображение" onclick="document.emailForm.captchaimg.src='<?php echo $mosConfig_live_site; ?>/includes/kcaptcha/index.php?'+new String(Math.random())" src="<?php echo $mosConfig_live_site; ?>/includes/kcaptcha/index.php?<?php echo session_id() ?>" />
 </div>
-<!--doctorgrif: вынес русские слова в языковые переменные, взяв их иж уже имеющегося языкового файла-->
 <div><?php echo _PLEASE_ENTER_CAPTCHA; ?>:</div>
 <div>
 <input name="captcha" type="text" class="inputbox" size="30" />

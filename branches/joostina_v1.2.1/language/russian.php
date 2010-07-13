@@ -13,11 +13,11 @@ global $mosConfig_form_date,$mosConfig_form_date_full;
 
 // Страница сайта не найдена
 define('_404','Запрошенная страница не найдена.');
-define('_404_RTS','Вернуться на сайт');
+define('_404_RTS','Вернуться на сайт.');
 
-define('_SYSERR1','Нет поддержки MySQL');
-define('_SYSERR2','Невозможно подключиться к серверу базы данных');
-define('_SYSERR3','Невозможно подключиться к базе данных');
+define('_SYSERR1','Нет поддержки MySQL.');
+define('_SYSERR2','Невозможно подключиться к серверу базы данных.');
+define('_SYSERR3','Невозможно подключиться к базе данных.');
 
 // общее
 DEFINE('_LANGUAGE','ru');
@@ -75,22 +75,22 @@ DEFINE('_LOGIN_BLOCKED','Извините, ваша учетная запись заблокирована. За более п
 DEFINE('_LOGIN_INCORRECT','Неправильное имя пользователя (логин) или пароль. Попробуйте ещё раз.');
 DEFINE('_LOGIN_NOADMINS','Извините, вы не можете войти на сайт. Администраторы на сайте не зарегистрированы.');
 DEFINE('_CMN_JAVASCRIPT','Внимание! Для выполнения данной операции, в вашем браузере должна быть включена поддержка Java-script.');
-DEFINE('_NEW_MESSAGE','Вам пришло новое личное сообщение');
+DEFINE('_NEW_MESSAGE','Вам пришло новое личное сообщение.');
 DEFINE('_MESSAGE_FAILED','Пользователь заблокировал свой почтовый ящик. Сообщение не доставлено.');
-DEFINE('_CMN_IFRAMES','Эта страница будет отображена некорректно. Ваш браузер не поддерживает вложенные фреймы (IFrame)');
-DEFINE('_INSTALL_3PD_WARN','Предупреждение: Установка сторонних расширений может нарушить безопасность вашего сайта. При обновлении Joomla! сторонние расширения не обновляются.<br />Для получения дополнительной информации о мерах защиты своего сайта и сервера, пожалуйста, посетите <a href="http://forum.joomla.org/index.php/board,267.0.html" target="_blank" style="color: blue; text-decoration: underline;">Форум безопасности Joomla!</a>.');
+DEFINE('_CMN_IFRAMES','Эта страница будет отображена некорректно. Ваш браузер не поддерживает вложенные фреймы (IFrame).');
+DEFINE('_INSTALL_3PD_WARN','Предупреждение: Установка сторонних расширений может нарушить безопасность вашего сайта. При обновлении Joomla! сторонние расширения не обновляются.<br />Для получения дополнительной информации о мерах защиты своего сайта и сервера, пожалуйста, посетите <a href="http://forum.joomla.org/index.php/board,267.0.html" target="_blank" style="color:blue;text-decoration:underline;">Форум безопасности Joomla!</a>.');
 DEFINE('_INSTALL_WARN','По соображениям безопасности, пожалуйста, удалите каталог <strong>installation</strong> с вашего сервера и обновите страницу.');
-DEFINE('_TEMPLATE_WARN','<font color=\"red\"><strong>Файл шаблона не найден:</strong></font> <br /> Зайдите в Панель управления сайтом и выберите новый шаблон ');
-DEFINE('_NO_PARAMS','Объект не содержит настраиваемых параметров');
+DEFINE('_TEMPLATE_WARN','<font color="red"><strong>Файл шаблона не найден!</strong></font><br />Зайдите в Панель управления сайтом и выберите новый шаблон.');
+DEFINE('_NO_PARAMS','Объект не содержит настраиваемых параметров.');
 DEFINE('_HANDLER','Обработчик для данного типа отсутствует');
 
 /** мамботы*/
 DEFINE('_TOC_JUMPTO','Оглавление');
 
 /**  содержимое*/
-DEFINE('_READ_MORE','Подробнее...');
-DEFINE('_READ_MORE_REGISTER','Только для зарегистрированных пользователей...');
-DEFINE('_MORE','Далее...');
+DEFINE('_READ_MORE','Подробнее…');
+DEFINE('_READ_MORE_REGISTER','Только для зарегистрированных пользователей…');
+DEFINE('_MORE','Далее…');
 DEFINE('_ON_NEW_CONTENT',"Пользователь [ %s ] добавил новый объект [ %s ]. Раздел: [ %s ]. Категория: [ %s ]");
 DEFINE('_SEL_CATEGORY','- Выберите категорию -');
 DEFINE('_SEL_SECTION','- Выберите раздел -');
@@ -121,10 +121,10 @@ DEFINE('_REMEMBER_ME','Запомнить');
 /** contact.php*/
 DEFINE('_ENQUIRY','Контакт');
 DEFINE('_ENQUIRY_TEXT','Это сообщение отправлено с сайта %s. Автор сообщения:');
-DEFINE('_COPY_TEXT','Это копия сообщения, которое Вы отправили для %s с сайта %s ');
+DEFINE('_COPY_TEXT','Это копия сообщения, которое Вы отправили для %s с сайта %s. ');
 DEFINE('_COPY_SUBJECT','Копия: ');
 DEFINE('_THANK_MESSAGE','Спасибо! Сообщение успешно отправлено.');
-DEFINE('_CLOAKING','Этот e-mail защищен от спам-ботов. Для его просмотра в вашем браузере должна быть включена поддержка Java-script');
+DEFINE('_CLOAKING','Этот e-mail защищен от спам-ботов. Для его просмотра в вашем браузере должна быть включена поддержка Java-script.');
 DEFINE('_CONTACT_HEADER_NAME','Имя');
 DEFINE('_CONTACT_HEADER_POS','Положение');
 DEFINE('_CONTACT_HEADER_EMAIL','E-mail');
@@ -152,7 +152,7 @@ DEFINE('_CONTACT_MISC','Доп. информация: ');
 DEFINE('_CONTACT_SEL','Выберите получателя:');
 DEFINE('_CONTACT_NONE','Детали этой контактной записи отсутствуют.');
 DEFINE('_CONTACT_ONE_EMAIL','Нельзя вводить более одного адреса e-mail.');
-DEFINE('_EMAIL_A_COPY','Отправить копию сообщения на собственный адрес');
+DEFINE('_EMAIL_A_COPY','Отправить копию сообщения на собственный адрес.');
 DEFINE('_CONTACT_DOWNLOAD_AS','Скачать информацию в формате');
 DEFINE('_VCARD','VCard');
 
@@ -200,7 +200,7 @@ DEFINE('_HEADER_SUBMITTED','Написан');
 DEFINE('_HEADER_HITS','Просмотров');
 DEFINE('_E_EDIT','Редактировать');
 DEFINE('_E_ADD','Добавить');
-DEFINE('_E_WARNUSER','Пожалуйста, нажмите кнопку "Отмена" или "Сохранить", чтобы покинуть эту страницу');
+DEFINE('_E_WARNUSER','Пожалуйста, нажмите кнопку "Отмена" или "Сохранить", чтобы покинуть эту страницу.');
 DEFINE('_E_WARNTITLE','Содержимое должно иметь заголовок');
 DEFINE('_E_WARNTEXT','Содержимое должно иметь вводный текст');
 DEFINE('_E_WARNCAT','Пожалуйста, выберите категорию');
@@ -257,12 +257,12 @@ DEFINE('_ITEM_NEXT',' &raquo;');
 DEFINE('_KEY_NOT_FOUND','Ключ не найден');
 
 /** content.php*/
-DEFINE('_SECTION_ARCHIVE_EMPTY','В этом разделе архива сейчас нет объектов. Пожалуйста, зайдите позже');
-DEFINE('_CATEGORY_ARCHIVE_EMPTY','В этой категории архива сейчас нет объектов. Пожалуйста, зайдите позже');
+DEFINE('_SECTION_ARCHIVE_EMPTY','В этом разделе архива сейчас нет объектов. Пожалуйста, зайдите позже.');
+DEFINE('_CATEGORY_ARCHIVE_EMPTY','В этой категории архива сейчас нет объектов. Пожалуйста, зайдите позже.');
 DEFINE('_HEADER_SECTION_ARCHIVE','Архив разделов');
 DEFINE('_HEADER_CATEGORY_ARCHIVE','Архив категорий');
-DEFINE('_ARCHIVE_SEARCH_FAILURE','Не найдено архивных записей для %s %s'); // значения месяца, а затем года
-DEFINE('_ARCHIVE_SEARCH_SUCCESS','Найдены архивные записи для %s %s'); // значения месяца, а затем года
+DEFINE('_ARCHIVE_SEARCH_FAILURE','Не найдено архивных записей для %s %s.'); // значения месяца, а затем года
+DEFINE('_ARCHIVE_SEARCH_SUCCESS','Найдены архивные записи для %s %s.'); // значения месяца, а затем года
 DEFINE('_FILTER','Фильтр');
 DEFINE('_ORDER_DROPDOWN_DA','Дата (по возрастанию)');
 DEFINE('_ORDER_DROPDOWN_DD','Дата (по убыванию)');
@@ -277,7 +277,7 @@ DEFINE('_ORDER_DROPDOWN_O','По порядку');
 /** poll.php*/
 DEFINE('_ALERT_ENABLED','Cookies должны быть разрешены!');
 DEFINE('_ALREADY_VOTE','Вы уже проголосовали в этом опросе!');
-DEFINE('_NO_SELECTION','Вы не сделали свой выбор. Пожалуйста, попробуйте ещё раз');
+DEFINE('_NO_SELECTION','Вы не сделали свой выбор. Пожалуйста, попробуйте ещё раз.');
 DEFINE('_THANKS','Спасибо за Ваше участие в голосовании!');
 DEFINE('_SELECT_POLL','Выберите опрос из списка');
 
@@ -377,6 +377,7 @@ DEFINE('_SENDING_PASSWORD','Ваш пароль будет отправлен на указанный выше адрес e
 /** classes/html/search.php*/
 /*doctorgrif: дополнил языковые переменные*/
 DEFINE('_SEARCH_TITLE','Поиск');
+DEFINE('_SEARCH_SEL_CATEGORY','Выберите категорию');
 DEFINE('_SEARCH_RESULT','Результаты поиска:');
 DEFINE('_PROMPT_KEYWORD','Поиск по ключевой фразе');
 DEFINE('_SEARCH_MATCHES','найдено %d совпадений');
@@ -422,10 +423,11 @@ $mon_date=array('01'=>"января",
                         '12'=>"декабря",);
 $mon=date("m");
 $m=$mon_date["$mon"];
-DEFINE('_DATE_FORMAT_LC',"%A, %d ".$m." %Y"); //Используйте PHP strftime формат
-DEFINE('_DATE_FORMAT_LC',$mosConfig_form_date); //Используйте формат PHP-функции strftime
+//DEFINE('_DATE_FORMAT_LC',"%A, %d ".$m." %Y"); //Используйте PHP strftime формат
+DEFINE('_DATE_FORMAT_LC',"%d ".$m." %Y"); //Используйте PHP strftime формат
+//DEFINE('_DATE_FORMAT_LC',$mosConfig_form_date); //Используйте формат PHP-функции strftime
 DEFINE('_DATE_FORMAT_LC2',$mosConfig_form_date_full); // Полный формат времени
-DEFINE('_SEARCH_BOX','Поиск...');
+DEFINE('_SEARCH_BOX','Поиск…');
 DEFINE('_NEWSFLASH_BOX','Краткие новости!');
 DEFINE('_MAINMENU_BOX','Главное меню');
 
@@ -740,7 +742,7 @@ DEFINE('_SITE_OFFLINE_MESSAGE','Сообщение при выключенном сайте');
 DEFINE('_SITE_OFFLINE_MESSAGE2','Сообщение, которое выводится пользователям вместо сайта, когда он находится в выключенном состоянии.');
 DEFINE('_SYSTEM_ERROR_MESSAGE','Сообщение при системной ошибке');
 DEFINE('_SYSTEM_ERROR_MESSAGE2','Сообщение, которое выводится пользователям вместо сайта, когда Joostina! не может подключиться к базе данных MySQL.');
-DEFINE('_SHOW_READMORE_TO_AUTH','Показывать "Подробнее..." неавторизованным');
+DEFINE('_SHOW_READMORE_TO_AUTH','Показывать "Подробнее…" неавторизованным');
 DEFINE('_SHOW_READMORE_TO_AUTH2','Если ДА, то неавторизованным пользователям будут показываться ссылки на содержимое с уровнем доступа -Для зарегистрированных-. Для возможности полного просмотра пользователь должен будет авторизоваться.');
 DEFINE('_ENABLE_USER_REGISTRATION','Разрешить регистрацию пользователей');
 DEFINE('_ENABLE_USER_REGISTRATION2','Если ДА, то пользователям будет разрешено регистрироваться на сайте.');
@@ -764,7 +766,7 @@ DEFINE('_DATE_FORMAT2','Выберите формат для отображения даты. Необходимо использ
 DEFINE('_DATE_FORMAT_FULL','Полный формат даты и времени');
 DEFINE('_DATE_FORMAT_FULL2','Выберите полный формат для отображения даты и времени. Необходимо использовать формат в соответствии с правилами strftime.');
 DEFINE('_USE_H1_FOR_HEADERS','Обрамлять заголовки содержимого тегом H1 при полном просмотре');
-DEFINE('_USE_H1_FOR_HEADERS2','Обрамлять заголовки тегом h1 только в режиме полного просмотра содержимого ( при нажатии на Подробнее... ).');
+DEFINE('_USE_H1_FOR_HEADERS2','Обрамлять заголовки тегом h1 только в режиме полного просмотра содержимого ( при нажатии на Подробнее… ).');
 DEFINE('_USE_H1_HEADERS_ALWAYS','Обрамлять все заголовки содержимого тегом H1');
 DEFINE('_USE_H1_HEADERS_ALWAYS2','Помещать заголовки материала в теги h1.');
 DEFINE('_DISABLE_RSS','Отключить генерацию RSS (syndicate)');
@@ -801,7 +803,7 @@ DEFINE('_COUNT_GENERATION_TIME2','Если `Да`, то на каждой странице будет отображ
 DEFINE('_ENABLE_GZIP','GZIP-сжатие страниц');
 DEFINE('_ENABLE_GZIP2','Поддержка сжатия страниц перед отправкой (если поддерживается). Включение этой функции уменьшает размер загружаемых страниц и приводит к уменьшению трафика. В то же время, это увеличивает нагрузку на сервер.');
 DEFINE('_IS_SITE_DEBUG','Режим отладки сайта');
-DEFINE('_IS_SITE_DEBUG2','Если ДА, то будет показываться диагностическая информация, запросы и ошибки MySQL...');
+DEFINE('_IS_SITE_DEBUG2','Если ДА, то будет показываться диагностическая информация, запросы и ошибки MySQL…');
 DEFINE('_EXTENDED_DEBUG','Расширенный отладчик');
 DEFINE('_EXTENDED_DEBUG2','Использовать на фронте сайта расширенный отладчик выводящий множество информации о сайте.');
 DEFINE('_CONTROL_PANEL','Панель управления');
@@ -823,8 +825,8 @@ DEFINE('_HTML_CSS_EDITOR2','Использовать редактор с подсветкой синтаксиса для ре
 DEFINE('_THIS_PARAMS_CONTROL_CONTENT','* Эти параметры контролируют вывод элементов содержимого *');
 DEFINE('_LINK_TITLES','Заголовки в виде ссылок');
 DEFINE('_LINK_TITLES2','Если ДА, заголовки объектов содержимого начинают работать как гиперссылки на эти объекты');
-DEFINE('_READMORE_LINK','Ссылка "Подробнее..."');
-DEFINE('_READMORE_LINK2','Если выбран параметр Показать, то будет показываться ссылка -Подробнее...- для просмотра полного содержимого');
+DEFINE('_READMORE_LINK','Ссылка "Подробнее…"');
+DEFINE('_READMORE_LINK2','Если выбран параметр Показать, то будет показываться ссылка -Подробнее…- для просмотра полного содержимого');
 DEFINE('_VOTING_ENABLE','Рейтинг/Голосование');
 DEFINE('_VOTING_ENABLE2','Если выбран параметр Показать, система --Рейтинг/Голосование-- будет включена');
 DEFINE('_AUTHOR_NAMES','Имена авторов');
@@ -1602,7 +1604,7 @@ DEFINE('_EDIT_BUTTON','Редактирование кнопки');
 DEFINE('_BUTTON_TEXT','Текст кнопки');
 DEFINE('_BUTTON_TITLE','Подсказка');
 DEFINE('_BUTTON_TITLE_TIP','<strong>Опционально</strong><br />Здесь вы можете определить текст для всплывающей подсказки.<br />Это свойство очень важно заполнить если вы выбрали отображение только картинки!');
-DEFINE('_BUTTON_LINK_TIP','Ссылка для вызова сайта или компонента.<br />Для компонентов внутри системы ссылка должна быть подобной: <br />index2.php?option=com_joomlastats&task=stats  [ joomlastats - компонент, &task=stats вызов определённой функции компонента ].<br />Внешние ссылки должны быть <strong>абсолютными ссылками</strong> (например: http://www....)!');
+DEFINE('_BUTTON_LINK_TIP','Ссылка для вызова сайта или компонента.<br />Для компонентов внутри системы ссылка должна быть подобной: <br />index2.php?option=com_joomlastats&task=stats  [ joomlastats - компонент, &task=stats вызов определённой функции компонента ].<br />Внешние ссылки должны быть <strong>абсолютными ссылками</strong> (например: http://www….)!');
 DEFINE('_BUTTON_LINK_IN_NEW_WINDOW','В новом окне');
 DEFINE('_BUTTON_LINK_IN_NEW_WINDOW_TIP','Ссылка будет открыта в новом окне');
 DEFINE('_BUTTON_ORDER','Расположить после');
@@ -1742,7 +1744,7 @@ DEFINE('_WIDTH','Ширина');
 DEFINE('_HEIGHT','Высота');
 DEFINE('_UNPACK','Распаковать');
 DEFINE('_JWMM_VIDEO_FILE','Видео файл');
-DEFINE('_JWMM_HACK_ATTEMPT','Попытка взлома...');
+DEFINE('_JWMM_HACK_ATTEMPT','Попытка взлома…');
 DEFINE('_JWMM_DIRECTORY_NOT_EMPTY','Каталог не пустой. Пожалуйста, удалите сначала содержимое внутри каталога!');
 DEFINE('_JWMM_DELETE_CATALOG','Удалить каталог');
 DEFINE('_JWMM_SAFE_MODE_WARNING','При активированном параметре SAFE MODE возможны проблемы с созданием каталогов');
@@ -1830,7 +1832,7 @@ DEFINE('_JWMM_XY_POSITION','Расположение по X и Y');
 DEFINE('_JWMM_XY_PADDING','Отступы по X и Y');
 DEFINE('_JWMM_FIRST','Первая');
 DEFINE('_JWMM_SECOND','Вторая');
-DEFINE('_JWMM_THIRDTH','Третья...');
+DEFINE('_JWMM_THIRDTH','Третья…');
 DEFINE('_JWMM_CANCEL_ALL','Отменить всё');
 
 /* administrator components com_joomlaxplorer */
@@ -2005,7 +2007,7 @@ DEFINE('_ADD_CONTENT_ITEM','Добавить новость / статью');
 DEFINE('_ADD_STATIC_CONTENT','Добавить статичное содержимое');
 DEFINE('_CONTENT_ON_FRONTPAGE','Содержимое на главной');
 DEFINE('_CONTENT_TRASH','Корзина содержимого');
-DEFINE('_ALL_COMPONENTS','Все компоненты...');
+DEFINE('_ALL_COMPONENTS','Все компоненты…');
 DEFINE('_EDIT_COMPONENTS_MENU','Редактировать меню компонентов');
 DEFINE('_COMPONENTS_INSTALL_UNINSTALL','Установка / удаление компонентов');
 DEFINE('_MODULES_SETUP','Управление модулями');
@@ -2087,7 +2089,7 @@ DEFINE('_BAD_USERNAME_OR_PASSWORD2','Имя или пароль не верны. Повторите ввод.');
 /* administrator templates jostfree index.php */
 DEFINE('_JOOSTINA_CONTRIL_PANEL','Панель управления [ Joostina ]');
 DEFINE('_GO_TO_MAIN_ADMIN_PAGE','Перейти на главную страницу Панели управления');
-DEFINE('_PLEASE_WAIT','Ждите...');
+DEFINE('_PLEASE_WAIT','Ждите…');
 DEFINE('_TOGGLE_WYSIWYG_EDITOR','Использование визуального редактора');
 DEFINE('_DISABLE_WYSIWYG_EDITOR','Отключить редактор');
 DEFINE('_PRESS_HERE_TO_RELOAD_CAPTCHA','Нажмите чтобы обновить изображение');
@@ -2147,10 +2149,10 @@ DEFINE('_CONTENT_IS_BEING_EDITED_BY_OTHER_PEOPLE','Содержимое сейчас редактирует
 DEFINE('_MODULE_WITH_THIS_NAME_ALREADY_EDISTS','Уже существует модуль с таким названием. Введите другое  название.');
 
 /* components com_registration */
-DEFINE('_USER_ACTIVATION_FAILED','<div class="componentheading">Ошибка активации!</div><br />Активация вашей учетной записи невозможна. Пожалуйста, обратитесь к администрации сайта');
+DEFINE('_USER_ACTIVATION_FAILED','<div class="componentheading">Ошибка активации!</div><br />Активация вашей учетной записи невозможна. Пожалуйста, обратитесь к администрации сайта.');
 
 /* components com_weblinks */
-DEFINE('_ENTER_CORRECT_URL','Введите правильный URL');
+DEFINE('_ENTER_CORRECT_URL','Введите правильный URL!');
 
 /* components com_xmap */
 DEFINE('_XMAP_PAGE',' страница');

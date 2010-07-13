@@ -29,7 +29,6 @@ mosCommonHTML::loadFullajax();
 $tabs = new mosTabs(1);
 mosCommonHTML::loadOverlib();
 ?>
-<!--doctorgrif: спецтеги для js-->
 <script language="javascript" type="text/javascript">
 <!--
 function submitbutton( pressbutton ) {
@@ -115,7 +114,6 @@ $tabs->startTab("Общее","main-page");
 <div><img id="userav" src="<?php echo $mosConfig_live_site.mosUser::avatar($row->id,'big');?>" /></div>
 <br />
 <input class="inputbox" type="file" name="avatar" id="fileavatar" /><br /><br />
-<!--doctorgrif: заменил слова аналогичными языковыми переменными-->
 <button class="inputbox" onclick="addavatar(); return false;"><?php echo _TASK_UPLOAD; ?></button>
 <button class="inputbox" onclick="delavatar(); return false;"><?php echo _CMN_DELETE; ?></button>
 </td>

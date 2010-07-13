@@ -88,6 +88,9 @@ $orders[] = mosHTML::makeOption('popular',_SEARCH_POPULAR);
 $orders[] = mosHTML::makeOption('alpha',_SEARCH_ALPHABETICAL);
 $orders[] = mosHTML::makeOption('category',_SEARCH_CATEGORY);
 $ordering = mosGetParam($_REQUEST,'ordering','newest');
+/*Hack*/
+$category = mosGetParam($_REQUEST,'category','');
+/*Hack*/
 $ordering = preg_replace('/[^a-z]/','',strtolower($ordering));
 $lists = array();
 $lists['ordering'] = mosHTML::selectList($orders,'ordering','id="search_ordering" class="inputbox"','value','text',$ordering);
@@ -105,6 +108,21 @@ $phrase->value = 'exact';
 $phrase->text = _SEARCH_PHRASE;
 $searchphrases[] = $phrase;
 $lists['searchphrase'] = mosHTML::radioList($searchphrases,'searchphrase','',$searchphrase);
+/*Hack*/
+//category select
+$query = "SELECT id, title "
+. "\n FROM #__categories "
+. "\n WHERE section in (SELECT id FROM #__sections) "
+. "\n AND published = 1 "
+;
+$database->setQuery( $query );
+$catlist = $database->loadObjectList();
+$orders = array();
+foreach ($catlist as $catrow) {
+$catlists[] = mosHTML::makeOption( $catrow->id, $catrow->title );
+}
+$lists['category'] = mosHTML::selectList( $catlists, 'category', ' class="inputbox"', 'value', 'text', $category );
+/*Hack*/
 // html output
 search_html::searchbox(htmlspecialchars($searchword),$lists,$params);
 if(!$searchword) {
@@ -131,7 +149,10 @@ $searchword_clean = htmlspecialchars($searchword);
 search_html::searchintro($searchword_clean,$params);
 mosLogSearch($searchword);
 $_MAMBOTS->loadBotGroup('search');
-$results = $_MAMBOTS->trigger('onSearch', array($database->getEscaped($searchword, true), $searchphrase, $ordering));
+/*Hack*/
+//$results = $_MAMBOTS->trigger('onSearch', array($database->getEscaped($searchword, true), $searchphrase, $ordering));
+$results = $_MAMBOTS->trigger('onSearch', array($database->getEscaped($searchword, true), $searchphrase, $ordering, $category));
+/*Hack*/
 $totalRows = 0;
 $rows = array();
 for($i = 0,$n = count($results); $i < $n; $i++) {
@@ -189,7 +210,6 @@ search_html::displaynoresult();
 search_html::conclusion($searchword_clean,$pageNav);
 }
 // displays back button
-//doctorgrif: исправлен тег переноса строки на html валидный:)
 echo '<br />';
 mosHTML::BackButton($params,0);
 }

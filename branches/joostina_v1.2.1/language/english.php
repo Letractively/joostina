@@ -89,9 +89,9 @@ DEFINE('_HANDLER','Handler not defined for type');
 DEFINE('_TOC_JUMPTO','Article Index');
 
 /** content*/
-DEFINE('_READ_MORE','Read more...');
-DEFINE('_READ_MORE_REGISTER','Register to read more...');
-DEFINE('_MORE','More...');
+DEFINE('_READ_MORE','Read more…');
+DEFINE('_READ_MORE_REGISTER','Register to read more…');
+DEFINE('_MORE','More…');
 DEFINE('_ON_NEW_CONTENT',"A new Content Item has been submitted by [ %s ]  titled [ %s ]  from Section [ %s ]  and Category  [ %s ]");
 DEFINE('_SEL_CATEGORY','- Select Category -');
 DEFINE('_SEL_SECTION','- Select Section -');
@@ -412,7 +412,7 @@ DEFINE('_DATE_FORMAT','l, F d Y');  //Uses PHP's DATE Command Format - Depreciat
 */
 DEFINE('_DATE_FORMAT_LC',$mosConfig_form_date); //Uses PHP's strftime Command Format
 DEFINE('_DATE_FORMAT_LC2',$mosConfig_form_date_full); // Ïîëíûé ôîðìàò âðåìåíè
-DEFINE('_SEARCH_BOX','Search...');
+DEFINE('_SEARCH_BOX','Search…');
 DEFINE('_NEWSFLASH_BOX','Newsflash!');
 DEFINE('_MAINMENU_BOX','Main Menu');
 
@@ -735,7 +735,7 @@ DEFINE('_SITE_OFFLINE_MESSAGE','Site offline Message');
 DEFINE('_SITE_OFFLINE_MESSAGE2','Message, which will be displayed to users, when site is offline.');
 DEFINE('_SYSTEM_ERROR_MESSAGE','System error message');
 DEFINE('_SYSTEM_ERROR_MESSAGE2','Message, which will be displayed to users, when Joostina! cannot connect to MySQL database.');
-DEFINE('_SHOW_READMORE_TO_AUTH','Show \"Read more...\" to guests');
+DEFINE('_SHOW_READMORE_TO_AUTH','Show \"Read more…\" to guests');
 DEFINE('_SHOW_READMORE_TO_AUTH2','If set to YES, guests will be able to see links to Content with -Registered- access level. But user will have to login to see full text.');
 DEFINE('_ENABLE_USER_REGISTRATION','Enable user registration');
 DEFINE('_ENABLE_USER_REGISTRATION2','If set to YES, users will have permission to register on site.');
@@ -759,7 +759,7 @@ DEFINE('_DATE_FORMAT2','Choose format for date display. You need to use format i
 DEFINE('_DATE_FORMAT_FULL','Full date and time format');
 DEFINE('_DATE_FORMAT_FULL2','Choose full format for date and time display. You need to use format in accordance with strftime maxims.');
 DEFINE('_USE_H1_FOR_HEADERS','Use H1 tags for Content headers in Full view');
-DEFINE('_USE_H1_FOR_HEADERS2','Frame Content headers in H1 tags only when viewing full content text(by clicking on Read more... link).');
+DEFINE('_USE_H1_FOR_HEADERS2','Frame Content headers in H1 tags only when viewing full content text(by clicking on Read more… link).');
 DEFINE('_USE_H1_HEADERS_ALWAYS','Use H1 tags for all Content headers');
 DEFINE('_USE_H1_HEADERS_ALWAYS2','Always frame Content headers in H1 tags.');
 DEFINE('_DISABLE_RSS','Disable RSS(syndicate) generation');
@@ -818,8 +818,8 @@ DEFINE('_HTML_CSS_EDITOR2','Use Editor with syntax highlighting for editing of H
 DEFINE('_THIS_PARAMS_CONTROL_CONTENT','* This Parameters control the Output of Content Elements *');
 DEFINE('_LINK_TITLES','Title Linkable');
 DEFINE('_LINK_TITLES2','If set to YES, the Title of Articles will be hyperlinked to the Article itself');
-DEFINE('_READMORE_LINK','"Read more..." link');
-DEFINE('_READMORE_LINK2','If set to Show, then a -Read more...- link will be showed to view full content');
+DEFINE('_READMORE_LINK','"Read more…" link');
+DEFINE('_READMORE_LINK2','If set to Show, then a -Read more…- link will be showed to view full content');
 DEFINE('_VOTING_ENABLE','Rating/Voting');
 DEFINE('_VOTING_ENABLE2','If set to Show, then -Rating/Voting- system will be enabled');
 DEFINE('_AUTHOR_NAMES','Author Names');
@@ -1617,7 +1617,7 @@ DEFINE ('_EDIT_BUTTON', 'Button editing');
 DEFINE ('_BUTTON_TEXT', 'Button text');
 DEFINE (' _BUTTON_TITLE ', 'Help');
 DEFINE ('_BUTTON_TITLE_TIP','<strong>Optional</strong><br/>Here you can define the text for the pop-up help.<br/>It is very important to fill this property if you have chosen display only pictures!');
-DEFINE ('_BUTTON_LINK_TIP', 'Reference for a site or component call.<br/>For components in system the reference should be as following:<br/>index2.php? option=com_joomlastats&task=stats [joomlastats - is a component, &task=stats is a call of certain function of a component].<br/>External references should be<strong>absolute references</strong>(for example: http://www....)!');
+DEFINE ('_BUTTON_LINK_TIP', 'Reference for a site or component call.<br/>For components in system the reference should be as following:<br/>index2.php? option=com_joomlastats&task=stats [joomlastats - is a component, &task=stats is a call of certain function of a component].<br/>External references should be<strong>absolute references</strong>(for example: http://www….)!');
 DEFINE ('_BUTTON_LINK_IN_NEW_WINDOW','In a new window');
 DEFINE ('_BUTTON_LINK_IN_NEW_WINDOW_TIP', 'The Reference will be opened in a new window');
 DEFINE ('_BUTTON_ORDER','To place after');
@@ -1752,7 +1752,7 @@ DEFINE ('_WIDTH','Width');
 DEFINE ('_HEIGHT ','Height');
 DEFINE ('_UNPACK','Unpack');
 DEFINE ('_JWMM_VIDEO_FILE','Video file');
-DEFINE ('_JWMM_HACK_ATTEMPT ','Hack attempt...');
+DEFINE ('_JWMM_HACK_ATTEMPT ','Hack attempt…');
 DEFINE ('_JWMM_DIRECTORY_NOT_EMPTY','Folder is not empty. Please, remove contents in the folder at first!');
 DEFINE ('_JWMM_DELETE_CATALOG','Remove folder');
 DEFINE ('_JWMM_SAFE_MODE_WARNING','At the activated parametre SAFE MODE problems with creation of directories are possible');
@@ -1840,7 +1840,7 @@ DEFINE ('_JWMM_XY_POSITION','X and Y position');
 DEFINE ('_JWMM_XY_PADDING','X and Y padding');
 DEFINE ('_JWMM_FIRST ','The first');
 DEFINE ('_JWMM_SECOND','The second');
-DEFINE ('_JWMM_THIRDTH','The third...');
+DEFINE ('_JWMM_THIRDTH','The third…');
 DEFINE ('_JWMM_CANCEL_ALL','Cancel all');
 
 /* administrator components com_joomlaxplorer */
@@ -2015,7 +2015,7 @@ DEFINE ('_ADD_CONTENT_ITEM','Add news / article');
 DEFINE ('_ADD_STATIC_CONTENT ','Add static content');
 DEFINE ('_CONTENT_ON_FRONTPAGE','Content on main page');
 DEFINE ('_CONTENT_TRASH','Content trash');
-DEFINE ('_ALL_COMPONENTS','All components...');
+DEFINE ('_ALL_COMPONENTS','All components…');
 DEFINE ('_EDIT_COMPONENTS_MENU','Edit menu of components');
 DEFINE ('_COMPONENTS_INSTALL_UNINSTALL','Install/uninstall components');
 DEFINE ('_MODULES_SETUP ','Modules management');
@@ -2097,7 +2097,7 @@ DEFINE ('_BAD_USERNAME_OR_PASSWORD2','User name or password are incorrect. Repea
 /* administrator templates jostfree index.php */
 DEFINE ('_JOOSTINA_CONTRIL_PANEL','Control panel [Joostina]');
 DEFINE ('_GO_TO_MAIN_ADMIN_PAGE','Pass to the main page of the control panel');
-DEFINE ('_PLEASE_WAIT ','Wait...');
+DEFINE ('_PLEASE_WAIT ','Wait…');
 DEFINE ('_TOGGLE_WYSIWYG_EDITOR','Use of the WYSISYG editor');
 DEFINE ('_DISABLE_WYSIWYG_EDITOR','Disable WYSIWYG editor');
 DEFINE ('_PRESS_HERE_TO_RELOAD_CAPTCHA','Press to reload the image');

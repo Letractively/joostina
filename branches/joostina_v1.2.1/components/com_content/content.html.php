@@ -283,14 +283,12 @@ echo trim(implode("\n",$results)); ?>
 HTML_content::Section_Category($row,$params);
 HTML_content::Author($row,$params);
 HTML_content::CreateDate($row,$params);
-//поправил вывод даты модификации (doctorgrif)
 HTML_content::ModifiedDate($row,$params);
 HTML_content::URL($row,$params);
 ?>
 <tr><td valign="top" colspan="2">
 <?php HTML_content::TOC($row); echo ampReplace($row->text); ?>
 <?php
-//убрал вывод даты модификации, переместил в €чейку intro (doctorgrif)
 HTML_content::ReadMore($row,$params);
 ?>
 </td></tr></table>
@@ -469,11 +467,9 @@ if(($mod_date != '') && $params->get('modifydate')) {
 <span class="modifydate"><?php echo _LAST_UPDATED; ?></span> <span class="modify"><?php echo $mod_date; ?></span>
 </span>
 <?php } }
-//конец изменений
 function ReadMore(&$row,&$params) {
 if($params->get('readmore')) {
 if($params->get('intro_only') && $row->link_text) {
-//убрал вывод €чейки таблицы - повешал span (doctorgrif)
 ?>
 <span class="readmorelink"><a href="<?php echo $row->link_on; ?>" title="<?php echo $row->title; ?>" class="readon<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $row->link_text; ?></a></span>
 <?php } } }
