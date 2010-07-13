@@ -191,7 +191,6 @@ $Returnid = intval(mosGetParam($_REQUEST,'Returnid',0));
 // used for spoof hardening
 $validate = josSpoofValue();
 ?>
-<!--doctorgrif: спецтеги для js-->
 <script language="javascript" type="text/javascript">
 <!--
 function submitbutton(pressbutton) {

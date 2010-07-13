@@ -35,6 +35,8 @@ global $Itemid;
 <h3><?php echo _SEARCH_RESULT; ?></h3>
 <label for="search_ordering"><?php echo _CMN_ORDERING; ?>:</label>
 <?php echo $lists['ordering']; ?>
+<label for="search_ordering"><?php echo _SEARCH_SEL_CATEGORY; ?>:</label>
+<?php echo $lists['category']?>
 </div>
 </form>
 <?php

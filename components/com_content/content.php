@@ -1615,7 +1615,7 @@ if($params->get('introtext')) {
 if($params->get('jeditable'))
 $row->text = $row->introtext.($params->get('intro_only')?'':chr(13).'</div><div id="jneditf-'.$row->id.'">'.chr(13).$row->fulltext.chr(13).chr(13).$row->notetext);
 else
-$row->text = $row->introtext.($params->get('intro_only')?'':chr(13).chr(13).'{begun}'. $row->fulltext.chr(13).chr(13).'{adsense_text}'. $row->notetext);
+$row->text = $row->introtext.($params->get('intro_only')?'':chr(13).chr(13).''. $row->fulltext.chr(13).chr(13).''. $row->notetext);
 } else {
 $row->text = $row->fulltext;
 }

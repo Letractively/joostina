@@ -56,7 +56,6 @@ global $mosConfig_live_site,$mosConfig_captcha_reg;
 // used for spoof hardening
 $validate = josSpoofValue();
 ?>
-<!--doctorgrif: спецтеги для js-->
 <script language="javascript" type="text/javascript">
 <!--
 function submitbutton_reg() {

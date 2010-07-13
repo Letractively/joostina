@@ -415,7 +415,38 @@ if(!$email || !$text || (JosIsValidEmail($email) == false)) {
 mosErrorAlert(_CONTACT_FORM_NC);
 }
 $prefix = sprintf(_ENQUIRY_TEXT,$mosConfig_live_site);
-$text = $prefix."\n".$name.' <'.$email.'>'."\n\n".stripslashes($text);
+/*Начало - Модификация для отображения в письме IP-адрес автора сообщения*/
+//$text = $prefix."\n".$name.' <'.$email.'>'."\n\n".stripslashes($text);
+$ip = "";
+$proxy = "";
+if (isset($_SERVER)) {
+if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
+$ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+$proxy = $_SERVER["REMOTE_ADDR"];
+} elseif (isset($_SERVER["HTTP_CLIENT_IP"])) {
+$ip = $_SERVER["HTTP_CLIENT_IP"];
+} else {
+$ip = $_SERVER["REMOTE_ADDR"];
+}
+} else {
+if ( getenv( 'HTTP_X_FORWARDED_FOR' ) ) {
+$ip = getenv( 'HTTP_X_FORWARDED_FOR');
+$proxy = $_SERVER["REMOTE_ADDR"];
+} elseif ( getenv( 'HTTP_CLIENT_IP' ) ) {
+$ip = getenv( 'HTTP_CLIENT_IP' );
+} else {
+$ip = getenv( 'REMOTE_ADDR' );
+}
+}
+if (strstr($ip, ',')) {
+$ips = explode(',', $ip);
+$ip = $ips[0];
+}
+if ($proxy != '') {
+$ip = $ip . '(Proxy: '.$proxy.')';
+}
+$text = $prefix."\n".$name.' <'.$email.'>'."\nIP: ".$ip."\n\n".stripslashes($text);
+/*Конец - Модификация для отображения в письме IP-адрес автора сообщения*/
 $success = mosMail($email,$name,$contact[0]->email_to,$mosConfig_fromname.': '.$subject,$text);
 if(!$success) {
 mosErrorAlert(_CONTACT_FORM_NC);
@@ -426,7 +457,10 @@ $emailcopyCheck = $params->get('email_copy',0);
 // check whether email copy function activated
 if($email_copy && $emailcopyCheck) {
 $copy_text = sprintf(_COPY_TEXT,$contact[0]->name,$mosConfig_sitename);
+/*Начало - Модификация для отображения в письме IP-адрес автора сообщения*/
+$text = $prefix."\n".$name.' <'.$email.'>'."\n\n".stripslashes( $text );
 $copy_text = $copy_text."\n\n".$text.'';
+/*Конец - Модификация для отображения в письме IP-адрес автора сообщения*/
 $copy_subject = _COPY_SUBJECT.$subject;
 $success = mosMail($mosConfig_mailfrom,$mosConfig_fromname,$email,$copy_subject,$copy_text);
 if(!$success) {

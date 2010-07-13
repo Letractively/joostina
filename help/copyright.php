@@ -6,7 +6,6 @@
 * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
-
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 ?>
@@ -16,13 +15,9 @@ Joostina! распространяется по лицензии GNU General Public License.
 Joostina! включает в себя следующие программные продукты:
 
 Joomla!
-Авторские права: (C) 2005-2007 Open Source Matters.
-Лицензия: GNU General Public License (GPL)
-Система основана на разработке Joomla, производимой
-Open Source Matters с 2005 по 2007 год, а так же на разработках производимых с 2000 по 2005:
-Nick Anies, Brad Baker, Ron Bakker, Shayne Bartlett, Tim Broeker, Levis Bisson, Michelle Bisson, Robert Castley, Andrew Eddie, Rey Gigataras,
-Johan Janssens, Alex Kempkens, Peter Koch, James Logan, Andy Miller, Mitch Pirtle, Steen Rabol, Peter Russel, Phil Taylor, Brian Teeman, Emir
-Sakic, Jean-Marie Simonet, Andy Stewart, Trijnie Wanders, Arno Zijlstra, и Miro International Pty Ltd.
+Авторские права: (C) 2005-2007 Open Source Matters. Лицензия: GNU General Public License (GPL)
+Система основана на разработке Joomla, производимой Open Source Matters с 2005 по 2007 год, а так же на разработках производимых с 2000 по 2005:
+Nick Anies, Brad Baker, Ron Bakker, Shayne Bartlett, Tim Broeker, Levis Bisson, Michelle Bisson, Robert Castley, Andrew Eddie, Rey Gigataras, Johan Janssens, Alex Kempkens, Peter Koch, James Logan, Andy Miller, Mitch Pirtle, Steen Rabol, Peter Russel, Phil Taylor, Brian Teeman, Emir Sakic, Jean-Marie Simonet, Andy Stewart, Trijnie Wanders, Arno Zijlstra, и Miro International Pty Ltd.
 
 Joomla RE
 Авторские права (C) 2005-2007 Joom.Ru - Русский дом Joomla
@@ -37,7 +32,7 @@ Mambo
 Лицензия: GNU General Public License (GPL)
 
 Fullajax - AJAX и AHAH библиотека для мультипоточной загрузки веб страниц и других данных
-Авторское право: 2007-2008 Ruslan Sinitskiy ( http://www.fullajax.ru )
+Авторское право: 2007-2008 Ruslan Sinitskiy (http://www.fullajax.ru)
 Лицензия: GNU General Public License (GPL)
 
 xAjax
@@ -49,7 +44,7 @@ jQuery
 Лицензия: MIT and GNU General Public License (GPL)
 
 PrettyTable
-Авторские права: ( http://www.askthecssguy.com/2006/12/row_locking_with_css_and_javas.html )
+Авторские права: (http://www.askthecssguy.com/2006/12/row_locking_with_css_and_javas.html)
 
 Floating window
 Авторские права: (C) 2006  Alf Magne Kalleland (post@dhtmlgoodies.com, www.dhtmlgoodies.com)
@@ -68,27 +63,27 @@ ConvertCharset
 Авторские права: (с) 2003-2004 Mikolaj Jedrzejak 2003-2004
 
 Ebackup
-Авторские права: Harald Baer ( www.mambobaer.de )
+Авторские права: Harald Baer (www.mambobaer.de)
 Лицензия: GNU General Public License (GPL)
 
 JCE
-Авторские права: Ryan Demmer ( http://www.cellardoor.za.net )
+Авторские права: Ryan Demmer (http://www.cellardoor.za.net)
 Лицензия: GNU General Public License (GPL)
 
 MyCheckin
-Авторские права: Bart Eversdijk ( http://www.eversdijk.com )
+Авторские права: Bart Eversdijk (http://www.eversdijk.com)
 Лицензия: GNU General Public License (GPL)
 
 JoomlaPack
-Авторские права: Nicholas K. Dionysopoulos ( http://www.joomlapack.net )
+Авторские права: Nicholas K. Dionysopoulos (http://www.joomlapack.net)
 Лицензия: GNU General Public License (GPL)
 
 joomlaXplorer
-Авторские права: Soeren, QuiX Project ( http://www.virtuemart.net )
+Авторские права: Soeren, QuiX Project (http://www.virtuemart.net)
 Лицензия: GNU General Public License (GPL)
 
 JW MMXTD
-Авторские права: JoomlaWorks ( http://www.joomlaworks.gr )
+Авторские права: JoomlaWorks (http://www.joomlaworks.gr)
 Лицензия: GNU General Public License (GPL)
 
 JW AJAX Vote
@@ -99,57 +94,57 @@ Link Editor
 Лицензия: GNU General Public License (GPL)
 
 My Content
-Авторские права: (C) 2006 Owl Watch Consulting Services ( www.owlwatch.com )
+Авторские права: (C) 2006 Owl Watch Consulting Services (www.owlwatch.com)
 Лицензия: GNU General Public License (GPL)
 
 ArtBannersplus
-Авторские права: Dino Porcaro ( www.dinoporcaro.it )
+Авторские права: Dino Porcaro (www.dinoporcaro.it)
 Лицензия: GNU General Public License (GPL)
 
 QCache
-Авторские права: (c) Anthony Ferrara ( www.joomlaperformance.com )
+Авторские права: (c) Anthony Ferrara (www.joomlaperformance.com)
 Лицензия: GNU General Public License (GPL)
 
 Xmap
-Авторские права: Guillermo Vargas ( http://joomla.vargas.co.cr )
+Авторские права: Guillermo Vargas (http://joomla.vargas.co.cr)
 Лицензия: GNU General Public License (GPL)
 
 FrontpageBanner
-Авторские права: smart ( http://joomlaportal.ru )
+Авторские права: smart (http://joomlaportal.ru)
 Лицензия: GNU General Public License (GPL)
 
 Joomla! Ukraine Print Engine
-Авторские права: 2007 (c) Denys Nosov / Joomla! Ukraine - http://www.joomla-ua.org
-Лицензия: Creative Commons Attribution-Noncommercial-No Derivative Works 3.0 License http://creativecommons.org/licenses/by-nc-nd/3.0/
+Авторские права: 2007 (c) Denys Nosov / Joomla! Ukraine (http://www.joomla-ua.org)
+Лицензия: Creative Commons Attribution-Noncommercial-No Derivative Works 3.0 License (http://creativecommons.org/licenses/by-nc-nd/3.0/)
 
 ML Login Module
 Авторские права: Mitrich ( http://mitrichlab.ru )
 Лицензия: GNU General Public License (GPL)
 
 ML Joostina Menu
-Авторские права: Mitrich ( http://mitrichlab.ru )
+Авторские права: Mitrich (http://mitrichlab.ru)
 Лицензия: GNU General Public License (GPL)
 
 botClearCache
-Авторские права: (C) 2008 Denis Ryabov ( http://physicist.phpnet.us/ )
+Авторские права: (C) 2008 Denis Ryabov (http://physicist.phpnet.us/)
 Лицензия: GNU General Public License (GPL)
 
 seo_bot_redir
-Авторские права:  Alecfyz (C) Gorsk.net Studio Dec 2006
+Авторские права: Alecfyz (C) Gorsk.net Studio Dec 2006
 Лицензия: GNU General Public License (GPL)
 
 OptimizeTables
-Авторские права: smart ( http://joomlaportal.ru )
+Авторские права: smart (http://joomlaportal.ru)
 Лицензия: GNU General Public License (GPL)
 
 mod Total Users
-Авторские права: Helder Garcia ( www.sounerd.com.br )
+Авторские права: Helder Garcia (www.sounerd.com.br)
 Лицензия: GNU General Public License (GPL)
 
 
 
 KCAPTCHA
-Авторские права: Kruglov Sergei, 2006 ( www.captcha.ru, www.kruglov.ru )
+Авторские права: Kruglov Sergei, 2006 (www.captcha.ru, www.kruglov.ru)
 
 Cache
 Авторское право: Fabien MARTY
@@ -180,11 +175,11 @@ js-tabs
 Лицензия: GNU General Public License (GPL)
 
 CodePress
-Авторское право: (C) 2006 Fernando M.A.d.S. <fermads@gmail.com>
+Авторское право: (C) 2006 Fernando M.A.d.S. (fermads@gmail.com)
 Лицензия: GNU General Public License (GPL)
 
 dtree + Andrew Eddie patch
-Авторское право:  (c) 2002-2003 Geir Landr ( www.destroydrop.com/javascript/tree/ )
+Авторское право: (c) 2002-2003 Geir Landr (www.destroydrop.com/javascript/tree/)
 Лицензия: GNU General Public License (GPL)
 
 
@@ -205,7 +200,7 @@ phpInputfilter
 Лицензия: GNU General Public License (GPL)
 
 phpMailer
-Авторское право: 2001 - 2003  Brent R. Matzelle
+Авторское право: 2001 - 2003 Brent R. Matzelle
 Лицензия: GNU Lesser General Public License (LGPL)
 
 tar-archive
@@ -230,13 +225,13 @@ wz-tooltip
 Лицензия: GNU General Public License (GPL)
 
 Значки системы: Silk icon set
-Авторские права: (с) Mark James ( http://www.famfamfam.com/lab/icons/silk/ )
-Лицензия: Creative Commons Attribution 2.5 License http://creativecommons.org/licenses/by/2.5/
+Авторские права: (с) Mark James (http://www.famfamfam.com/lab/icons/silk/)
+Лицензия: Creative Commons Attribution 2.5 License (http://creativecommons.org/licenses/by/2.5/)
 
 Значки системы: Sweetie WebCommunication
-Авторские права: (с) Joseph North ( sublick@gmail.com, sweetie.sublink.ca )
+Авторские права: (с) Joseph North (sublick@gmail.com, sweetie.sublink.ca)
 Лицензия: Creative Commons Attribution-ShareAlike 3.0 Unported
 
 Значки шаблона "NewLine" (в базовой поставке Joostina CMS): Diagona Icons
-Авторские права: (с) Yusuke Kamiyamane ( http://www.pinvoke.com/ )
+Авторские права: (с) Yusuke Kamiyamane (http://www.pinvoke.com/)
 Лицензия: Creative Commons Attribution 3.0 license

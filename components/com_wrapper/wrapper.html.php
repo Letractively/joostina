@@ -15,7 +15,6 @@ defined('_VALID_MOS') or die();
 class HTML_wrapper {
 function displayWrap(&$row,&$params) {
 ?>
-<!--doctorgrif: спецтеги для js-->
 <script language="javascript" type="text/javascript">
 <!--
 function iFrameHeight() {
