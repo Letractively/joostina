@@ -212,7 +212,7 @@ vcard
 Лицензия: GNU General Public License (GPL)
 
 wz-tooltip
-Авторское право: 2002-2004 Walter Zorn
+Авторское право: 2002-2004 Walter Zorn (http://www.walterzorn.com/tooltip/tooltip_e.htm)
 Лицензия: GNU Lesser General Public License (LGPL)
 
 Значки FOOOD (Панель управления администратора)-
@@ -221,7 +221,7 @@ wz-tooltip
 Примечание: Please note these icons are NOT OPEN SOURCE but used with permission
 
 Значки системы: nuoveXT-kde-1.6
-Авторские права: (с) Alexandre Moore
+Авторские права: (с) Alexandre Moore (http://www.iconsdesigns.com/, http://nuovext.pwsp.net/)
 Лицензия: GNU General Public License (GPL)
 
 Значки системы: Silk icon set
@@ -229,7 +229,7 @@ wz-tooltip
 Лицензия: Creative Commons Attribution 2.5 License (http://creativecommons.org/licenses/by/2.5/)
 
 Значки системы: Sweetie WebCommunication
-Авторские права: (с) Joseph North (sublick@gmail.com, sweetie.sublink.ca)
+Авторские права: (с) Joseph North (sublick@gmail.com, http://sublink.ca/)
 Лицензия: Creative Commons Attribution-ShareAlike 3.0 Unported
 
 Значки шаблона "NewLine" (в базовой поставке Joostina CMS): Diagona Icons
