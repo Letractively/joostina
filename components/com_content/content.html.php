@@ -279,6 +279,7 @@ if(!$params->get('intro_only')) { $results = $_MAMBOTS->trigger('onAfterDisplayT
 echo trim(implode("\n",$results)); } $results = $_MAMBOTS->trigger('onBeforeDisplayContent',array(&$row,&$params,$page));
 echo trim(implode("\n",$results)); ?>
 <table <?php echo $news_uid_css_body; ?>class="contentpaneopen<?php echo $params->get('pageclass_sfx'); ?>">
+<span class="addinfo">
 <?php
 HTML_content::Section_Category($row,$params);
 HTML_content::Author($row,$params);
@@ -286,6 +287,7 @@ HTML_content::CreateDate($row,$params);
 HTML_content::ModifiedDate($row,$params);
 HTML_content::URL($row,$params);
 ?>
+</span>
 <tr><td valign="top" colspan="2">
 <?php HTML_content::TOC($row); echo ampReplace($row->text); ?>
 <?php

@@ -72,39 +72,21 @@ function showTable(&$params,&$rows,$catid,$tabclass) {
 global $mosConfig_live_site,$Itemid;
 ?>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-<?php
-if($params->get('headings')) {
-?>
+<?php if($params->get('headings')) { ?>
 <tr>
 <td height="20px" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _CONTACT_HEADER_NAME; ?></td>
-<?php
-if($params->get('position')) {
-?>
+<?php if($params->get('position')) { ?>
 <td height="20px" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _CONTACT_HEADER_POS; ?></td>
-<?php
-}
-?>
-<?php
-if($params->get('email')) {
-?>
+<?php } ?>
+<?php if($params->get('email')) { ?>
 <td height="20px" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _CONTACT_HEADER_EMAIL; ?></td>
-<?php
-}
-?>
-<?php
-if($params->get('telephone')) {
-?>
+<?php } ?>
+<?php if($params->get('telephone')) { ?>
 <td height="20px" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _CONTACT_HEADER_PHONE; ?></td>
-<?php
-}
-?>
-<?php
-if($params->get('fax')) {
-?>
+<?php } ?>
+<?php if($params->get('fax')) { ?>
 <td height="20px" class="sectiontableheader<?php echo $params->get('pageclass_sfx'); ?>"><?php echo _CONTACT_HEADER_FAX; ?></td>
-<?php
-}
-?>
+<?php } ?>
 </tr>
 <?php
 }
@@ -116,13 +98,9 @@ $link = 'index.php?option=com_contact&amp;task=view&amp;contact_id='.$row->id.'&
 <td height="20px" class="<?php echo $tabclass[$k]; ?>">
 <a href="<?php echo sefRelToAbs($link); ?>" class="category<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $row->name; ?></a>
 </td>
-<?php
-if($params->get('position')) {
-?>
+<?php if($params->get('position')) { ?>
 <td width="25%" class="<?php echo $tabclass[$k]; ?>"><?php echo $row->con_position; ?></td>
-<?php
-}
-?>
+<?php } ?>
 <?php
 if($params->get('email')) {
 if($row->email_to) {
@@ -130,23 +108,13 @@ $row->email_to = mosHTML::emailCloaking($row->email_to,1);
 }
 ?>
 <td width="20%" class="<?php echo $tabclass[$k]; ?>"><?php echo $row->email_to; ?></td>
-<?php
-}
-?>
-<?php
-if($params->get('telephone')) {
-?>
+<?php } ?>
+<?php if($params->get('telephone')) { ?>
 <td width="15%" class="<?php echo $tabclass[$k]; ?>"><?php echo $row->telephone; ?></td>
-<?php
-}
-?>
-<?php
-if($params->get('fax')) {
-?>
+<?php } ?>
+<?php if($params->get('fax')) { ?>
 <td width="15%" class="<?php echo $tabclass[$k]; ?>"><?php echo $row->fax; ?></td>
-<?php
-}
-?>
+<?php } ?>
 </tr>
 <?php
 $k = 1 - $k;
@@ -212,7 +180,7 @@ alert("<?php echo addslashes(_CONTACT_FORM_NC); ?>");
 } else if ((document.emailForm.email.value.search(";") != -1) || (document.emailForm.email.value.search(",") != -1) || (document.emailForm.email.value.search(" ") != -1)) {
 alert("<?php echo addslashes(_CONTACT_ONE_EMAIL); ?>");
 } else {
-document.emailForm.action = "<?php echo sefRelToAbs("index.php?option=com_contact&Itemid=$Itemid"); ?>"
+document.emailForm.action = "<?php echo sefRelToAbs("index.php?option=com_contact&amp;Itemid=$Itemid"); ?>"
 document.emailForm.submit();
 }
 }
@@ -225,8 +193,8 @@ var links = new Array();
 <?php
 $n = count($list);
 for($i = 0; $i < $n; $i++) {
-echo "\nlinks[".$list[$i]->value."]='".sefRelToAbs('index.php?option=com_contact&task=view&contact_id='.
-$list[$i]->value.'&Itemid='.$Itemid)."';";
+echo "\nlinks[".$list[$i]->value."]='".sefRelToAbs('index.php?option=com_contact&amp;task=view&amp;contact_id='.
+$list[$i]->value.'&amp;Itemid='.$Itemid)."';";
 }
 ?>
 var sel = selSelectObject.options[selSelectObject.selectedIndex].value
@@ -240,8 +208,7 @@ location.href = links[sel];
 // For the pop window opened for print preview
 if($params->get('popup')) {
 $mainframe->setPageTitle($contact->name);
-$mainframe->addCustomHeadTag('<link rel="stylesheet" href="templates/'.$template.
-'/css/template_css.css" type="text/css" />');
+$mainframe->addCustomHeadTag('<link rel="stylesheet" href="templates/'.$template.'/css/template_css.css" type="text/css" />');
 }
 if($menu_params->get('page_title')) {
 ?>
@@ -332,9 +299,7 @@ if($contact->name && $params->get('name')) {
 <td width="100%"><h4><?php echo $contact->name; ?></h4></td>
 <?php
 // displays Print Icon
-$print_link = $mosConfig_live_site.
-'/index2.php?option=com_contact&amp;task=view&amp;contact_id='.$contact->id.
-'&amp;Itemid='.$Itemid.'&amp;pop=1';
+$print_link = $mosConfig_live_site.'/index2.php?option=com_contact&amp;task=view&amp;contact_id='.$contact->id.'&amp;Itemid='.$Itemid.'&amp;pop=1';
 mosHTML::PrintIcon($contact,$params,$hide_js,$print_link);
 ?>
 </tr>
@@ -367,41 +332,32 @@ if(($params->get('address_check') > 0) && ($contact->address || $contact->suburb
 $contact->state || $contact->country || $contact->postcode)) {
 ?>
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
-<?php
-if($params->get('address_check') > 0) {
-?>
-<tr><td rowspan="6" valign="top" width="<?php echo $params->get('column_width'); ?>" align="left"><?php echo $params->get('marker_address'); ?></td></tr>
-<?php
-}
-?>
-<?php
-if($contact->address && $params->get('street_address')) {
-?>
-<tr><td valign="top"><?php echo $contact->address; ?></td></tr>
-<?php
-}
-if($contact->suburb && $params->get('suburb')) {
-?>
-<tr><td valign="top"><?php echo $contact->suburb; ?></td></tr>
-<?php
-}
-if($contact->state && $params->get('state')) {
-?>
-<tr><td valign="top"><?php echo $contact->state; ?></td></tr>
-<?php
-}
-if($contact->country && $params->get('country')) {
-?>
+<?php if($params->get('address_check') > 0) { ?>
 <tr>
-<td valign="top"><?php echo $contact->country; ?></td></tr>
-<?php
-}
-if($contact->postcode && $params->get('postcode')) {
-?>
-<tr><td valign="top"><?php echo $contact->postcode; ?></td></tr>
-<?php
-}
-?>
+<td rowspan="6" valign="top" width="<?php echo $params->get('column_width'); ?>" align="left"><?php echo $params->get('marker_address'); ?></td>
+</tr>
+<?php } ?>
+<?php } if($contact->postcode && $params->get('postcode')) { ?>
+<tr>
+<td valign="top"><?php echo $contact->postcode; ?></td>
+</tr>
+<?php } if($contact->country && $params->get('country')) { ?>
+<tr>
+<td valign="top"><?php echo $contact->country; ?></td>
+</tr>
+<?php } if($contact->state && $params->get('state')) { ?>
+<tr>
+<td valign="top"><?php echo $contact->state; ?></td>
+</tr>
+<?php } if($contact->suburb && $params->get('suburb')) { ?>
+<tr>
+<td valign="top"><?php echo $contact->suburb; ?></td>
+</tr>
+<?php if($contact->address && $params->get('street_address')) { ?>
+<tr>
+<td valign="top"><?php echo $contact->address; ?></td>
+</tr>
+<?php } ?>
 </table>
 <br />
 <?php
@@ -412,34 +368,20 @@ function _writeContactContact(&$contact,&$params) {
 if($contact->email_to || $contact->telephone || $contact->fax) {
 ?>
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
-<?php
-if($contact->email_to && $params->get('email')) {
-?>
-<tr><td width="<?php echo $params->get('column_width'); ?>" align="left"><?php echo $params->get('marker_email'); ?></td><td>
-<?php
-echo $contact->email;
-?>
-</td>
+<?php if($contact->email_to && $params->get('email')) { ?>
+<tr>
+<td width="<?php echo $params->get('column_width'); ?>" align="left"><?php echo $params->get('marker_email'); ?></td>
+<td><?php echo $contact->email; ?></td>
 </tr>
-<?php
-}
-if($contact->telephone && $params->get('telephone')) {
-?>
-<tr><td width="<?php echo $params->get('column_width'); ?>" align="left"><?php echo $params->get('marker_telephone'); ?></td><td>
-<?php
-echo $contact->telephone;
-?>
-</td>
+<?php } if($contact->telephone && $params->get('telephone')) { ?>
+<tr>
+<td width="<?php echo $params->get('column_width'); ?>" align="left"><?php echo $params->get('marker_telephone'); ?></td>
+<td><?php echo $contact->telephone; ?></td>
 </tr>
-<?php
-}
-if($contact->fax && $params->get('fax')) {
-?>
-<tr><td width="<?php echo $params->get('column_width'); ?>" align="left"><?php echo $params->get('marker_fax'); ?></td><td>
-<?php
-echo $contact->fax;
-?>
-</td>
+<?php } if($contact->fax && $params->get('fax')) { ?>
+<tr>
+<td width="<?php echo $params->get('column_width'); ?>" align="left"><?php echo $params->get('marker_fax'); ?></td>
+<td><?php echo $contact->fax; ?></td>
 </tr>
 <?php
 }
@@ -523,8 +465,7 @@ session_start();
 <div>
 <input name="captcha" type="text" class="inputbox" size="30" />
 </div>
-<?php }
-; ?>
+<?php } ; ?>
 <br />
 <input type="button" name="send" value="<?php echo (_SEND_BUTTON); ?>" class="button" onclick="validate()" />
 </div>

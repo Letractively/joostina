@@ -2,6 +2,7 @@ User-agent: *
 Disallow: /administrator/
 Disallow: /cache/
 Disallow: /components/
+Disallow: /*com_search*/
 Disallow: /editor/
 Disallow: /help/
 Disallow: /images/
@@ -16,3 +17,26 @@ Disallow: /?option=
 Disallow: /?replyto=
 Disallow: /?mosmsg=
 Disallow: /?
+Request-rate:
+
+User-agent: Yandex
+Disallow: /administrator/
+Disallow: /cache/
+Disallow: /components/
+Disallow: /*com_search*/
+Disallow: /editor/
+Disallow: /help/
+Disallow: /images/
+Disallow: /includes/
+Disallow: /language/
+Disallow: /mambots/
+Disallow: /media/
+Disallow: /modules/
+Disallow: /templates/
+Disallow: /installation/
+Disallow: /?option=
+Disallow: /?replyto=
+Disallow: /?mosmsg=
+Disallow: /?
+Host: 
+Crawl-delay: 3.5
