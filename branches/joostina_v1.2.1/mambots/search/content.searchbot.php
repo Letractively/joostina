@@ -153,8 +153,7 @@ $database->setQuery($query,0,$limit);
 $list3 = $database->loadObjectList();
 // check if search of nonmenu linked static content is allowed
 if($nonmenu) {
-// collect ids of static content items linked to menu items
-// so they can be removed from query that follows
+// collect ids of static content items linked to menu items so they can be removed from query that follows
 $ids = null;
 if(count($list2)) {
 foreach($list2 as $static) {

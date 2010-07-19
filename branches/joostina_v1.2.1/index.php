@@ -308,7 +308,8 @@ $sysstop = ((float)$usec + (float)$sec);
 echo '<div id="time_gen">'.round($sysstop - $sysstart,4).'</div>';
 }
 // вывод лога отладки
-if($mosConfig_debug) {
+//if($mosConfig_debug) {
+if($mosConfig_debug && $my->id == 62) {
 if(function_exists('memory_get_usage')) {
 $mem_usage = (memory_get_usage() - _MEM_USAGE_START);
 $debug->add('<b>'._SCRIPT_MEMORY_USING.':</b> '.sprintf('%0.2f',$mem_usage / 1048576).' MB');

@@ -8,7 +8,8 @@
 */
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-$_MAMBOTS->registerFunction('onBeforeDisplayContent','pluginJWAjaxVote');
+//$_MAMBOTS->registerFunction('onBeforeDisplayContent','pluginJWAjaxVote');
+$_MAMBOTS->registerFunction('onAfterDisplayContent','pluginJWAjaxVote');
 function pluginJWAjaxVote(&$row,&$params) {
 global $mainframe,$addScriptJWAjaxVote,$mosConfig_caching;
 $id = $row->id;
