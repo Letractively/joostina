@@ -226,7 +226,7 @@ class HTML_config {
 							<td width="300"><?php echo _COM_CONFIG_SITE_LANG?>:</td>
 							<td><?php echo $lists['lang']; ?></td>
 						</tr>
-						<td><?php echo mosToolTip(_LIST_LIMIT2,'','','',_CUSTOM_PRINT)?>:</td>
+						<td><?php echo mosToolTip(_CUSTOM_PRINT2,'','','',_CUSTOM_PRINT)?>:</td>
 						<td><?php echo $lists['config_custom_print'];?></td>
 			</tr>
 			<tr>
