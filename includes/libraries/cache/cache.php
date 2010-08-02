@@ -88,7 +88,7 @@ class JCache {
 	 * @since	1.3
 	 */
 
-	function &getInstance($type = 'output', $options = array(), $object = null) {
+	public static function getInstance($type = 'output', $options = array(), $object = null) {
 		$type = strtolower(preg_replace('/[^A-Z0-9_\.-]/i', '', $type));
 
 		$class = 'JCache'.ucfirst($type);
@@ -99,6 +99,10 @@ class JCache {
 		}
 		$instance = new $class($options,$object);
 		return $instance;
+	}
+
+	private function __clone() {
+
 	}
 
 	/**
@@ -136,7 +140,7 @@ class JCache {
 	 * @return	void
 	 * @since	1.3
 	 */
-	function setCaching($enabled) {
+	public function setCaching($enabled) {
 		$this->_options['caching'] = $enabled;
 	}
 
@@ -162,7 +166,7 @@ class JCache {
 	function setCacheValidation() {
 		// Deprecated
 	}
-
+	
 	/**
 	 * Get cached data by id and group
 	 *
@@ -173,12 +177,12 @@ class JCache {
 	 * @return	mixed	Boolean false on failure or a cached data string
 	 * @since	1.3
 	 */
-	function get($id, $group=null) {
+	public function get($id, $group=null) {
 		// Get the default group
 		$group = ($group) ? $group : $this->_options['defaultgroup'];
 
 		// Get the storage handler
-		$handler =& $this->_getStorage();
+		$handler = $this->_getStorage();
 		if ($handler != NULL && $this->_options['caching']) {
 			return $handler->get($id, $group, (isset($this->_options['checkTime']))? $this->_options['checkTime'] : true);
 		}
@@ -200,7 +204,7 @@ class JCache {
 		$group = ($group) ? $group : $this->_options['defaultgroup'];
 
 		// Get the storage handler and store the cached data
-		$handler =& $this->_getStorage();
+		$handler = $this->_getStorage();
 		if ($handler != NULL && $this->_options['caching']) {
 			return $handler->store($id, $group, $data);
 		}
@@ -222,7 +226,7 @@ class JCache {
 		$group = ($group) ? $group : $this->_options['defaultgroup'];
 
 		// Get the storage handler
-		$handler =& $this->_getStorage();
+		$handler = $this->_getStorage();
 		if ($handler != NULL) {
 			return $handler->remove($id, $group);
 		}
@@ -246,7 +250,7 @@ class JCache {
 		$group = ($group) ? $group : $this->_options['defaultgroup'];
 
 		// Get the storage handler
-		$handler =& $this->_getStorage();
+		$handler = $this->_getStorage();
 		if ($handler != NULL) {
 			return $handler->clean($group, $mode);
 			//return false;
@@ -263,7 +267,7 @@ class JCache {
 	 */
 	function gc() {
 		// Get the storage handler
-		$handler =& $this->_getStorage();
+		$handler = $this->_getStorage();
 		if ($handler != NULL) {
 			return $handler->gc();
 		}
@@ -277,12 +281,12 @@ class JCache {
 	 * @return object A JCacheStorage object
 	 * @since	1.3
 	 */
-	function &_getStorage() {
+	function _getStorage() {
 		if (is_a($this->_handler, 'JCacheStorage')) {
 			return $this->_handler;
 		}
 
-		$this->_handler =& JCacheStorage::getInstance($this->_options['storage'], $this->_options);
+		$this->_handler = JCacheStorage::getInstance($this->_options['storage'], $this->_options);
 		if($this->_handler != NULL) {
 			if($this->_handler->test()) {
 				return $this->_handler;
@@ -340,7 +344,7 @@ class JCacheStorage {
 	 * @return	object	A JCacheStorageHandler object
 	 * @since	1.3
 	 */
-	function &getInstance($handler = 'file', $options = array()) {
+	public static function getInstance($handler = 'file', $options = array()) {
 		static $now = null;
 		if(is_null($now)) {
 			$now = time();
@@ -357,6 +361,10 @@ class JCacheStorage {
 		return $return;
 	}
 
+	private function __clone() {
+
+	}
+
 	/**
 	 * Get cached data by id and group
 	 *
@@ -368,7 +376,7 @@ class JCacheStorage {
 	 * @return	mixed	Boolean false on failure or a cached data string
 	 * @since	1.3
 	 */
-	function get($id, $group, $checkTime) {
+	public function get($id, $group, $checkTime) {
 		return;
 	}
 

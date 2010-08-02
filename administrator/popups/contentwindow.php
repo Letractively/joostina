@@ -11,7 +11,7 @@ define("_VALID_MOS",1);
 
 require_once ('../includes/auth.php');
 
-$mainframe = &mosMainFrame::getInstance(true);
+$mainframe = mosMainFrame::getInstance(true);
 $mainframe->set('lang', $mosConfig_lang);
 include_once($mainframe->getLangFile());
 

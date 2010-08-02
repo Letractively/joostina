@@ -13,7 +13,7 @@ defined('_VALID_MOS') or die();
 $_MAMBOTS->registerFunction('onBeforeDisplayContent','pluginJWAjaxVote');
 
 function pluginJWAjaxVote(&$row,&$params) {
-	$mainframe = &mosMainFrame::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 
 	// подключаем файл локализации
 	include_once($mainframe->getLangFile('com_poll'));

@@ -41,7 +41,7 @@ class mosInstallerMambot extends mosInstaller {
 	 * @param boolean True if installing from directory
 	 */
 	function install($p_fromdir = null) {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		if(!$this->preInstallCheck($p_fromdir,'mambot')) {
 			return false;
@@ -140,7 +140,7 @@ class mosInstallerMambot extends mosInstaller {
 	 * @param int The client id
 	 */
 	function uninstall($id,$option,$client = 0) {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		$id = intval($id);
 		$query = "SELECT name, folder, element, iscore FROM #__mambots WHERE id = ".(int)

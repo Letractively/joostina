@@ -15,7 +15,7 @@ defined('_VALID_MOS') or die();
  * @subpackage Weblinks
  */
 class TOOLBAR_weblinks {
-	function _EDIT() {
+	public static function _EDIT() {
 		global $id;
 
 		mosMenuBar::startTable();
@@ -31,7 +31,7 @@ class TOOLBAR_weblinks {
 		mosMenuBar::help('screen.weblink.edit');
 		mosMenuBar::endTable();
 	}
-	function _DEFAULT() {
+	public static function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::spacer();
 		mosMenuBar::publishList();

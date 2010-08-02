@@ -26,10 +26,8 @@ if(!class_exists('mosMenuBar')) {
 				/**
 				 * Создание произвольных кнопок тулбара с параметром в виде ссылки и расширенным параметром extra
 				 */
-				function ext($alt = _BUTTON,$href = '',$class = '',$extra = '') {
-					?><li>
-			<a class="tb-ext<?php echo $class; ?>" href="<?php echo $href; ?>" <?php echo $extra; ?>><span><?php echo $alt; ?></span></a>
-		</li>
+				public static function ext($alt = _BUTTON,$href = '',$class = '',$extra = '') {
+					?><li><a class="tb-ext<?php echo $class; ?>" href="<?php echo $href; ?>" <?php echo $extra; ?>><span><?php echo $alt; ?></span></a></li>
 					<?php
 				}
 

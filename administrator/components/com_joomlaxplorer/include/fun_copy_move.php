@@ -34,7 +34,7 @@ function dir_list($dir) {
 	return $dir_list;
 }
 function dir_print($dir_list, $new_dir) {
-	$mainframe = &mosMainFrame::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 	
 	$dir_up = dirname($new_dir);
@@ -55,7 +55,7 @@ function dir_print($dir_list, $new_dir) {
 	}
 }
 function copy_move_items($dir) {
-	$mainframe = &mosMainFrame::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 	if(($GLOBALS["permissions"] & 01) != 01)
 		show_error($GLOBALS["error_msg"]["accessfunc"]);

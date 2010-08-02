@@ -748,7 +748,7 @@ class utf8 {
 
 class Jstring extends utf8{
 
-	function to_utf8(&$text){
+	public static function to_utf8($text){
 		if (is_array($text) OR is_object($text)){
 			$d = array();
 			foreach ($text as $k => &$v){
@@ -773,7 +773,7 @@ class Jstring extends utf8{
 	}
 
 	/* проверка на юникод */
-	function is_utf8(&$data, $is_strict = true){
+	public static function is_utf8(&$data, $is_strict = true){
 		if (is_array($data)){ // массив
 			foreach ($data as $k => &$v){
 				if (!self::is_utf8($v, $is_strict)){
@@ -801,7 +801,7 @@ class Jstring extends utf8{
 		return false;
 	}
 	/* проверка на юникод */
-	function utf8_check($str, $is_strict = true) {
+	public static function utf8_check($str, $is_strict = true) {
 		for($i = 0, $len = strlen($str); $i < $len; $i++) {
 			$c = ord($str[$i]);
 			if($c < 0x80){

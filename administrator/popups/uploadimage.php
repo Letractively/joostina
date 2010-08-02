@@ -12,7 +12,7 @@ define("_VALID_MOS",1);
 /** проверка безопасности*/
 require ('../includes/auth.php');
 
-$mainframe = &mosMainFrame::getInstance(true);
+$mainframe = mosMainFrame::getInstance(true);
 $mainframe->set('lang', $mosConfig_lang);
 include_once($mainframe->getLangFile());
 

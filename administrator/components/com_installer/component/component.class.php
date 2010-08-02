@@ -80,8 +80,8 @@ class mosInstallerComponent extends mosInstaller {
 	function install($p_fromdir = null) {
 		josSpoofCheck();
 
-		$database = &database::getInstance();
-		$config = &Jconfig::getInstance();
+		$database = database::getInstance();
+		$config = Jconfig::getInstance();
 
 		if(!$this->preInstallCheck($p_fromdir,'component')) {
 			return false;
@@ -89,10 +89,10 @@ class mosInstallerComponent extends mosInstaller {
 
 		// aje moved down to here. ??  seemed to be some referencing problems
 		$xmlDoc = $this->xmlDoc();
-		$mosinstall = &$xmlDoc->documentElement;
+		$mosinstall = $xmlDoc->documentElement;
 
 		// Set some vars
-		$e = &$mosinstall->getElementsByPath('name',1);
+		$e = $mosinstall->getElementsByPath('name',1);
 		$this->elementName($e->getText());
 		$this->elementDir(mosPathName(JPATH_BASE.DS.'components'.DS.strtolower("com_".str_replace(" ","",$this->elementName())).DS));
 		$this->componentAdminDir(mosPathName(JPATH_BASE_ADMIN.DS.'components'.DS.strtolower('com_'.str_replace(' ','',$this->elementName()))));
@@ -126,7 +126,7 @@ class mosInstallerComponent extends mosInstaller {
 		$this->parseFiles('administration/images','','',1);
 
 		// Are there any SQL queries??
-		$query_element = &$mosinstall->getElementsByPath('install/queries',1);
+		$query_element = $mosinstall->getElementsByPath('install/queries',1);
 		if(!is_null($query_element)) {
 			$queries = $query_element->childNodes;
 			foreach($queries as $query) {
@@ -154,7 +154,7 @@ class mosInstallerComponent extends mosInstaller {
 		}
 
 		// Is there an installfile
-		$installfile_elemet = &$mosinstall->getElementsByPath('installfile',1);
+		$installfile_elemet = $mosinstall->getElementsByPath('installfile',1);
 
 		if(!is_null($installfile_elemet)) {
 			// check if parse files has already copied the install.component.php file (error in 3rd party xml's!)
@@ -168,7 +168,7 @@ class mosInstallerComponent extends mosInstaller {
 			$this->installFile($installfile_elemet->getText());
 		}
 		// Is there an uninstallfile
-		$uninstallfile_elemet = &$mosinstall->getElementsByPath('uninstallfile',1);
+		$uninstallfile_elemet = $mosinstall->getElementsByPath('uninstallfile',1);
 		if(!is_null($uninstallfile_elemet)) {
 			if(!file_exists($this->componentAdminDir().$uninstallfile_elemet->getText())) {
 				if(!$this->copyFiles($this->installDir(),$this->componentAdminDir(),array($uninstallfile_elemet->getText()))) {
@@ -179,9 +179,9 @@ class mosInstallerComponent extends mosInstaller {
 		}
 
 		// Is the menues ?
-		$adminmenu_element = &$mosinstall->getElementsByPath('administration/menu',1);
+		$adminmenu_element = $mosinstall->getElementsByPath('administration/menu',1);
 		if(!is_null($adminmenu_element)) {
-			$adminsubmenu_element = &$mosinstall->getElementsByPath('administration/submenu',1);
+			$adminsubmenu_element = $mosinstall->getElementsByPath('administration/submenu',1);
 			$com_name = strtolower("com_".str_replace(" ","",$this->elementName()));
 			$com_admin_menuname = $adminmenu_element->getText();
 
@@ -228,7 +228,7 @@ class mosInstallerComponent extends mosInstaller {
 		}
 
 		$desc = '';
-		if($e = &$mosinstall->getElementsByPath('description',1)) {
+		if($e = $mosinstall->getElementsByPath('description',1)) {
 			$desc = $this->elementName().'<p>'.$e->getText().'</p>';
 		}
 		$this->setError(0,$desc);
@@ -247,7 +247,7 @@ class mosInstallerComponent extends mosInstaller {
 	}
 
 	function createParentMenu($_menuname,$_comname,$_image ="js/ThemeOffice/component.png") {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		$db_name = $_menuname;
 		$db_link = "option=$_comname";
@@ -276,9 +276,9 @@ class mosInstallerComponent extends mosInstaller {
 	 * @param string The URL option
 	 * @param int The client id
 	 */
-	function uninstall($cid,$option,$client = 0) {
-		$database = &database::getInstance();
-		$config = &Jconfig::getInstance();
+	public function uninstall($cid,$option,$client = 0) {
+		$database = database::getInstance();
+		$config = Jconfig::getInstance();
 
 		josSpoofCheck();
 		$uninstallret = '';
@@ -323,7 +323,7 @@ class mosInstallerComponent extends mosInstaller {
 				if(!$xmlDoc->loadXML(JPATH_BASE_ADMIN.DS.'components'.DS.$row->option.DS.$file,false,true)) {
 					return false;
 				}
-				$root = &$xmlDoc->documentElement;
+				$root = $xmlDoc->documentElement;
 
 				if($root->getTagName() != 'mosinstall') {
 					continue;
@@ -377,11 +377,12 @@ class mosInstallerComponent extends mosInstaller {
 
 		return $uninstallret;
 	}
+
 	/**
 	 * Uninstall method
 	 */
 	function cleanAfterError() {
-		$config =&Jconfig::getInstance();
+		$config =Jconfig::getInstance();
 
 		josSpoofCheck();
 		$basepath = mosPathName(JPATH_BASE.DS.'components'.DS.strtolower("com_".str_replace(" ","",$this->elementName())));
@@ -399,11 +400,12 @@ class mosInstallerComponent extends mosInstaller {
 
 		return true;
 	}
-	function cleanMediaData($adminFiles = 0) {
-		$config =&Jconfig::getInstance();
 
-		$xmlDoc = &$this->xmlDoc();
-		$root = &$xmlDoc->documentElement;
+	function cleanMediaData($adminFiles = 0) {
+		$config = Jconfig::getInstance();
+
+		$xmlDoc = $this->xmlDoc();
+		$root = $xmlDoc->documentElement;
 		if($adminFiles == 1) {
 			$files_element = &$root->getElementsByPath('administration/images',1);
 		}

@@ -20,11 +20,11 @@ class ContentView {
 	 * Writes a list of the content items
 	 * @param array An array of content objects
 	 */
-	function showContent(&$rows,$section,&$lists,$search,$pageNav,$all = null,$redirect='') {
+	public static function showContent(&$rows,$section,&$lists,$search,$pageNav,$all = null,$redirect='') {
 		global $my,$acl;
 
-		$mainframe = &mosMainFrame::getInstance();
-		$database = &$mainframe->getDBO();
+		$mainframe = mosMainFrame::getInstance();
+		$database = $mainframe->getDBO();
 
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		$cur_file_icons_path2 = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images';
@@ -45,7 +45,7 @@ class ContentView {
 	 */
 	function showArchive(&$rows,$section,&$lists,$search,$pageNav,$option,$all = null,$redirect) {
 		global $my,$acl;
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		include_once($mainframe->adminView('showarchive'));
 	}
@@ -61,7 +61,7 @@ class ContentView {
 	 */
 	function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$params,$option,$redirect,&$menus) {
 
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images';
 
 		mosMakeHtmlSafe($row);
@@ -96,7 +96,7 @@ class ContentView {
 	 * @param array The list of sections and categories to move to
 	 */
 	function moveSection($cid,$sectCatList,$option,$sectionid,$items) {
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		include_once($mainframe->adminView('movesection'));
 	}
 
@@ -104,7 +104,7 @@ class ContentView {
 	 * Form to select Section/Category to copys item(s) to
 	 */
 	function copySection($option,$cid,$sectCatList,$sectionid,$items) {
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		include_once($mainframe->adminView('copysection'));
 	}
 	function submit($params) {

@@ -15,7 +15,7 @@ defined('_VALID_MOS') or die();
  * @subpackage Content
  */
 class TOOLBAR_content {
-	function _EDIT() {
+	public static function _EDIT() {
 		global $id;
 		mosMenuBar::startTable();
 		mosMenuBar::preview('contentwindow',true);
@@ -42,7 +42,7 @@ class TOOLBAR_content {
 		mosMenuBar::endTable();
 	}
 
-	function _CONFIG() {
+	public static function _CONFIG() {
 		mosMenuBar::startTable();
 		mosMenuBar::save('save_config');
 		mosMenuBar::spacer();
@@ -50,7 +50,7 @@ class TOOLBAR_content {
 		mosMenuBar::endTable();
 	}
 
-	function _ARCHIVE() {
+	public static function _ARCHIVE() {
 		mosMenuBar::startTable();
 		mosMenuBar::unarchiveList();
 		mosMenuBar::spacer();
@@ -60,7 +60,7 @@ class TOOLBAR_content {
 		mosMenuBar::endTable();
 	}
 
-	function _MOVE() {
+	public static function _MOVE() {
 		mosMenuBar::startTable();
 		mosMenuBar::custom('movesectsave','-save','',_SAVE,false);
 		mosMenuBar::spacer();
@@ -68,7 +68,7 @@ class TOOLBAR_content {
 		mosMenuBar::endTable();
 	}
 
-	function _COPY() {
+	public static function _COPY() {
 		mosMenuBar::startTable();
 		mosMenuBar::custom('copysave','-save','',_SAVE,false);
 		mosMenuBar::spacer();
@@ -76,7 +76,7 @@ class TOOLBAR_content {
 		mosMenuBar::endTable();
 	}
 
-	function _DEFAULT() {
+	public static function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::archiveList();
 		mosMenuBar::spacer();

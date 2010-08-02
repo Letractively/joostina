@@ -61,7 +61,7 @@ class mosMessage extends mosDBTable {
 	}
 
 	function send($from_id = null,$to_id = null,$subject = null,$message = null) {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 		$config = &Jconfig::getInstance();
 
 		if(is_object($this)) {

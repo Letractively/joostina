@@ -53,10 +53,10 @@ $id			= intval(mosGetParam($_REQUEST,'id',0));
 $mainframe = mosMainFrame::getInstance(true);
 
 // объект работы с базой данных
-$database = &$mainframe->getDBO();
+$database = $mainframe->getDBO();
 
 // класс работы с правами пользователей
-$acl = &gacl::getInstance();
+$acl = gacl::getInstance();
 
 // установка языка систему
 $mainframe->set('lang', $mosConfig_lang);

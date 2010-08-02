@@ -54,7 +54,7 @@ function removeElement($client) {
 }
 
 function showInstalledMambots($_option) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$query = "SELECT id, name, folder, element, client_id FROM #__mambots WHERE iscore = 0 ORDER BY folder, name";
 	$database->setQuery($query);

@@ -54,7 +54,7 @@ class XmapAdmin {
 	function showSettingsDialog( $success = 0 ) {
 		global $mainframe;
 
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		$menus = $this->getMenus();
 		# $this->sortMenus( $menus );
@@ -122,7 +122,7 @@ class XmapAdmin {
 }
 
 function loadInstalledPlugins( &$rows,&$xmlfile ) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	require_once (JPATH_BASE .'/includes/domit/xml_domit_lite_parser.php');
 

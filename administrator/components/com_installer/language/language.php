@@ -53,7 +53,7 @@ function removeElement($client) {
  * Compiles a list of installed languages
  */
 function viewLanguages($option) {
-	$mainframe = &mosMainFrame::getInstance(true);
+	$mainframe = mosMainFrame::getInstance(true);
 
 	$limit = $mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mainframe->getCfg('list_limit'));
 	$limitstart = $mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0);

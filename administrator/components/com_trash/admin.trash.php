@@ -54,8 +54,8 @@ switch($task) {
 function viewTrash($option) {
 	global $mosConfig_list_limit;
 
-	$database = &database::getInstance();
-	$mainframe = &mosMainFrame::getInstance();
+	$database = database::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 
 	$catid = $mainframe->getUserStateFromRequest("catid{$option}",'catid','content');
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
@@ -129,7 +129,7 @@ function viewTrash($option) {
  */
 function viewdeleteTrash($cid,$mid,$option) {
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	if(!in_array(0,$cid)) {
 		// Content Items query
@@ -162,7 +162,7 @@ function viewdeleteTrash($cid,$mid,$option) {
 function deleteTrash($cid,$option) {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 	$config = &Jconfig::getInstance();
 
 	$type = mosGetParam($_POST,'type',array(0));
@@ -203,7 +203,7 @@ function deleteTrash($cid,$option) {
 function clearTrash() {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 	$config = &Jconfig::getInstance();
 
 	// выбираем из таблицы содержимого записи помеченные как удалённые
@@ -251,7 +251,7 @@ function clearTrash() {
  * Compiles a list of the items you have selected to permanently delte
  */
 function viewrestoreTrash($cid,$mid,$option) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	if(!in_array(0,$cid)) {
 		// Content Items query
@@ -287,7 +287,7 @@ function viewrestoreTrash($cid,$mid,$option) {
 function restoreTrash($cid,$option) {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$type = mosGetParam($_POST,'type',array(0));
 

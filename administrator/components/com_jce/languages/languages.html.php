@@ -18,7 +18,7 @@ class JCE_languages {
 	function showLanguages($cur_lang,&$rows,&$pageNav,$option) {
 		global $my,$database,$mainframe;
 		
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 
 		$database->setQuery("SELECT lang FROM #__jce_langs WHERE published= '1'");

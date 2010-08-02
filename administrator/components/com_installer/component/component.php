@@ -56,7 +56,7 @@ function removeElement($client) {
  * @param string The URL option
  */
 function showInstalledComponents($option) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$query = "SELECT * FROM #__components WHERE parent = 0 AND iscore = 0 ORDER BY name";
 	$database->setQuery($query);
@@ -82,7 +82,7 @@ function showInstalledComponents($option) {
 				continue;
 			}
 
-			$root = &$xmlDoc->documentElement;
+			$root = $xmlDoc->documentElement;
 
 			if($root->getTagName() != 'mosinstall') {
 				continue;
@@ -91,22 +91,22 @@ function showInstalledComponents($option) {
 				continue;
 			}
 
-			$element = &$root->getElementsByPath('creationDate',1);
+			$element = $root->getElementsByPath('creationDate',1);
 			$row->creationdate = $element?$element->getText():_UNKNOWN;
 
-			$element = &$root->getElementsByPath('author',1);
+			$element = $root->getElementsByPath('author',1);
 			$row->author = $element?$element->getText():_UNKNOWN;
 
-			$element = &$root->getElementsByPath('copyright',1);
+			$element = $root->getElementsByPath('copyright',1);
 			$row->copyright = $element?$element->getText():'';
 
-			$element = &$root->getElementsByPath('authorEmail',1);
+			$element = $root->getElementsByPath('authorEmail',1);
 			$row->authorEmail = $element?$element->getText():'';
 
-			$element = &$root->getElementsByPath('authorUrl',1);
+			$element = $root->getElementsByPath('authorUrl',1);
 			$row->authorUrl = $element?$element->getText():'';
 
-			$element = &$root->getElementsByPath('version',1);
+			$element = $root->getElementsByPath('version',1);
 			$row->version = $element?$element->getText():'';
 
 			$row->mosname = strtolower(str_replace(" ","_",$row->name));

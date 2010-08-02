@@ -16,9 +16,9 @@ defined('_VALID_MOS') or die();
 */
 class HTML_menusections {
 
-	function showMenusections($rows,$pageNav,$search,$levellist,$menutype,$option) {
+	public static function showMenusections($rows,$pageNav,$search,$levellist,$menutype,$option) {
 		global $my;
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		
 		mosCommonHTML::loadOverlib();
@@ -131,7 +131,7 @@ class HTML_menusections {
 	/**
 	* Отображение списка типов пунктов меню для создания
 	*/
-	function addMenuItem(&$cid,$menutype,$option,$types_content,$types_component,$types_link,$types_other,$types_submit) {
+   public static function addMenuItem(&$cid,$menutype,$option,$types_content,$types_component,$types_link,$types_other,$types_submit) {
 
 		mosCommonHTML::loadOverlib();
 ?>
@@ -251,7 +251,7 @@ class HTML_menusections {
 		<?php
 	}
 
-	function htmlOptions(&$row,$link,$k,$i) {
+	public static function htmlOptions(&$row,$link,$k,$i) {
 ?>
 		<tr class="<?php echo "row$k"; ?>">
 			<td width="20">

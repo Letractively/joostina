@@ -14,7 +14,7 @@ class HTML_banners {
 
 	function showBanners(&$rows, &$clist, &$clientlist, $myid, &$pageNav, $option) {
 		mosCommonHTML::loadOverlib();
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 
 		?>
@@ -218,7 +218,7 @@ class HTML_banners {
 	} // end showBanners
 
 	function editBanner(&$row, &$clientlist, &$categorylist, &$imagelist, $glist, $option, &$dimension) {
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 
 		mosMakeHtmlSafe($row, ENT_QUOTES, 'custombannercode');
@@ -915,7 +915,7 @@ class HTML_banners {
 class HTML_bannerClient {
 	function showClients(&$rows, &$info_banner, $myid, &$pageNav, $option, $stateslist) {
 
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		?>
 <table class="adminheading">
@@ -1054,7 +1054,7 @@ class HTML_bannerCategory {
 	 * @param string The name of the category section
 	 */
 	function showCategories(&$rows, $myid, &$pageNav, $option, $stateslist) {
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		?>
 <form action="index2.php" method="POST" name="adminForm">

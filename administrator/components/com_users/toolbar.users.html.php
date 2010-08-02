@@ -18,7 +18,7 @@ class TOOLBAR_users {
 	/**
 	 * Draws the menu to edit a user
 	 */
-	function _EDIT() {
+	public static function _EDIT() {
 		global $id;
 
 		mosMenuBar::startTable();
@@ -37,7 +37,7 @@ class TOOLBAR_users {
 		mosMenuBar::endTable();
 	}
 
-	function _CONFIG() {
+	public static function _CONFIG() {
 		mosMenuBar::startTable();
 		mosMenuBar::save('save_config');
 		mosMenuBar::spacer();
@@ -45,7 +45,7 @@ class TOOLBAR_users {
 		mosMenuBar::endTable();
 	}
 
-	function _DEFAULT() {
+	public static function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::custom('logout','-cancel','',_DISABLE);
 		mosMenuBar::spacer();

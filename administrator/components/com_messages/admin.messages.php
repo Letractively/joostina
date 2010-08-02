@@ -79,7 +79,7 @@ function editConfig($option) {
 function saveConfig($option) {
 	global $my;
 	josSpoofCheck();
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$query = "DELETE FROM #__messages_cfg WHERE user_id = ".(int)$my->id;
 	$database->setQuery($query);
@@ -101,7 +101,7 @@ function saveConfig($option) {
 function newMessage($option) {
 	global $acl;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$user = intval(mosGetParam($_REQUEST,'userid',0));
 	$subject = stripslashes(strval(mosGetParam($_REQUEST,'subject','')));
@@ -126,7 +126,7 @@ function newMessage($option) {
 }
 
 function saveMessage($option) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	josSpoofCheck();
 	$row = new mosMessage($database);
@@ -149,7 +149,7 @@ function saveMessage($option) {
 function showMessages($option) {
 	global $mainframe,$my;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$limit = $mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mainframe->getCfg('list_limit'));
 	$limitstart = $mainframe->getUserStateFromRequest("view{$option}limitstart",'limitstart',0);
@@ -188,7 +188,7 @@ function showMessages($option) {
 function viewMessage($uid = '0',$option) {
 	global $my,$acl;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$row = null;
 	$query = "SELECT a.*, u.name AS user_from FROM #__messages AS a INNER JOIN #__users AS u ON u.id = a.user_id_from WHERE a.message_id = ".(int)$uid."\n ORDER BY date_time DESC";
@@ -203,7 +203,7 @@ function viewMessage($uid = '0',$option) {
 }
 
 function removeMessage($cid,$option) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	josSpoofCheck();
 	if(!is_array($cid) || count($cid) < 1) {

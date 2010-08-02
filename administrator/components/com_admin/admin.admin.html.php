@@ -60,8 +60,8 @@ class HTML_admin_misc {
 	function system_info($version) {
 		global $mosConfig_cachepath;
 
-		$mainframe = &mosMainFrame::getInstance();
-		$database = &$mainframe->getDBO();
+		$mainframe = mosMainFrame::getInstance();
+		$database = $mainframe->getDBO();
 
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 

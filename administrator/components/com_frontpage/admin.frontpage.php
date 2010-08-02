@@ -74,7 +74,7 @@ switch($task) {
 function viewFrontPage($option) {
 	global $mainframe,$mosConfig_list_limit;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$catid = intval($mainframe->getUserStateFromRequest("catid{$option}",'catid',0));
 	$filter_authorid = intval($mainframe->getUserStateFromRequest("filter_authorid{$option}",'filter_authorid',0));
@@ -170,7 +170,7 @@ function viewFrontPage($option) {
 function changeFrontPage($cid = null,$state = 0,$option) {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	josSpoofCheck();
 	if(count($cid) < 1) {
@@ -205,7 +205,7 @@ function changeFrontPage($cid = null,$state = 0,$option) {
 function removeFrontPage(&$cid,$option) {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	if(!is_array($cid) || count($cid) < 1) {
 		echo "<script> alert('"._CHOOSE_OBJ_DELETE."'); window.history.go(-1);</script>\n";
@@ -240,7 +240,7 @@ function removeFrontPage(&$cid,$option) {
 function orderFrontPage($uid,$inc,$option) {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$fp = new mosFrontPage($database);
 	$fp->load((int)$uid);
@@ -260,7 +260,7 @@ function orderFrontPage($uid,$inc,$option) {
 function accessMenu($uid,$access) {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$row = new mosContent($database);
 	$row->load((int)$uid);
@@ -282,7 +282,7 @@ function accessMenu($uid,$access) {
 function saveOrder(&$cid) {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$total = count($cid);
 	$order = josGetArrayInts('order');

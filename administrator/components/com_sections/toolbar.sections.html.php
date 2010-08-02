@@ -15,14 +15,14 @@ defined('_VALID_MOS') or die();
  * @subpackage Sections
  */
 class TOOLBAR_sections {
-	function _MASADD() {
+	public static function _MASADD() {
 		mosMenuBar::startTable();
 		mosMenuBar::save('massave');
 		mosMenuBar::cancel();
 		mosMenuBar::endTable();
 	}
 
-	function _MASNEW() {
+	public static function _MASNEW() {
 		mosMenuBar::startTable();
 		mosMenuBar::custom('masadd','-new','',_MENU_MASS_ADD);
 		mosMenuBar::endTable();
@@ -31,7 +31,7 @@ class TOOLBAR_sections {
 	/**
 	 * Draws the menu for Editing an existing category
 	 */
-	function _EDIT() {
+	public static function _EDIT() {
 		global $id;
 
 		mosMenuBar::startTable();
@@ -62,7 +62,7 @@ class TOOLBAR_sections {
 	 * Draws the menu for Copying existing sections
 	 * @param int The published state (to display the inverse button)
 	 */
-	function _COPY() {
+	public static function _COPY() {
 		mosMenuBar::startTable();
 		mosMenuBar::save('copysave');
 		mosMenuBar::spacer();
@@ -72,7 +72,7 @@ class TOOLBAR_sections {
 	/**
 	 * Draws the menu for Editing an existing category
 	 */
-	function _DEFAULT() {
+	public static function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::ext(_CREATE_CATEGORY,'index2.php?option=com_categories&task=new','-new');
 		mosMenuBar::publishList();

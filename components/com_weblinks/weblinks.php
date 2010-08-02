@@ -48,8 +48,8 @@ switch($task) {
 function listWeblinks($catid) {
 	global $my;
 
-	$database = &database::getInstance();
-	$mainframe = &mosMainFrame::getInstance();
+	$database = database::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 	$config = &Jconfig::getInstance();
 
 	$rows = array();
@@ -173,7 +173,7 @@ function listWeblinks($catid) {
 function showItem($id) {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 	$config = &Jconfig::getInstance();
 
 	$link = new mosWeblink($database);
@@ -241,7 +241,7 @@ function showItem($id) {
 function editWebLink($id,$option) {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	if($my->gid < 1) {
 		mosNotAuth();
@@ -286,7 +286,7 @@ function editWebLink($id,$option) {
 function cancelWebLink() {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	if($my->gid < 1) {
 		mosNotAuth();
@@ -311,7 +311,7 @@ function saveWeblink() {
 	// simple spoof check security
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	if($my->gid < 1) {
 		mosNotAuth();

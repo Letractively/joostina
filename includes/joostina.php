@@ -1116,7 +1116,7 @@ class mosMainFrame {
 	 * + хак для отключения ведения сессий на фронте
 	 */
 	function getUser() {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		$user = new mosUser($this->_db);
 
@@ -1152,11 +1152,11 @@ class mosMainFrame {
 
 
 	function getUser_from_sess($sess_id) {
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$sess_id = $mainframe->sessionCookieValue($sess_id);
 
 
-		$database = &database::getInstance();
+		$database = database::getInstance();
 		$user = new mosUser($database);
 		$user->id = 0;
 		$user->gid = 0;
@@ -2456,7 +2456,7 @@ class mosMenu extends mosDBTable {
 	public static function get_all() {
 
 		if( self::$_all_menus_instance === NULL ) {
-			$database = &database::getInstance();
+			$database = database::getInstance();
 			// ведёргиваем из базы все пункты меню, они еще пригодяться несколько раз
 			$sql = 'SELECT id,menutype,name,link,type,parent,params,access,browserNav FROM #__menu WHERE published=1 ORDER BY parent, ordering ASC';
 			$menus = $database->setQuery($sql)->loadObjectList();
@@ -2606,17 +2606,17 @@ class mosModule extends mosDBTable {
 	/**
 	 * @param database A database connector object
 	 */
-	function mosModule(&$db, $mainframe = null) {
+	function mosModule($db, $mainframe = null) {
 		$this->mosDBTable('#__modules','id',$db);
 		if($mainframe) {
 			$this->_mainframe = $mainframe;
 		}
 	}
 
-	public static function &getInstance() {
+	public static function getInstance() {
 		static $modules;
 		if(!is_object($modules) ) {
-			$mainframe = &mosMainFrame::getInstance();
+			$mainframe = mosMainFrame::getInstance();
 
 			$modules = new mosModule($mainframe->getDBO(), $mainframe);
 			$modules->initModules();
@@ -2637,7 +2637,7 @@ class mosModule extends mosDBTable {
 	}
 
 	public static function convert_to_object($module, $mainframe) {
-		$database = &$mainframe->getDBO();
+		$database = $mainframe->getDBO();
 
 		$module_obj = new mosModule($database, $mainframe);
 		$rows = get_object_vars($module_obj);
@@ -2740,7 +2740,7 @@ class mosModule extends mosDBTable {
         }
 
 
-        public function &_initModules( $Itemid,$my_gid ) {
+        public static function _initModules( $Itemid,$my_gid ) {
 
             $mainframe = mosMainFrame::getInstance();
             $database = $mainframe->getDBO();
@@ -2834,7 +2834,7 @@ class mosModule extends mosDBTable {
 				// normal modules
 				if(($params->get('cache',0) == 1 OR $def_cachetime>0) && $config_caching == 1) {
 					// module caching
-					$cache = &mosCache::getCache($module->module.'_'.$module->id,'function',null,$def_cachetime, $this->_view);
+					$cache = mosCache::getCache($module->module.'_'.$module->id,'function',null,$def_cachetime, $this->_view);
 					$cache->call('module2',$module,$params,$Itemid,$style,$my->gid);
 				} else {
 					$this->_view->module2($module,$params,$Itemid,$style,$count);
@@ -2843,7 +2843,7 @@ class mosModule extends mosDBTable {
 				// custom or new modules
 				if($params->get('cache') == 1 && $config_caching == 1) {
 					// module caching
-					$cache = &mosCache::getCache('mod_user_'.$module->id,'function',null,$def_cachetime, $this->_view);
+					$cache = mosCache::getCache('mod_user_'.$module->id,'function',null,$def_cachetime, $this->_view);
 					$cache->call('module',$module,$params,$Itemid,$style,0,$my->gid);
 				} else {
 					$this->_view->module($module,$params,$Itemid,$style);
@@ -2903,7 +2903,7 @@ class mosModule extends mosDBTable {
 			// normal modules
 			if($params->get('cache') == 1 && $config->config_caching == 1) {
 				// module caching
-				$cache = &mosCache::getCache('modules', '', null, null, $this->_view);
+				$cache = mosCache::getCache('modules', '', null, null, $this->_view);
 				$cache->call('module2',$module,$params,$Itemid,$style,$my->gid);
 			} else {
 				$this->_view->module2($module,$params,$Itemid,$style,$count);
@@ -2987,11 +2987,11 @@ class mosHTML {
 	public static function makeOption($value,$text = '',$value_name = 'value',$text_name = 'text') {
 		$obj = new stdClass;
 		$obj->$value_name = $value;
-		$obj->$text_name = trim($text)?$text:$value;
+		$obj->$text_name = trim($text) ? $text:$value;
 		return $obj;
 	}
 
-	function writableCell($folder,$relative = 1,$text = '',$visible = 1) {
+	public static function writableCell($folder,$relative = 1,$text = '',$visible = 1) {
 
 		$writeable		= '<b><font color="green">'._WRITEABLE.'</font></b>';
 		$unwriteable	= '<b><font color="red">'._UNWRITEABLE.'</font></b>';
@@ -3023,7 +3023,7 @@ class mosHTML {
 	 * @param mixed The key that is selected
 	 * @returns string HTML for the select list
 	 */
-	function selectList(&$arr,$tag_name,$tag_attribs,$key,$text,$selected = null, $first_el_key = '*000', $first_el_text = '*000') {
+	public static function selectList(&$arr,$tag_name,$tag_attribs,$key,$text,$selected = null, $first_el_key = '*000', $first_el_text = '*000') {
 		// check if array
 		if(is_array($arr)) {
 			reset($arr);
@@ -3072,7 +3072,7 @@ class mosHTML {
 	 * @param string The printf format to be applied to the number
 	 * @returns string HTML for the select list
 	 */
-	function integerSelectList($start,$end,$inc,$tag_name,$tag_attribs,$selected,$format ="") {
+	public static function integerSelectList($start,$end,$inc,$tag_name,$tag_attribs,$selected,$format ="") {
 		$start = intval($start);
 		$end = intval($end);
 		$inc = intval($inc);
@@ -3093,7 +3093,7 @@ class mosHTML {
 	 * @param mixed The key that is selected
 	 * @returns string HTML for the select list values
 	 */
-	function monthSelectList($tag_name,$tag_attribs,$selected,$type = 0) {
+	public static function monthSelectList($tag_name,$tag_attribs,$selected,$type = 0) {
 		// месяца для выбора
 		$arr_1 = array(
 				mosHTML::makeOption('01',_JAN),
@@ -3128,7 +3128,7 @@ class mosHTML {
 		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
 	}
 
-	function daySelectList($tag_name,$tag_attribs,$selected) {
+	public static function daySelectList($tag_name,$tag_attribs,$selected) {
 		$arr = array();
 
 		for($i = 1; $i <= 31; $i++) {
@@ -3142,7 +3142,7 @@ class mosHTML {
 		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
 	}
 
-	function yearSelectList($tag_name,$tag_attribs,$selected, $min = 1900, $max=null ) {
+	public static function yearSelectList($tag_name,$tag_attribs,$selected, $min = 1900, $max=null ) {
 
 		$max = ( $max == null) ? date('Y',time()) : $max;
 
@@ -3153,7 +3153,7 @@ class mosHTML {
 		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
 	}
 
-	function genderSelectList($tag_name,$tag_attribs,$selected) {
+	public static function genderSelectList($tag_name,$tag_attribs,$selected) {
 		$arr = array(
 				mosHTML::makeOption('no_gender',_GENDER_NONE),
 				mosHTML::makeOption('male',_MALE),
@@ -3176,8 +3176,7 @@ class mosHTML {
 	 * @param mixed The key that is selected
 	 * @returns string HTML for the select list
 	 */
-	function treeSelectList(&$src_list,$src_id,$tgt_list,$tag_name,$tag_attribs,$key,
-			$text,$selected) {
+	public static function treeSelectList(&$src_list,$src_id,$tgt_list,$tag_name,$tag_attribs,$key,$text,$selected) {
 		// establish the hierarchy of the menu
 		$children = array();
 		// first pass - collect children
@@ -3216,7 +3215,7 @@ class mosHTML {
 	 * @param mixed The key that is selected
 	 * @returns string HTML for the select list values
 	 */
-	function yesnoSelectList($tag_name,$tag_attribs,$selected,$yes = _YES,$no =_NO) {
+	public static function yesnoSelectList($tag_name,$tag_attribs,$selected,$yes = _YES,$no =_NO) {
 		$arr = array(mosHTML::makeOption('0',$no),mosHTML::makeOption('1',$yes),);
 
 		return mosHTML::selectList($arr,$tag_name,$tag_attribs,'value','text',$selected);
@@ -3232,7 +3231,7 @@ class mosHTML {
 	 * @param string The name of the object variable for the option text
 	 * @returns string HTML for the select list
 	 */
-	function radioList(&$arr,$tag_name,$tag_attribs,$selected = null,$key = 'value',$text = 'text') {
+	public static function radioList(&$arr,$tag_name,$tag_attribs,$selected = null,$key = 'value',$text = 'text') {
 		reset($arr);
 		$html = '';
 		for($i = 0,$n = count($arr); $i < $n; $i++) {
@@ -3268,7 +3267,7 @@ class mosHTML {
 	 * @param mixed The key that is selected
 	 * @returns string HTML for the radio list
 	 */
-	function yesnoRadioList($tag_name,$tag_attribs,$selected,$yes = _YES,$no = _NO) {
+	public static function yesnoRadioList($tag_name,$tag_attribs,$selected,$yes = _YES,$no = _NO) {
 		$arr = array(
 				mosHTML::makeOption('0',$no),
 				mosHTML::makeOption('1',$yes)
@@ -3284,7 +3283,7 @@ class mosHTML {
 	 * @param string The name of the form element
 	 * @return string
 	 */
-	function idBox($rowNum,$recId,$checkedOut = false,$name = 'cid') {
+	public static function idBox($rowNum,$recId,$checkedOut = false,$name = 'cid') {
 		if($checkedOut) {
 			return '';
 		} else {
@@ -3292,7 +3291,7 @@ class mosHTML {
 		}
 	}
 
-	function sortIcon($base_href,$field,$state = 'none') {
+	public static function sortIcon($base_href,$field,$state = 'none') {
 		$alts = array('none' => _SORT_NONE,'asc' => _SORT_ASC,'desc' =>_SORT_DESC,);
 		$next_state = 'asc';
 		if($state == 'asc') {
@@ -3432,7 +3431,7 @@ class mosHTML {
 	 * email cloacking
 	 * by default replaces an email with a mailto link with email cloacked
 	 */
-	function emailCloaking($mail,$mailto = 1,$text = '',$email = 1) {
+	public static function emailCloaking($mail,$mailto = 1,$text = '',$email = 1) {
 		// convert text
 		$mail = mosHTML::encoding_converter($mail);
 		// split email by @ symbol
@@ -3493,7 +3492,7 @@ class mosHTML {
 		return $replacement;
 	}
 
-	function encoding_converter($text) {
+	public static function encoding_converter($text) {
 		// replace vowels with character encoding
 		$text = str_replace('a','&#97;',$text);
 		$text = str_replace('e','&#101;',$text);
@@ -3666,7 +3665,7 @@ function mosRedirect($url,$msg = '') {
 	$url = $iFilter->process($url);
 	if(!empty($msg)) {
 		$msg = $iFilter->process($msg);
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$mainframe->set_mosmsg($msg);
 	}
 
@@ -3838,7 +3837,7 @@ function mosGetOS($agent) {
  * @param integer The length of the truncated headline
  */
 function mosGetOrderingList($sql,$chop = '30') {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$order = array();
 	$database->setQuery($sql);
@@ -3906,7 +3905,7 @@ function mosMenuCheck($Itemid,$menu_option,$task,$gid,$mainframe) {
 	$access = 0;
 
 	if($Itemid != '' && $Itemid != 0 && $Itemid != 99999999) {
-		$all_menus = &mosMenu::get_all();
+		$all_menus = mosMenu::get_all();
 		foreach($all_menus as $menu) {
 			if(isset($menu[$Itemid])) {
 				$results[0]=$menu[$Itemid];
@@ -3915,7 +3914,7 @@ function mosMenuCheck($Itemid,$menu_option,$task,$gid,$mainframe) {
 		}
 		unset($all_menus);
 	} else {
-		$database = &$mainframe->getDBO();
+		$database = $mainframe->getDBO();
 		$dblink = "index.php?option=".$database->getEscaped($menu_option, true);
 		if($task != '') {
 			$dblink .= "&task=".$database->getEscaped($task, true);
@@ -3962,7 +3961,7 @@ function mosFormatDate($date,$format = '',$offset = null) {
 	if(is_null($offset)) {
 		$offset = $config_offset;
 	}
-	if($date && ereg("([0-9]{4})-([0-9]{2})-([0-9]{2})[ ]([0-9]{2}):([0-9]{2}):([0-9]{2})",$date,$regs)) {
+    if ($date && preg_match("/^([0-9]{4})-([0-9]{2})-([0-9]{2})[ ]([0-9]{2}):([0-9]{2}):([0-9]{2})/", $date, $regs)) {
 		$date = mktime($regs[4],$regs[5],$regs[6],$regs[2],$regs[3],$regs[1]);
 		$date = strftime($format,$date + ($offset* 60* 60));
 	}
@@ -4394,8 +4393,8 @@ class mosMambotHandler {
 	 * Constructor
 	 */
 	function mosMambotHandler() {
-		$this->_db = &database::getInstance();
-		$config = &Jconfig::getInstance();
+		$this->_db = database::getInstance();
+		$config = Jconfig::getInstance();
 		$this->_config = array('config_disable_access_control'=>$config->config_disable_access_control,'config_use_unpublished_mambots'=>$config->config_use_unpublished_mambots);
 		$this->_events = array();
 		unset($config);
@@ -4622,7 +4621,7 @@ class mosTabs {
 	 * @param int useCookies, if set to 1 cookie will hold last used tab between page refreshes
 	 */
 	function mosTabs($useCookies,$xhtml = 0) {
-		$mainframe = &MosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$config = $mainframe->get('config');
 
 		// активация gzip сжатия css и js файлов
@@ -4699,8 +4698,8 @@ class mosAdminMenus {
 	/**
 	 * build the select list for Menu Ordering
 	 */
-	function Ordering(&$row,$id) {
-		$database = &database::getInstance();
+	public static function Ordering(&$row,$id) {
+		$database = database::getInstance();
 
 		if($id) {
 			$query = "SELECT ordering AS value, name AS text"
@@ -4718,8 +4717,8 @@ class mosAdminMenus {
 	/**
 	 * build the select list for access level
 	 */
-	function Access(&$row,$guest=false) {
-		$database = &database::getInstance();
+	public static function Access(&$row,$guest=false) {
+		$database = database::getInstance();
 
 		$query = "SELECT id AS value, name AS text FROM #__groups ORDER BY id";
 		$database->setQuery($query);
@@ -4731,8 +4730,8 @@ class mosAdminMenus {
 	/**
 	 * build the select list for parent item
 	 */
-	function Parent(&$row) {
-		$database = &database::getInstance();
+	public static function Parent(&$row) {
+		$database = database::getInstance();
 
 		$id = '';
 		if($row->id) $id = "\n AND id != ".(int)$row->id;
@@ -4767,15 +4766,14 @@ class mosAdminMenus {
 	/**
 	 * build a radio button option for published state
 	 */
-	function Published(&$row) {
-		$published = mosHTML::yesnoRadioList('published','class="inputbox"',$row->published);
-		return $published;
+	public static function Published(&$row) {
+		return mosHTML::yesnoRadioList('published','class="inputbox"',$row->published);
 	}
 
 	/**
 	 * build the link/url of a menu item
 	 */
-	function Link(&$row,$id,$link = null) {
+	public static function Link(&$row,$id,$link = null) {
 		global $mainframe;
 
 		if($id) {
@@ -4813,19 +4811,18 @@ class mosAdminMenus {
 	/**
 	 * build the select list for target window
 	 */
-	function Target(&$row) {
+	public static function Target(&$row) {
 		$click[] = mosHTML::makeOption('0',_ADM_MENUS_TARGET_CUR_WINDOW);
 		$click[] = mosHTML::makeOption('1',_ADM_MENUS_TARGET_NEW_WINDOW_WITH_PANEL);
 		$click[] = mosHTML::makeOption('2',_ADM_MENUS_TARGET_NEW_WINDOW_WITHOUT_PANEL);
-		$target = mosHTML::selectList($click,'browserNav','class="inputbox" size="4"','value','text',intval($row->browserNav));
-		return $target;
+		return mosHTML::selectList($click,'browserNav','class="inputbox" size="4"','value','text',intval($row->browserNav));
 	}
 
 	/**
 	 * build the multiple select list for Menu Links/Pages
 	 */
-	function MenuLinks(&$lookup,$all = null,$none = null,$unassigned = 1) {
-		$database = &database::getInstance();
+	public static function MenuLinks(&$lookup,$all = null,$none = null,$unassigned = 1) {
+		$database = database::getInstance();
 
 		// get a list of the menu items
 		$query = "SELECT m.* FROM #__menu AS m WHERE m.published = 1 ORDER BY m.menutype, m.parent, m.ordering";
@@ -4906,16 +4903,15 @@ class mosAdminMenus {
 		$mitems = array_merge($mitems,$pages);
 		*/
 
-		$pages = mosHTML::selectList($mitems,'selections[]','class="inputbox" size="26" multiple="multiple"','value','text',$lookup);
-		return $pages;
+		return mosHTML::selectList($mitems,'selections[]','class="inputbox" size="26" multiple="multiple"','value','text',$lookup);
 	}
 
 
 	/**
 	 * build the select list to choose a category
 	 */
-	function Category(&$menu,$id,$javascript = '') {
-		$database = &database::getInstance();
+	public static function Category(&$menu,$id,$javascript = '') {
+		$database = database::getInstance();
 
 		$query = "SELECT c.id AS `value`, c.section AS `id`, CONCAT_WS( ' / ', s.title, c.title) AS `text` FROM #__sections AS s INNER JOIN #__categories AS c ON c.section = s.id WHERE s.scope = 'content' ORDER BY s.name, c.name";
 		$database->setQuery($query);
@@ -4939,8 +4935,8 @@ class mosAdminMenus {
 	/**
 	 * build the select list to choose a section
 	 */
-	function Section(&$menu,$id,$all = 0) {
-		$database = &database::getInstance();
+	public static function Section(&$menu,$id,$all = 0) {
+		$database = database::getInstance();
 
 		$query = "SELECT s.id AS `value`, s.id AS `id`, s.title AS `text` FROM #__sections AS s WHERE s.scope = 'content' ORDER BY s.name";
 		$database->setQuery($query);
@@ -4969,8 +4965,8 @@ class mosAdminMenus {
 	/**
 	 * build the select list to choose a component
 	 */
-	function Component(&$menu,$id,$rows=null) {
-		$database = &database::getInstance();
+	public static function Component(&$menu,$id,$rows=null) {
+		$database = database::getInstance();
 
 		if(!$rows) {
 			$query = "SELECT c.id AS value, c.name AS text, c.link FROM #__components AS c WHERE c.link != '' ORDER BY c.name";
@@ -4997,8 +4993,8 @@ class mosAdminMenus {
 	/**
 	 * build the select list to choose a component
 	 */
-	function ComponentName(&$menu,$rows=null) {
-		$database = &database::getInstance();
+	public static function ComponentName(&$menu,$rows=null) {
+		$database = database::getInstance();
 
 		if(!$rows) {
 			$query = "SELECT c.id AS value, c.name AS text, c.link FROM #__components AS c WHERE c.link != '' ORDER BY c.name";
@@ -5019,7 +5015,7 @@ class mosAdminMenus {
 	/**
 	 * build the select list to choose an image
 	 */
-	function Images($name,&$active,$javascript = null,$directory = null) {
+	public static function Images($name,&$active,$javascript = null,$directory = null) {
 
 		if(!$directory) {
 			$directory = '/images/stories';
@@ -5044,7 +5040,7 @@ class mosAdminMenus {
 	/**
 	 * build the select list for Ordering of a specified Table
 	 */
-	function SpecificOrdering(&$row,$id,$query,$neworder = 0,$limit = 30) {
+	public static function SpecificOrdering(&$row,$id,$query,$neworder = 0,$limit = 30) {
 		if($neworder) {
 			$text = _NEW_ITEM_FIRST;
 		} else {
@@ -5063,8 +5059,8 @@ class mosAdminMenus {
 	/**
 	 * Select list of active users
 	 */
-	function UserSelect($name,$active,$nouser = 0,$javascript = null,$order = 'name',$reg = 1) {
-		$database = &database::getInstance();
+	public static function UserSelect($name,$active,$nouser = 0,$javascript = null,$order = 'name',$reg = 1) {
+		$database = database::getInstance();
 
 		$and = '';
 		if($reg) {
@@ -5089,7 +5085,7 @@ class mosAdminMenus {
 	/**
 	 * Select list of positions - generally used for location of images
 	 */
-	function Positions($name,$active = null,$javascript = null,$none = 1,$center = 1,
+	public static function Positions($name,$active = null,$javascript = null,$none = 1,$center = 1,
 			$left = 1,$right = 1) {
 		if($none) {
 			$pos[] = mosHTML::makeOption('',_NONE);
@@ -5112,8 +5108,8 @@ class mosAdminMenus {
 	/**
 	 * Select list of active categories for components
 	 */
-	function ComponentCategory($name,$section,$active = null,$javascript = null,$order ='ordering',$size = 1,$sel_cat = 1) {
-		$database = &database::getInstance();
+	public static function ComponentCategory($name,$section,$active = null,$javascript = null,$order ='ordering',$size = 1,$sel_cat = 1) {
+		$database = database::getInstance();
 
 		$query = "SELECT id AS value, name AS text"
 				."\n FROM #__categories"
@@ -5140,8 +5136,8 @@ class mosAdminMenus {
 	/**
 	 * Select list of active sections
 	 */
-	function SelectSection($name,$active = null,$javascript = null,$order ='ordering',$scope='content') {
-		$database = &database::getInstance();
+	public static function SelectSection($name,$active = null,$javascript = null,$order ='ordering',$scope='content') {
+		$database = database::getInstance();
 
 		$categories[] = mosHTML::makeOption('0',_SEL_SECTION);
 		$query = "SELECT id AS value, title AS text"
@@ -5159,8 +5155,8 @@ class mosAdminMenus {
 	/**
 	 * Select list of menu items for a specific menu
 	 */
-	function Links2Menu($type,$and) {
-		$database = &database::getInstance();
+	public static function Links2Menu($type,$and) {
+		$database = database::getInstance();
 
 		$query = "SELECT* FROM #__menu WHERE type = ".$database->Quote($type)." AND published = 1".$and;
 		$database->setQuery($query);
@@ -5174,8 +5170,8 @@ class mosAdminMenus {
 	 * @param string Additional javascript
 	 * @return string A select list
 	 */
-	function MenuSelect($name = 'menuselect',$javascript = null) {
-		$database = &database::getInstance();
+	public static function MenuSelect($name = 'menuselect',$javascript = null) {
+		$database = database::getInstance();
 
 		$query = "SELECT params FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu'";
 		$database->setQuery($query);
@@ -5204,7 +5200,7 @@ class mosAdminMenus {
 	 * @param array  Value array of all existing folders
 	 * @param array  Value array of all existing images
 	 */
-	function ReadImages($imagePath,$folderPath,&$folders,&$images) {
+	public static function ReadImages($imagePath,$folderPath,&$folders,&$images) {
 		$imgFiles = mosReadDirectory($imagePath);
 
 		foreach($imgFiles as $file) {
@@ -5231,7 +5227,7 @@ class mosAdminMenus {
 	 * @param array  Value array of all existing folders
 	 * @param array  Value array of all existing images
 	 */
-	function ReadImagesX(&$folders,&$images) {
+	public static function ReadImagesX(&$folders,&$images) {
 
 		if($folders[0]->value != '*0*') {
 			foreach($folders as $folder) {
@@ -5256,7 +5252,7 @@ class mosAdminMenus {
 		}
 	}
 
-	function GetImageFolders(&$temps) {
+	public static function GetImageFolders(&$temps) {
 		if($temps[0]->value != 'None') {
 			foreach($temps as $temp) {
 				if(substr($temp->value,-1,1) != '/') {
@@ -5278,7 +5274,7 @@ class mosAdminMenus {
 		return $getfolders;
 	}
 
-	function GetImages(&$images,$path,$base = '/') {
+	public static function GetImages(&$images,$path,$base = '/') {
 		if(is_array($base) && count($base) > 0) {
 			if($base[0]->value != '/') {
 				$base = $base[0]->value.'/';
@@ -5299,7 +5295,7 @@ class mosAdminMenus {
 		return $getimages;
 	}
 
-	function GetSavedImages(&$row,$path) {
+	public static function GetSavedImages(&$row,$path) {
 		$images2 = array();
 		foreach($row->images as $file) {
 			$temp = explode('|',$file);
@@ -5361,7 +5357,7 @@ class mosAdminMenus {
 	 * Also can be used in conjunction with the menulist param to create the chosen image
 	 * load the default or use no image
 	 */
-	function ImageCheckAdmin($file,$directory = '/administrator/images/',$param = null,
+	public static function ImageCheckAdmin($file,$directory = '/administrator/images/',$param = null,
 			$param_directory = '/administrator/images/',$alt = null,$name = null,$type = 1,
 			$align = 'middle',$title = null) {
 		$image = mosAdminMenus::ImageCheck($file,$directory,$param,$param_directory,$alt,$name,$type,$align,$title,1);
@@ -5369,7 +5365,7 @@ class mosAdminMenus {
 	}
 
 	public static function menutypes() {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		$query = "SELECT params FROM #__modules WHERE module = 'mod_mainmenu' OR module = 'mod_mljoostinamenu' ORDER BY title";
 		$database->setQuery($query);
@@ -5423,7 +5419,7 @@ class mosAdminMenus {
 	/*
 	* loads files required for menu items
 	*/
-	function menuItem($item) {
+   public static function menuItem($item) {
 
 		$path = JPATH_BASE.DS.JADMIN_BASE.'/components/com_menus/'.$item.'/';
 		include_once ($path.$item.'.class.php');
@@ -5433,7 +5429,7 @@ class mosAdminMenus {
 
 
 class mosCommonHTML {
-	function ContentLegend() {
+	public static function ContentLegend() {
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		?>
 <table cellspacing="0" cellpadding="4" border="0" align="center">
@@ -5451,7 +5447,7 @@ class mosCommonHTML {
 		<?php
 	}
 
-	function menuLinksContent(&$menus) {
+	public static function menuLinksContent(&$menus) {
 		?>
 <script language="javascript" type="text/javascript">
 	function go2( pressbutton, menu, id ) {
@@ -5528,7 +5524,7 @@ class mosCommonHTML {
 		<?php
 	}
 
-	function menuLinksSecCat(&$menus) {
+	public static function menuLinksSecCat(&$menus) {
 		?>
 <script language="javascript" type="text/javascript">
 	function go2( pressbutton, menu, id ) {
@@ -5595,7 +5591,7 @@ class mosCommonHTML {
 		<?php
 	}
 
-	function checkedOut(&$row,$overlib = 1) {
+	public static function checkedOut(&$row,$overlib = 1) {
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		$hover = '';
 		if($overlib) {
@@ -5614,8 +5610,8 @@ class mosCommonHTML {
 	}
 
 	/* подключение библиотеки всплывающих подсказок */
-	function loadOverlib($ret = false) {
-		$mainframe = &MosMainFrame::getInstance();
+	public static function loadOverlib($ret = false) {
+		$mainframe = mosMainFrame::getInstance();
 		if(!$mainframe->get('loadOverlib') &&!$ret ) {
 			$mainframe->addJS(JPATH_SITE.'/includes/js/overlib_full.js');
 			// установка флага о загруженной библиотеке всплывающих подсказок
@@ -5635,7 +5631,7 @@ class mosCommonHTML {
 	public static function loadCalendar() {
 		if(!defined('_CALLENDAR_LOADED')) {
 			define('_CALLENDAR_LOADED',1);
-			$mainframe = &MosMainFrame::getInstance();
+			$mainframe = mosMainFrame::getInstance();
 			$mainframe->addCSS(JPATH_SITE.'/includes/js/calendar/calendar.css');
 			$mainframe->addJS(JPATH_SITE.'/includes/js/calendar/calendar.js');
 			$_lang_file = JPATH_BASE.'/includes/js/calendar/lang/calendar-'._LANGUAGE.'.js';
@@ -5647,7 +5643,7 @@ class mosCommonHTML {
 	public static function loadMootools($ret = false) {
 		if(!defined('_MOO_LOADED')) {
 			define('_MOO_LOADED',1);
-			$mainframe = &MosMainFrame::getInstance();
+			$mainframe = mosMainFrame::getInstance();
 			$mainframe->addJS(JPATH_SITE.'/includes/js/mootools/mootools.js');
 		}
 		if($ret==true)?>
@@ -5658,7 +5654,7 @@ class mosCommonHTML {
 	public static function loadPrettyTable() {
 		if(!defined('_PRT_LOADED')) {
 			define('_PRT_LOADED',1);
-			$mainframe = &MosMainFrame::getInstance();
+			$mainframe = mosMainFrame::getInstance();
 			$mainframe->addJS(JPATH_SITE.'/includes/js/jsfunction/jrow.js');
 		}
 	}
@@ -5670,7 +5666,7 @@ class mosCommonHTML {
 <script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE;?>/includes/js/fullajax/fullajax.js"></script>
 				<?php
 			}else {
-				$mainframe = &MosMainFrame::getInstance();
+				$mainframe = mosMainFrame::getInstance();
 				$mainframe->addJS(JPATH_SITE.'/includes/js/fullajax/fullajax.js');
 			}
 		}
@@ -5683,7 +5679,7 @@ class mosCommonHTML {
 			if($ret) {
 				return '<script language="javascript" type="text/javascript" src="'.JPATH_SITE.'/includes/js/jquery/jquery.js"></script>';
 			}else {
-				$mainframe = &MosMainFrame::getInstance();
+				$mainframe = mosMainFrame::getInstance();
 				$mainframe->addJS(JPATH_SITE.'/includes/js/jquery/jquery.js');
 				return true;
 			}
@@ -5709,7 +5705,7 @@ class mosCommonHTML {
 					?><link type="text/css" rel="stylesheet" href="<?php echo JPATH_SITE;?>/includes/js/jquery/plugins/<?php echo $name; ?>.css" /><?php
 				}?>
 				<?php }else {
-				$mainframe = &MosMainFrame::getInstance();
+				$mainframe = mosMainFrame::getInstance();
 				$mainframe->addJS(JPATH_SITE.'/includes/js/jquery/plugins/'.$name.'.js', $footer);
 				$mainframe->addCustomHeadTag('<script language="JavaScript" type="text/javascript">if(_js_defines) {_js_defines.push(\''.$name.'\')} else {var _js_defines = [\''.$name.'\']}</script>');
 				if($css) {
@@ -5726,7 +5722,7 @@ class mosCommonHTML {
 			if($ret) {?>
 <script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE?>/includes/js/jquery/ui.js"></script>
 				<?php }else {
-				$mainframe = &MosMainFrame::getInstance();
+				$mainframe = mosMainFrame::getInstance();
 				$mainframe->addCSS(JPATH_SITE.'/includes/js/jquery/ui.js');
 			}
 		}
@@ -5737,7 +5733,7 @@ class mosCommonHTML {
 	public static function loadCodepress() {
 		if(!defined('_CODEPRESS_LOADED')) {
 			define('_CODEPRESS_LOADED',1);
-			$mainframe = &MosMainFrame::getInstance();
+			$mainframe = mosMainFrame::getInstance();
 			$mainframe->addJS(JPATH_SITE.'/includes/js/codepress/codepress.js');
 			?><script language="JavaScript" type="text/javascript">
 				CodePress.run = function() {
@@ -5765,13 +5761,13 @@ class mosCommonHTML {
 	public static function loadDtree() {
 		if(!defined('_DTR_LOADED')) {
 			define('_DTR_LOADED',1);
-			$mainframe = &MosMainFrame::getInstance();
+			$mainframe = mosMainFrame::getInstance();
 			$mainframe->addCSS(JPATH_SITE.'/includes/js/dtree/dtree.css');
 			$mainframe->addJS(JPATH_SITE.'/includes/js/dtree/dtree.js');
 		}
 	}
 
-	function AccessProcessing(&$row,$i,$ajax=null) {
+	public static function AccessProcessing(&$row,$i,$ajax=null) {
 		$option = strval(mosGetParam($_REQUEST,'option',''));
 		if(!$row->access) {
 			$color_access = 'style="color: green;"';
@@ -5794,7 +5790,7 @@ class mosCommonHTML {
 	/*
 	* Проверка блокировки объекта
 	*/
-	function CheckedOutProcessing(&$row,$i) {
+	public static function CheckedOutProcessing(&$row,$i) {
 		global $my;
 		if($row->checked_out) {
 			$checked = mosCommonHTML::checkedOut($row);
@@ -5804,7 +5800,7 @@ class mosCommonHTML {
 		return $checked;
 	}
 
-	function PublishedProcessing(&$row,$i) {
+	public static function PublishedProcessing(&$row,$i) {
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		$img = $row->published?'publish_g.png':'publish_x.png';
 		$task = $row->published?'unpublish':'publish';
@@ -5819,7 +5815,7 @@ class mosCommonHTML {
 	* Added 1.0.8
 	* Static Function
 	*/
-	function newsfeedEncoding($rssDoc,$text,$utf8enc=null) {
+	public static function newsfeedEncoding($rssDoc,$text,$utf8enc=null) {
 
 		if(!defined('_JOS_FEED_ENCODING')) {
 			// determine encoding of feed
@@ -5906,7 +5902,7 @@ class mosCommonHTML {
 		return $text;
 	}
 
-	function get_element($file) {
+	public static function get_element($file) {
 
 		$file_templ = 'templates/'.JTEMPLATE.'/images/elements/'.$file;
 		$file_system = 'M_images/'.$file;
@@ -6469,7 +6465,7 @@ class joostina_api {
 
 // Оптимизация таблиц базы данных
 function _optimizetables() {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 	$config = &Jconfig::getInstance();
 
 	$flag = $config->config_cachepath.'/optimizetables.flag';

@@ -73,7 +73,7 @@ if($mosConfig_mmb_system_off == 0) {
 require_once (JPATH_BASE.DS.'includes'.DS.'frontend.php');
 
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
-$mainframe = &mosMainFrame::getInstance();
+$mainframe = mosMainFrame::getInstance();
 
 $option = $mainframe->option;
 $Itemid = $mainframe->Itemid;

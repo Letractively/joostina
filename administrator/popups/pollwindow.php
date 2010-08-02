@@ -14,7 +14,7 @@ include_once (JPATH_BASE.'/language/'.$mosConfig_lang.'/system.php');
 include_once (JPATH_BASE.'/language/'.$mosConfig_lang.'/frontend/mod_poll.php');
 include_once (JPATH_BASE.'/language/'.$mosConfig_lang.'/administrator/com_poll.php');
 
-$database = &database::getInstance();
+$database = database::getInstance();
 $database->debug($mosConfig_debug);
 
 $pollid = mosGetParam($_REQUEST,'pollid',0);

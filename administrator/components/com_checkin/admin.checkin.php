@@ -45,7 +45,7 @@ switch($task) {
 function checkall() {
 	global $database,$mosConfig_dbprefix;
 	$nullDate = $database->getNullDate();
-	$mainframe = &mosMainFrame::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 	?>
 <table class="adminheading">
@@ -242,7 +242,7 @@ function showMyCheckin($option) {
 function checkin($pkey,$checkid,$component,$editor) {
 	global $database;
 
-	$mainframe = &mosMainFrame::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 
 	if($editor == "Y") {

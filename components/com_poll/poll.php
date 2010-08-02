@@ -32,7 +32,7 @@ switch($task) {
 }
 
 function pollAddVote($uid) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 	$Itemid = mosGetParam($_POST,'Itemid','');
 
 	// simple spoof check security
@@ -102,8 +102,8 @@ function pollAddVote($uid) {
 function pollresult($uid) {
 	global $Itemid;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	$poll = new mosPoll($database);
 	$poll->load((int)$uid);

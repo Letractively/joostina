@@ -15,7 +15,7 @@ defined('_VALID_MOS') or die();
  * @subpackage Content
  */
 class TOOLBAR_FrontPage {
-	function _DEFAULT() {
+	public static function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::archiveList();
 		mosMenuBar::spacer();

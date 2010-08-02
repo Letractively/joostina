@@ -19,7 +19,7 @@ class TOOLBAR_categories {
 	 * Draws the menu for Editing an existing category
 	 * @param int The published state (to display the inverse button)
 	 */
-	function _EDIT() {
+	public static function _EDIT() {
 		global $id;
 		$option = mosGetParam($_REQUEST,'option','');
 
@@ -53,7 +53,7 @@ class TOOLBAR_categories {
 	 * Draws the menu for Moving existing categories
 	 * @param int The published state (to display the inverse button)
 	 */
-	function _MOVE() {
+	public static function _MOVE() {
 		mosMenuBar::startTable();
 		mosMenuBar::save('movesave');
 		mosMenuBar::spacer();
@@ -64,7 +64,7 @@ class TOOLBAR_categories {
 	 * Draws the menu for Copying existing categories
 	 * @param int The published state (to display the inverse button)
 	 */
-	function _COPY() {
+	public static function _COPY() {
 		mosMenuBar::startTable();
 		mosMenuBar::save('copysave');
 		mosMenuBar::spacer();
@@ -74,7 +74,7 @@ class TOOLBAR_categories {
 	/**
 	 * Draws the menu for Editing an existing category
 	 */
-	function _DEFAULT() {
+	public static function _DEFAULT() {
 		$section = mosGetParam($_REQUEST,'section','');
 		$option = mosGetParam($_REQUEST,'option','');
 

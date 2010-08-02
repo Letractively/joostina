@@ -30,8 +30,8 @@ switch($task) {
 function listFeeds($catid) {
 	global $my,$Itemid;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 	$config = &$mainframe->config;
 
 	/* Query to retrieve all categories that belong under the contacts section and that are published.*/
@@ -43,7 +43,7 @@ function listFeeds($catid) {
 	$categories = $database->loadObjectList();
 
 	$rows = array();
-	$currentcat = null;
+	$currentcat = new stdClass();
 	if($catid) {
 		// url links info for category
 		$query = "SELECT* FROM #__newsfeeds WHERE catid = ".(int)$catid." AND published = 1 ORDER BY ordering";
@@ -52,8 +52,7 @@ function listFeeds($catid) {
 
 		// current category info
 		$query = "SELECT id, name, description, image, image_position FROM #__categories WHERE id = ".(int)$catid." AND published = 1 AND access <= ".(int)$my->gid;
-		$database->setQuery($query);
-		$database->loadObject($currentcat);
+		$database->setQuery($query)->loadObject($currentcat);
 
 		/*
 		* Check if the category is published or if access level allows access
@@ -139,8 +138,8 @@ function listFeeds($catid) {
 function showFeed($feedid) {
 	global $Itemid,$my;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 	$config = &$mainframe->config;
 
 	// check if cache directory is writeable

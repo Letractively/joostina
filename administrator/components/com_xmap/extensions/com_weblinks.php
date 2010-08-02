@@ -15,7 +15,7 @@ class xmap_com_weblinks {
 		global $my, $Itemid;
 		$list = array();
 
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		// include popular bloggers by default
 		$sql = 'SELECT id, title FROM #__categories WHERE section=\'com_weblinks\' and published=1';

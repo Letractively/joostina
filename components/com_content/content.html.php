@@ -39,7 +39,7 @@ class ContentView {
 		if($params->get('page_title')) {
 			$title = $params->get('my_page_title');
 			if(!$title) {
-				$database = &database::getInstance();
+				$database = database::getInstance();
 				$menu = new mosMenu($database);
 				$menu->load($Itemid);
 				$title = $menu->name;
@@ -59,7 +59,7 @@ class ContentView {
 
 	}
 
-	function showSectionCatlist($section, &$access, &$params) {
+	public static function showSectionCatlist($section, &$access, &$params) {
 		global $Itemid, $my;
 
 		$id = $section->id;
@@ -113,11 +113,11 @@ class ContentView {
 	 * Draws a Content List
 	 * Used by Content Category & Content Section
 	 */
-	function showContentList($obj, &$access, &$params,&$mainframe=null) {
+	public static function showContentList($obj, &$access, &$params,&$mainframe=null) {
 		global $Itemid, $my;
 
 		if(!isset($mainframe)) {
-			$mainframe = &mosMainFrame::getInstance();
+			$mainframe = mosMainFrame::getInstance();
 		}
 
 		$config = $mainframe->config;
@@ -219,7 +219,7 @@ class ContentView {
 	/**
 	 * Display links to content items
 	 */
-	function showLinks(&$rows, $links, $total, $i = 0, $show = 1, $ItemidCount = null) {
+	public static function showLinks(&$rows, $links, $total, $i = 0, $show = 1, $ItemidCount = null) {
 		global $mainframe, $Itemid;
 
 		// getItemid compatibility mode, holds maintenance version number
@@ -271,7 +271,7 @@ class ContentView {
 
 		if(!isset($mainframe)) {
 			//jd_inc(':(--show');
-			$mainframe = &mosMainFrame::getInstance();
+			$mainframe = mosMainFrame::getInstance();
 		}
 
 		// уникальные идентификаторы новостей
@@ -386,7 +386,7 @@ class ContentView {
 		global $task, $Itemid;
 
 		if(!isset($mainframe)) {
-			$mainframe = &mosMainFrame::getInstance();
+			$mainframe = mosMainFrame::getInstance();
 			//jd_inc('_Itemid');
 		}
 
@@ -690,7 +690,7 @@ class ContentView {
 	 */
 	function editContent(&$row, &$page, $task) {
 		global $my;
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 
 		mosMakeHtmlSafe($row);
 
@@ -769,7 +769,7 @@ class ContentView {
 	 * Writes Email form for filling in the send destination
 	 */
 	function emailForm($uid, $title, $template = '', $itemid) {
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 
 		// used for spoof hardening
 		$validate = josSpoofValue();
@@ -834,7 +834,7 @@ class ContentView {
 	 * @param string The current template
 	 */
 	function emailSent($to, $template = '') {
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 
 		$mainframe->setPageTitle($mainframe->getCfg('sitename'));
 		$mainframe->addCustomHeadTag('<link rel="stylesheet" href="templates/'.$template.'/css/template_css.css" type="text/css" />'); ?>

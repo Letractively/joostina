@@ -14,7 +14,7 @@ defined('_VALID_MOS') or die();
  * Displays the capture output of the main element
  */
 function mosMainBody() {
-	$page = &PageModel::getInstance();
+	$page = PageModel::getInstance();
 	echo $page->MainBody();
 }
 /**
@@ -24,8 +24,8 @@ function mosMainBody() {
 function mosLoadComponent($name) {
 	global $my,$task,$Itemid,$id,$option,$gid;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 	include (JPATH_BASE.DS."components/com_$name/$name.php");
 }
 /**
@@ -41,8 +41,7 @@ function &initModules() {
  * @param string the template position
  */
 function mosCountModules($position = 'left') {
-	$modules =& mosModule::getInstance();
-	return $modules->mosCountModules($position);
+	return mosModule::getInstance()->mosCountModules($position);
 }
 /**
  * @param string The position
@@ -50,7 +49,7 @@ function mosCountModules($position = 'left') {
  */
 //Скопировано в класс
 function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
-	$modules =& mosModule::getInstance();
+	$modules = mosModule::getInstance();
 	return $modules->mosLoadModules($position,$style,$noindex);
 }
 
@@ -59,7 +58,7 @@ function mosLoadModules($position = 'left',$style = 0,$noindex = 0) {
  * @param int The style.  0=normal, 1=horiz, -1=no wrapper
  */
 function mosLoadModule($name = '', $title = '', $style = 0, $noindex = 0, $inc_params = null) {
-	$modules =& mosModule::getInstance();
+	$modules = mosModule::getInstance();
 	return $modules->mosLoadModule($name,$title,$style,$noindex,$inc_params);
 }
 
@@ -67,13 +66,13 @@ function mosLoadModule($name = '', $title = '', $style = 0, $noindex = 0, $inc_p
  * Шапка страницы
  */
 function mosShowHead($params=array('js'=>1,'css'=>1)) {
-	$page = &PageModel::getInstance();
+	$page = PageModel::getInstance();
 	// загружаем верхнюю часть страницы со всеми js и css файлами, и обязательным использованием jquery
 	$page->ShowHead($params);
 }
 
 function mosShowFooter($params=array('fromheader'=>1,'js'=>1)) {
-	$page = &PageModel::getInstance();
+	$page = PageModel::getInstance();
 	// загружаем верхнюю часть страницы со всеми js и css файлами, и обязательным использованием jquery
 	$page->ShowFooter($params);
 }
@@ -102,10 +101,10 @@ class PageModel {
 		$this->_mainframe = $mainframe;
 	}
 
-	public static function &getInstance() {
+	public static function getInstance() {
 		static $page_model;
 		if(!is_object($page_model) ) {
-			$mainframe = &mosMainFrame::getInstance();
+			$mainframe = mosMainFrame::getInstance();
 			$page_model = new PageModel($mainframe);
 		}
 
@@ -251,7 +250,7 @@ class PageModel {
 
 		if($mainframe->getCfg('syndicate_off')==0) {
 			if($mainframe->getCfg('caching')==1) {
-				$cache = &mosCache::getCache('header');
+				$cache = mosCache::getCache('header');
 				echo $cache->call('syndicate_header');
 			}else {
 				echo $this->syndicate_header();

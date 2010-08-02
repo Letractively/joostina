@@ -43,8 +43,8 @@ if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
 			case 'component_item_link':
 				break;
 			case 'url':
-				if ( eregi( 'index.php\?', $mitem->link ) && !eregi( 'http', $mitem->link ) && !eregi( 'https', $mitem->link ) ) {
-					if ( !eregi( 'Itemid=', $mitem->link ) ) {
+				if ( preg_match( '/index.php\?/', $mitem->link ) && !preg_match( '/http/', $mitem->link ) && !preg_match( '/https/', $mitem->link ) ) {
+					if ( !preg_match( '/Itemid=/', $mitem->link ) ) {
 						$mitem->link .= '&Itemid='. $mitem->id;
 					}
 				}
@@ -52,14 +52,14 @@ if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
 			case 'content_item_link':
 			case 'content_typed':
 			// load menu params
-				$mainframe = &mosMainFrame::getInstance();
+				$mainframe = mosMainFrame::getInstance();
 				$menuparams = new mosParameters( $mitem->params, $mainframe->getPath( 'menu_xml', $mitem->type ), 'menu' );
 				$unique_itemid = $menuparams->get( 'unique_itemid', 1 );
 
 				if ( $unique_itemid ) {
 					$mitem->link .= '&Itemid='. $mitem->id;
 				} else {
-					$temp = split('&task=view&id=', $mitem->link);
+					$temp = explode('&task=view&id=', $mitem->link);
 					if ( $mitem->type == 'content_typed' ) {
 						// еще один небольшой эксперимент, вместе лишнего запроса в базу - возьмём идентификатор ссылки на статичное содержимое из глобального объекта
 						//$mitem->link .= '&Itemid='. $mainframe->getItemid($temp[1], 1, 0);
@@ -344,7 +344,7 @@ if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
 
 	function mosJoostinaGetmenu(&$params,$gid) {
 
-		$all_menu = &mosMenu::get_all();
+		$all_menu = mosMenu::get_all();
 
 		$menus = isset($all_menu[$params->get( 'menutype' )]) ? $all_menu[$params->get( 'menutype' )] : array() ;
 
@@ -453,7 +453,7 @@ if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
 		global $my, $cur_template, $Itemid,$mosConfig_disable_access_control;
 		global $mosConfig_shownoauth;
 
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		$and = '';
 		if ( !$mosConfig_shownoauth AND !$mosConfig_disable_access_control ) {
@@ -577,7 +577,7 @@ if (!defined( '_MOS_MLJOOSTINAMENU_MODULE' )) {
 
 
 
-	function mosJoostinaShowLink (&$params, $style=0) {
+	function mosJoostinaShowLink ($params, $style=0) {
 
 		$ml_module_number = $params->get('ml_module_number');
 		$ml_rollover_use = $params->get('ml_rollover_use');
@@ -707,7 +707,7 @@ $params->def('menutype', 'mainmenu');
 $config_caching = $mainframe->getCfg('caching');
 
 if($config_caching) {
-	$menu_cache = &mosCache::getCache('mod_mljoostinamenu');
+	$menu_cache = mosCache::getCache('mod_mljoostinamenu');
 }
 // убираем лишний элемент
 unset($params->_raw);

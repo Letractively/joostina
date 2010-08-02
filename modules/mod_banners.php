@@ -15,7 +15,7 @@ if(!function_exists('showBanners')) {
 	function showBanners(&$params, $mainframe) {
 		global $my;
 
-		$database = &$mainframe->getDBO();
+		$database = $mainframe->getDBO();
 
 		$random = $params->get('random', 0);
 		$count = $params->get('count', 1);
@@ -122,7 +122,7 @@ if(!function_exists('showBanners')) {
 
 	// function that showing one banner
 	function showSingleBanner($text, $moduleclass_sfx, &$banner, $mainframe) {
-		$database = &$mainframe->getDBO();
+		$database = $mainframe->getDBO();
 
 		$result = '';
 
@@ -138,7 +138,7 @@ if(!function_exists('showBanners')) {
 
 		if($banner->custom_banner_code != "") {
 			$result .= $banner->custom_banner_code;
-		} elseif(eregi("(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$", $banner->image_url)) {
+		} elseif(preg_match("/(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$/i", $banner->image_url)) {
 			$image_url = JPATH_SITE.'/images/show/'.$banner->image_url;
 			$target = $banner->target;
 			$border_value = $banner->border_value;
@@ -166,6 +166,6 @@ if(!function_exists('showBanners')) {
 	}
 }
 
-$params = & new mosParameters($module->params);
+$params = new mosParameters($module->params);
 $content = showBanners( $params, $mainframe );
 unset($params, $mainframe);

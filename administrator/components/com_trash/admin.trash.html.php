@@ -138,7 +138,7 @@ class HTML_trash {
 	 */
 	function showDelete($option,$cid,$items,$type) {
 
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/file_ico';
 		?>
 <form action="index2.php" method="post" name="adminForm">
@@ -200,7 +200,7 @@ class HTML_trash {
 	 */
 	function showRestore($option,$cid,$items,$type) {
 
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		?>
 <form action="index2.php" method="post" name="adminForm">

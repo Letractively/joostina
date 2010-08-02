@@ -275,10 +275,10 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 	/**
 	 * Прорисовка горизонтального 'плоского' стиля меню (выбираемого очень просто)
 	 */
-	function mosShowHFMenu(  &$params, $style=0 ) {
+	function mosShowHFMenu( &$params, $style=0 ) {
 		global $my;
 
-		$all_menu = &mosMenu::get_all();
+		$all_menu = mosMenu::get_all();
 
 		$menus = isset($all_menu[$params->get( 'menutype' )]) ? $all_menu[$params->get( 'menutype' )] : array() ;
 

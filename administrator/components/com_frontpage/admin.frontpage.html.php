@@ -24,7 +24,7 @@ class ContentView {
 		mosCommonHTML::loadOverlib();
 		$nullDate = $database->getNullDate();
 
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		?>
 <script type="text/javascript">

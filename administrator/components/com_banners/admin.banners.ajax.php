@@ -33,7 +33,7 @@ switch($task) {
 
 function x_cat_publish($id = null) {
 	global $my;
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	if(!$id) return 'error-id';
 
@@ -63,7 +63,7 @@ function x_cat_publish($id = null) {
 
 function x_client_publish($id = null) {
 	global $my;
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	if(!$id) return 'error-id';
 

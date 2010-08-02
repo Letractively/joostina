@@ -45,7 +45,7 @@ function x_jsave($id) {
 		return;
 	}
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$introtext	= trim(mosGetParam($_POST,'introtext','',_MOS_ALLOWRAW));
 	$fulltext	= trim(mosGetParam($_POST,'fulltext',null,_MOS_ALLOWRAW));
@@ -79,7 +79,7 @@ function x_publish($id = null) {
 		return 'error-access';
 	}
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$state = new stdClass();
 	$query = "SELECT state, publish_up, publish_down FROM #__content WHERE id = ".(int)$id;

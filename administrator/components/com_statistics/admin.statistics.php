@@ -31,7 +31,7 @@ switch($task) {
 }
 
 function showSummary($option,$task) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 	$mainframe = mosMainFrame::getInstance(true);
 
 	// get sort field and check against allowable field names
@@ -113,7 +113,7 @@ function showSummary($option,$task) {
 }
 
 function showPageImpressions($option,$task) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 	$mainframe = mosMainFrame::getInstance(true);
 
 	$query = "SELECT COUNT( id ) FROM #__content";
@@ -137,7 +137,7 @@ function showPageImpressions($option,$task) {
 function showSearches($option,$task,$showResults = null) {
 	global $_MAMBOTS;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 	$mainframe = mosMainFrame::getInstance(true);
 
 	$limit = $mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mainframe->getCfg('list_limit'));
