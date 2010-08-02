@@ -50,7 +50,7 @@ function adminHead($mainframe) {
  * @param string THe template position
  */
 function mosCountAdminModules($position = 'left') {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$query = "SELECT COUNT( m.id )"
 			."\n FROM #__modules AS m"
@@ -71,7 +71,7 @@ function mosLoadAdminModules($position = 'left',$style = 0) {
 
 	static $all_modules;
 	if(!isset($all_modules)) {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		$query = "SELECT id, title, module, position, content, showtitle, params FROM #__modules AS m WHERE m.published = 1 AND m.client_id = 1 ORDER BY m.ordering";
 		$database->setQuery($query);
@@ -143,7 +143,7 @@ function mosLoadAdminModule($name,$params = null) {
 	global $task,$acl,$my,$option;
 
 	$mainframe = mosMainFrame::getInstance(true);
-	$database = &$mainframe->getDBO();
+	$database = $mainframe->getDBO();
 
 	// legacy support for $act
 	$act = mosGetParam($_REQUEST,'act','');

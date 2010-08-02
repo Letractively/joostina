@@ -244,7 +244,7 @@ class configContent_sectionblog extends dbConfig {
 	}
 
 	function display_config($option) {
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 
 		$params = $this->prepare_for_xml_render();
 		$params = new mosParameters($params, $mainframe->getPath('menu_xml', 'content_blog_section'), 'menu'); ?>
@@ -398,7 +398,7 @@ class configContent_categoryblog extends dbConfig {
 	}
 
 	function display_config($option) {
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 
 		$params = $this->prepare_for_xml_render();
 		$params = new mosParameters($params, $mainframe->getPath('menu_xml', 'content_blog_category'), 'menu'); ?>

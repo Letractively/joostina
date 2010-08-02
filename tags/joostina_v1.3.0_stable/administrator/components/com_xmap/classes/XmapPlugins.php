@@ -121,7 +121,7 @@ class XmapPlugin extends mosDBTable {
 	}
 
 	function restore() {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		$query = "select * from #__xmap_ext where extension='".$this->extension.".bak'";
 		$database->setQuery($query);
@@ -139,7 +139,7 @@ class XmapPlugins {
 
 	/** list all extension files found in the extensions directory */
 	function &loadAvailablePlugins( ) {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		$list = array();
 

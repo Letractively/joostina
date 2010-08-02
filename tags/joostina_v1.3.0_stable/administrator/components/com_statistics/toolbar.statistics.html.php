@@ -15,7 +15,7 @@ defined('_VALID_MOS') or die();
  * @subpackage Statistics
  */
 class TOOLBAR_statistics {
-	function _SEARCHES() {
+	public static function _SEARCHES() {
 		mosMenuBar::startTable();
 		mosMenuBar::help('screen.stats.searches');
 		mosMenuBar::endTable();

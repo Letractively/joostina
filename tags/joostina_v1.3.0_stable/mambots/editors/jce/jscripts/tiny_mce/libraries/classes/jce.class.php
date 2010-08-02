@@ -18,7 +18,7 @@ class JCE{
 	//Constructor
 	function JCE(){
 		global $my;
-		$database = &database::getInstance();
+		$database = database::getInstance();
 		$this->usertype = strtolower( $my->usertype );
 		$this->username = $my->username;
 
@@ -44,7 +44,7 @@ class JCE{
 	}
 	//Return JCE mambot paramters
 	function getParams(){
-		$database = &database::getInstance();
+		$database = database::getInstance();
 		$query = "SELECT params FROM #__mambots WHERE element = 'jce' AND folder = 'editors'";
 		$database->setQuery( $query );
 		$params = $database->loadResult();
@@ -54,7 +54,7 @@ class JCE{
 	}
 	//Return a list of published plugins
 	function getPlugins( $exclude ){
-		$database = &database::getInstance();
+		$database = database::getInstance();
 		$query = "SELECT plugin FROM #__jce_plugins WHERE access <= '".$this->id."' AND published = 1 AND type = 'plugin'";
 		$database->setQuery( $query );
 		$plugins = $database->loadResultArray();
@@ -73,7 +73,7 @@ class JCE{
 	}
 	//Return a the published language
 	function getLanguage(){
-		$database = &database::getInstance();
+		$database = database::getInstance();
 		$query = "SELECT lang FROM #__jce_langs WHERE published = 1";
 		$database->setQuery( $query );
 		$this->language = $database->loadResult();
@@ -112,7 +112,7 @@ class JCE{
 	}
 	//Return a string of commands to be removed
 	function getRemovePlugins(){
-		$database = &database::getInstance();
+		$database = database::getInstance();
 		$query = "SELECT plugin FROM #__jce_plugins WHERE type = 'command' AND published = 0 AND access > '" . $this->id . "'";
 		$database->setQuery( $query );
 		$remove = $database->loadResultArray();
@@ -126,7 +126,7 @@ class JCE{
 	function getRow( $row ){
 		static $all_rows;
 		if(!is_array($all_rows)){
-			$database = &database::getInstance();
+			$database = database::getInstance();
 			$query = "SELECT row,icon FROM #__jce_plugins WHERE access <= '".$this->id."' AND published = 1 AND icon != '' ORDER BY ordering ASC";
 			$database->setQuery( $query );
 			$r = $database->loadObjectList();
@@ -139,7 +139,7 @@ class JCE{
 	}
 	//Return a string of extended elements for a plugin
 	function getElements(){
-		$database = &database::getInstance();
+		$database = database::getInstance();
 		
 		$params = $this->params;
 		$jce_elements = explode( ',', $this->cleanParam( $params->get( 'extended_elements', '' ) ) );
@@ -160,7 +160,7 @@ class JCE{
 		if( !$plugin ) $plugin = $this->plugin;
 
 		if(!isset($al_plugins)){
-			$database = &database::getInstance();
+			$database = database::getInstance();
 			$query = "SELECT plugin,params FROM #__jce_plugins WHERE published = 1 AND params<>''";
 			$database->setQuery( $query );
 			$al_plugins = $database->loadObjectList('plugin');
@@ -176,7 +176,7 @@ class JCE{
 	function isLoaded( $plugin ){
 		// интересное место, boston тут сделал большииие глаза и запретил фукнцию :)
 		return true;
-		$database = &database::getInstance();
+		$database = database::getInstance();
 		$query = "SELECT id FROM #__jce_plugins WHERE plugin = '" . $plugin . "' AND published = 1 LIMIT 1";
 		$database->setQuery( $query );
 		$id = $database->loadResult();

@@ -18,7 +18,7 @@ class jdebug {
 	/* счетчики */
 	var $_inc = array();
 
-	function getInstance() {
+	public static function getInstance() {
 		static $instance;
 		if (!is_object( $instance )) {
 			$instance = new jdebug();
@@ -74,7 +74,7 @@ class jdebug {
 	}
 
 	function db_debug() {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 		$database->setQuery('show profiles;');
 		$profs = $database->loadObjectList();
 		$r = array();
@@ -93,22 +93,18 @@ class jdebug {
 }
 /* упрощенная процедура добавления сообщения в лог */
 function jd_log($text) {
-	$debug = &jdebug::getInstance();
-	$debug->add($text);
+	jdebug::getInstance()->add($text);
 }
 /* упрощенная процедура добавления сообщения в начало лога */
 function jd_log_top($text) {
-	$debug = &jdebug::getInstance();
-	$debug->add($text,1);
+	jdebug::getInstance()->add($text,1);
 }
 
 /* счетчики вызывов */
 function jd_inc($name='counter') {
-	$debug = &jdebug::getInstance();
-	$debug->inc($name);
+	jdebug::getInstance()->inc($name);
 }
 
 function jd_get() {
-	$debug = &jdebug::getInstance();
-	echo $debug->get();
+	jdebug::getInstance()->get();
 }

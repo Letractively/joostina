@@ -248,11 +248,11 @@ class mosParameters {
                 $xmlDoc = new DOMIT_Lite_Document();
                 $xmlDoc->resolveErrors(true);
                 if($xmlDoc->loadXML($this->_path,false,true)) {
-                    $root = &$xmlDoc->documentElement;
+                    $root = $xmlDoc->documentElement;
                     $tagName = $root->getTagName();
                     $isParamsFile = ($tagName == 'mosinstall' || $tagName == 'mosparams');
                     if($isParamsFile && $root->getAttribute('type') == $this->_type) {
-                        if($params = &$root->getElementsByPath('params',1)) {
+                        if($params = $root->getElementsByPath('params',1)) {
                             $this->_xmlElem = &$params;
                         }
                     }
@@ -396,7 +396,7 @@ class mosParameters {
      * @return string The html for the element
      */
     function _form_mos_section($name,$value,&$node,$control_name) {
-        $database = &database::getInstance();
+        $database = database::getInstance();
 
         $query = "SELECT id, title FROM #__sections WHERE published = 1 AND scope = 'content' ORDER BY title";
         $database->setQuery($query);
@@ -413,7 +413,7 @@ class mosParameters {
      * @return string The html for the element
      */
     function _form_mos_category($name,$value,&$node,$control_name) {
-        $database = &database::getInstance();
+        $database = database::getInstance();
 
         $scope = $node->getAttribute('scope');
         if(!isset($scope)) {

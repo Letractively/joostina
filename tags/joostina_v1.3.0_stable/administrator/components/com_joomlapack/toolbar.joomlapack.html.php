@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 
 class TOOLBAR_jpack {
-	function _CONFIG() {
+	public static function _CONFIG() {
 		mosMenuBar::startTable();
 		mosMenuBar::save();
 		mosMenuBar::spacer();
@@ -20,7 +20,7 @@ class TOOLBAR_jpack {
 		mosMenuBar::cancel();
 		mosMenuBar::endTable();
 	}
-	function _PACK() {
+	public static function _PACK() {
 		mosMenuBar::startTable();
 		mosMenuBar::ext(_JP_FULL_BACKUP,'#','-apply','id="tb-apply" onclick="do_Start(0);return;"');
 		mosMenuBar::ext(_JP_BACKUP_BASE,'#','-apply','id="tb-apply" onclick="do_Start(1);return;"');
@@ -28,19 +28,19 @@ class TOOLBAR_jpack {
 		mosMenuBar::back(_JP_BACKUP_PANEL,'index2.php?option=com_joomlapack');
 		mosMenuBar::endTable();
 	}
-	function _DEF() {
+	public static function _DEF() {
 		mosMenuBar::startTable();
 		mosMenuBar::back(_JP_BACKUP_PANEL,'index2.php?option=com_joomlapack');
 		mosMenuBar::endTable();
 	}
-	function _DB_MENU() {
+	public static function _DB_MENU() {
 		mosMenuBar::startTable();
 		mosMenuBar::back(_DB_MANAGEMENT,'index2.php?option=com_joomlapack&act=db');
 		mosMenuBar::spacer();
 		mosMenuBar::back(_JP_BACKUP_PANEL,'index2.php?option=com_joomlapack');
 		mosMenuBar::endTable();
 	}
-	function _DB_DEFAULT() {
+	public static function _DB_DEFAULT() {
 		global $act;
 		mosMenuBar::startTable();
 		mosMenuBar::custom('doCheck','-check','',_JP_CHECK);

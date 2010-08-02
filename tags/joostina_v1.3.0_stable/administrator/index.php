@@ -40,8 +40,8 @@ define('JPATH_SITE', $mosConfig_live_site );
 require_once (JPATH_BASE.DS.'includes/joostina.php');
 
 
-$mainframe	= &mosMainFrame::getInstance(true);
-$database	= &$mainframe->getDBO();
+$mainframe	= mosMainFrame::getInstance(true);
+$database	= $mainframe->getDBO();
 $config		= &$mainframe->config;
 
 // получение шаблона страницы

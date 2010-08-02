@@ -59,7 +59,7 @@ switch($task) {
 	case 'profile':
 		$_view = strval(mosGetParam( $_REQUEST, 'view', '' ));
 		if($mainframe->getCfg('caching')==1) {
-			$cache = &mosCache::getCache('user_profile');
+			$cache = mosCache::getCache('user_profile');
 			$r = $cache->call('profile',$uid,$_view);
 		}else {
 			$r = profile($uid,$_view);
@@ -114,7 +114,7 @@ switch($task) {
 		break;
 
 	case 'userlist':
-		$cache = &mosCache::getCache('user_lists');
+		$cache = mosCache::getCache('user_lists');
 		$gid = intval(mosGetParam($_GET,'group',0));
 		$limit = intval(mosGetParam($_REQUEST,'limit',null));
 		$limitstart = intval(mosGetParam($_REQUEST,'limitstart',0));
@@ -128,8 +128,8 @@ switch($task) {
 
 function profile($uid) {
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	$row = new mosUser($database);
 	if($row->load($uid)) {
@@ -156,8 +156,8 @@ function profile($uid) {
 
 function userEdit($option,$uid,$submitvalue) {
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	if($uid == 0) {
 		mosNotAuth();
@@ -188,9 +188,9 @@ function userSave($option,$uid) {
 
 	// simple spoof check security
 	josSpoofCheck();
-	$mainframe = &mosMainFrame::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 	$config = &$mainframe->config;
-	$database = &$mainframe->getDBO();
+	$database = $mainframe->getDBO();
 
 	$user_id = intval(mosGetParam($_POST,'id',0));
 
@@ -287,8 +287,8 @@ function userSave($option,$uid) {
 
 function userList($gid,$limit,$limitstart=0) {
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 	$acl = &gacl::getInstance();
 
 	$menu = null;
@@ -321,7 +321,7 @@ function userList($gid,$limit,$limitstart=0) {
 
 function CheckIn($userid,$access) {
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 	$config = &Jconfig::getInstance();
 
 	$nullDate = $database->getNullDate();
@@ -429,11 +429,11 @@ function CheckIn($userid,$access) {
 /* форма восстановления пароля */
 function lostPassForm($option) {
 
-	$mainframe = &mosMainFrame::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 	$mainframe->SetPageTitle(_LOST_PASSWORDWORD);
 
 	$config = &Jconfig::getInstance();
-	$database = &$mainframe->getDBO();
+	$database = $mainframe->getDBO();
 
 	$user_config = new configUser_lostpass($database);
 
@@ -454,7 +454,7 @@ function lostPassForm($option) {
 function sendNewPass() {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 	$config = &Jconfig::getInstance();
 
 	$checkusername = stripslashes(mosGetParam($_POST,'checkusername',''));
@@ -502,8 +502,8 @@ function sendNewPass() {
 
 function registerForm($option,$useractivation) {
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 	$acl = &gacl::getInstance();
 
 	if(!$mainframe->getCfg('allowUserRegistration')) {
@@ -542,8 +542,8 @@ function saveRegistration() {
 
 	josSpoofCheck();
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 	$acl = &gacl::getInstance();
 
 	if($mainframe->getCfg('allowUserRegistration') == 0) {
@@ -711,8 +711,8 @@ function saveRegistration() {
 function activate() {
 	global $my;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	if($my->id) {
 		mosRedirect('index.php');

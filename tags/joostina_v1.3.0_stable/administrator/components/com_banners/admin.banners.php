@@ -153,7 +153,7 @@ switch($task) {
 
 
 function cPanel($option) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$info_banner = array();
 	$info_categories = array();
@@ -292,8 +292,8 @@ function cPanel($option) {
 function viewBanners($option) {
 	global $my;
 
-	$database = &database::getInstance();
-	$mainframe = &mosMainFrame::getInstance();
+	$database = database::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mainframe->getCfg('list_limit')));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}bannerslimitstart", 'limitstart', 0));
@@ -370,8 +370,8 @@ function viewBanners($option) {
 function editBanner($bannerid, $option) {
 	global $my;
 
-	$database = &database::getInstance();
-	$mainframe = &mosMainFrame::getInstance();
+	$database = database::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 
 	$banner = new mosArtBanner($database);
 
@@ -467,7 +467,7 @@ function editBanner($bannerid, $option) {
 }
 
 function saveBanner($option, $task) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$_publish_up_date = trim(mosGetParam($_POST, '_publish_up_date', '0000-00-00'));
 	$_publish_up_hour = trim(mosGetParam($_POST, '_publish_up_hour', '00'));
@@ -612,7 +612,7 @@ function saveBanner($option, $task) {
 }
 
 function cancelEditBanner($option) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$banner = new mosArtBanner($database);
 	$banner->bind($_POST);
@@ -630,7 +630,7 @@ function cancelEditBanner($option) {
 function publishBanner($cid, $publish = 1, $option) {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	if(!is_array($cid) || count($cid) == 0) {
 		$action = $publish ? _ABP_L_PUBLISH : _HIDE;
@@ -665,7 +665,7 @@ function publishBanner($cid, $publish = 1, $option) {
 function removeBanner($cid, $option) {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	if(!is_array($cid) || count($cid) == 0) {
 		echo "<script> alert('" . _ABP_PSACLI . "'); window.history.go(-1);</script>\n";
@@ -703,8 +703,8 @@ function removeBanner($cid, $option) {
 function viewBannerClients($option) {
 	global $my;
 
-	$database = &database::getInstance();
-	$mainframe = &mosMainFrame::getInstance();
+	$database = database::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mainframe->getCfg('list_limit')));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}clientslimitstart", 'limitstart', 0));
@@ -786,7 +786,7 @@ function viewBannerClients($option) {
 function editBannerClient($clientid, $option) {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$client = new mosArtBannerClient($database);
 
@@ -807,7 +807,7 @@ function editBannerClient($clientid, $option) {
 }
 
 function saveBannerClient($option) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$client = new mosArtBannerClient($database);
 
@@ -836,7 +836,7 @@ function saveBannerClient($option) {
 function publishClient($cid = null, $publish = 1) {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	if(!is_array($cid) || count($cid) == 0) {
 		$action = $publish ? _ABP_SACT_PUB : _ABP_SACT_UNPUB;
@@ -862,7 +862,7 @@ function publishClient($cid = null, $publish = 1) {
 }
 
 function cancelEditClient($option) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$client = new mosArtBannerClient($database);
 	$client->bind($_POST);
@@ -873,7 +873,7 @@ function cancelEditClient($option) {
 function removeBannerClients($cid, $option) {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	if(!is_array($cid) || count($cid) == 0) {
 		echo "<script> alert('" . _ABP_PSACLI . "'); window.history.go(-1);</script>\n";
@@ -930,8 +930,8 @@ function removeBannerClients($cid, $option) {
 function viewCategories($option) {
 	global $my;
 
-	$database = &database::getInstance();
-	$mainframe = &mosMainFrame::getInstance();
+	$database = database::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit", 'limit', $mainframe->getCfg('list_limit')));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$option}categorieslimitstart", 'limitstart', 0));
@@ -982,7 +982,7 @@ function viewCategories($option) {
 function editCategory($cid, $option) {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$category = new mosArtCategory($database);
 
@@ -1006,7 +1006,7 @@ function editCategory($cid, $option) {
  * @param string The name of the category section
  */
 function saveCategory($option) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$category = new mosArtCategory($database);
 
@@ -1034,7 +1034,7 @@ function saveCategory($option) {
  * @param array An array of unique category id numbers
  */
 function removeCategories($cid, $option) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	if(!is_array($cid) || count($cid) == 0) {
 		echo "<script> alert('" . _CHOOSE_CATEGORY_TO_REMOVE . "'); window.history.go(-1);</script>\n";
@@ -1088,7 +1088,7 @@ function removeCategories($cid, $option) {
 function publishCategories($cid = null, $publish = 1) {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	if(!is_array($cid) || count($cid) == 0) {
 		$action = $publish ? _ABP_SACT_PUB : _ABP_SACT_UNPUB;
@@ -1116,7 +1116,7 @@ function publishCategories($cid = null, $publish = 1) {
  * Cancels an edit operation
  */
 function cancelEditCategory($option) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$category = new mosArtCategory($database);
 	$category->bind($_POST);
@@ -1209,7 +1209,7 @@ function getTextNode($node, $tag, $default = '') {
 }
 
 function doRestore($option) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$media_path = JPATH_BASE . '/media/';
 
@@ -1423,7 +1423,7 @@ function doRestore($option) {
 function doBackup() {
 	global $mosConfig_db, $mosConfig_sitename;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$UserAgent = $_SERVER['HTTP_USER_AGENT'];
 

@@ -21,7 +21,7 @@ function writableCell($folder) {
  */
 class HTML_installer {
 
-	function showInstallForm($title,$option,$element,$client = "",$p_startdir = "",$backLink = "") {
+	public static function showInstallForm($title,$option,$element,$client = "",$p_startdir = "",$backLink = "") {
 		?>
 <script language="javascript" type="text/javascript">
 	function submitbutton3(pressbutton) {
@@ -113,7 +113,7 @@ class HTML_installer {
 		<?php
 	}
 	// прорисовка кнопок управления
-	function quickiconButton($link,$image,$text) {
+	public static function quickiconButton($link,$image,$text) {
 		?>
 <span><a href="<?php echo $link; ?>" title="<?php echo $text; ?>">
 				<?php
@@ -123,7 +123,7 @@ class HTML_installer {
 	</a></span>
 		<?php
 	}
-	function cPanel() {?>
+	public static function cPanel() {?>
 
 <td width="100%" valign="top">
 	<div class="cpicons">

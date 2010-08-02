@@ -120,7 +120,7 @@ switch($task) {
 }
 
 function mass_add($option) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 	// получение списка существующих разделов
 	$query = "SELECT id AS value, title AS text FROM #__sections ORDER BY title ASC";
 	$database->setQuery($query);
@@ -141,7 +141,7 @@ function mass_save() {
 	global $my;
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$addcontent	= stripslashes(mosGetParam($_REQUEST,'addcontent',''));
 	$type		= intval(mosGetParam($_REQUEST,'type',0));
@@ -202,7 +202,7 @@ function mass_save() {
 
 function _gedsid($cid) {
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 	$query = 'SELECT section FROM #__categories WHERE id='.$cid;
 	$database->setQuery($query);
 	return $database->loadResult();
@@ -217,7 +217,7 @@ function _gedsid($cid) {
 function showSections($scope,$option) {
 	global $my;
 
-	$mainframe	= &mosMainFrame::getInstance(true);
+	$mainframe	= mosMainFrame::getInstance(true);
 	$config = &$mainframe->config;
 	$database	= $mainframe->getDBO();
 
@@ -300,7 +300,7 @@ function showSections($scope,$option) {
 function editSection($uid = 0,$scope = '',$option) {
 	global $my,$mainframe;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$row = new mosSection($database);
 	// load the row from the db table

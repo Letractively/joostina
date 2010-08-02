@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 
 class TOOLBAR_JCE {
-	function _CONFIG() {
+	public static function _CONFIG() {
 		mosMenuBar::startTable();
 		mosMenuBar::save();
 		mosMenuBar::custom('main','-back','',_MAIN_PAGE,false);
@@ -19,7 +19,7 @@ class TOOLBAR_JCE {
 		mosMenuBar::cancel();
 		mosMenuBar::endTable();
 	}
-	function _PLUGINS() {
+	public static function _PLUGINS() {
 		mosMenuBar::startTable();
 		mosMenuBar::publishList();
 		mosMenuBar::spacer();
@@ -34,7 +34,7 @@ class TOOLBAR_JCE {
 		mosMenuBar::custom('cancel','-cancel','',_CANCEL,false);
 		mosMenuBar::endTable();
 	}
-	function _EDIT_PLUGINS() {
+	public static function _EDIT_PLUGINS() {
 		global $id;
 
 		mosMenuBar::startTable();
@@ -48,7 +48,7 @@ class TOOLBAR_JCE {
 		mosMenuBar::spacer();
 		mosMenuBar::endTable();
 	}
-	function _INSTALL($element) {
+	public static function _INSTALL($element) {
 		if($element == 'plugins') {
 			mosMenuBar::startTable();
 			mosMenuBar::custom('showplugins','-new','',_PLUGINS,false);
@@ -59,14 +59,14 @@ class TOOLBAR_JCE {
 			mosMenuBar::endTable();
 		}
 	}
-	function _LAYOUT() {
+	public static function _LAYOUT() {
 		mosMenuBar::startTable();
 		mosMenuBar::custom('savelayout','-save','',_SAVE,false);
 		mosMenuBar::spacer();
 		mosMenuBar::custom('cancel','-cancel','',_CANCEL,false);
 		mosMenuBar::endTable();
 	}
-	function _LANGS() {
+	public static function _LANGS() {
 		mosMenuBar::startTable();
 		mosMenuBar::publishList('publishlang');
 		mosMenuBar::spacer();

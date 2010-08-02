@@ -34,9 +34,9 @@ switch($task) {
 * Creates feed from Content Iems associated to teh frontpage component
 */
 function feedFrontpage($showFeed) {
-	$mainframe = &mosMainFrame::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 
-	$database = &$mainframe->getDBO();
+	$database = $mainframe->getDBO();
 	$config = &$mainframe->config;
 
 

@@ -24,7 +24,7 @@ $_MAMBOTS->registerFunction('onSearch','botSearchWeblinks');
 function botSearchWeblinks($text,$phrase = '',$ordering = '') {
 	global $my,$_MAMBOTS;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	// check if param query has previously been processed
 	if(!isset($_MAMBOTS->_search_mambot_params['weblinks'])) {

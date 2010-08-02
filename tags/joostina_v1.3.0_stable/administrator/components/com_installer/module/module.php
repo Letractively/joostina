@@ -49,7 +49,7 @@ function removeElement($client) {
 }
 
 function showInstalledModules($_option) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$filter = mosGetParam($_POST,'filter','');
 	$select[] = mosHTML::makeOption('',_ALL);

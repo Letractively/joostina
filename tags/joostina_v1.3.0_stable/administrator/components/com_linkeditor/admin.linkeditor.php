@@ -50,7 +50,7 @@ switch($task) {
 }
 
 function deleteLink(&$cid) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	if(count($cid)) {
 		$cids = implode(',',$cid);
@@ -65,7 +65,7 @@ function deleteLink(&$cid) {
 
 }
 function saveOrder(&$cid) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$total = count($cid);
 	$order = mosGetParam($_POST,'order',array(0));
@@ -106,7 +106,7 @@ function saveOrder(&$cid) {
 
 function editLink($id = 0) {
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$row = new mosComponent($database);
 	$row->load($id);
@@ -153,7 +153,7 @@ function ReadImages($imagePath,$folderPath,&$folders,&$images) {
 }
 
 function categoryParentList($id,$action,$options = array()) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$list = categoryArray();
 
@@ -180,7 +180,7 @@ function categoryParentList($id,$action,$options = array()) {
 }
 
 function categoryArray() {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	// get a list of the menu items
 	$query = "SELECT* FROM #__components ORDER BY ordering";
@@ -204,7 +204,7 @@ function categoryArray() {
 
 
 function saveLink() {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$image = mosGetParam($_POST,'admin_menu_img');
 
@@ -227,7 +227,7 @@ function saveLink() {
 function viewLinks() {
 	global $mainframe,$mosConfig_list_limit,$option,$section,$menutype;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$limit = intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$mosConfig_list_limit));
 	$limitstart = intval($mainframe->getUserStateFromRequest("view{$section}limitstart",'limitstart',0));

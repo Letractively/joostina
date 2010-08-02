@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 
 global $my;
-$mainframe = &mosMainFrame::getInstance();
+$mainframe = mosMainFrame::getInstance();
 $cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 
 // число объектов содержимого для вывода

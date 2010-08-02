@@ -29,8 +29,8 @@ $_MAMBOTS->registerFunction('onPrepareContent','botMosPaging');
 function botMosPaging($published,&$row,&$params,$page = 0) {
 	global $Itemid,$_MAMBOTS;
 
-	$mainframe = &mosMainFrame::getInstance();
-	$database = &$mainframe->getDBO();
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	// simple performance check to determine whether bot should process further
 	if(strpos($row->text,'mospagebreak') === false) {

@@ -131,7 +131,7 @@ class JCacheStorageFile extends JCacheStorage {
 	 * @return	boolean	True on success, false otherwise
 	 * @since	1.3
 	 */
-	function clean($group, $mode) {
+	function clean($group=null, $mode='group') {
 		require_once(dirname(__FILE__).DS.'../../filesystem/folder.php');
 
 		$return = true;

@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 class TOOLBAR_jx {
 
-	function _DEFAULT() {
+	public static function _DEFAULT() {
 		$dir = mosGetParam($_SESSION, 'jx_'.$GLOBALS['file_mode'].'dir', '');
 		mosMenuBar::startTable();
 		mosMenuBar::ext(_COPY,'#','-copy','id="tb-copy" onclick="javascript:Copy();"');
@@ -27,7 +27,7 @@ class TOOLBAR_jx {
 		mosMenuBar::spacer();
 		mosMenuBar::endTable();
 	}
-	function _NULL() {
+	public static function _NULL() {
 		return true;
 	}
 }

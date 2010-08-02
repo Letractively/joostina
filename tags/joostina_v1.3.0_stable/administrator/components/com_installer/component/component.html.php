@@ -20,7 +20,7 @@ class HTML_component {
 	 * @param array An array of records
 	 * @param string The URL option
 	 */
-	function showInstalledComponents($rows,$option) {
+	public static function showInstalledComponents($rows,$option) {
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		if(count($rows)) {
 			// подключение скрипта чудесных таблиц

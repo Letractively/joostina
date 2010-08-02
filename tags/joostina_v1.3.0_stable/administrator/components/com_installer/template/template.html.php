@@ -22,7 +22,7 @@ class HTML_templates {
 	 */
 	function showTemplates(&$rows,&$pageNav,$option,$client) {
 		global $my;
-		$mainframe = &mosMainFrame::getInstance();
+		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		if(isset($row->authorUrl) && $row->authorUrl != '') {
 			$row->authorUrl = str_replace('http://','',$row->authorUrl);

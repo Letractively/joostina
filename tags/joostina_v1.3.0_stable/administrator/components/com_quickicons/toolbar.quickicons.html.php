@@ -15,7 +15,7 @@ defined('_VALID_MOS') or die();
  */
 class QI_Toolbar {
 
-	function _edit() {
+	public static function _edit() {
 		mosMenuBar::startTable();
 		mosMenuBar::save('save');
 		mosMenuBar::spacer();
@@ -25,7 +25,7 @@ class QI_Toolbar {
 		mosMenuBar::endTable();
 	}
 
-	function _show() {
+	public static function _show() {
 		mosMenuBar::startTable();
 		mosMenuBar::publishList('publish');
 		mosMenuBar::spacer();
@@ -39,7 +39,7 @@ class QI_Toolbar {
 		mosMenuBar::endTable();
 	}
 
-	function _chooseIcon() {
+	public static function _chooseIcon() {
 		mosMenuBar::startTable();
 		mosMenuBar::endTable();
 	}

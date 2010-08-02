@@ -18,7 +18,7 @@ class TOOLBAR_poll {
 	/**
 	 * Draws the menu for a New category
 	 */
-	function _NEW() {
+	public static function _NEW() {
 		mosMenuBar::startTable();
 		mosMenuBar::save();
 		mosMenuBar::spacer();
@@ -30,7 +30,7 @@ class TOOLBAR_poll {
 	/**
 	 * Draws the menu for Editing an existing category
 	 */
-	function _EDIT($pollid,$cur_template) {
+	public static function _EDIT($pollid,$cur_template) {
 		global $database;
 		global $id;
 
@@ -53,7 +53,7 @@ class TOOLBAR_poll {
 		mosMenuBar::help('screen.polls.edit');
 		mosMenuBar::endTable();
 	}
-	function _DEFAULT() {
+	public static function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::publishList();
 		mosMenuBar::spacer();

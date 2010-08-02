@@ -91,7 +91,7 @@ switch($task) {
 }
 
 function config($option) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	mosCommonHTML::loadOverlib();
 
@@ -103,7 +103,7 @@ function config($option) {
 }
 
 function save_config() {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$act = mosGetParam($_REQUEST,'act','');
 	$config_class = 'configUser_'.$act;
@@ -116,7 +116,7 @@ function save_config() {
 function showUsers($option) {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 	$mainframe = mosMainFrame::getInstance(true);
 	$acl = &gacl::getInstance();
 
@@ -225,7 +225,7 @@ function editUser($uid = '0',$option = 'users') {
 	global $my;
 
 	$mainframe = mosMainFrame::getInstance(true);
-	$database = &$mainframe->getDBO();
+	$database = $mainframe->getDBO();
 	$acl = &gacl::getInstance();
 
 	$msg = checkUserPermissions(array($uid),"edit",true);
@@ -305,7 +305,7 @@ function saveUser($task) {
 
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 	$mainframe = mosMainFrame::getInstance(true);
 	$acl = &gacl::getInstance();
 
@@ -530,7 +530,7 @@ function removeUsers($cid,$option) {
 	global $my;
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 	$mainframe = mosMainFrame::getInstance(true);
 	$acl = &gacl::getInstance();
 
@@ -580,7 +580,7 @@ function removeUsers($cid,$option) {
 function changeUserBlock($cid = null,$block = 1,$option) {
 	josSpoofCheck();
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$action = $block?'block':'unblock';
 
@@ -630,7 +630,7 @@ function logoutUser($cid = null,$option,$task) {
 	global $my;
 	josSpoofCheck(null, null, 'request');
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	if(is_array($cid)) {
 		if(count($cid) < 1) {
@@ -692,7 +692,7 @@ function logoutUser($cid = null,$option,$task) {
 function checkUserPermissions($cid,$actionName,$allowActionToMyself = false) {
 	global $my;
 
-	$database = &database::getInstance();
+	$database = database::getInstance();
 	$acl = &gacl::getInstance();
 
 	$msg = null;
@@ -725,7 +725,7 @@ function checkUserPermissions($cid,$actionName,$allowActionToMyself = false) {
  * Added 1.0.11
  */
 function getGIDSChildren($gid) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$standardlist = array(-2,);
 
@@ -746,7 +746,7 @@ function getGIDSChildren($gid) {
  * Added 1.0.11
  */
 function getGIDSParents($gid) {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$query = "SELECT g1.group_id, g1.name"
 			."\n FROM #__core_acl_aro_groups g1"

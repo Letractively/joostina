@@ -34,8 +34,8 @@ switch ($act) {
 function display_form() {
 	global $my;
 
-	$database = &database::getInstance();
-	$mainframe = &mosMainFrame::getInstance();
+	$database = database::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 
 	$ajax_handler = JPATH_SITE.'/ajax.index.php?option=com_users&task=request_from_plugin&plugin=user_contacts';
 	$user_id = intval(mosGetParam( $_REQUEST, 'user_id', 0 ));
@@ -117,7 +117,7 @@ function display_form() {
 }
 
 function user_sendmail() {
-	$database = &database::getInstance();
+	$database = database::getInstance();
 
 	$user_id = mosGetParam( $_REQUEST, 'user_id', 0 );
 	$user = new mosUser($database);

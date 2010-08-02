@@ -16,7 +16,7 @@ defined('_VALID_MOS') or die();
  */
 class HTML_newsfeed {
 
-	function displaylist(&$categories,&$rows,$catid,$currentcat = null,&$params,$tabclass) {
+	public static function displaylist(&$categories,&$rows,$catid,$currentcat = null,&$params,$tabclass) {
 		global $Itemid,$hide_js;
 		?>
 <div class="newsfeeds <?php echo $params->get('pageclass_sfx'); ?>">
@@ -62,7 +62,7 @@ class HTML_newsfeed {
 	/**
 	 * Display Table of items
 	 */
-	function showTable(&$params,&$rows,$catid,$tabclass) {
+	public static  function showTable(&$params,&$rows,$catid,$tabclass) {
 		global $Itemid;
 		// icon in table display
 		$img = mosAdminMenus::ImageCheck('con_info.png','/images/M_images/',$params->get('icon'));
@@ -123,7 +123,7 @@ class HTML_newsfeed {
 	/**
 	 * Display links to categories
 	 */
-	function showCategories(&$params,&$categories,$catid) {
+	public static function showCategories(&$params,&$categories,$catid) {
 		global $Itemid;
 		?>
 
@@ -170,7 +170,7 @@ class HTML_newsfeed {
 
 
 	//TODO:бардак в выводе - переделать в 1.3.1
-	function showNewsfeeds(&$newsfeed,$LitePath,$cacheDir,&$params) {
+	public static function showNewsfeeds(&$newsfeed,$LitePath,$cacheDir,&$params) {
 		?>
 <div class="newsfeeds_show">
 		<?php if($params->get('header')) { ?>
@@ -311,4 +311,3 @@ class HTML_newsfeed {
 		<?php
 	}
 }
-?>

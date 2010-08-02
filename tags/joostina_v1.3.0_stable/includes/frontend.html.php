@@ -30,7 +30,7 @@ class modules_html {
 	/*
 	* Output Handling for Custom modules
 	*/
-	function module(&$module,&$params,$Itemid,$style = 0) {
+	function module($module,$params,$Itemid,$style = 0) {
 		global $_MAMBOTS;
 
 		$database = $this->_mainframe->getDBO();
@@ -89,7 +89,7 @@ class modules_html {
 	 * @param int The menu item ID
 	 * @param int -1=show without wrapper and title, -2=xhtml style
 	 */
-	function module2(&$module,&$params,$Itemid,$style = 0,$count = 0) {
+	function module2($module,$params,$Itemid,$style = 0,$count = 0) {
 		$config = $this->_mainframe->config;
 
 		$moduleclass_sfx = $params->get('moduleclass_sfx');

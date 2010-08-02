@@ -52,7 +52,7 @@ class JCacheCallback extends JCache {
 	 * @return	mixed	Result of the callback
 	 * @since	1.3
 	 */
-	function get( $callback, $args, $id=false ) {
+	public function get( $callback, $args=null, $id=false ) {
 		// Normalize callback
 		if (is_array( $callback )) {
 			// We have a standard php callback array -- do nothing
@@ -93,7 +93,7 @@ class JCacheCallback extends JCache {
 			if(!$this->_object) {
 				$result = call_user_func_array($callback, $args);
 			}else {
-				$result = call_user_method_array($callback, $this->_object, $args);
+				$result = call_user_func_array( array($this->_object,$callback) , $args);
 			}
 
 			$output = ob_get_contents();

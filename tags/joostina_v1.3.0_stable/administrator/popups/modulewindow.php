@@ -11,7 +11,7 @@ define("_VALID_MOS",1);
 
 require_once ('../includes/auth.php');
 
-$mainframe = &mosMainFrame::getInstance(true);
+$mainframe = mosMainFrame::getInstance(true);
 $mainframe->set('lang', $mosConfig_lang);
 include_once($mainframe->getLangFile());
 
@@ -37,7 +37,7 @@ $title = stripslashes(mosGetParam($_REQUEST,'title',''));
 $css = mosGetParam($_REQUEST,'t',$mainframe->getTemplate());
 $row = null;
 
-$database = &database::getInstance();
+$database = database::getInstance();
 $database->debug($mosConfig_debug);
 
 $query = "SELECT* FROM #__modules WHERE title = ".$database->Quote($title);

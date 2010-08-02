@@ -48,7 +48,7 @@ if($mosConfig_mmb_ajax_starts_off == 0) {
 }
 
 // mainframe - основная рабочая среда API, осуществляет взаимодействие с 'ядром'
-$mainframe = &mosMainFrame::getInstance();
+$mainframe = mosMainFrame::getInstance();
 
 $mainframe->initSession();
 

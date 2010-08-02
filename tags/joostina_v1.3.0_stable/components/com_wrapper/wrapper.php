@@ -16,7 +16,7 @@ require_once ($mainframe->getPath('front_html'));
 showWrap();
 
 function showWrap() {
-	$mainframe = &mosMainFrame::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 
 	$menu = $mainframe->get('menu');
 	$params = new mosParameters($menu->params);

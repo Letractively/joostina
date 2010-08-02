@@ -320,7 +320,7 @@ class mosInstaller {
 	 * @subpackage Installer
 	 * @abstract
 	 */
-	function uninstall() {
+	function uninstall($cid,$option,$client = 0) {
 		die(_CANNOT_RUN_UNINSTALL_METHOD.' '.strtolower(get_class($this)));
 	}
 	/**

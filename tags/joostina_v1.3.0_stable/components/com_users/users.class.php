@@ -237,7 +237,7 @@ class mosUser extends mosDBTable {
      */
     function get_avatar($user) {
 
-        $mainframe = &mosMainFrame::getInstance();
+        $mainframe = mosMainFrame::getInstance();
 
         $avatar_file = JPATH_BASE.'/images/avatars/'.$user->avatar;
 
@@ -249,8 +249,8 @@ class mosUser extends mosDBTable {
         return $img;
     }
 
-    function get_link($user) {
-        $mainframe = &mosMainFrame::getInstance();
+	public static function get_link($user) {
+        $mainframe = mosMainFrame::getInstance();
 
         $url = 'index.php?option=com_users&task=profile&user='.$user->id;
         return sefRelToAbs($url);
@@ -317,7 +317,7 @@ class mosUser extends mosDBTable {
     }
 
     function send_mail_to_admins($email_info) {
-        $database = &database::getInstance();
+        $database = database::getInstance();
 
         // get email addresses of all admins and superadmins set to recieve system emails
         $query = "SELECT email, sendEmail FROM #__users WHERE ( gid = 24 OR gid = 25 ) AND sendEmail = 1 AND block = 0";
@@ -449,7 +449,7 @@ class userUsersExtra extends mosDBTable {
 class userHelper {
 
     function _load_core_js() {
-        $mainframe = &mosMainFrame::getInstance();
+        $mainframe = mosMainFrame::getInstance();
         $mainframe->addJS(JPATH_SITE.'/components/com_users/js/com_users.js','custom');
     }
 
@@ -549,7 +549,7 @@ class userHelper {
         self::_load_jquery_form();
 
 
-        $mainframe = &mosMainFrame::getInstance();
+        $mainframe = mosMainFrame::getInstance();
         $action = 'ajax.index.php';
         if(!$mainframe->isAdmin()) {
             $action = sefRelToAbs($action);
@@ -783,7 +783,7 @@ class mosUserParameters extends mosParameters {
      * @return string The html for the element
      */
     function _form_editor_list($name,$value,&$node,$control_name) {
-        $database = &database::getInstance();
+        $database = database::getInstance();
         // compile list of the editors
         $query = "SELECT element AS value, name AS text"
                 ."\n FROM #__mambots"

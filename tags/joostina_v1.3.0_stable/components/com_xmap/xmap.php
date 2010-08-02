@@ -23,7 +23,7 @@ require_once( JPATH_BASE.DS.JADMIN_BASE.DS.'components'.DS.'com_xmap'.DS.'classe
 require_once( JPATH_BASE.DS.JADMIN_BASE.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapPlugins.php' );
 require_once( JPATH_BASE.DS.JADMIN_BASE.DS.'components'.DS.'com_xmap'.DS.'classes'.DS.'XmapCache.php' );
 
-$mainframe = &mosMainFrame::getInstance();
+$mainframe = mosMainFrame::getInstance();
 
 $menu = $mainframe->get('menu');
 
@@ -129,7 +129,7 @@ function xmapCallShowSitemap($view,$sitemapid,$locale='',$sef='',$title='') {
 			$xSitemap->count_xml = $xmap->count;
 			break;
 		default:	// Html output
-			$mainframe = &mosMainFrame::getInstance();
+			$mainframe = mosMainFrame::getInstance();
 			require_once( $mainframe->getPath('front_html') );
 			$xmap = new XmapHtml( $xConfig, $xSitemap );
 			$xmap->generateSitemap($view,$xConfig,$xmapCache,$title);
@@ -218,7 +218,7 @@ class Xmap {
 	 */
 	function printMenuTree( &$menu, &$cache, $plugins) {
 
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		if( strlen($menu->menutype) == 0 ) {
 			$result = null;
@@ -267,7 +267,7 @@ class Xmap {
 	/** Look up the title for the module that links to $menutype */
 	function getMenuTitle($menutype) {
 
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		$query = "SELECT title FROM #__modules WHERE published='1' AND (module='mod_mainmenu' OR module='mod_mljoostinamenu') AND params LIKE '%menutype=". $menutype ."%' LIMIT 1";
 		$database->setQuery( $query );

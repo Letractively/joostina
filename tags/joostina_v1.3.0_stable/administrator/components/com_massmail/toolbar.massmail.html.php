@@ -18,7 +18,7 @@ class TOOLBAR_massmail {
 	/**
 	 * Draws the menu for a New Contact
 	 */
-	function _DEFAULT() {
+	public static function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::custom('send','-publish','',_SEND_BUTTON,false);
 		mosMenuBar::spacer();

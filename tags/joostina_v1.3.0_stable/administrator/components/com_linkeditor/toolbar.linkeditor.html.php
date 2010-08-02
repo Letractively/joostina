@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 
 class TOOLBAR_linkeditor {
-	function _EDIT() {
+	public static function _EDIT() {
 		mosMenuBar::startTable();
 		mosMenuBar::save("savelink");
 		mosMenuBar::cancel();
@@ -19,7 +19,7 @@ class TOOLBAR_linkeditor {
 		mosMenuBar::endTable();
 	}
 
-	function _DEFAULT() {
+	public static function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::addNewX();
 		mosMenuBar::spacer();

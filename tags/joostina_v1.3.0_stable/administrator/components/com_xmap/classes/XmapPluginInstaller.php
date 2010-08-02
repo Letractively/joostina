@@ -22,7 +22,7 @@ class XmapPluginInstaller extends mosInstaller {
 	 * @param boolean True if installing from directory
 	 */
 	function install( $p_fromdir = null ) {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		if (!$this->preInstallCheck( $p_fromdir, 'xmap_ext' )) {
 			return false;
@@ -101,7 +101,7 @@ class XmapPluginInstaller extends mosInstaller {
 	 * @param int The id of the extension
 	 */
 	function uninstall( $clientID,$id ) {
-		$database = &database::getInstance();
+		$database = database::getInstance();
 
 		$id = intval( $id );
 

@@ -25,8 +25,8 @@ if(!defined('_JOS_FULLMENU_MODULE')) {
 		 */
 		public static function show($usertype = '') {
 			global $acl,$my;
-			$database = &database::getInstance();
-			$config = &Jconfig::getInstance();
+			$database = database::getInstance();
+			$config = Jconfig::getInstance();
 
 			echo '<div id="myMenuID"></div>'; // в этот слой выводится содержимое меню
 			if($config->config_adm_menu_cache) { // проверяем, активировано ли кэширование в панели управления

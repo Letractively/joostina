@@ -24,7 +24,7 @@ class TOOLBAR_cache {
 	/**
 	 * Draws the menu for a New category
 	 */
-	function _DEFAULT() {
+	public static function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::deleteList('', 'delete');
 		mosMenuBar::endTable();

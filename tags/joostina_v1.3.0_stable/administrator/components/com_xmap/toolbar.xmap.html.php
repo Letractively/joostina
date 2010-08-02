@@ -15,7 +15,7 @@ class TOOLBAR_xmap {
 	/**
 	 * Draws the toolbar
 	 */
-	function _DEFAULT() {
+	public static function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::ext(_SAVE_SITEMAP,'#','-new','onclick="addSitemap();return false;"');
 		mosMenuBar::endTable();

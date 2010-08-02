@@ -16,7 +16,7 @@ defined('_VALID_MOS') or die();
  */
 class HTML_installer_core {
 
-	function showInstallForm($title,$option,$element,$client = '',$p_startdir = '',$backLink = '') {
+	public static function showInstallForm($title,$option,$element,$client = '',$p_startdir = '',$backLink = '') {
 		?>
 <script language="javascript" type="text/javascript">
 	function submitbutton3(pressbutton) {
@@ -149,7 +149,7 @@ class HTML_installer_core {
 		<?php
 	}
 
-	function showInstallMessage($message,$title,$url) {
+	public static function showInstallMessage($message,$title,$url) {
 		global $PHP_SELF;
 		?>
 <table class="adminheading">

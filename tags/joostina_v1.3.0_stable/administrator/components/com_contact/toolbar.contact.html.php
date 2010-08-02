@@ -18,7 +18,7 @@ class TOOLBAR_contact {
 	/**
 	 * Draws the menu for a New Contact
 	 */
-	function _EDIT() {
+	public static function _EDIT() {
 		global $id;
 
 		mosMenuBar::startTable();
@@ -35,7 +35,7 @@ class TOOLBAR_contact {
 		mosMenuBar::endTable();
 	}
 
-	function _DEFAULT() {
+	public static function _DEFAULT() {
 		mosMenuBar::startTable();
 		mosMenuBar::publishList();
 		mosMenuBar::spacer();

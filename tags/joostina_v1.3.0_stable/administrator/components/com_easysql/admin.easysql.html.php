@@ -147,7 +147,7 @@ function is_table($table) {
 function record_html($query) {
 	global $database;
 
-	$mainframe = &mosMainFrame::getInstance();
+	$mainframe = mosMainFrame::getInstance();
 	$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images';
 
 	// exec query
