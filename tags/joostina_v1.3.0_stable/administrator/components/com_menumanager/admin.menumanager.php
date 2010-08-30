@@ -78,7 +78,7 @@ function showMenu($option) {
 
 	$database	= database::getInstance();
 	$mainframe	= mosMainFrame::getInstance();
-	$config		= &Jconfig::getInstance();
+	$config		= Jconfig::getInstance();
 
 	$limit		= intval($mainframe->getUserStateFromRequest("viewlistlimit",'limit',$config->config_list_limit));
 	$limitstart	= intval($mainframe->getUserStateFromRequest("view{".$option."}limitstart",'limitstart',0));

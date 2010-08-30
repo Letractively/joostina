@@ -17,7 +17,7 @@ defined('_VALID_MOS') or die();
  */
 class poll_html {
 	
-	function showResults(&$poll, &$votes, $first_vote, $last_vote, $pollist, $params) {
+	public static function showResults(&$poll, &$votes, $first_vote, $last_vote, $pollist, $params) {
 		mosMainFrame::getInstance()->addCSS(JPATH_SITE.'/components/com_poll/css/poll.css');
 		?>
 <div class="polls <?php echo $params->get('pageclass_sfx'); ?>">
@@ -57,7 +57,7 @@ class poll_html {
 		<?php }
 
 
-	function graphit($data_arr, $graphtitle, $first_vote, $last_vote) {
+	public static function graphit($data_arr, $graphtitle, $first_vote, $last_vote) {
 		global  $polls_maxcolors, $tabclass, $polls_barheight, $polls_graphwidth, $polls_barcolor;
 
 		$tabclass_arr = explode(",", $tabclass);

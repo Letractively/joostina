@@ -279,7 +279,7 @@ class Xmap {
 
 	function getItemLink (&$node) {
 
-		$config = &Jconfig::getInstance();
+		$config = Jconfig::getInstance();
 
 		$link = $node->link;
 		if ( isset($node->id) ) {

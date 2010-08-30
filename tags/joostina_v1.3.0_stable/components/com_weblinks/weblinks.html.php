@@ -16,7 +16,7 @@ defined('_VALID_MOS') or die();
  */
 class HTML_weblinks {
 
-	function displaylist(&$categories,&$rows,$catid,$currentcat = null,$params,$tabclass) {
+	public static function displaylist(&$categories,&$rows,$catid,$currentcat = null,$params,$tabclass) {
 		global $hide_js;
 
 		?>
@@ -61,7 +61,7 @@ class HTML_weblinks {
 	/**
 	 * Display Table of items
 	 */
-	function showTable(&$params,&$rows,$catid,$tabclass) {
+	public static function showTable(&$params,&$rows,$catid,$tabclass) {
 		global $cwl_i;
 		if(!isset($cwl_i)) $cwl_i = '';
 
@@ -154,7 +154,7 @@ class HTML_weblinks {
 	/**
 	 * Display links to categories
 	 */
-	function showCategories(&$params,&$categories,$catid) {
+	public static function showCategories(&$params,&$categories,$catid) {
 		global $Itemid;
 		?>
 <ul>
@@ -198,7 +198,7 @@ class HTML_weblinks {
 	 * @param mosWeblink The weblink object
 	 * @param string The html for the categories select list
 	 */
-	function editWeblink($option,&$row,&$lists) {
+	public static function editWeblink($option,&$row,&$lists) {
 
 		$Returnid = intval(mosGetParam($_REQUEST,'Returnid',0));
 

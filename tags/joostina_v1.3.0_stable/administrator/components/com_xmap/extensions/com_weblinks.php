@@ -11,7 +11,7 @@
 defined('_VALID_MOS') or die();
 
 class xmap_com_weblinks {
-	function &getTree( &$xmap, &$parent ) {
+	public static function getTree( $xmap, $parent ) {
 		global $my, $Itemid;
 		$list = array();
 
@@ -60,4 +60,4 @@ class xmap_com_weblinks {
 		$xmap->changeLevel(-1);
 		return $list;
 	}
-};
+}

@@ -15,13 +15,13 @@ defined('_VALID_MOS') or die();
  */
 class search_html {
 
-	function openhtml($params) {
+	public static function openhtml($params) {
 		if($params->get('page_title')) {
 			?><div class="componentheading<?php echo $params->get('pageclass_sfx'); ?>"><h1><?php echo $params->get('header'); ?></h1></div><?php
 		}
 	}
 
-	function searchbox($searchword, &$lists, $params) {
+	public static function searchbox($searchword, &$lists, $params) {
 		global $Itemid, $mainframe;
 		?>
 <br />
@@ -46,22 +46,22 @@ class search_html {
 		<?php
 	}
 
-	function searchintro($searchword, $params) {
+	public static function searchintro($searchword, $params) {
 		?>
 <div class="searchintro<?php echo $params->get('pageclass_sfx'); ?>">
 	<h4><?php echo _PROMPT_KEYWORD , ' <span>' , stripslashes($searchword) , '</span>'; ?></h4>
 			<?php
 		}
 
-		function message($message) {
+		public static function message($message) {
 			echo $message;
 		}
 
-		function displaynoresult() {
+		public static function displaynoresult() {
 
 		}
 
-		function display(&$rows, $params, $pageNav, $limitstart, $limit, $total, $totalRows, $searchword) {
+		public static function display(&$rows, $params, $pageNav, $limitstart, $limit, $total, $totalRows, $searchword) {
 			global $mosConfig_showCreateDate;
 			global $option, $Itemid;
 			$image = mosAdminMenus::ImageCheck('aport.gif', '/components/com_search/images/', null, null, 'Aport', 'Aport', 1);
@@ -167,7 +167,7 @@ class search_html {
 		<?php
 	}
 
-	function conclusion($searchword, $pageNav) {
+	public static function conclusion($searchword, $pageNav) {
 		global $option, $Itemid;
 		$ordering = strtolower(strval(mosGetParam($_REQUEST, 'ordering', 'newest')));
 		$searchphrase = strtolower(strval(mosGetParam($_REQUEST, 'searchphrase', 'any')));
@@ -179,7 +179,7 @@ class search_html {
 
 class search_by_tag_HTML {
 
-	function tag_page ($items, $params, $groups) {
+	public static function tag_page ($items, $params, $groups) {
 		?>
 <div class="tag_page">
 	<div class="contentpagetitle">
@@ -190,7 +190,7 @@ class search_by_tag_HTML {
 		<?php
 	}
 
-	function view_group($items, $params, $groups) {
+	public static function view_group($items, $params, $groups) {
 		if(count($items->items['com_content'])>0) {
 			foreach($groups as $key=>$group) {
 				foreach($items->items[$key] as $item) {

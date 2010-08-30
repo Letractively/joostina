@@ -14,7 +14,7 @@ defined('_VALID_MOS') or die();
 class xmap_com_content {
 
 	/** return a node-tree */
-	function &getTree(&$xmap, &$parent, &$params) {
+	public static function getTree($xmap, $parent, $params) {
 		$result = null;
 		if($parent->type === 'component') {
 			$task = preg_replace("/.*view=([^&]+).*/", '$1', $parent->link);
@@ -111,7 +111,7 @@ class xmap_com_content {
 
 	/** Get all content items within a content category.
 	 * Returns an array of all contained content items. */
-	function getContentCategory(&$xmap, &$parent, $catid, &$params, &$menuparams) {
+	public static function getContentCategory($xmap, $parent, $catid, $params, $menuparams) {
 		$database = database::getInstance();
 
 		$orderby = !empty($menuparams['orderby']) ? $menuparams['orderby'] : (!empty($menuparams['orderby_sec']) ? $menuparams['orderby_sec'] : 'rdate');
@@ -159,7 +159,7 @@ class xmap_com_content {
 
 	/** Get all Categories within a Section.
 	 * Also call getCategory() for each Category to include it's items */
-	function getContentSection(&$xmap, &$parent, $secid, &$params, &$menuparams) {
+	public static function getContentSection(&$xmap, &$parent, $secid, &$params, &$menuparams) {
 		$database = database::getInstance();
 
 		$orderby = isset($menuparams['orderby']) ? $menuparams['orderby'] : '';
@@ -199,7 +199,7 @@ class xmap_com_content {
 	}
 
 	/** Return an array with all Items in a Section */
-	function getContentBlogSection(&$xmap, &$parent, $secid, &$params, &$menuparams) {
+	public static function getContentBlogSection(&$xmap, &$parent, $secid, &$params, &$menuparams) {
 		$database = database::getInstance();
 
 		$order_pri = isset($menuparams['orderby_pri']) ? $menuparams['orderby_pri'] : '';
@@ -248,7 +248,7 @@ class xmap_com_content {
 	/***************************************************/
 
 	/** convert a menuitem's params field to an array */
-	function paramsToArray(&$menuparams) {
+	public static function paramsToArray(&$menuparams) {
 		$tmp = explode("\n", $menuparams);
 		$res = array();
 		foreach ($tmp as $a) {
@@ -258,15 +258,15 @@ class xmap_com_content {
 		return $res;
 	}
 	/** Translate Joomla datestring to timestamp */
-	function toTimestamp(&$date) {
-		if($date && ereg("([0-9]{4})-([0-9]{2})-([0-9]{2})[ ]([0-9]{2}):([0-9]{2}):([0-9]{2})", $date, $regs)) {
+	public static function toTimestamp(&$date) {
+		if($date && preg_match("/^([0-9]{4})-([0-9]{2})-([0-9]{2})[ ]([0-9]{2}):([0-9]{2}):([0-9]{2})/", $date, $regs)) {
 			return mktime($regs[4], $regs[5], $regs[6], $regs[2], $regs[3], $regs[1]);
 		}
 		return false;
 	}
 
 	/** translate primary order parameter to sort field */
-	function orderby_pri($orderby) {
+	public static function orderby_pri($orderby) {
 		switch ($orderby) {
 			case 'alpha':
 				$orderby = 'cc.title, ';
@@ -289,7 +289,7 @@ class xmap_com_content {
 	}
 
 	/** translate secondary order parameter to sort field */
-	function orderby_sec($orderby) {
+	public static function orderby_sec($orderby) {
 		switch ($orderby) {
 			case 'date':
 				$orderby = 'a.created';
@@ -340,7 +340,7 @@ class xmap_com_content {
 	}
 	/**
 	 @param int 0 = Archives, 1 = Section, 2 = Category */
-	function where($type = 1, &$access, &$noauth, $gid, $id, $now = null, $year = null, $month = null) {
+	public static function where($type = 1, &$access, &$noauth, $gid, $id, $now = null, $year = null, $month = null) {
 		$database = database::getInstance();
 
 		$nullDate = $database->getNullDate();

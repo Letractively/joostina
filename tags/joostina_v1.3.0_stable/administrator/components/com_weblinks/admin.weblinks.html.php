@@ -16,7 +16,7 @@ defined('_VALID_MOS') or die();
  */
 class HTML_weblinks {
 
-	function showWeblinks($option,&$rows,&$lists,&$search,&$pageNav) {
+	public static function showWeblinks($option,&$rows,&$lists,&$search,&$pageNav) {
 		global $my;
 		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
@@ -145,7 +145,7 @@ class HTML_weblinks {
 	 * @param object Parameters
 	 * @param string The option
 	 */
-	function editWeblink(&$row,&$lists,&$params,$option) {
+	public static function editWeblink(&$row,&$lists,&$params,$option) {
 		mosMakeHtmlSafe($row,ENT_QUOTES,'description');
 
 		mosCommonHTML::loadOverlib();

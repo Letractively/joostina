@@ -194,7 +194,7 @@ class vCard {
 		$this->properties[$key] = $url;
 	}
 
-	function getVCard() {
+	public function getVCard( $sitename = false ) {
 		$text = 'BEGIN:VCARD';
 		$text .= "\r\n";
 		$text .= 'VERSION:2.1';

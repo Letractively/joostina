@@ -836,8 +836,7 @@ class mosDBTable {
 		}
 
 		if (!$ret) {
-			$this->_error = strtolower(get_class($this)) . "::ошибка выполнения store<br />" .
-					$this->_db->getErrorMsg();
+			$this->_error = strtolower(get_class($this)) . "::ошибка выполнения store<br />".$this->_db->getErrorMsg();
 			return false;
 		} else {
 			return true;

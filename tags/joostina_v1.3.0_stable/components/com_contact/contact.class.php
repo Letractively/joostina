@@ -154,7 +154,7 @@ class MambovCard extends vCard {
 		$this->properties['ORG'] = $org;
 	}
 
-	function getVCard($sitename) {
+	public function getVCard($sitename = false) {
 		$text = 'BEGIN:VCARD';
 		$text .= "\r\n";
 		$text .= 'VERSION:2.1';
