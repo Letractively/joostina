@@ -791,7 +791,7 @@ class mosContent extends mosDBTable {
 		global $gid, $task;
 
 		$database = database::getInstance();
-		$config = &Jconfig::getInstance();
+		$config = Jconfig::getInstance();
 
 		$now = _CURRENT_SERVER_TIME;
 		$nullDate = $database->getNullDate();
@@ -1430,7 +1430,7 @@ class contentSqlHelper {
 		static $config;
 
 		if(!is_array($config)) {
-			$config_ = &Jconfig::getInstance();
+			$config_ = Jconfig::getInstance();
 			$config['config_shownoauth'] = $config_->config_shownoauth;
 			$config['config_disable_date_state'] = $config_->config_disable_date_state;
 			$config['config_disable_access_control'] = $config_->config_disable_access_control;

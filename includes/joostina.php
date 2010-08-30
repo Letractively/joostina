@@ -838,7 +838,7 @@ class mosMainFrame {
 	* Added as of 1.0.8
 	* Deperciated 1.1
 	*/
-	function sessionCookieName($site_name = '') {
+   public static function sessionCookieName($site_name = '') {
 
 		if(!$site_name) {
 			$site_name = JPATH_SITE;
@@ -861,7 +861,7 @@ class mosMainFrame {
 	* Deperciated 1.1
 	*/
 	public static function sessionCookieValue($id = null) {
-		$config = &Jconfig::getInstance();
+		$config = Jconfig::getInstance();
 		$type		= $config->config_session_type;
 		$browser	= @$_SERVER['HTTP_USER_AGENT'];
 
@@ -3334,7 +3334,7 @@ class mosHTML {
 	 */
 	//TODO: справка - Back Button
 	public static function BackButton(&$params = null,$hide_js = null) {
-		$config = &Jconfig::getInstance();
+		$config = Jconfig::getInstance();
 
 		if( !$params ||  ($params->get('back_button')==1 && !$params->get('popup') && !$hide_js) || ($params->get('back_button') == -1 && $config->config_back_button == 1 ) ) {
 			include_once(JPATH_BASE.'/templates/system/back_button.php');
@@ -4068,7 +4068,7 @@ function mosCreateMail($from = '',$fromname = '',$subject='',$body='') {
 	mosMainFrame::addLib('phpmailer');
 	$mail = new mosPHPMailer();
 
-	$config = &Jconfig::getInstance();
+	$config = Jconfig::getInstance();
 
 	$mail->PluginDir = JPATH_BASE.DS.'includes/libraries/phpmailer/';
 	$mail->SetLanguage(_LANGUAGE,JPATH_BASE.DS.'includes/libraries/phpmailer/language/');
@@ -4111,7 +4111,7 @@ function mosCreateMail($from = '',$fromname = '',$subject='',$body='') {
  * @return boolean
  */
 function mosMail($from,$fromname,$recipient,$subject,$body,$mode = 0,$cc = null,$bcc = null,$attachment = null,$replyto = null,$replytoname = null) {
-	$config = &Jconfig::getInstance();
+	$config = Jconfig::getInstance();
 
 	// Allow empty $from and $fromname settings (backwards compatibility)
 	if($from == '') {
@@ -4451,6 +4451,9 @@ class mosMambotHandler {
 					}
 
 					foreach($this->_search_mambot as $bot) {
+						if( !isset($this->_search_mambot_params[str_replace('.searchbot','',$bot->element)]->params)){
+							$this->_search_mambot_params[str_replace('.searchbot','',$bot->element)] = new stdClass;
+						}
 						$this->_search_mambot_params[str_replace('.searchbot','',$bot->element)]->params = $bot->params;
 					}
 				}
@@ -6059,7 +6062,7 @@ function mosChmodRecursive($path,$filemode = null,$dirmode = null) {
  * @return TRUE=all succeeded FALSE=one or more chmods failed
  */
 function mosChmod($path) {
-	$config = &Jconfig::getInstance();
+	$config = Jconfig::getInstance();
 
 	$config->config_fileperms = trim($config->config_fileperms);
 	$config->config_dirperms = trim($config->config_fileperms);
@@ -6466,7 +6469,7 @@ class joostina_api {
 // Оптимизация таблиц базы данных
 function _optimizetables() {
 	$database = database::getInstance();
-	$config = &Jconfig::getInstance();
+	$config = Jconfig::getInstance();
 
 	$flag = $config->config_cachepath.'/optimizetables.flag';
 	$filetime = @filemtime($flag);

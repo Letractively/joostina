@@ -11,7 +11,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-$config = &Jconfig::getInstance();
+$config = Jconfig::getInstance();
 
 // подключение языкого файла tmpl_joostfree.php
 if($mainframe->getLangFile('tmpl_joostfree')) {

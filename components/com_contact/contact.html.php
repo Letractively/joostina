@@ -183,7 +183,7 @@ class HTML_contact {
 	}
 
 
-	function viewcontact(&$contact,&$params,$count,&$list,&$menu_params) {
+	public static function viewcontact(&$contact,&$params,$count,&$list,&$menu_params) {
 		global $mainframe,$Itemid;
 
 		$template = JTEMPLATE;
@@ -363,7 +363,7 @@ class HTML_contact {
 	/**
 	 * Writes Email form
 	 */
-	function _writeEmailForm(&$contact,&$params,$sitename,&$menu_params) {
+	public static function _writeEmailForm(&$contact,&$params,$sitename,&$menu_params) {
 		global $Itemid,$mosConfig_captcha_cont;
 
 		// used for spoof hardening
@@ -418,8 +418,7 @@ class HTML_contact {
 		<?php
 	}
 
-
-	function nocontact(&$params) {
+	public static function nocontact(&$params) {
 		?>
 <div class="com_contact contact_page no_contact">
 	<div class="info"><?php echo _CONTACT_NONE; ?></div>

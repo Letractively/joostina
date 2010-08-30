@@ -25,7 +25,7 @@ class XmapPlugin extends mosDBTable {
 		}
 	}
 
-	function &getParams($Itemid='-1',$asTXT=0) {
+	function getParams($Itemid='-1',$asTXT=0) {
 		if (!is_array($this->_params)) {
 			$this->parseParams();
 		}
@@ -108,7 +108,8 @@ class XmapPlugin extends mosDBTable {
 		return JPATH_BASE_ADMIN.'/components/com_xmap/extensions/'.$this->extension.'.xml';
 	}
 
-	function store() {
+	// тут зачем-то было store
+	function check() {
 		if (is_array($this->_params)) {
 			$this->params='';
 			foreach ($this->_params as $itemid => $params) {
@@ -117,7 +118,7 @@ class XmapPlugin extends mosDBTable {
 				}
 			}
 		}
-		return mosDBTable::store();
+		return true;
 	}
 
 	function restore() {
@@ -127,7 +128,7 @@ class XmapPlugin extends mosDBTable {
 		$database->setQuery($query);
 		if ($database->loadObject($row)) {
 			$this->params=$row->params;
-			mosDBTable::store();
+			//mosDBTable::store();
 		}
 	}
 }
@@ -138,7 +139,7 @@ class XmapPlugin extends mosDBTable {
 class XmapPlugins {
 
 	/** list all extension files found in the extensions directory */
-	function &loadAvailablePlugins( ) {
+	public static function loadAvailablePlugins( ) {
 		$database = database::getInstance();
 
 		$list = array();
@@ -155,8 +156,7 @@ class XmapPlugins {
 		return $list;
 	}
 
-	/** Determine which extension-object handles this content and let it generate a tree */
-	function &printTree( &$xmap, &$parent, &$cache, &$extensions ) {
+	public static function printTree( &$xmap, &$parent, &$cache, &$extensions ) {
 		$result = null;
 
 		$matches=array();
@@ -165,7 +165,7 @@ class XmapPlugins {
 			if ( !empty($extensions[$option]) ) {
 				$parent->uid = "plug".$extensions[$option]->id;
 				$className = 'xmap_'.$option;
-				$result = call_user_func_array(array($className, 'getTree'),array(&$xmap,&$parent,$extensions[$option]->getParams()));
+				$result = call_user_func_array(array($className, 'getTree'),array($xmap,$parent,$extensions[$option]->getParams()));
 			}
 		}
 		return $result;

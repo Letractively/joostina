@@ -15,10 +15,10 @@ class XmapCache {
 	/**
 	 * @return object A function cache object
 	 */
-	function &getCache(&$sitemap, $handler = 'callback', $storage = 'file') {
+	public static function getCache(&$sitemap, $handler = 'callback', $storage = 'file') {
 		$handler = ($handler == 'function') ? 'callback' : $handler;
 
-		$config = &Jconfig::getInstance();
+		$config = Jconfig::getInstance();
 
 		if(!isset($storage)) {
 			$storage =($config->config_cache_handler != '')? $config->config_cache_handler : 'file';
@@ -35,7 +35,7 @@ class XmapCache {
 
 
 		require_once (JPATH_BASE.'/includes/libraries/cache/cache.php');
-		$cache =&JCache::getInstance( $handler, $options );
+		$cache = JCache::getInstance( $handler, $options );
 		if($cache != NULL) {
 			$cache->setCaching($sitemap->usecache);
 		}
@@ -44,8 +44,8 @@ class XmapCache {
 	/**
 	 * Cleans the cache
 	 */
-	function cleanCache(&$group = false) {
-		$cache = &XmapCache::getCache($group);
+	public static function cleanCache(&$group = false) {
+		$cache = XmapCache::getCache($group);
 		//_xdump($cache);
 		if($cache != NULL) {
 			$cache->clean($cache->_options['defaultgroup']);

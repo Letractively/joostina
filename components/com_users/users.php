@@ -137,7 +137,7 @@ function profile($uid) {
 		$row->user_extra = $row->get_user_extra();
 
 		$file = $mainframe->getPath('com_xml','com_users');
-		$params = &new mosUserParameters($row->params,$file,'component');
+		$params = new mosUserParameters($row->params,$file,'component');
 
 		$config = new configUser_profile($database);
 		$config->set('title',sprintf($config->get('title'),$row->name));
@@ -172,7 +172,7 @@ function userEdit($option,$uid,$submitvalue) {
 	$user->username = trim($user->username);
 
 	$file = $mainframe->getPath('com_xml','com_users');
-	$params = &new mosUserParameters($user->params,$file,'component');
+	$params = new mosUserParameters($user->params,$file,'component');
 
 	$user_extra = new userUsersExtra($database);
 	$user_extra->load((int)$uid);
@@ -322,7 +322,7 @@ function userList($gid,$limit,$limitstart=0) {
 function CheckIn($userid,$access) {
 
 	$database = database::getInstance();
-	$config = &Jconfig::getInstance();
+	$config = Jconfig::getInstance();
 
 	$nullDate = $database->getNullDate();
 	if(!($access->canEdit || $access->canEditOwn || $userid > 0)) {
@@ -432,7 +432,7 @@ function lostPassForm($option) {
 	$mainframe = mosMainFrame::getInstance();
 	$mainframe->SetPageTitle(_LOST_PASSWORDWORD);
 
-	$config = &Jconfig::getInstance();
+	$config = Jconfig::getInstance();
 	$database = $mainframe->getDBO();
 
 	$user_config = new configUser_lostpass($database);
@@ -455,7 +455,7 @@ function sendNewPass() {
 	josSpoofCheck();
 
 	$database = database::getInstance();
-	$config = &Jconfig::getInstance();
+	$config = Jconfig::getInstance();
 
 	$checkusername = stripslashes(mosGetParam($_POST,'checkusername',''));
 	$confirmEmail = stripslashes(mosGetParam($_POST,'confirmEmail',''));

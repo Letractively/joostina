@@ -26,7 +26,7 @@ class HTML_user {
 		<?php
 	}
 
-	function profile($user,$option, &$params, $config) {
+	public static function profile($user,$option, &$params, $config) {
 		global $my, $_MAMBOTS,$Itemid;
 
 		$mainframe = mosMainFrame::getInstance();
@@ -107,12 +107,12 @@ class HTML_user {
 		include ($template_file);
 	}
 
-	function userEdit($user,$option,$submitvalue,&$params, $user_config) {
+	public static function userEdit($user,$option,$submitvalue,&$params, $user_config) {
 		// used for spoof hardening
 		$validate = josSpoofValue();
 
 		require_once (JPATH_BASE.'/includes/HTML_toolbar.php');
-		$config = &Jconfig::getInstance();
+		$config = Jconfig::getInstance();
 
 		$user_extra = $user->user_extra;
 		$bday_date = mosFormatDate($user_extra->birthdate, '%d', '0') ;

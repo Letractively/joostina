@@ -448,17 +448,17 @@ class userUsersExtra extends mosDBTable {
 
 class userHelper {
 
-    function _load_core_js() {
+	public static function _load_core_js() {
         $mainframe = mosMainFrame::getInstance();
         $mainframe->addJS(JPATH_SITE.'/components/com_users/js/com_users.js','custom');
     }
 
-    function _load_jquery_form() {
+    public static function _load_jquery_form() {
         mosCommonHTML::loadJqueryPlugins('jquery.form', false, false, 'js');
     }
 
 
-    function _build_img_upload_area($obj, $form_params, $state) {
+	public static function _build_img_upload_area($obj, $form_params, $state) {
         $field = $form_params->img_field;
 
         ?><script type="text/javascript">
@@ -545,7 +545,7 @@ class userHelper {
         <?php
     }
 
-    function _build_img_upload_form(&$obj, $form_params) {
+    public static function _build_img_upload_form(&$obj, $form_params) {
         self::_load_jquery_form();
 
 

@@ -15,7 +15,7 @@ defined('_VALID_MOS') or die();
  * @subpackage Wrapper
  */
 class HTML_wrapper {
-	function displayWrap(&$row,&$params) {
+	public static function displayWrap(&$row,&$params) {
 		?>
 <script language="javascript" type="text/javascript">
 	function iFrameHeight() {

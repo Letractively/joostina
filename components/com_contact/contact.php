@@ -533,7 +533,7 @@ function sendmail($con_id,$option) {
 
 function vCard($id) {
 	$database = database::getInstance();
-	$config = &Jconfig::getInstance();
+	$config = Jconfig::getInstance();
 
 	$contact = new mosContact($database);
 	$contact->load((int)$id);

@@ -50,25 +50,22 @@ function listWeblinks($catid) {
 
 	$database = database::getInstance();
 	$mainframe = mosMainFrame::getInstance();
-	$config = &Jconfig::getInstance();
+	$config = Jconfig::getInstance();
 
 	$rows = array();
-	$currentcat = null;
+	$currentcat = new stdClass;
+
 	if($catid) {
 		// url links info for category
 		$query = "SELECT id, url, title, description, date, hits, params FROM #__weblinks WHERE catid = ".(int)$catid." AND published = 1 AND archived = 0"."\n ORDER BY ordering";
-		$database->setQuery($query);
-		$rows = $database->loadObjectList();
+		$rows = $database->setQuery($query)->loadObjectList();
 
 		// current cate info
-		$query = "SELECT* FROM #__categories WHERE id = ".(int)$catid." AND published = 1 AND access <= ".(int)$my->gid;
-		$database->setQuery($query);
-		$database->loadObject($currentcat);
+		$currentcat = null;
+		$query = "SELECT * FROM #__categories WHERE id = ".(int)$catid." AND published = 1 AND access <= ".(int)$my->gid;
+		$database->setQuery($query)->loadObject($currentcat);
 
-		/*
-		* Check if the category is published or if access level allows access
-		*/
-		if(!$currentcat->name) {
+		if(!isset($currentcat->name)) {
 			mosNotAuth();
 			return;
 		}
@@ -113,8 +110,7 @@ function listWeblinks($catid) {
 	$currentcat->descrip = '';
 	if((@$currentcat->description) != '') {
 		$currentcat->descrip = $currentcat->description;
-	} else
-	if(!$catid) {
+	} else if(!$catid) {
 		// show description
 		if($params->get('description')) {
 			$currentcat->descrip = $params->get('description_text');
@@ -174,7 +170,7 @@ function showItem($id) {
 	global $my;
 
 	$database = database::getInstance();
-	$config = &Jconfig::getInstance();
+	$config = Jconfig::getInstance();
 
 	$link = new mosWeblink($database);
 	$link->load((int)$id);

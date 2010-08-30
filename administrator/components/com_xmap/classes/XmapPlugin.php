@@ -25,7 +25,7 @@ class XmapPlugin extends mosDBTable {
 		}
 	}
 
-	function &getParams($Itemid='-1',$asTXT=0) {
+	function getParams($Itemid='-1',$asTXT=0) {
 		if (!is_array($this->_params)) {
 			$this->parseParams();
 		}
@@ -51,7 +51,7 @@ class XmapPlugin extends mosDBTable {
 		}
 	}
 
-	function &loadDefaultsParams ($asText) {
+	function loadDefaultsParams ($asText) {
 		$path = $this->getXmlPath();
 		$xmlDoc = new DOMIT_Lite_Document();
 		$xmlDoc->resolveErrors( true );
@@ -108,7 +108,8 @@ class XmapPlugin extends mosDBTable {
 		return JPATH_BASE_ADMIN.'/components/com_xmap/extensions/'.$this->extension.'.xml';
 	}
 
-	function store() {
+	// тут зачем-то было store
+	public function check1( ) {
 		if (is_array($this->_params)) {
 			$this->params='';
 			foreach ($this->_params as $itemid => $params) {
@@ -117,7 +118,8 @@ class XmapPlugin extends mosDBTable {
 				}
 			}
 		}
-		return mosDBTable::store();
+		//return mosDBTable::store();
+		return true;
 	}
 
 	function restore() {
@@ -126,7 +128,7 @@ class XmapPlugin extends mosDBTable {
 		$database->setQuery($query);
 		if ($database->loadObject($row)) {
 			$this->params=$row->params;
-			mosDBTable::store();
+			//mosDBTable::store();
 		}
 	}
 }

@@ -1095,7 +1095,7 @@ function BlogOutput(&$obj, $params, &$access,$mainframe=null) {
 
 // кэширование с сохранением мета-тэгов
 function showFullItem($id,$gid=0) {
-	$config = &Jconfig::getInstance();
+	$config = Jconfig::getInstance();
 	if($config->config_enable_stats) {
 		$r =_showFullItem($id);
 	} elseif($config->config_caching==1) {
