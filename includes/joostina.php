@@ -5726,7 +5726,7 @@ class mosCommonHTML {
 <script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE?>/includes/js/jquery/ui.js"></script>
 				<?php }else {
 				$mainframe = mosMainFrame::getInstance();
-				$mainframe->addCSS(JPATH_SITE.'/includes/js/jquery/ui.js');
+				$mainframe->addJS(JPATH_SITE.'/includes/js/jquery/ui.js');
 			}
 		}
 		return true;

@@ -58,7 +58,8 @@ class search_html {
 		}
 
 		public static function displaynoresult() {
-
+			search_html::message(_NOKEYWORD);
+			echo '</div>';
 		}
 
 		public static function display(&$rows, $params, $pageNav, $limitstart, $limit, $total, $totalRows, $searchword) {

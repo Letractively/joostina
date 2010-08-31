@@ -306,11 +306,11 @@ function viewSearch() {
 		// prepares searchword for proper display in url
 		$searchword_clean = urlencode($searchword_clean);
 
-		if($n) {
-			// html output
-			mosMainFrame::addLib('pageNavigation');
-			$pageNav = new mosPageNav($total,$limitstart,$limit);
+		// html output
+		mosMainFrame::addLib('pageNavigation');
+		$pageNav = new mosPageNav($total,$limitstart,$limit);
 
+		if($n) {
 			search_html::display($rows,$params,$pageNav,$limitstart,$limit,$total,$totalRows,$searchword_clean);
 		} else {
 			// html output

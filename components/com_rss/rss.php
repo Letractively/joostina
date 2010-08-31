@@ -311,7 +311,7 @@ function feedFrontpage($showFeed) {
 			}
 			// yandex export
 		}
-		$item->fulltext = html_optimize($item->fulltext);
+		$item->fulltext = isset($item->fulltext) ? html_optimize($item->fulltext) : '';
 		// loads item info into rss array
 		$rss->addItem($item);
 	}

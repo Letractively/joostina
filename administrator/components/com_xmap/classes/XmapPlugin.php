@@ -35,7 +35,7 @@ class XmapPlugin extends mosDBTable {
 			$params = $this->_params[-1];
 		}
 		if ($asTXT) {
-			return $params['__TXT__'];
+			return isset($params['__TXT__']) ? $params['__TXT__'] : '';
 		}
 		return $params;
 	}
@@ -109,7 +109,7 @@ class XmapPlugin extends mosDBTable {
 	}
 
 	// тут зачем-то было store
-	public function check1( ) {
+	public function check( ) {
 		if (is_array($this->_params)) {
 			$this->params='';
 			foreach ($this->_params as $itemid => $params) {
