@@ -1091,3 +1091,6 @@ ALTER TABLE `#__content_frontpage` ADD INDEX ( `ordering` );
 ALTER TABLE `#__sections` ADD INDEX ( `access` );
 ALTER TABLE `#__sections` ADD INDEX ( `published` );
 ALTER TABLE `#__content` ADD INDEX ( `hits` );
+
+# 1.3.0.4
+ALTER TABLE `#__core_acl_aro` CHANGE `value` `value` INT( 11 ) NOT NULL;

@@ -605,7 +605,7 @@ function saveBanner($option, $task) {
 	$cliid = ($cliid > 0) ? '&cliid=' . $cliid : '';
 
 	if($task == 'applybanner') {
-		mosRedirect("index2.php?option=$option" . $catid . $cliid . "&task=editbanner&cid[]=" . $banner->id, $msg);
+		mosRedirect("index2.php?option=$option" . $catid . $cliid . "&task=editbanner&cid=" . $banner->id, $msg);
 	} else {
 		mosRedirect("index2.php?option=$option&task=banners" . $catid . $cliid, $msg);
 	}

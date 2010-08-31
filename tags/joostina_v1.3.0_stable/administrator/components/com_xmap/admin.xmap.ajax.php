@@ -10,14 +10,14 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-$acl = &gacl::getInstance();
+$acl = gacl::getInstance();
 
 // check access permissions (only superadmins & admins)
 if ( !( $acl->acl_check('administration', 'config', 'users', $my->usertype) ) ||  $acl->acl_check('administration', 'edit', 'users', $my->usertype, 'components', 'com_xmap') ) {
 	mosRedirect( 'index2.php', _NOT_AUTH );
 }
 
-$value = joostina_api::convert( mosGetParam($_REQUEST ,'value',''));
+$value = mosGetParam($_REQUEST ,'value','');
 
 $action = mosGetParam($_REQUEST ,'action','');
 
@@ -180,7 +180,7 @@ switch ($action) {
 
 				$params = mosParameters::textareaHandling( $txt );
 				$plugin->setParams($params,$itemid);
-				if ( $plugin->store() ) {
+				if ( $plugin->check() && $plugin->store() ) {
 					echo 1;
 				} else {
 					echo $database->getErrorMsg();
