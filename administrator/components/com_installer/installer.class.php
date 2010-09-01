@@ -253,7 +253,6 @@ class mosInstaller {
 	 * @return mixed Number of file or False on error
 	 */
 	function parseFiles($tagName = 'files',$special = '',$specialError = '',$adminFiles =0) {
-		$config = Jconfig::getInstance();
 
 		// Find files to copy
 		$xmlDoc = &$this->xmlDoc();
