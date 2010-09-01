@@ -399,8 +399,7 @@ class mosParameters {
         $database = database::getInstance();
 
         $query = "SELECT id, title FROM #__sections WHERE published = 1 AND scope = 'content' ORDER BY title";
-        $database->setQuery($query);
-        $options = $database->loadObjectList();
+        $options = $database->setQuery($query)->loadObjectList();
         array_unshift($options,mosHTML::makeOption('0',_SEL_SECTION,'id','title'));
 
         return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox" id="mossection"','id','title',$value);
@@ -523,7 +522,6 @@ class mosParameters {
         $css = '<link rel="stylesheet" type="text/css" media="all" href="'.JPATH_SITE.'/includes/js/tabs/tabpane.css" id="luna-tab-style-sheet" />';
         $js = '<script type="text/javascript" src="'.JPATH_SITE.'/includes/js/tabs/tabpane.js"></script>';
 
-
         $return = '';
 
         switch ($value) {
@@ -567,9 +565,7 @@ class mosParameters {
                 $txt[$i] = str_replace("\n",'<br />',$txt[$i]);
             }
         }
-        $txt = implode("\n",$txt);
-
-        return $txt;
+        return implode("\n",$txt);
     }
 
     /*
@@ -596,14 +592,26 @@ class mosParameters {
         return mosHTML::selectList($options,$control_name.'['.$name.']','class="inputbox"','value','text',$value);
     }
 
+	/**
+	 * Созданпе выпадающего списка из произвольного SQL запроса
+	 * @param string $name - название элемента
+	 * @param <type> $value - значение
+	 * @param <type> $node - активная нода
+	 * @param <type> $control_name - название управляющего элемента
+	 * @return html - код выпадающего списка
+	 */
+    function _form_selectlist($name,$value,&$node,$control_name) {
+		$sql = $node->getAttribute('sql');
+
+        $options = database::getInstance()->setQuery($sql)->loadObjectList();
+        return mosHTML::selectList($options,''.$control_name.'['.$name.']','class="inputbox" id="selectlist_'.$name.'"','id','title',$value);
+    }
 }
 
 /**
  * @param string
  * @return string
  */
-
-
 function mosParseParams($txt) {
     return mosParameters::parse($txt);
 }
