@@ -6,19 +6,22 @@
 * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
+
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
+
 /**
 * @package Joostina
 * @subpackage Templates
 */
 class mosTemplatePosition extends mosDBTable {
-var $id = null;
-var $position = null;
-var $description = null;
-function mosTemplatePosition() {
-global $database;
-$this->mosDBTable('#__template_positions','id',$database);
-}
+	var $id = null;
+	var $position = null;
+	var $description = null;
+
+	function mosTemplatePosition() {
+		global $database;
+		$this->mosDBTable('#__template_positions','id',$database);
+	}
 }
 ?>

@@ -211,21 +211,19 @@ echo "<?xml version=\"1.0\" encoding=\"windows-1251\"?".">";?>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
 		<link rel="shortcut icon" href="../images/favicon.ico" />
 		<link rel="stylesheet" href="install.css" type="text/css" />
- <script type="text/javascript">
-<!--
+<script type="text/javascript">
 function check() {
 	// проверка правильности заполнения формы
 	var formValid = true;
 	var f = document.form;
 	if ( f.sitename.value == '' ) {
-		alert('Введите название Вашего сайта');
+		alert('Введите название Вашего сайта!');
 		f.sitename.focus();
 		formValid = false
 	}
 	return formValid;
 }
-//-->
- </script>
+</script>
 </head>
 <body onload="document.form.sitename.focus();">
  <div id="wrapper">
@@ -250,6 +248,7 @@ function check() {
 						<?php } ?>
 						</div>
 					</div>
+       </div><!--test div -->
     <div id="stepbar">
      <div class="step-off">Проверка системы</div>
      <div class="step-off">Лицензия</div>
@@ -307,6 +306,7 @@ if($isErr) {
     <div class="clr"></div>
   </form>
 </div>
+
   <div class="clr"></div>
  <div class="ctr" id="footer"><a href="http://www.Joostina.ru" target="_blank">Joostina</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.</div>
 </body>

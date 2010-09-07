@@ -128,7 +128,8 @@ $heading = $args['heading'];
 $row->toc = '<table cellpadding="0" cellspacing="0" class="contenttoc" align="right">
 <tr><th>'._TOC_JUMPTO.'</th></tr>';
 // Содержание связи первой страницы
-$row->toc .= '<tr><td><a href="'.$link.'" class="toclink">'.$heading.'</a></td></tr>';
+// doctorgrif: вывод title для ссылки
+$row->toc .= '<tr><td><a href="'.$link.'" class="toclink" title="'.$heading.'">'.$heading.'</a></td></tr>';
 $i = 2;
 $args2 = array();
 foreach($matches as $bot) {
@@ -137,13 +138,16 @@ $link = sefRelToAbs($link);
 if(@$bot[2]) {
 parse_str(html_entity_decode($bot[2]),$args2);
 if(@$args2['title']) {
-$row->toc .= '<tr><td><a href="'.$link.'" class="toclink">'.stripslashes($args2['title']).'</a></td></tr>
+// doctorgrif: вывод title для ссылки
+$row->toc .= '<tr><td><a href="'.$link.'" class="toclink" title="'.stripslashes($args2['title']).'">'.stripslashes($args2['title']).'</a></td></tr>
 ';
 } else {
-$row->toc .= '<tr><td><a href="'.$link.'" class="toclink">'._PN_PAGE.' '.$i.'</a></td></tr>';
+// doctorgrif: вывод title для ссылки
+$row->toc .= '<tr><td><a href="'.$link.'" class="toclink" title="'._PN_PAGE.'">'._PN_PAGE.' '.$i.'</a></td></tr>';
 }
 } else {
-$row->toc .= '<tr><td><a href="'.$link.'" class="toclink">'._PN_PAGE.' '.$i.'</a></td></tr>';
+// doctorgrif: вывод title для ссылки
+$row->toc .= '<tr><td><a href="'.$link.'" class="toclink" title="'._PN_PAGE.'">'._PN_PAGE.' '.$i.'</a></td></tr>';
 }
 $i++;
 }
@@ -155,14 +159,16 @@ $link = 'index.php?option=com_content&amp;task=view&amp;id='.$row->id.'&amp;Item
 if($page < $n - 1) {
 $link_next = $link.'&amp;limit=1&amp;limitstart='.($page + 1);
 $link_next = sefRelToAbs($link_next);
-$next = '<a href="'.$link_next.'">'._CMN_NEXT._CMN_NEXT_ARROW.'</a>';
+// doctorgrif: вывод title для ссылки
+$next = '<a href="'.$link_next.'" title="'._CMN_NEXT.'">'._CMN_NEXT._CMN_NEXT_ARROW.'</a>';
 } else {
 $next = _CMN_NEXT;
 }
 if($page > 0) {
 $link_prev = $link.'&amp;limit=1&amp;limitstart='.($page - 1);
 $link_prev = sefRelToAbs($link_prev);
-$prev = '<a href="'.$link_prev.'">'._CMN_PREV_ARROW._CMN_PREV.'</a>';
+// doctorgrif: вывод title для ссылки
+$prev = '<a href="'.$link_prev.'" title="'._CMN_PREV.'">'._CMN_PREV_ARROW._CMN_PREV.'</a>';
 } else {
 $prev = _CMN_PREV;
 }

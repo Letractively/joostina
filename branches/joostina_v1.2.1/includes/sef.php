@@ -60,7 +60,7 @@ $_GET['limit'] = $limit;
 $_REQUEST['limit'] = $limit;
 $_GET['limitstart'] = $limitstart;
 $_REQUEST['limitstart'] = $limitstart;
-$QUERY_STRING = "option=com_content&task=$task&sectionid=$sectionid&id=$id&Itemid=$Itemid&order=$order&filter=$filter&limit=$limit&limitstart=$limitstart";
+$QUERY_STRING = "option=com_content&amp;task=$task&amp;sectionid=$sectionid&amp;id=$id&Itemid=$Itemid&amp;order=$order&amp;filter=$filter&amp;limit=$limit&amp;limitstart=$limitstart";
 } else
 if(isset($url_array[$pos + 7]) && $url_array[$pos + 7] != '' && $url_array[$pos +
 5] > 1000 && (in_array('archivecategory',$url_array) || in_array('archivesection',
@@ -88,7 +88,7 @@ $_GET['month'] = $month;
 $_REQUEST['month'] = $month;
 $_GET['module'] = $module;
 $_REQUEST['module'] = $module;
-$QUERY_STRING = "option=com_content&task=$task&id=$id&limit=$limit&limitstart=$limitstart&year=$year&month=$month&module=$module";
+$QUERY_STRING = "option=com_content&amp;task=$task&amp;id=$id&amp;limit=$limit&amp;limitstart=$limitstart&amp;year=$year&amp;month=$month&amp;module=$module";
 } else
 if(isset($url_array[$pos + 7]) && $url_array[$pos + 7] != '' && $url_array[$pos +
 6] > 1000 && (in_array('archivecategory',$url_array) || in_array('archivesection',
@@ -116,7 +116,7 @@ $_GET['year'] = $year;
 $_REQUEST['year'] = $year;
 $_GET['month'] = $month;
 $_REQUEST['month'] = $month;
-$QUERY_STRING = "option=com_content&task=$task&id=$id&Itemid=$Itemid&limit=$limit&limitstart=$limitstart&year=$year&month=$month";
+$QUERY_STRING = "option=com_content&amp;task=$task&amp;id=$id&amp;Itemid=$Itemid&amp;limit=$limit&amp;limitstart=$limitstart&amp;year=$year&amp;month=$month";
 } else
 if(isset($url_array[$pos + 7]) && $url_array[$pos + 7] != '' && in_array('category',
 $url_array) && (strpos($url_array[$pos + 5],'order,') !== false)) {
@@ -143,7 +143,7 @@ $_GET['limit'] = $limit;
 $_REQUEST['limit'] = $limit;
 $_GET['limitstart'] = $limitstart;
 $_REQUEST['limitstart'] = $limitstart;
-$QUERY_STRING = "option=com_content&task=$task&sectionid=$sectionid&id=$id&Itemid=$Itemid&order=$order&limit=$limit&limitstart=$limitstart";
+$QUERY_STRING = "option=com_content&amp;task=$task&amp;sectionid=$sectionid&amp;id=$id&amp;Itemid=$Itemid&amp;order=$order&amp;limit=$limit&amp;limitstart=$limitstart";
 } else
 if(isset($url_array[$pos + 6]) && $url_array[$pos + 6] != '') {
 // $option/$task/$sectionid/$id/$Itemid/$limit/$limitstart
@@ -166,7 +166,7 @@ $_GET['limit'] = $limit;
 $_REQUEST['limit'] = $limit;
 $_GET['limitstart'] = $limitstart;
 $_REQUEST['limitstart'] = $limitstart;
-$QUERY_STRING = "option=com_content&task=$task&sectionid=$sectionid&id=$id&Itemid=$Itemid&limit=$limit&limitstart=$limitstart";
+$QUERY_STRING = "option=com_content&amp;task=$task&amp;sectionid=$sectionid&amp;id=$id&amp;Itemid=$Itemid&amp;limit=$limit&amp;limitstart=$limitstart";
 } else
 if(isset($url_array[$pos + 5]) && $url_array[$pos + 5] != '') {
 // $option/$task/$id/$Itemid/$limit/$limitstart
@@ -186,7 +186,7 @@ $_GET['limit'] = $limit;
 $_REQUEST['limit'] = $limit;
 $_GET['limitstart'] = $limitstart;
 $_REQUEST['limitstart'] = $limitstart;
-$QUERY_STRING = "option=com_content&task=$task&id=$id&Itemid=$Itemid&limit=$limit&limitstart=$limitstart";
+$QUERY_STRING = "option=com_content&amp;task=$task&amp;id=$id&amp;Itemid=$Itemid&amp;limit=$limit&amp;limitstart=$limitstart";
 } else
 if(isset($url_array[$pos + 4]) && $url_array[$pos + 4] != '' && (in_array('archivecategory',
 $url_array) || in_array('archivesection',$url_array))) {
@@ -204,7 +204,7 @@ $_GET['month'] = $month;
 $_REQUEST['month'] = $month;
 $_GET['module'] = $module;
 $_REQUEST['module'] = $module;
-$QUERY_STRING = "option=com_content&task=$task&year=$year&month=$month&module=$module";
+$QUERY_STRING = "option=com_content&amp;task=$task&amp;year=$year&amp;month=$month&amp;module=$module";
 } else
 if(!(isset($url_array[$pos + 5]) && $url_array[$pos + 5] != '') && isset($url_array[$pos +
 4]) && $url_array[$pos + 4] != '') {
@@ -222,7 +222,7 @@ $_GET['id'] = $id;
 $_REQUEST['id'] = $id;
 $_GET['Itemid'] = $Itemid;
 $_REQUEST['Itemid'] = $Itemid;
-$QUERY_STRING = "option=com_content&task=$task&sectionid=$sectionid&id=$id&Itemid=$Itemid";
+$QUERY_STRING = "option=com_content&amp;task=$task&amp;sectionid=$sectionid&amp;id=$id&amp;Itemid=$Itemid";
 } else
 if(!(isset($url_array[$pos + 4]) && $url_array[$pos + 4] != '') && (isset($url_array[$pos +
 3]) && $url_array[$pos + 3] != '')) {
@@ -237,7 +237,7 @@ $_GET['id'] = $id;
 $_REQUEST['id'] = $id;
 $_GET['Itemid'] = $Itemid;
 $_REQUEST['Itemid'] = $Itemid;
-$QUERY_STRING = "option=com_content&task=$task&id=$id&Itemid=$Itemid";
+$QUERY_STRING = "option=com_content&amp;task=$task&amp;id=$id&amp;Itemid=$Itemid";
 } else
 if(!(isset($url_array[$pos + 3]) && $url_array[$pos + 3] != '') && (isset($url_array[$pos +
 2]) && $url_array[$pos + 2] != '')) {
@@ -249,7 +249,7 @@ $_GET['task'] = $task;
 $_REQUEST['task'] = $task;
 $_GET['id'] = $id;
 $_REQUEST['id'] = $id;
-$QUERY_STRING = "option=com_content&task=$task&id=$id";
+$QUERY_STRING = "option=com_content&amp;task=$task&amp;id=$id";
 } else
 if(!(isset($url_array[$pos + 2]) && $url_array[$pos + 2] != '') && (isset($url_array[$pos +
 1]) && $url_array[$pos + 1] != '')) {
@@ -257,7 +257,7 @@ if(!(isset($url_array[$pos + 2]) && $url_array[$pos + 2] != '') && (isset($url_a
 $task = $url_array[$pos + 1];
 $_GET['task'] = $task;
 $_REQUEST['task'] = $task;
-$QUERY_STRING = 'option=com_content&task='.$task;
+$QUERY_STRING = 'option=com_content&amp;task='.$task;
 }
 if($lang != '') {
 $QUERY_STRING .= '&amp;lang='.$lang;
@@ -333,18 +333,6 @@ if($mosConfig_sef && $mosConfig_multilingual_support && $string != 'index.php' &
 !eregi("^(([^:/?#]+):)",$string) && !strcasecmp(substr($string,0,9),'index.php') &&
 !eregi('lang=',$string)) {
 $string .= '&amp;lang='.$iso_client_lang;
-/* Поддержка  анкоров/якорей  */
-if(ereg("((#[^&|\/]+))", $string, $resurlarr))
-$string = str_replace($resurlarr[1], '', $string); 
-if(isset($mosConfig_sef) && $mosConfig_sef) {
-if(substr($string, -1) == "/") 
-$string .= 'lang,'.$iso_client_lang.$resurlarr[1]; /*если урл заканчивается слешом*/
-else
-$string .= '/lang,'.$iso_client_lang.$resurlarr[1]; /*если урл не заканчивается слешом*/
-} else {
-$string .= '&lang=$iso_client_lang'.$resurlarr[1]; 
-}
-/* Поддержка  анкоров/якорей  */
 }
 if(eregi("option=com_frontpage",$string) & $mosConfig_com_frontpage_clear & !
 eregi("limit",$string)) $string = ''; // если ссылка идёт на компонент главной страницы - очистим её
@@ -460,7 +448,7 @@ $string = '';
 // allows SEF without mod_rewrite comment line below if you dont have mod_rewrite
 return $mosConfig_live_site.'/'.$string.$fragment;
 // allows SEF without mod_rewrite
-// uncomment Line 512 and comment out Line 514
+// uncomment Line 453 and comment out Line 455
 // uncomment line below if you dont have mod_rewrite
 // return $mosConfig_live_site .'/index.php/'. $string . $fragment;
 // If the above doesnt work - try uncommenting this line instead

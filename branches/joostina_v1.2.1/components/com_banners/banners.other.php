@@ -112,7 +112,7 @@ function showSingleBanner(&$banner) {
 global $mosConfig_live_site, $database, $mosConfig_absolute_path;
 $result = '';
 $secs = gettimeofday();
-$database->setQuery("UPDATE #__banners SET imp_made=imp_made+1, last_show='" . mosCurrentDate("%Y-%m-%d %H:%M:%S") . "', msec='" . $secs["usec"] . "' WHERE id='$banner->id'");
+$database->setQuery("UPDATE #__banners SET imp_made=imp_made+1, last_show='".mosCurrentDate("%Y-%m-%d %H:%M:%S")."', msec='".$secs["usec"]."' WHERE id='$banner->id'");
 $database->query();
 $banner->imp_made++;
 if($banner->imp_total == $banner->imp_made) {
@@ -134,7 +134,7 @@ if($banner->alt != '')
 $alt = $banner->alt;
 $title = $banner->title;
 
-$result = "<a href=\"index.php?option=com_banners&amp;task=clk&amp;id=$banner->id\" target=\"_".$target."\"><img src=\"".$image_url. "\" style=\"border:".$border_value."px ".$border_style." ".$border_color."\" vspace=\"0\" alt=\"$alt\" title=\"$title\" width=\"$imginfo[0]\" height=\"$imginfo[1]\" /></a>";
+$result = "<a href=\"index.php?option=com_banners&amp;task=clk&amp;id=$banner->id\" target=\"_".$target."\"  title=\"$title\"><img src=\"".$image_url. "\" style=\"border:".$border_value."px ".$border_style." ".$border_color."\" vspace=\"0\" alt=\"$alt\" width=\"$imginfo[0]\" height=\"$imginfo[1]\" /></a>";
 } else
 if(eregi(".swf", $banner->image_url)) {
 $image_url = "$mosConfig_live_site/images/banners/".$banner->image_url;

@@ -147,7 +147,7 @@ $string = substr($string,0,$length - 4);
 $pos = strrpos($string,".");
 }
 if($pos >= $length * 0.4) {
-return substr($string,0,$pos + 1)." ...";
+return substr($string,0,$pos + 1)."…";
 }
 $pos = strrpos($string," ");
 if($pos >= $length - 4) {

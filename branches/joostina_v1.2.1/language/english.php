@@ -9,7 +9,6 @@
 
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
-
 global $mosConfig_form_date,$mosConfig_form_date_full;
 
 // Page is not found

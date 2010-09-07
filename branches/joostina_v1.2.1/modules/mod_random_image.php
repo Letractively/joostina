@@ -104,10 +104,11 @@ $i++;
 switch ($rotate_type){
 case '0':
 default:
+// doctorgrif: добавлен вывод alt для изображения и title для ссылки
 ?>
 <div class="random_image">
 <?php if ($link) { ?>
-<a href="<?php echo $link; ?>" target="_self">
+<a href="<?php echo $link; ?>" target="_self" title="<?php echo $image_name; ?>">
 <?php } ?>
 <img src="<?php echo $image; ?>" width="<?php echo $width; ?>" height="<?php echo $height; ?>" alt="<?php echo $image_name; ?>" />
 <?php if ($link) { ?>

@@ -17,14 +17,12 @@ function showResults(&$poll, &$votes, $first_vote, $last_vote, $pollist, $params
 global $mosConfig_live_site;
 ?>
 <script type = "text/javascript">
-<!--
 var link = document.createElement('link');
 link.setAttribute('href', 'components/com_poll/poll_bars.css');
 link.setAttribute('rel', 'stylesheet');
 link.setAttribute('type', 'text/css');
 var head = document.getElementsByTagName('head').item(0);
 head.appendChild(link);
-//-->
 </script>
 <div class="componentheading"><h1>Опросы</h1></div>
 <form action="index.php" method="post" name="poll" id="poll">
@@ -114,11 +112,12 @@ $tdclass = "polls_color_".$polls_barcolor;
 $tabcnt = 1 - $tabcnt;
 }
 ?>
-</table><br />
+</table>
+<br />
 <div class="poll_dop_info">
-<b><?php echo _NUM_VOTERS; ?></b>&nbsp;<?php echo $sumval; ?> <br />
-<b><?php echo _FIRST_VOTE; ?></b>&nbsp;<?php echo $first_vote; ?> <br />
-<b><?php echo _LAST_VOTE; ?></b>&nbsp;<?php echo $last_vote; ?> <br />
+<b><?php echo _NUM_VOTERS; ?></b> <?php echo $sumval; ?> <br />
+<b><?php echo _FIRST_VOTE; ?></b> <?php echo $first_vote; ?> <br />
+<b><?php echo _LAST_VOTE; ?></b> <?php echo $last_vote; ?> <br />
 </div><br />
 <?php
 }

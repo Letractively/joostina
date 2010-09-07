@@ -28,6 +28,7 @@ $out .= $this->_closeItem;
 $out .= $this->_openList;
 $this->_openList = "";
 if ( $Itemid == $node->id )
+// doctorgrif: нормализованы стили xmap
 $out .= '<li class="xmap active">';
 else
 $out .= '<li class="xmap">';
@@ -99,7 +100,7 @@ $this->_width= (100 / $columns) - 1;
 }
 echo '<div class="'.$sitemap->classname.'">';
 echo '<div class="xmap componentheading">'.$title.'</div>';
-echo '<div class="xmap contentpaneopen"'.($sitemap->columns > 1 ? ' style="float:left;width:100%;"' : '').'>';
+echo '<div class="xmap contentpaneopen"'.($sitemap->columns > 1 ? '' : '').'>';
 }
 /** Print component heading, etc. Then call getHtmlList() to print list */
 function endOutput(&$menus) {

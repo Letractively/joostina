@@ -22,6 +22,6 @@ $img = getInput( 'img' );
 $src = getInput( 'src' );
 
 $img = ( $src ) ? $src : $img;
-mosRedirect( "$mosConfig_live_site/index2.php?option=com_jce&task=popup&img=$img&mode=$mode&title=$title&alt=$alt" );
+mosRedirect( "$mosConfig_live_site/index2.php?option=com_jce&amp;task=popup&amp;img=$img&amp;mode=$mode&amp;title=$title&amp;alt=$alt" );
 
 ?>

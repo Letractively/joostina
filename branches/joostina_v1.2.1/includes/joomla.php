@@ -131,7 +131,7 @@ $this->_log[] = $text;
 * @param string The glue for each log item
 * @return string Returns the log
 */
-function getLog($glue = '<br/>',$truncate = 9000,$htmlSafe = false) {
+function getLog($glue = '<br />',$truncate = 9000,$htmlSafe = false) {
 $logs = array();
 foreach($this->_log as $log) {
 if($htmlSafe) {
@@ -2295,8 +2295,7 @@ $this->mosDBTable('#__content','id',$db);
 /** Validation and filtering*/
 function check() {
 // filter malicious code
-//add notetext
-$ignoreList = array('introtext','fulltext','notetext');
+$ignoreList = array('introtext','fulltext');
 $this->filter($ignoreList);
 /*
 * TODO: This filter is too rigorous,
@@ -4466,7 +4465,6 @@ function ContentLegend() {
 function menuLinksContent(&$menus) {
 ?>
 <script language="javascript" type="text/javascript">
-<!--
 function go2(pressbutton, menu, id) {
 var form = document.adminForm;
 // assemble the images back into one field
@@ -4487,7 +4485,6 @@ submitform(pressbutton);
 return;
 }
 }
-//-->
 </script>
 <?php
 foreach($menus as $menu) {
@@ -4529,11 +4526,9 @@ break;
 <input type="hidden" name="menuid" value="" />
 <?php
 }
-
 function menuLinksSecCat(&$menus) {
 ?>
 <script language="javascript" type="text/javascript">
-<!--
 function go2(pressbutton, menu, id) {
 var form = document.adminForm;
 if (pressbutton == 'go2menu') {
@@ -4548,7 +4543,6 @@ submitform(pressbutton);
 return;
 }
 }
-//-->
 </script>
 <?php
 foreach($menus as $menu) {

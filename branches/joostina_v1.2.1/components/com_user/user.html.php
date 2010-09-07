@@ -16,8 +16,7 @@ class HTML_user {
 function frontpage() {
 ?>
 <div class="componentheading"><?php echo _WELCOME; ?></div>
-<div width="100%"><?php echo _WELCOME_DESC; ?></div>
-<!--<table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td><?php echo _WELCOME_DESC; ?></td></tr></table>-->
+<div><?php echo _WELCOME_DESC; ?></div>
 <?php
 }
 function userEdit($row,$option,$submitvalue,&$params) {
@@ -30,7 +29,7 @@ $tabs = new mosTabs(1);
 mosCommonHTML::loadOverlib();
 ?>
 <script language="javascript" type="text/javascript">
-<!--
+//<![CDATA[
 function submitbutton( pressbutton ) {
 var form = document.mosUserForm;
 var r = new RegExp("[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-]", "i");
@@ -91,16 +90,14 @@ log('Получен ответ: ' + resp.responseText);
 SRAX.get('userav').src = resp.responseText;
 }});
 }
--->
+//]]>
 </script>
 <form action="index.php" method="post" name="mosUserForm" id="mosUserForm" enctype="multipart/form-data">
 <div style="float:right;height:100%;">
 <?php
-mosToolBar::startTable();
 mosToolBar::spacer();
 mosToolBar::save();
 mosToolBar::cancel();
-mosToolBar::endtable();
 ?>
 </div>
 <div class="componentheading"><?php echo _EDIT_TITLE; ?></div>
@@ -111,7 +108,7 @@ $tabs->startTab("Общее","main-page");
 <table width="100%" id="table_userprofile">
 <tr>
 <td id="user_avatar">
-<div><img id="userav" src="<?php echo $mosConfig_live_site.mosUser::avatar($row->id,'big');?>" /></div>
+<div><img id="userav" src="<?php echo $mosConfig_live_site.mosUser::avatar($row->id,'big');?>" alt="" /></div>
 <br />
 <input class="inputbox" type="file" name="avatar" id="fileavatar" /><br /><br />
 <button class="inputbox" onclick="addavatar(); return false;"><?php echo _TASK_UPLOAD; ?></button>
@@ -119,24 +116,24 @@ $tabs->startTab("Общее","main-page");
 </td>
 <td valign="top">
 <table cellpadding="5" width="100%">
-<tr>
-<td><input class="inputbox" type="text" name="username" id="username" value="<?php echo $row->username; ?>" size="50" /></td>
+<tr height="30px">
+<td width="60%"><input class="inputbox" type="text" name="username" id="username" value="<?php echo $row->username; ?>" size="40" /></td>
 <td><label for="username"><?php echo _UNAME; ?></label></td>
 </tr>
-<tr>
-<td><input class="inputbox" type="text" name="name" id="name" value="<?php echo $row->name; ?>" size="50" /></td>
+<tr height="30px">
+<td><input class="inputbox" type="text" name="name" id="name" value="<?php echo $row->name; ?>" size="40" /></td>
 <td><label for="name"><?php echo _YOUR_NAME; ?></label></td>
 </tr>
-<tr>
-<td><input class="inputbox" type="text" name="email" id="email" value="<?php echo $row->email; ?>" size="50" /></td>
+<tr height="30px">
+<td><input class="inputbox" type="text" name="email" id="email" value="<?php echo $row->email; ?>" size="40" /></td>
 <td><label for="email"><?php echo _EMAIL; ?></label></td>
 </tr>
-<tr>
-<td><input class="inputbox" type="password" name="password" id="password" value="" size="50" /></td>
+<tr height="30px">
+<td><input class="inputbox" type="password" name="password" id="password" value="" size="40" /></td>
 <td><label for="password"><?php echo _PASS; ?></label></td>
 </tr>
-<tr>
-<td><input class="inputbox" type="password" name="verifyPass" id="verifyPass" size="50" /></td>
+<tr height="30px">
+<td><input class="inputbox" type="password" name="verifyPass" id="verifyPass" size="40" /></td>
 <td><label for="verifyPass"><?php echo _VPASS; ?></label></td>
 </tr>
 </table>
@@ -149,7 +146,9 @@ if($mosConfig_frontend_userparams == '1' || $mosConfig_frontend_userparams == 1 
 $tabs->startTab("Дополнительно","ext-page");
 ?>
 <table cellpadding="5" cellspacing="0" border="0" width="100%">
-<tr><td colspan="2"><?php echo $params->render('params'); ?></td></tr>
+	<tr>
+		<td colspan="2"><?php echo $params->render('params'); ?></td>
+	</tr>
 </table>
 <?php
 }

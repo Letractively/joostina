@@ -369,7 +369,7 @@ DEFINE('_REGISTER_UNAME','Имя пользователя:');
 DEFINE('_REGISTER_EMAIL','E-mail:');
 DEFINE('_REGISTER_PASS','Пароль:');
 DEFINE('_REGISTER_VPASS','Подтверждение пароля:');
-DEFINE('_REGISTER_REQUIRED','Все поля, отмеченные символом (*), обязательны для заполнения!');
+DEFINE('_REGISTER_REQUIRED','Все поля, отмеченные символом (<span class="red">*</span>), обязательны для заполнения!');
 DEFINE('_BUTTON_SEND_REG','Отправить данные');
 DEFINE('_SENDING_PASSWORD','Ваш пароль будет отправлен на указанный выше адрес e-mail.<br />Когда Вы получите'.
 ' новый пароль, Вы сможете зайти на сайт и изменить этот пароль в любое время.');
@@ -558,7 +558,7 @@ DEFINE('_MASSMAIL_MESSAGE',"Это сообщение с сайта '%s'
 ");
 
 // Joostina!
-DEFINE('_REG_CAPTCHA','Введите текст с изображения:*');
+DEFINE('_REG_CAPTCHA','Введите текст с изображения:<span class="red">*</span>');
 DEFINE('_REG_CAPTCHA_VAL','Необходимо ввести код с изображения.');
 DEFINE('_REG_CAPTCHA_REF','Нажмите чтобы обновить изображение.');
 

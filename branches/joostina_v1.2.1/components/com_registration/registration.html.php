@@ -20,31 +20,27 @@ $validate = josSpoofValue();
 ?>
 <form action="index.php" method="post" name="mosForm" id="mosForm">
 <div class="componentheading"><?php echo _PROMPT_PASSWORD; ?></div>
-<table cellpadding="0" cellspacing="0" border="0" width="100%" class="contentpane">
-<tr><td colspan="2"><?php echo _NEW_PASS_DESC; ?></td></tr>
-<tr>
-<td><?php echo _PROMPT_UNAME; ?></td>
-<td><input type="text" name="checkusername" class="inputbox" size="40" maxlength="25" /></td>
-</tr>
-<tr>
-<td><?php echo _PROMPT_EMAIL; ?></td>
-<td><input type="text" name="confirmEmail" class="inputbox" size="40" /></td>
-</tr>
+<div width="100%" class="contentpane">
+<div style="width:100%;"><p><?php echo _NEW_PASS_DESC; ?></p></div>
+<div style="width:100%;"><p><?php echo _REGISTER_REQUIRED; ?></p></div>
+<div style="height:30px;">
+<div><?php echo _PROMPT_UNAME; ?><span class="red">*</span><div style="height:30px;float:right;padding-right:32%;"><input type="text" name="checkusername" class="inputbox" size="40" maxlength="25" /></div></div>
+</div>
+<div style="height:30px;">
+<div><?php echo _PROMPT_EMAIL; ?><span class="red">*</span><div style="height:30px;float:right;padding-right:32%;"><input type="text" name="confirmEmail" class="inputbox" size="40" /></div></div>
+</div>
 <?php if($mosConfig_captcha_reg) { ?>
-<tr>
-<td>&nbsp;</td>
-<td><img id="captchaimg" alt="<?php echo _REG_CAPTCHA_REF; ?>" onclick="document.mosForm.captchaimg.src='<?php echo
+<div style="height:100px;">
+<div><div style="height:30px;float:right;padding-right:32%;"><img id="captchaimg" alt="<?php echo _REG_CAPTCHA_REF; ?>" onclick="document.mosForm.captchaimg.src='<?php echo
 $mosConfig_live_site; ?>/includes/kcaptcha/index.php?'+new String(Math.random())" src="<?php echo
-$mosConfig_live_site; ?>/includes/kcaptcha/index.php?<?php echo session_id() ?>" /></td>
-</tr>
-<tr>
-<td><?php echo _REG_CAPTCHA; ?></td>
-<td><input type="text" name="captcha" class="inputbox" size="40" value=""/></td>
-</tr>
-<?php }
-; ?>
-<tr><td colspan="2"><input type="submit" class="button" value="<?php echo _BUTTON_SEND_PASS; ?>" /></td></tr>
-</table>
+$mosConfig_live_site; ?>/includes/kcaptcha/index.php?<?php echo session_id() ?>" /><p>Нажмите чтобы обновить изображение.</p></div></div>
+</div>
+<div style="height:30px;">
+<div><?php echo _REG_CAPTCHA; ?><div style="height:30px;float:right;padding-right:32%;"><input type="text" name="captcha" class="inputbox" size="40" value=""/></div></div>
+</div>
+<?php } ; ?>
+<div><div><input type="submit" class="button" value="<?php echo _BUTTON_SEND_PASS; ?>" /></div></div>
+</div>
 <input type="hidden" name="option" value="<?php echo $option; ?>" />
 <input type="hidden" name="task" value="sendNewPass" /> 
 <input type="hidden" name="<?php echo $validate; ?>" value="1" />
@@ -57,7 +53,7 @@ global $mosConfig_live_site,$mosConfig_captcha_reg;
 $validate = josSpoofValue();
 ?>
 <script language="javascript" type="text/javascript">
-<!--
+//<![CDATA[
 function submitbutton_reg() {
 var form = document.mosForm;
 var r = new RegExp("[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-]", "i");
@@ -88,46 +84,38 @@ else {
 form.submit();
 }
 }
-//-->
+//]]>
 </script>
 <form action="index.php" method="post" name="mosForm" id="mosForm">
 <div class="componentheading"><?php echo _REGISTER_TITLE; ?></div>
-<table cellpadding="0" cellspacing="0" border="0" width="100%" class="contentpane">
-<tr><td colspan="2"><?php echo _REGISTER_REQUIRED; ?></td></tr>
-<tr>
-<td width="30%"><?php echo _REGISTER_NAME; ?>*</td>
-<td><input type="text" name="name" size="40" value="" class="inputbox" maxlength="50" /></td>
-</tr>
-<tr>
-<td><?php echo _REGISTER_UNAME; ?>*</td>
-<td><input type="text" name="username" size="40" value="" class="inputbox" maxlength="25" /></td>
-</tr>
-<tr>
-<td><?php echo _REGISTER_EMAIL; ?>*</td>
-<td><input type="text" name="email" size="40" value="" class="inputbox" maxlength="100" /></td>
-</tr>
-<tr>
-<td><?php echo _REGISTER_PASS; ?>*</td>
-<td><input class="inputbox" type="password" name="password" size="40" value="" /></td>
-</tr>
-<tr>
-<td><?php echo _REGISTER_VPASS; ?>*</td>
-<td><input class="inputbox" type="password" name="password2" size="40" value="" /></td>
-</tr>
+<div width="100%" class="contentpane">
+<div style="width:100%;"><p><?php echo _REGISTER_REQUIRED; ?></p></div>
+<div style="height:30px;">
+<div><?php echo _REGISTER_NAME; ?><span class="red">*</span><div style="height:30px;float:right;padding-right:32%;"><input type="text" name="name" size="40" value="" class="inputbox" maxlength="50" /></div></div>
+</div>
+<div style="height:30px;">
+<div><?php echo _REGISTER_UNAME; ?><span class="red">*</span><div style="height:30px;float:right;padding-right:32%;"><input type="text" name="username" size="40" value="" class="inputbox" maxlength="25" /></div></div>
+</div>
+<div style="height:30px;">
+<div><?php echo _REGISTER_EMAIL; ?><span class="red">*</span><div style="height:30px;float:right;padding-right:32%;"><input type="text" name="email" size="40" value="" class="inputbox" maxlength="100" /></div></div>
+</div>
+<div style="height:30px;">
+<div><?php echo _REGISTER_PASS; ?><span class="red">*</span><div style="height:30px;float:right;padding-right:32%;"><input class="inputbox" type="password" name="password" size="40" value="" /></div></div>
+</div>
+<div style="height:30px;">
+<div><?php echo _REGISTER_VPASS; ?><span class="red">*</span><div style="height:30px;float:right;padding-right:32%;"><input class="inputbox" type="password" name="password2" size="40" value="" /></div></div>
+</div>
 <?php if($mosConfig_captcha_reg) { ?>
-<tr>
-<td>&nbsp;</td>
-<td><img id="captchaimg" alt="<?php echo _REG_CAPTCHA_REF; ?>" onclick="document.mosForm.captchaimg.src='<?php echo
+<div style="height:100px;">
+<div><div style="height:30px;float:right;padding-right:32%;"><img id="captchaimg" alt="<?php echo _REG_CAPTCHA_REF; ?>" onclick="document.mosForm.captchaimg.src='<?php echo
 $mosConfig_live_site; ?>/includes/kcaptcha/index.php?'+new String(Math.random())" src="<?php echo
-$mosConfig_live_site; ?>/includes/kcaptcha/index.php?<?php echo session_id() ?>" /></td>
-</tr>
-<tr>
-<td><?php echo _REG_CAPTCHA; ?></td>
-<td><input type="text" name="captcha" class="inputbox" size="40" value=""/></td>
-</tr>
-<?php }
-; ?>
-</table>
+$mosConfig_live_site; ?>/includes/kcaptcha/index.php?<?php echo session_id() ?>" /><p>Нажмите чтобы обновить изображение.</p></div></div>
+</div>
+<div style="height:30px;">
+<div><?php echo _REG_CAPTCHA; ?><div style="height:30px;float:right;padding-right:32%;"><input type="text" name="captcha" class="inputbox" size="40" value=""/></div></div>
+</div>
+<?php } ; ?>
+</div>
 <input type="hidden" name="id" value="0" />
 <input type="hidden" name="gid" value="0" />
 <input type="hidden" name="useractivation" value="<?php echo $useractivation; ?>" />

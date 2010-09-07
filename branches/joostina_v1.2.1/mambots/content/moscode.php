@@ -51,13 +51,13 @@ $text = str_replace('&gt;','>',$text);
 $text = highlight_string($text,1);
 $text = str_replace('&amp;nbsp;','&nbsp;',$text);
 $text = str_replace('&lt;br/&gt;','<br />',$text);
-$text = str_replace('<font color="#007700">&lt;</font><font color="#0000BB">br</font><font color="#007700">/&gt;',
+$text = str_replace('<font color="#070">&lt;</font><font color="#00b">br</font><font color="#070">/&gt;',
 '<br />',$text);
-$text = str_replace('&amp;</font><font color="#0000CC">nbsp</font><font color="#006600">;',
+$text = str_replace('&amp;</font><font color="#00c">nbsp</font><font color="#060">;',
 '&nbsp;',$text);
-$text = str_replace('&amp;</font><font color="#0000BB">nbsp</font><font color="#007700">;',
+$text = str_replace('&amp;</font><font color="#00b">nbsp</font><font color="#070">;',
 '&nbsp;',$text);
-$text = str_replace('<font color="#007700">;&lt;</font><font color="#0000BB">br</font><font color="#007700">/&gt;',
+$text = str_replace('<font color="#070">;&lt;</font><font color="#00b">br</font><font color="#070">/&gt;',
 '<br />',$text);
 return $text;
 }

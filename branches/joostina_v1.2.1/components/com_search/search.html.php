@@ -16,7 +16,9 @@ class search_html {
 function openhtml($params) {
 if($params->get('page_title')) {
 ?>
-<div class="componentheading<?php echo $params->get('pageclass_sfx'); ?>"><h1><?php echo $params->get('header'); ?></h1></div>
+<div class="componentheading<?php echo $params->get('pageclass_sfx'); ?>">
+	<h1><?php echo $params->get('header'); ?></h1>
+</div>
 <?php
 }
 }
@@ -80,9 +82,9 @@ echo $pageNav->getLimitBox($link);
 //}
 ?>
 <br /><br />
-<table class="contentpaneopen<?php echo $params->get('pageclass_sfx'); ?>">
-<tr class="<?php echo $params->get('pageclass_sfx'); ?>">
-<td><h4><?php eval('echo "'._CONCLUSION.'";'); ?></h4>
+<div class="contentpaneopen<?php echo $params->get('pageclass_sfx'); ?>">
+<div class="<?php echo $params->get('pageclass_sfx'); ?>">
+<div><h4><?php eval('echo "'._CONCLUSION.'";'); ?></h4>
 <?php
 $z = $limitstart + 1;
 $end = $limit + $z;
@@ -106,16 +108,9 @@ $row->href = ampReplace($row->href);
 if($row->browsernav == 1) {
 ?>
 <a href="<?php echo sefRelToAbs($row->href); ?>" target="_blank">
-<?php
-} else {
-?>
+<?php } else { ?>
 <a href="<?php echo sefRelToAbs($row->href); ?>">
-<?php
-}
-}
-echo $row->title;
-if($row->href) {
-?>
+<?php } } echo $row->title; if($row->href) { ?>
 </a>
 <?php
 }
@@ -140,19 +135,22 @@ if(!$mosConfig_hideCreateDate) {
 <?php
 }
 ?>
-</td>
-</tr>
-</table>
-<br />
-<a href="http://sm.aport.ru/search?That=std&r=<?php echo $searchword; ?>" target="_blank"><?php echo $image; ?></a>
-<a href="http://www.bing.com/search?q=<?php echo $searchword; ?>" target="_blank"><?php echo $image1; ?></a>
-<a href="http://gogo.ru/go?q==<?php echo $searchword; ?>" target="_blank"><?php echo $image2; ?></a>
-<a href="http://www.google.ru/webhp#hl=ru&q=<?php echo $searchword; ?>" target="_blank"><?php echo $image3; ?></a>
-<a href="http://go.mail.ru/search?q=<?php echo $searchword; ?>" target="_blank"><?php echo $image4; ?></a>
-<a href="http://www.nigma.ru/index.php?s=<?php echo $searchword; ?>" target="_blank"><?php echo $image5; ?></a>
-<a href="http://nova.rambler.ru/srch?words=<?php echo $searchword; ?>" target="_blank"><?php echo $image6; ?></a>
-<a href="http://ru.search.yahoo.com/search?p=<?php echo $searchword; ?>" target="_blank"><?php echo $image7; ?></a>
-<a href="http://yandex.ru/yandsearch?text=<?php echo $searchword; ?>" target="_blank"><?php echo $image8; ?></a>
+</div>
+</div>
+</div>
+<div>
+<p>
+<a href="http://sm.aport.ru/search?That=std&r=<?php echo $searchword; ?>" target="_blank" class="ps" title="Искать на aport.ru"><?php echo $image; ?></a>
+<a href="http://www.bing.com/search?q=<?php echo $searchword; ?>" target="_blank" class="ps" title="Искать на bing.com"><?php echo $image1; ?></a>
+<a href="http://gogo.ru/go?q==<?php echo $searchword; ?>" target="_blank" class="ps" title="Искать на gogo.ru"><?php echo $image2; ?></a>
+<a href="http://www.google.ru/webhp#hl=ru&q=<?php echo $searchword; ?>" target="_blank" class="ps" title="Искать на google.ru"><?php echo $image3; ?></a>
+<a href="http://go.mail.ru/search?q=<?php echo $searchword; ?>" target="_blank" class="ps" title="Искать на mail.ru"><?php echo $image4; ?></a>
+<a href="http://www.nigma.ru/index.php?s=<?php echo $searchword; ?>" target="_blank" class="ps" title="Искать на nigma.ru"><?php echo $image5; ?></a>
+<a href="http://nova.rambler.ru/srch?words=<?php echo $searchword; ?>" target="_blank" class="ps" title="Искать на rambler.ru"><?php echo $image6; ?></a>
+<a href="http://ru.search.yahoo.com/search?p=<?php echo $searchword; ?>" target="_blank" class="ps" title="Искать на yahoo.com"><?php echo $image7; ?></a>
+<a href="http://yandex.ru/yandsearch?text=<?php echo $searchword; ?>" target="_blank" class="ps" title="Искать на yandex.ru"><?php echo $image8; ?></a>
+</p>
+</div>
 <?php
 }
 function conclusion($searchword, $pageNav) {

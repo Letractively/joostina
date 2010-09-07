@@ -59,11 +59,11 @@ $rows = $database->loadObjectList();
 $count = count($rows);
 for($i = 0; $i < $count; $i++) {
 if($rows[$i]->menutype == 'content_section') {
-$rows[$i]->href = 'index.php?option=com_content&task=section&id='.$rows[$i]->secid.'&Itemid='.$rows[$i]->menuid;
+$rows[$i]->href = 'index.php?option=com_content&amp;task=section&amp;id='.$rows[$i]->secid.'&amp;Itemid='.$rows[$i]->menuid;
 $rows[$i]->section = _SEARCH_SECLIST;
 }
 if($rows[$i]->menutype == 'content_blog_section') {
-$rows[$i]->href = 'index.php?option=com_content&task=blogsection&id='.$rows[$i]->secid.'&Itemid='.$rows[$i]->menuid;
+$rows[$i]->href = 'index.php?option=com_content&amp;task=blogsection&amp;id='.$rows[$i]->secid.'&amp;Itemid='.$rows[$i]->menuid;
 $rows[$i]->section = _SEARCH_SECBLOG;
 }
 }

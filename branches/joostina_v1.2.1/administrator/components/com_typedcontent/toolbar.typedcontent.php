@@ -6,17 +6,21 @@
 * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
+
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
+
 require_once ($mainframe->getPath('toolbar_html'));
+
 switch($task) {
-case 'new':
-case 'edit':
-case 'editA':
-TOOLBAR_typedcontent::_EDIT();
-break;
-default:
-TOOLBAR_typedcontent::_DEFAULT();
-break;
+	case 'new':
+	case 'edit':
+	case 'editA':
+		TOOLBAR_typedcontent::_EDIT();
+		break;
+
+	default:
+		TOOLBAR_typedcontent::_DEFAULT();
+		break;
 }
 ?>

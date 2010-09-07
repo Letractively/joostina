@@ -25,8 +25,11 @@ $month_name= mosFormatDate ($row->created, "%B");
 $created_year= mosFormatDate ($row->created, "%Y");
 $link= sefRelToAbs('index.php?option=com_content&amp;task=archivecategory&amp;year='.$created_year.'&amp;month='.$created_month.'&amp;module=1');
 $text= $month_name.', '.$created_year;
+// doctorgrif: вывод title для ссылки
 ?>
-<li class="archive"><a class="archive" href="<?php echo $link; ?>"><?php echo $text; ?></a></li>
+<li class="archive">
+    <a class="archive" href="<?php echo $link; ?>" title="<?php echo $text; ?>"><?php echo $text; ?></a>
+</li>
 <?php
 }
 echo '</ul>';

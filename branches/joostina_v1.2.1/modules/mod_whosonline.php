@@ -22,12 +22,12 @@ unset($params_aray);
 function display_module($params_aray) {
 echo '<div class="mod_who_online">';
 if($params_aray['all_user']) {
-$all_user = '<span>Зарегистрировано:</span>' .all_user();
+$all_user = '<span>Зарегистрировано:</span> '.all_user();
 } else {
 $all_user = '';
 }
 if($params_aray['online_user_count'] !== '2') {
-$count_online = '<span>Online:</span>' .online_users($params_aray);
+$count_online = '<span>Online:</span> '.online_users($params_aray);
 } else {
 $count_online = '';
 }
@@ -123,9 +123,9 @@ $user_name = $row->username;
 } else {
 $user_name = $row->name;
 }
-$user_link = 'index.php?option=com_user&amp;task=Profile&amp;user='.$row->userid;
+$user_link = 'index.php?option=com_user&amp;task=profile&amp;user='.$row->userid;
 $user_seflink = '<a href="'.sefRelToAbs($user_link).'">'.$user_name.'</a>';
-$avatar = '<img id="user_avatar_img" src="'.$mosConfig_live_site.mosUser::avatar($row->userid, 'mini'). '" alt="'.$user_name.'"/>';
+$avatar = '<img id="user_avatar_img" src="'.$mosConfig_live_site.mosUser::avatar($row->userid, 'mini'). '" alt="'.$user_name.'" />';
 $avatar_link = '<a href="'.sefRelToAbs($user_link).'">'.$avatar.'</a>';
 if($params_aray['user_avatar'] == '1') {
 $user_item = $avatar_link . $user_seflink;

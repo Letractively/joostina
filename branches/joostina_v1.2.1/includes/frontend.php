@@ -317,7 +317,7 @@ break;
 // support for Live Bookmarks ability for site syndication
 if($live_bookmark) {
 $show = 1;
-$link_file = $mosConfig_live_site.'/index2.php?option=com_rss&feed='.$live_bookmark.'&no_html=1';
+$link_file = $mosConfig_live_site.'/index2.php?option=com_rss&amp;feed='.$live_bookmark.'&amp;no_html=1';
 // xhtml check
 $link_file = ampReplace($link_file);
 // security chcek
@@ -339,7 +339,7 @@ $show = 0;
 if($show) {
 // test if security check is enbled
 ?>
-<link rel="alternate" type="application/rss+xml" title="<?php echo $mosConfig_sitename; ?>" href="<?php echo $link_file; ?>" />
+<link rel="alternate" type="application/rss+xml" title="RSS сайта <?php echo $mosConfig_sitename; ?>" href="<?php echo $link_file; ?>" />
 <?php
 }
 }

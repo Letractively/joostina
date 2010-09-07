@@ -15,9 +15,7 @@ global $mosConfig_live_site;
 $ml_rollover_use = $params->get('ml_rollover_use');
 if ($ml_rollover_use == 1) {
 ?>
-<!--doctorgrif: спецтеги для js-->
 <script type="text/javascript">
-<!--
 function MlImageOn (imgname) {
 document.images[imgname].src = onImgArray[imgname].src;
 }
@@ -26,7 +24,6 @@ document.images[imgname].src = offImgArray[imgname].src;
 }
 var offImgArray = new Array();
 var onImgArray = new Array();
-//-->
 </script>
 <?php
 }
@@ -57,7 +54,7 @@ $unique_itemid = $menuparams->get('unique_itemid', 1);
 if ( $unique_itemid ) {
 $mitem->link .= '&amp;Itemid='.$mitem->id;
 } else {
-$temp = split('&amp;task=view&amp;id=', $mitem->link);
+$temp = split('&amp;task=view&amp;id=',$mitem->link);
 if ($mitem->type == 'content_typed') {
 $mitem->link .= '&amp;Itemid='.$mainframe->getItemid($temp[1], 1, 0);
 } else {
@@ -529,7 +526,6 @@ $ml_image_roll_10 = $params->get('ml_image_roll_10');
 $ml_image_roll_11 = $params->get('ml_image_roll_11');
 ?>
 <script type="text/javascript">
-<!--
 offImgArray["ml_img_1_<?php echo $ml_module_number; ?>"] = new Image ();
 offImgArray["ml_img_2_<?php echo $ml_module_number; ?>"] = new Image ();
 offImgArray["ml_img_3_<?php echo $ml_module_number; ?>"] = new Image ();
@@ -574,7 +570,6 @@ onImgArray["ml_img_8_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosCo
 onImgArray["ml_img_9_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_9; ?>";
 onImgArray["ml_img_10_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_10; ?>";
 onImgArray["ml_img_11_<?php echo $ml_module_number; ?>"].src = "<?php echo $mosConfig_live_site.'/modules/mod_mljoostinamenu/menuimages/'.$ml_image_roll_11; ?>";
-//-->
 </script>
 <?php
 }

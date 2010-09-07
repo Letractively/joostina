@@ -179,21 +179,12 @@ foreach($php_recommended_settings as $phprec) {
 <td class="toggle"><?php echo $phprec[2]; ?>:</td>
 <td>
 <b>
-<?php
-if(get_php_setting($phprec[1]) == $phprec[2]) {
-?>
+<?php if(get_php_setting($phprec[1]) == $phprec[2]) { ?>
 <font color="green">
-<?php
-} else {
-?>
-<font color="red">
-<?php
-}
-echo get_php_setting($phprec[1]);
-?>
-</font>
+<?php } else { ?>
+<font color="red"><?php } echo get_php_setting($phprec[1]); ?></font>
 </b>
-<td>
+</td>
 </tr>
 <?php
 }
@@ -206,17 +197,9 @@ echo get_php_setting($phprec[1]);
 if(RG_EMULATION) {
 ?>
 <font color="red"><b>
-<?php
-} else {
-?>
-<font color="green"><b>
-<?php
-}
-echo ((RG_EMULATION)?'ON':'OFF');
-?>
-</b>
-</font>
-<td>
+<?php } else { ?>
+<font color="green"><b><?php } echo ((RG_EMULATION)?'ON':'OFF'); ?></b></font>
+</td>
 </tr>
 </table>
 </div>
@@ -255,10 +238,10 @@ foreach($php_recommended_settings as $phprec) {
 $act_val = ini_get($phprec[1]);
 if($act_val == '1' || $act_val == '2' || $act_val == '') {
 if(get_php_setting($phprec[1]) == $phprec[2]) { ?>
-<font color="green"><strong>
+<font color="green">
 <?php
 } else { ?>
-<font color="red"><strong>
+<font color="red">
 <?php
 }
 }
@@ -268,7 +251,7 @@ echo 'ON';
 echo 'OFF';
 } else echo '<strong><font color="green">'.$act_val.'</font>';
 ?>
-</strong></font>
+</font>
 </td>
 </tr>
 <?php
@@ -335,7 +318,7 @@ echo '<table id="cool_dirs" class="content" style="display:none;">'.$cool_dirs.'
 <div class="clr"></div>
 </div>
 </div>
-<div class="ctr" id="footer"><a href="http://www.joostina.ru" target="_blank">Joostina</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.</div>
+<div class="ctr" id="footer"><a href="http://www.joostina.ru" target="_blank" title="Joostina">Joostina</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.</div>
 </body>
 </html>
 <?php

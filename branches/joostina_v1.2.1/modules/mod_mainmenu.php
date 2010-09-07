@@ -32,7 +32,7 @@ if(!strstr($result2->link, 'Itemid')) {
 if(isset($GLOBALS['mosConfig_sef']) && $GLOBALS['mosConfig_sef']) {
 $result2->link .= 'Itemid,'.$result2->id.'/';
 } else {
-$result2->link .= '&Itemid=$result2->id'; }
+$result2->link .= '&amp;Itemid=$result2->id'; }
 }
 if(isset($urlarr[1]) && $urlarr[1])
 $result2->link .= $urlarr[1];
@@ -104,6 +104,7 @@ switch ($mitem->browserNav) {
 // различные события
 case 1:
 // открыть в новом окне
+// doctorgrif: вывод title для ссылки
 $txt = '<a href="'.$mitem->link.'" title="'.$mitem->name.'" target="_blank" class="'.$menuclass.'" '.$id.'>'.$mitem->name.'</a>';
 break;
 case 2:
@@ -124,7 +125,7 @@ $menu_params = new stdClass();
 $menu_params = new mosParameters($mitem->params);
 $menu_image = $menu_params->def('menu_image', -1);
 if (($menu_image != '-1') && $menu_image) {
-$image = '<img src="'.$mosConfig_live_site.'/images/stories/'.$menu_image.'" alt="'.$mitem->name.'"/>';
+$image = '<img src="'.$mosConfig_live_site.'/images/stories/'.$menu_image.'" alt="'.$mitem->name.'" />';
 if ($params->get('menu_images_align')) {
 $txt = $txt .' '.$image;
 } else {

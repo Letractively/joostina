@@ -227,7 +227,7 @@ $newlink = '<a href="'.$item->link.'" target="_window" class="pathway" title="'.
 $newlink = $itemname;
 }
 } else {
-$newlink = '<a href="'.sefRelToAbs($item->link.'&Itemid='.$item->id).'" class="pathway" title="'.$itemname.'">'.$itemname.'</a>';
+$newlink = '<a href="'.sefRelToAbs($item->link.'&amp;Itemid='.$item->id).'" class="pathway" title="'.$itemname.'">'.$itemname.'</a>';
 }
 // converts & to &amp; for xtml compliance
 $newlink = ampReplace($newlink);

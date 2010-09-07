@@ -21,25 +21,25 @@ $return= str_replace( '&', '&amp;', $return );
 $params_aray=array(
 'registration_enabled'=> $mainframe->getCfg('allowUserRegistration'),
 //Основные настройки
-'moduleclass_sfx'=> $params->get('moduleclass_sfx'), //Суффикс класса модуля
-'ml_visibility'=> $params->get('ml_visibility'), //Обычный вид или во всплывающем окне
-'dr_login_text'=> $params->get('dr_login_text'), //Текст на кнопке (если тип вывода - всплывающее окно)
-'orientation'=> $params->get('orientation'), //Ориентация формы: вертикально, горизонтально
-'pretext'=> $params->get('pretext'), //Текст перед формой
-'posttext'=> $params->get('posttext'), //Текст после формы
+'moduleclass_sfx'=> $params->get('moduleclass_sfx'),
+'ml_visibility'=> $params->get('ml_visibility'),
+'dr_login_text'=> $params->get('dr_login_text'),
+'orientation'=> $params->get('orientation'),
+'pretext'=> $params->get('pretext'),
+'posttext'=> $params->get('posttext'),
 //Авторизация
-'login'=> $params->def('login', $return), //Адрес URL переадресации после входа
-'message_login'=>$params->def('login_message',0), //Сообщение при авторизации
-'greeting'=> $params->def('greeting',1), //Приветствие
-'user_name'=> $params->def('user_name',1), //Псевдоним/Имя пользователя
-'profile_link'=> $params->def('profile_link',0), //Ссылка на профиль
-'profile_link_text'=> $params->get('profile_link_text'),//Текст ссылки на профиль
+'login'=> $params->def('login', $return),
+'message_login'=>$params->def('login_message',0),
+'greeting'=> $params->def('greeting',1),
+'user_name'=> $params->def('user_name',1),
+'profile_link'=> $params->def('profile_link',0),
+'profile_link_text'=> $params->get('profile_link_text'),
 //Выход из системы
-'message_logout'=> $params->def('logout_message',0), //Сообщение при выходе
-'logout'=> $params->def('logout',$return), //Адрес URL переадресации пользователя при выходе
+'message_logout'=> $params->def('logout_message',0),
+'logout'=> $params->def('logout',$return),
 //Поля Логин/Пароль
-'show_login_text'=> $params->get('show_login_text',1), //Показать текст Пользователь
-'ml_login_text'=> $params->get('ml_login_text', _USERNAME), //Текст Пользователь
+'show_login_text'=> $params->get('show_login_text',1),
+'ml_login_text'=> $params->get('ml_login_text', _USERNAME),
 'show_login_tooltip'=> $params->get('show_login_tooltip'),
 'login_tooltip_text'=> $params->get('login_tooltip_text'),
 'show_pass_text'=> $params->get('show_pass_text',1),
@@ -71,18 +71,19 @@ $name = $my->name;
 } else {
 $name = $my->username;
 }
-$user_link = 'index.php?option=com_user&amp;task=Profile&amp;user='.$my->id;
+// doctorgrif: фиксация ошибки Prifile/profile
+$user_link = 'index.php?option=com_user&amp;task=profile&amp;user='.$my->id;
 $user_seflink = sefRelToAbs($user_link);
 $profile_link="";
 if ($params_aray['profile_link']==0) {
-$profile_link0='<a href="'.$user_seflink.'">'.$name.'</a>';
+$profile_link0='<a href="'.$user_seflink.'" title="'.$name.'">'.$name.'</a>';
 $name=$profile_link0;
 $profile_link="";
 } else if($params_aray['profile_link']==1) {
-$profile_link='<a href="'.$user_seflink.'">'.$params_aray['profile_link_text'].'</a>';
+$profile_link='<a href="'.$user_seflink.'" title="'.$params_aray['profile_link_text'].'">'.$params_aray['profile_link_text'].'</a>';
 }
 if($params_aray['ml_avatar']){
-$avatar='<div class="mod_avatar"><img id="mod_avatar_img" src="'.$mosConfig_live_site.mosUser::avatar($my->id,'normal').'" alt="'.$my->name.'"/></div>'; } else {$avatar='';}
+$avatar='<div class="mod_avatar"><img id="mod_avatar_img" src="'.$mosConfig_live_site.mosUser::avatar($my->id,'normal').'" alt="'.$my->name.'" /></div>'; } else {$avatar='';}
 ?>
 <form action="<?php echo sefRelToAbs( 'index.php?option=logout' ); ?>" method="post" name="logout">
 <?php echo $avatar; ?>
@@ -111,7 +112,6 @@ BuildLoginForm($params_aray, $params_aray['orientation'] );
 } else {
 ?>
 <script type="text/javascript">
-<!--
 jQuery(document).ready(function(){
 jQuery('.login_button').click (function() {
 jQuery('.loginform_area').toggle(200);
@@ -123,17 +123,17 @@ jQuery('.loginform_area').toggle(400);
 jQuery('.closewin').removeClass("tb");
 });
 });
-//-->
 </script>
 <div class="login_button" id="log_in"><?php echo $params_aray['dr_login_text'];?></div>
 <!-- Всплывающее окно с формой: begin-->
-<div id="box1"><div class="loginform_area">
-<div class="loginform_area_inside">
-<h3>Авторизация</h3>
-<?php BuildLoginForm($params_aray, $params_aray['orientation']);?>
+<div id="box1">
+	<div class="loginform_area">
+		<div class="loginform_area_inside">
+			<h3>Авторизация</h3><?php BuildLoginForm($params_aray, $params_aray['orientation']);?>
+		</div>
+		<div class="closewin">&nbsp;</div>
+	</div>
 </div>
-<div class="closewin">&nbsp;</div>
-</div></div>
 <!-- Всплывающее окно с формой: end-->
 <?php }
 }

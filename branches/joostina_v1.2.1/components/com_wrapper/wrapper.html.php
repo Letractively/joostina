@@ -16,7 +16,6 @@ class HTML_wrapper {
 function displayWrap(&$row,&$params) {
 ?>
 <script language="javascript" type="text/javascript">
-<!--
 function iFrameHeight() {
 var h = 0;
 if ( !document.all ) {
@@ -27,7 +26,6 @@ h = document.frames('blockrandom').document.body.scrollHeight;
 document.all.blockrandom.style.height = h + 20 + 'px';
 }
 }
-//-->
 </script>
 <div class="contentpane<?php echo $params->get('pageclass_sfx'); ?>">
 <?php

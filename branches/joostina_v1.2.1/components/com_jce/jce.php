@@ -64,18 +64,12 @@ function showPopup() {
 	if(strpos($mainframe->getCfg('live_site'), $img) === false)
 		$img = $mainframe->getCfg('live_site') . '/' . $img;
 ?>
-	<style type="text/css">
-		body{
-			margin: 0px;
-			padding: 0px;
-		}
-	</style>
+	<style type="text/css">body{margin:0px;padding:0px;}</style>
 	<script type="text/javascript">
 	var w = '<?php $w; ?>';
 	var h = '<?php echo $h; ?>';
 	var x = (screen.width-parseInt(w))/2;
 	var y = (screen.height-parseInt(h))/2;
-
 	window.moveTo(x, y);
 	</script>
 	<?php if($right_click) { ?>
@@ -115,7 +109,7 @@ function showPopup() {
 					<td align="left" class="contentheading" style="width:<?php echo $w - 18; ?>px; margin-left: 5px;"><?php echo $title; ?></td>
 					<td align="right" style="width:18px;" class="buttonheading">
 						<?php if($print) { ?>
-							<a href="javascript:;" onClick="window.print(); return false"><img src="<?php echo $mosConfig_live_site; ?>/images/M_images/printButton.png" width="16" height="16" alt="<?php echo _CMN_PRINT; ?>" title="<?php echo _CMN_PRINT; ?>" border="0" style="vertical-align:middle;"/></a>
+							<a href="javascript:;" onClick="window.print(); return false"><img src="<?php echo $mosConfig_live_site; ?>/images/M_images/printButton.png" width="16" height="16" alt="<?php echo _CMN_PRINT; ?>" title="<?php echo _CMN_PRINT; ?>" border="0" style="vertical-align:middle;" /></a>
 						<?php } ?>
 					</td>
 				</tr>

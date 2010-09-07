@@ -17,7 +17,7 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 $mosConfig_live_site = 'https://'.substr($mosConfig_live_site,7);
 }
 require_once ('includes/joomla.php');
-// отображение состо€ни€ выключенного сайта
+// doctorgrif: отображение состо€ни€ выключенного сайта
 if($mosConfig_offline == 1) {
 header('HTTP/1.1 503 Service Temporarily Unavailable');
 header('Status: 503 Service Temporarily Unavailable');
