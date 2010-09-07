@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<mosinstall version="1.0.10" type="language">
+	<name>Ukrainian</name>
+	<version>1.0.14 Joomla! Україна v.16</version>
+	<creationDate>27.01.2008</creationDate>
+	<author>Denys Nosov</author>
+	<authorEmail>dgm.denys@gmail.com</authorEmail>
+	<description></description>
+	<files>
+<filename>ukrainian.php</filename>
+<filename>ukrainian.ignore.php</filename>
+	</files>
+</mosinstall>
