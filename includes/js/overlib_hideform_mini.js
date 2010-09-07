@@ -1,16 +1,3 @@
-//\///// 
-//\  overLIB Hide Form Plugin
-//\
-//\  Uses an iframe shim to mask system controls for IE v5.5 or higher as suggested in
-//\  http://dotnetjunkies.com/weblog/jking/posts/488.aspx
-//\  This file requires overLIB 4.10 or later.
-//\
-//\  overLIB 4.05 - You may not remove or change this notice.
-//\  Copyright Erik Bosrup 1998-2004. All rights reserved.
-//\  Contributors are listed on the homepage.
-//\  See http://www.bosrup.com/web/overlib/ for details.
-//\/////
-//\  THIS IS A VERY MODIFIED VERSION. DO NOT EDIT OR PUBLISH. GET THE ORIGINAL!
 if(typeof olInfo=='undefined'||typeof olInfo.meets=='undefined'||!olInfo.meets(4.10))alert('overLIB 4.10 or later is required for the HideForm Plugin.');else{
 function generatePopUp(content){if(!olIe4||olOp||!olIe55||(typeof o3_shadow!='undefined'&&o3_shadow)||(typeof o3_bubble!='undefined'&&o3_bubble))return;
 var wd,ht,txt,zIdx=0;

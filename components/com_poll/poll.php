@@ -69,12 +69,12 @@ $query = "INSERT INTO #__poll_date"."\n SET date = ".$database->Quote($now).
 $database->setQuery($query);
 $database->query();
 if($redirect) {
-mosRedirect(sefRelToAbs('index.php?option=com_poll&task=results&id='.$uid),
+mosRedirect(sefRelToAbs('index.php?option=com_poll&amp;task=results&amp;id='.$uid),
 _THANKS);
 } else {
 echo '<h3>'._THANKS.'</h3>';
 echo '<form action="" method="GET">';
-echo '<input class="button" type="button" value="'._BUTTON_RESULTS.'" onClick="window.location=\''.sefRelToAbs('index.php?option=com_poll&task=results&id='.$uid).'\'">';
+echo '<input class="button" type="button" value="'._BUTTON_RESULTS.'" onClick="window.location=\''.sefRelToAbs('index.php?option=com_poll&amp;task=results&amp;id='.$uid).'\'">';
 echo '</form>';
 }
 }

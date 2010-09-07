@@ -18,7 +18,6 @@ $_MAMBOTS->registerFunction('onCustomEditorButton','botMosImageButton');
 */
 function botMosImageButton() {
 	global $option;
-
 	// button is not active in specific content components
 	switch($option) {
 		case 'com_sections':
@@ -26,12 +25,10 @@ function botMosImageButton() {
 		case 'com_modules':
 			$button = array('','');
 			break;
-
 		default:
 			$button = array('mosimage.gif','{mosimage}');
 			break;
 	}
-
 	return $button;
 }
 ?>

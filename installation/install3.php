@@ -82,8 +82,7 @@ echo "<?xml version=\"1.0\" encoding=\"windows-1251\"?".">";?>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
 		<link rel="shortcut icon" href="../images/favicon.ico" />
 		<link rel="stylesheet" href="install.css" type="text/css" />
- <script type="text/javascript">
-<!--
+<script type="text/javascript">
 function check() {
         // form validation check
         var formValid = true;
@@ -134,8 +133,7 @@ function changeDirPermsMode(mode)
                 } // switch
         } // if
 }
-//-->
- </script>
+</script>
 </head>
 <body onload="document.form.siteUrl.focus();">
  <div id="wrapper">

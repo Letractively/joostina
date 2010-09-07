@@ -20,7 +20,7 @@ $LangPath = $mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/co
 if(file_exists($LangPath.$mosConfig_lang.'.php')) {
 require_once($LangPath.$mosConfig_lang.'.php');
 } else {
-require_once($LangPath .'russian.php');
+require_once($LangPath.'russian.php');
 }
 require_once($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapConfig.php');
 require_once($mosConfig_absolute_path.'/'.ADMINISTRATOR_DIRECTORY.'/components/com_xmap/classes/XmapSitemap.php');
@@ -119,9 +119,10 @@ break;
 default:// Html output
 global $mainframe;
 require_once($mainframe->getPath('front_html'));
-if (!$xConfig->exclude_css) {
-$mainframe->addCustomHeadTag('<link rel="stylesheet" type="text/css" media="all" href="'.$mosConfig_live_site.'/components/com_xmap/css/xmap.css" />');
-}
+// doctorgrif: с учетом того, что стили вынесены в общий css - вызов стилевого файла расширения закомментирован
+//if (!$xConfig->exclude_css) {
+//$mainframe->addCustomHeadTag('<link rel="stylesheet" type="text/css" media="all" href="'.$mosConfig_live_site.'/components/com_xmap/css/xmap.css" />');
+//}
 $xmap = new XmapHtml($xConfig, $xSitemap);
 $xmap->generateSitemap($view,$xConfig,$xmapCache);
 $xSitemap->count_html = $xmap->count;
@@ -238,9 +239,11 @@ $node->priority = $item->priority;
 $node->changefreq = $item->changefreq;
 $node->type = $item->type;// menuentry-type
 $node->menutype = $item->menutype;// menuentry-type
-if ($isJ15 && substr($item->link,0,9) == 'index.php') {
-$node->link = 'index.php?Itemid='.$node->id;// For Joomla 1.5 SEF compatibility
-} else {
+// doctorgrif: раз мы априрои не ставим xmap на J!1.5 - комментируем вызов
+//if ($isJ15 && substr($item->link,0,9) == 'index.php') {
+//$node->link = 'index.php?Itemid='.$node->id;// For Joomla 1.5 SEF compatibility
+//} else 
+{
 $node->link = isset($item->link) ? htmlspecialchars($item->link) : '';// convert link to valid xml
 }
 $this->printNode($node);

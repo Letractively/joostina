@@ -51,14 +51,17 @@ $itemids = $database->loadObjectList( 'sectionid' );
 <?php
 foreach ($rows as $row) {
 if (isset($itemids[$row->id])) {
-$link = sefRelToAbs("index.php?option=com_content&task=blogsection&id=".$row->id."&Itemid=".$itemids[$row->id]->Itemid);
+$link = sefRelToAbs("index.php?option=com_content&amp;task=blogsection&amp;id=".$row->id."&amp;Itemid=".$itemids[$row->id]->Itemid);
 } else if (isset( $itemids[0] )) {
-$link = sefRelToAbs("index.php?option=com_content&task=blogsection&id=".$row->id."&Itemid=".$itemids[0]->Itemid);
+$link = sefRelToAbs("index.php?option=com_content&amp;task=blogsection&amp;id=".$row->id."&amp;Itemid=".$itemids[0]->Itemid);
 } else {
-$link = sefRelToAbs("index.php?option=com_content&task=blogsection&id=".$row->id);
+$link = sefRelToAbs("index.php?option=com_content&amp;task=blogsection&amp;id=".$row->id);
 }
+// doctorgrif: добавлен вывод title для ссылки
 ?>
-<li class="section<?php echo $moduleclass_sfx; ?>"><a class="section" href="<?php echo $link;?>" title="<?php echo $row->title;?>"><?php echo $row->title;?></a></li>
+<li class="section<?php echo $moduleclass_sfx; ?>">
+    <a class="section" href="<?php echo $link;?>" title="<?php echo $row->title;?>"><?php echo $row->title;?></a>
+</li>
 <?php
 }
 ?>

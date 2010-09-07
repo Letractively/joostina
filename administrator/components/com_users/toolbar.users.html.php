@@ -6,43 +6,49 @@
 * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
+
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
+
 /**
 * @package Joostina
 * @subpackage Users
 */
 class TOOLBAR_users {
-/** Draws the menu to edit a user*/
-function _EDIT() {
-global $id;
-mosMenuBar::startTable();
-mosMenuBar::save();
-mosMenuBar::spacer();
-mosMenuBar::apply();
-mosMenuBar::spacer();
-if($id) {
-// for existing content items the button is renamed `close`
-mosMenuBar::cancel('cancel',_CLOSE);
-} else {
-mosMenuBar::cancel();
-}
-mosMenuBar::spacer();
-mosMenuBar::help('screen.users');
-mosMenuBar::endTable();
-}
-function _DEFAULT() {
-mosMenuBar::startTable();
-mosMenuBar::custom('logout','-cancel','',_DISABLE);
-mosMenuBar::spacer();
-mosMenuBar::deleteList();
-mosMenuBar::spacer();
-mosMenuBar::editListX();
-mosMenuBar::spacer();
-mosMenuBar::addNewX();
-mosMenuBar::spacer();
-mosMenuBar::help('screen.users');
-mosMenuBar::endTable();
-}
+	/**
+	* Draws the menu to edit a user
+	*/
+	function _EDIT() {
+		global $id;
+
+		mosMenuBar::startTable();
+		mosMenuBar::save();
+		mosMenuBar::spacer();
+		mosMenuBar::apply();
+		mosMenuBar::spacer();
+		if($id) {
+			// for existing content items the button is renamed `close`
+			mosMenuBar::cancel('cancel',_CLOSE);
+		} else {
+			mosMenuBar::cancel();
+		}
+		mosMenuBar::spacer();
+		mosMenuBar::help('screen.users');
+		mosMenuBar::endTable();
+	}
+
+	function _DEFAULT() {
+		mosMenuBar::startTable();
+		mosMenuBar::custom('logout','-cancel','',_DISABLE);
+		mosMenuBar::spacer();
+		mosMenuBar::deleteList();
+		mosMenuBar::spacer();
+		mosMenuBar::editListX();
+		mosMenuBar::spacer();
+		mosMenuBar::addNewX();
+		mosMenuBar::spacer();
+		mosMenuBar::help('screen.users');
+		mosMenuBar::endTable();
+	}
 }
 ?>

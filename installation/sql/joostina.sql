@@ -345,6 +345,7 @@ INSERT INTO `#__mambots` VALUES (17, 'Поиск лент новостей', 'newsfeeds.searchbot
 INSERT INTO `#__mambots` VALUES (18, 'Позиции загрузки модуля', 'mosloadposition', 'content', 0, 6, 1, 0, 0, 0, '0000-00-00 00:00:00', '');
 INSERT INTO `#__mambots` VALUES (19, 'Первый обработчик содержимого', 'first', 'mainbody', 0, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '');
 INSERT INTO `#__mambots` VALUES (20, 'Модуль на главной странице', 'frontpagemodule', 'content', 0, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', 'mod_position=banner\nmod_type=1\nmod_after=1');
+INSERT INTO `#__mambots` VALUES(21, 'Spaw', 'spaw', 'editors', 0, 0, 1, 0, 0, 0, '0000-00-00 00:00:00', '');
 
 # --------------------------------------------------------
 

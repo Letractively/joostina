@@ -375,7 +375,7 @@ if($siteUrl) {
           <input type="hidden" name="filePerms" value="$filePerms" />
           <input type="hidden" name="dirPerms" value="$dirPerms" />
         </form>
-        <script>alert('URL сайта не введен'); document.stepBack3.submit();</script>
+        <script>alert('URL сайта не введен!'); document.stepBack3.submit();</script>
 <?php
 }
 echo "<?xml version=\"1.0\" encoding=\"windows-1251\"?".">";?>

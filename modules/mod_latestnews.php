@@ -163,9 +163,10 @@ $Itemid = '&amp;Itemid='.$Itemid;
 }
 $link= sefRelToAbs('index.php?option=com_content&amp;task=view&amp;id='.$row->id .$Itemid);
 $class= ($noncss ? '':' class="latestnews'.$moduleclass_sfx.'"');
+// doctorgrif: вывод title для ссылки
 ?>
-<li class="latestnews"><a href="<?php echo $link; ?>" title="<?php echo $row->title; ?>" class="latestnews"><?php echo $row->title; ?></a></li>
-<?php
-}
-?>
+<li class="latestnews">
+    <a href="<?php echo $link; ?>" title="<?php echo $row->title; ?>" class="latestnews"><?php echo $row->title; ?></a>
+</li>
+<?php } ?>
 </ul>

@@ -22,10 +22,10 @@ if($params->get('page_title')) {
 }
 ?>
 <form action="index.php" method="post" name="adminForm">
-<table width="100%" cellpadding="4" cellspacing="0" border="0" align="center" class="contentpane<?php echo $params->get('pageclass_sfx'); ?>">
+<div width="100%" class="contentpane<?php echo $params->get('pageclass_sfx'); ?>">
 <?php if($currentcat->descrip) {?>
-<tr>
-<td width="60%" valign="top" class="contentdescription<?php echo $params->get('pageclass_sfx'); ?>" colspan="2">
+<div>
+<div width="60%" valign="top" class="contentdescription<?php echo $params->get('pageclass_sfx'); ?>" colspan="2">
 <?php
 // show image
 if($currentcat->img) {
@@ -35,23 +35,19 @@ if($currentcat->img) {
 }
 echo $currentcat->descrip;
 ?>
-</td>
-</tr>
+</div>
+</div>
 <?php }?>
-<tr>
-<td>
+<div>
+<div>
 <?php
 if(count($rows)) {
 HTML_newsfeed::showTable($params,$rows,$catid,$tabclass);
 }
 ?>
-</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>
+</div>
+<br />
+<div>
 <?php
 // Displays listing of Categories
 if(($params->get('type') == 'category') && $params->get('other_cat')) {
@@ -61,10 +57,11 @@ if(($params->get('type') == 'section') && $params->get('other_cat_section')) {
 HTML_newsfeed::showCategories($params,$categories,$catid);
 }
 ?>
-</td>
-</tr>
-</table>
+</div>
+</div>
+</div>
 </form>
+<br />
 <?php
 // displays back button
 mosHTML::BackButton($params,$hide_js);
@@ -112,8 +109,11 @@ $link = 'index.php?option=com_newsfeeds&amp;task=view&amp;feedid='.$row->id.'&am
 <tr>
 <?php
 if($params->get('name')) {
+// doctorgrif: настроен вывод title дл€ ссылок
 ?>
-<td height="20" class="<?php echo $tabclass[$k]; ?>"><a href="<?php echo sefRelToAbs($link); ?>" class="category<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $row->name; ?></a></td>
+<td height="20" class="<?php echo $tabclass[$k]; ?>">
+<a href="<?php echo sefRelToAbs($link); ?>" class="category<?php echo $params->get('pageclass_sfx'); ?>" title="<?php echo $row->name; ?>"><?php echo $row->name; ?></a>
+</td>
 <?php
 }
 ?>
@@ -148,18 +148,19 @@ global $mosConfig_live_site,$Itemid;
 foreach($categories as $cat) {
 if($catid == $cat->catid) {
 ?>
-<li><b><?php echo $cat->title; ?></b>&nbsp;<span class="small">(<?php echo $cat->numlinks; ?>)</span></li>
+<li>
+<b><?php echo $cat->title; ?></b> <span class="small">(<?php echo $cat->numlinks; ?>)</span>
+</li>
 <?php
 } else {
 $link = 'index.php?option=com_newsfeeds&amp;catid='.$cat->catid.'&amp;Itemid='.$Itemid;
 ?>
 <li>
-<a href="<?php echo sefRelToAbs($link); ?>" class="category<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $cat->title; ?></a>
+<a href="<?php echo sefRelToAbs($link); ?>" class="category<?php echo $params->get('pageclass_sfx'); ?>" title="<?php echo $cat->title; ?>"><?php echo $cat->title; ?></a>
 <?php
 if($params->get('cat_items')) {
 ?>
-&nbsp;
-<span class="small">(<?php echo $cat->numlinks; ?>)</span>
+ <span class="small">(<?php echo $cat->numlinks; ?>)</span>
 <?php
 }
 ?>
@@ -221,7 +222,9 @@ $feed_title = $currChannel->getTitle();
 $feed_title = mosCommonHTML::newsfeedEncoding($rssDoc,$feed_title,$utf8enc);
 ?>
 <tr>
-<td class="contentheading<?php echo $params->get('pageclass_sfx'); ?>"><a href="<?php echo ampReplace($currChannel->getLink()); ?>" target="_blank"><?php echo $feed_title; ?></a></td>
+<td class="contentheading<?php echo $params->get('pageclass_sfx'); ?>">
+<a href="<?php echo ampReplace($currChannel->getLink()); ?>" target="_blank" title="<?php echo $feed_title; ?>"><?php echo $feed_title; ?></a>
+</td>
 </tr>
 <?php
 // feed description
@@ -264,23 +267,23 @@ $item_title = mosCommonHTML::newsfeedEncoding($rssDoc,$item_title,$utf8enc);
 // START fix for RSS enclosure tag url not showing
 if($currItem->getLink()) {
 ?>
-<a href="<?php echo ampReplace($currItem->getLink()); ?>" target="_blank"><?php echo $item_title; ?></a>
+<a href="<?php echo ampReplace($currItem->getLink()); ?>" target="_blank" title="<?php echo $item_title; ?>"><?php echo $item_title; ?></a>
 <?php
 } else
 if($currItem->getEnclosure()) {
 $enclosure = $currItem->getEnclosure();
 $eUrl = $enclosure->getUrl();
 ?>
-<a href="<?php echo ampReplace($eUrl); ?>" target="_blank"><?php echo $item_title; ?></a>
+<a href="<?php echo ampReplace($eUrl); ?>" target="_blank" title="<?php echo $item_title; ?>"><?php echo $item_title; ?></a>
 <?php
 } else
 if(($currItem->getEnclosure()) && ($currItem->getLink())) {
 $enclosure = $currItem->getEnclosure();
 $eUrl = $enclosure->getUrl();
 ?>
-<a href="<?php echo ampReplace($currItem->getLink()); ?>" target="_blank"><?php echo $item_title; ?></a><br />
+<a href="<?php echo ampReplace($currItem->getLink()); ?>" target="_blank" title="<?php echo $item_title; ?>"><?php echo $item_title; ?></a><br />
 <?php echo _NEWSFEED_LINK; ?>: 
-<a href="<?php echo $eUrl; ?>" target="_blank"><?php echo ampReplace($eUrl); ?></a>
+<a href="<?php echo $eUrl; ?>" target="_blank" title="<?php echo ampReplace($eUrl); ?>"><?php echo ampReplace($eUrl); ?></a>
 <?php
 }
 // END fix for RSS enclosure tag url not showing
@@ -298,11 +301,11 @@ $text = '';
 for($i = 0; $i < $num; $i++) {
 $text .= ' '.$texts[$i];
 }
-$text .= '...';
+$text .= 'Е';
 }
 }
 ?>
-<br /><?php echo $text; ?><br /><br />
+<br /><?php echo $text; ?><br />
 <?php
 }
 ?>
@@ -314,13 +317,14 @@ $text .= '...';
 </td>
 </tr>
 <tr>
-<td><br /></td>
+<td></td>
 </tr>
 <?php
 }
 }
 ?>
 </table>
+<br />
 <?php
 // displays back button
 mosHTML::BackButton($params);

@@ -211,7 +211,7 @@ $res = $database->query();
 if($res == 1) {
 if($num > 0) {
 echo "\n<tr class=\"row$k\">";
-echo "\n\t<td width=\"250\">";
+echo "\n\t<td width=\"250px\">";
 echo _CHECK_TABLE;
 echo " - $tn</td>";
 echo "\n\t<td>";
@@ -228,6 +228,4 @@ $k = 1 - $k;
 ?>
 <tr><td colspan="2"><b><?php echo _CONF_CHECKED_IN; ?></b></td></tr>
 </table>
-<?php
-}
-?>
+<?php } ?>

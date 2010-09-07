@@ -41,7 +41,7 @@ $limits[] = mosHTML::makeOption('100');
 $limits[] = mosHTML::makeOption('150');
 $limits[] = mosHTML::makeOption('5000','-Все-');
 // build the html select list
-$link = $link."&amp;limit=' + this.options[selectedIndex].value + '&amp;limitstart=".$this->limitstart;
+$link = $link."&amp;limit='+this.options[selectedIndex].value+'&amp;limitstart=".$this->limitstart;
 $link = sefRelToAbs($link);
 return mosHTML::selectList($limits,'limit','class="inputbox" size="1" onchange="document.location.href=\''.$link.'\';"','value','text',$this->limit);
 }

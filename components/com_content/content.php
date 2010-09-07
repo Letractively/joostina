@@ -176,7 +176,7 @@ $database->setQuery($query);
 $total = $database->loadResult();
 $limit = $limit ? $limit : $params->get('display_num') ;
 if ($total <= $limit) $limitstart = 0;
-require_once($GLOBALS['mosConfig_absolute_path'] . '/includes/pageNavigation.php');
+require_once($GLOBALS['mosConfig_absolute_path'].'/includes/pageNavigation.php');
 $pageNav = new mosPageNav($total, $limitstart, $limit);
 // get the list of items for this category
 $query = "SELECT a.sectionid, a.checked_out, a.id, a.state AS published, a.title, a.hits, a.created_by, a.created_by_alias, a.created AS created, a.access, u.name AS author, a.state, g.name AS groups,"
@@ -928,7 +928,7 @@ return;
 }
 }
 // initiate form
-$link = 'index.php?option=com_content&task=archivesection&id='.$id.'&Itemid='.$Itemid;
+$link = 'index.php?option=com_content&amp;task=archivesection&amp;id='.$id.'&amp;Itemid='.$Itemid;
 echo '<form action="'.sefRelToAbs($link).'" method="post">';
 // Dynamic Page Title
 if($params->get('header') == "") {
@@ -1051,7 +1051,7 @@ return;
 }
 }
 // initiate form
-$link = ampReplace('index.php?option=com_content&task=archivecategory&id='.$id.
+$link = ampReplace('index.php?option=com_content&amp;task=archivecategory&amp;id='.$id.
 '&Itemid='.$Itemid);
 echo '<form action="'.sefRelToAbs($link).'" method="post">';
 // Dynamic Page Title
@@ -1664,7 +1664,7 @@ return;
 }
 if($Itemid == 0 || $Itemid == 99999999) {
 // security check to see if link exists in a menu
-$link = 'index.php?option=com_content&task=new&sectionid='.(int)$sectionid;
+$link = 'index.php?option=com_content&amp;task=new&amp;sectionid='.(int)$sectionid;
 $query = "SELECT id FROM #__menu WHERE (link LIKE '%$link' OR link LIKE '%$link&%') AND published = 1";
 $database->setQuery($query);
 $exists = $database->loadResult();
@@ -1675,7 +1675,7 @@ return;
 }
 }
 if($uid){
-$link = 'index.php?option=com_content&task=new';
+$link = 'index.php?option=com_content&amp;task=new';
 $q = "SELECT params FROM #__menu WHERE (link LIKE '%$link' OR link LIKE '%$link&%') AND published = 1";
 $database->setQuery($q);
 $params0 = $database->loadResult();
@@ -2010,14 +2010,14 @@ $link = $_SERVER['HTTP_REFERER'];
 break;
 case 'apply_new':
 $Itemid = intval(mosGetParam($_POST,'Returnid',$Itemid));
-$link = 'index.php?option=com_content&task=edit&id='.$row->id.'&Itemid='.$Itemid;
+$link = 'index.php?option=com_content&amp;task=edit&amp;id='.$row->id.'&amp;Itemid='.$Itemid;
 break;
 case 'save':
 default:
 $Itemid = mosGetParam($_POST,'Returnid','');
 if($Itemid) {
 if($access->canEdit) {
-$link = 'index.php?option=com_content&task=view&id='.$row->id.'&Itemid='.$Itemid;
+$link = 'index.php?option=com_content&&amp;task=view&amp;id='.$row->id.'&amp;Itemid='.$Itemid;
 } else {
 $link = 'index.php';
 }
@@ -2045,7 +2045,7 @@ $parts = parse_url($referer);
 parse_str($parts['query'],$query);
 if($task == 'edit' || $task == 'cancel') {
 $Itemid = mosGetParam($_POST,'Returnid','');
-$referer = 'index.php?option=com_content&task=view&id='.$row->id.'&Itemid='.$Itemid;
+$referer = 'index.php?option=com_content&amp;task=view&amp;id='.$row->id.'&amp;Itemid='.$Itemid;
 }
 if($referer && $row->id) {
 mosRedirect($referer);
@@ -2206,7 +2206,7 @@ $itemid = $mainframe->getItemid($uid,0,0);
 $_itemid = '&Itemid='.$itemid;
 }
 // link sent in email
-$link = sefRelToAbs('index.php?option=com_content&task=view&id='.$uid.$_itemid);
+$link = sefRelToAbs('index.php?option=com_content&amp;task=view&amp;id='.$uid.$_itemid);
 // message text
 $msg = sprintf(_EMAIL_MSG,html_entity_decode($mosConfig_sitename,ENT_QUOTES),$yourname,
 $youremail,$link);

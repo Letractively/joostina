@@ -1,16 +1,8 @@
-/**
-* @package Joostina
-* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или LICENSE.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-*/
-
 function jadd(elID,value){
 SRAX.get(elID).value=value;
 SRAX.debug('Установка '+ value + ' в ' + elID);
 return;
 }
-
 // установка куков
 setCookie = function ( sName, sValue, nDays ) {
 var expires = "";
@@ -27,7 +19,6 @@ var re = new RegExp( "(\;|^)[^;]*(" + sName + ")\=([^;]*)(;|$)" );
 var res = re.exec( document.cookie );
 return res != null ? res[3] : null;
 };
-
 // прорисовка информации о успешно выполненной операции
 function mess_cool(mess){
 SRAX.replaceHtml('status-info',mess);
@@ -40,7 +31,6 @@ SRAX.replaceHtml('status-info',mess);
 SRAX.get('status-info').className = 'jwarning';
 SRAX.get('status-info').style.display = 'block';
 }
-
 // смена статуса публикации, elID - идентификатор объекта у которого меняется статус публикации
 function ch_publ(elID,option){
 log('Смена статуса публикации элемента: '+elID+' для компонента '+option);
@@ -77,7 +67,6 @@ SRAX.replaceHtml('acc-id'+elID,'<img src="images/error.png" />');
 });
 return false;
 }
-
 function jtoggle_editor(){
 SRAX.debug('Изменение состояния редактора');
 jeimage = SRAX.get('jtoggle_editor');
@@ -93,22 +82,12 @@ jeimage.src = 'images/'+resp.responseText;
 });
 return false;
 }
-
 // general utility for browsing a named array or object
 function xshow(o) {
 s = '';
 for(e in o) {s += e+'='+o[e]+'\n';}
 alert( s );
 }
-
-/**
-* Writes a dynamically generated list
-* @param string The parameters to insert into the <select> tag
-* @param array A javascript array of list options in the form [key,value,text]
-* @param string The key to display for the initial state of the list
-* @param string The original key that was selected
-* @param string The original item value that was selected
-*/
 function writeDynaList( selectParams, source, key, orig_key, orig_val ) {
 var html = '<select ' + selectParams + '>';
 var i = 0;
@@ -126,15 +105,6 @@ html += '\n</select>';
 
 document.writeln( html );
 }
-
-/**
-* Changes a dynamically generated list
-* @param string The name of the list to change
-* @param array A javascript array of list options in the form [key,value,text]
-* @param string The key to display
-* @param string The original key that was selected
-* @param string The original item value that was selected
-*/
 function changeDynaList( listname, source, key, orig_key, orig_val ) {
 var list = eval( 'document.adminForm.' + listname );
 // empty the list
@@ -155,10 +125,6 @@ list.options[i++] = opt;
 }
 list.length = i;
 }
-
-/**
-* Adds a select item(s) from one list to another
-*/
 function addSelectedToList( frmName, srcListName, tgtListName ) {
 var form = eval( 'document.' + frmName );
 var srcList = eval( 'form.' + srcListName );
@@ -177,7 +143,6 @@ tgtList.options[tgtList.length] = opt;
 }
 }
 }
-
 function delSelectedFromList( frmName, srcListName ) {
 var form = eval( 'document.' + frmName );
 var srcList = eval( 'form.' + srcListName );
@@ -188,7 +153,6 @@ srcList.options[i] = null;
 }
 }
 }
-
 function moveInList( frmName, srcListName, index, to) {
 var form = eval( 'document.' + frmName );
 var srcList = eval( 'form.' + srcListName );
@@ -222,7 +186,6 @@ srcList.focus();
 function getSelectedOption( frmName, srcListName ) {
 var form = eval( 'document.' + frmName );
 var srcList = eval( 'form.' + srcListName );
-
 i = srcList.selectedIndex;
 if (i != null && i > -1) {
 return srcList.options[i];
@@ -233,9 +196,7 @@ return null;
 function setSelectedValue( frmName, srcListName, value ) {
 var form = eval( 'document.' + frmName );
 var srcList = eval( 'form.' + srcListName );
-
 var srcLen = srcList.length;
-
 for (var i=0; i < srcLen; i++) {
 srcList.options[i].selected = false;
 if (srcList.options[i].value == value) {
@@ -246,7 +207,6 @@ srcList.options[i].selected = true;
 function getSelectedRadio( frmName, srcGroupName ) {
 var form = eval( 'document.' + frmName );
 var srcGroup = eval( 'form.' + srcGroupName );
-
 if (srcGroup[0]) {
 for (var i=0, n=srcGroup.length; i < n; i++) {
 if (srcGroup[i].checked) {
@@ -260,7 +220,6 @@ return srcGroup.value;
 }
 return null;
 }
-
 function getSelectedValue( frmName, srcListName ) {
 var form = eval( 'document.' + frmName );
 var srcList = eval( 'form.' + srcListName );
@@ -271,7 +230,6 @@ return srcList.options[i].value;
 return null;
 }
 }
-
 function getSelectedText( frmName, srcListName ) {
 var form = eval( 'document.' + frmName );
 var srcList = eval( 'form.' + srcListName );
@@ -282,11 +240,9 @@ return srcList.options[i].text;
 return null;
 }
 }
-
 function chgSelectedValue( frmName, srcListName, value ) {
 var form = eval( 'document.' + frmName );
 var srcList = eval( 'form.' + srcListName );
-
 i = srcList.selectedIndex;
 if (i != null && i > -1) {
 srcList.options[i].value = value;
@@ -295,7 +251,6 @@ return true;
 return false;
 }
 }
-
 // Form specific functions for editting content images
 function showImageProps(base_path) {
 form = document.adminForm;
@@ -313,7 +268,6 @@ form._width.value = parts[7] || '';
 srcImage = eval( "document." + 'view_imagelist' );
 srcImage.src = base_path + parts[0];
 }
-
 function applyImageProps() {
 form = document.adminForm;
 if (!getSelectedValue( 'adminForm', 'imagelist' )) {
@@ -330,7 +284,6 @@ value = form._source.value + '|'
 + form._width.value;
 chgSelectedValue( 'adminForm', 'imagelist', value );
 }
-
 function previewImage( list, image, base_path ) {
 form = document.adminForm;
 srcList = eval( "form." + list );
@@ -344,14 +297,6 @@ srcImage.src = 'images/blank.gif';
 srcImage.src = base_path + fileName2;
 }
 }
-
-/**
-* Toggles the check state of a group of boxes
-*
-* Checkboxes must have an id attribute in the form cb0, cb1...
-* @param The number of box to 'check'
-* @param An alternative field name
-*/
 function checkAll( n, fldName ) {
 if (!fldName) {
 fldName = 'cb';
@@ -372,7 +317,6 @@ document.adminForm.boxchecked.value = n2;
 document.adminForm.boxchecked.value = 0;
 }
 }
-
 function listItemTask( id, task ) {
 var f = document.adminForm;
 cb = eval( 'f.' + id );
@@ -388,11 +332,9 @@ submitbutton(task);
 }
 return false;
 }
-
 function hideMainMenu(){
 document.adminForm.hidemainmenu.value=1;
 }
-
 function isChecked(isitchecked){
 if (isitchecked == true){
 document.adminForm.boxchecked.value++;
@@ -401,17 +343,9 @@ else {
 document.adminForm.boxchecked.value--;
 }
 }
-
-/**
-* Default function.  Usually would be overriden by the component
-*/
 function submitbutton(pressbutton) {
 submitform(pressbutton);
 }
-
-/**
-* Submit the admin form
-*/
 function submitform(pressbutton){
 document.adminForm.task.value=pressbutton;
 try {
@@ -420,19 +354,11 @@ document.adminForm.onsubmit();
 catch(e){}
 document.adminForm.submit();
 }
-
-/**
-* Submit the control panel admin form
-*/
 function submitcpform(sectionid, id){
 document.adminForm.sectionid.value=sectionid;
 document.adminForm.id.value=id;
 submitbutton("edit");
 }
-
-/**
-* Getting radio button that is selected.
-*/
 function getSelected(allbuttons){
 for (i=0;i<allbuttons.length;i++) {
 if (allbuttons[i].checked) {
@@ -440,27 +366,18 @@ return allbuttons[i].value
 }
 }
 }
-
 // JS Calendar
-var calendar = null; // remember the calendar object so that we reuse
-// it and avoid creating another
-
+var calendar = null; // remember the calendar object so that we reuse it and avoid creating another
 // This function gets called when an end-user clicks on some date
 function selected(cal, date) {
 cal.sel.value = date; // just update the value of the input field
 }
-
-// And this gets called when the end-user clicks on the _selected_ date,
-// or clicks the "Close" (X) button.  It just hides the calendar without
-// destroying it.
+// And this gets called when the end-user clicks on the _selected_ date, or clicks the "Close" (X) button.  It just hides the calendar without destroying it.
 function closeHandler(cal) {
 cal.hide();// hide the calendar
 Calendar.removeEvent(document, "mousedown", checkCalendar);
 }
-
-// This gets called when the user presses a mouse button anywhere in the
-// document, if the calendar is shown.  If the click was outside the open
-// calendar this function closes it.
+// This gets called when the user presses a mouse button anywhere in the document, if the calendar is shown.  If the click was outside the open calendar this function closes it.
 function checkCalendar(ev) {
 var el = Calendar.is_ie ? Calendar.getElement(ev) : Calendar.getTargetElement(ev);
 for (; el != null; el = el.parentNode)
@@ -473,10 +390,7 @@ calendar.callCloseHandler();
 Calendar.stopEvent(ev);
 }
 }
-
-// This function shows the calendar under the element having the given id.
-// It takes care of catching "mousedown" signals on document and hiding the
-// calendar if the click was outside.
+// This function shows the calendar under the element having the given id. It takes care of catching "mousedown" signals on document and hiding the calendar if the click was outside.
 function showCalendar(id) {
 var el = document.getElementById(id);
 if (calendar != null) {
@@ -497,10 +411,6 @@ calendar.showAtElement(el);// show the calendar next to the input field
 Calendar.addEvent(document, "mousedown", checkCalendar);
 return false;
 }
-
-/**
-* Pops up a new window in the middle of the screen
-*/
 function popupWindow(mypage, myname, w, h, scroll) {
 var winl = (screen.width - w) / 2;
 var wint = (screen.height - h) / 2;
@@ -508,7 +418,6 @@ winprops = 'height='+h+',width='+w+',top='+wint+',left='+winl+',scrollbars='+scr
 win = window.open(mypage, myname, winprops)
 if (parseInt(navigator.appVersion) >= 4) { win.window.focus(); }
 }
-
 // LTrim(string) : Returns a copy of a string without leading spaces.
 function ltrim(str){
 var whitespace = new String(" \t\n\r");
@@ -521,7 +430,6 @@ s = s.substring(j, i);
 }
 return s;
 }
-
 //RTrim(string) : Returns a copy of a string without trailing spaces.
 function rtrim(str){
 var whitespace = new String(" \t\n\r");
@@ -534,12 +442,10 @@ s = s.substring(0, i+1);
 }
 return s;
 }
-
 // Trim(string) : Returns a copy of a string without leading or trailing spaces
 function trim(str) {
 return rtrim(ltrim(str));
 }
-
 function mosDHTML(){
 this.ver=navigator.appVersion
 this.agent=navigator.userAgent

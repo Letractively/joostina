@@ -6,55 +6,61 @@
 * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
+
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
+
 global $my,$mosConfig_live_site;
+
 function quickiconButton($row,$newWindow) {
-global $mosConfig_live_site;
-$title = $row->title ? $row->title : $row->text;
-?>
-<span>
-<a href="<?php echo htmlentities($row->target); ?>" title="<?php echo $title; ?>"<?php echo $newWindow; ?>>
-<?php
-$icon = '<img src="'.$mosConfig_live_site.$row->icon.'" alt="'.$title.'" />';
-if($row->display == 1) { ?>
-<p><?php echo $row->text; ?></p>
-<?php
-} elseif($row->display == 2) {
-// только значок
-echo $icon;
-} else {
-// значок и текст
-echo $icon.$row->text;
-} ?>
-</a>
-</span>
-<?php
+	global $mosConfig_live_site;
+	$title = $row->title ? $row->title : $row->text;
+	?>
+	<span>
+		<a href="<?php echo htmlentities($row->target); ?>" title="<?php echo $title; ?>"<?php echo $newWindow; ?>>
+			<?php
+			$icon = '<img src="'.$mosConfig_live_site.$row->icon.'" alt="'.$title.'" border="0" />';
+			if($row->display == 1) { ?>
+				<p><?php echo $row->text; ?></p>
+			<?php
+			} elseif($row->display == 2) {
+			// только значок
+				echo $icon;
+			} else {
+			// значок и текст
+				echo $icon.$row->text;
+			} ?>
+		</a>
+	</span>
+	<?php
 }
 ?>
-<div class="cpicons">
-<?php
-$query = 'SELECT* FROM #__quickicons'
-.' WHERE published = 1'
-.' AND gid <= '.$my->gid.' ORDER BY ordering';
-$database->setQuery($query);
-$rows = $database->loadObjectList();
-foreach($rows as $row) {
-$newWindow = $row->new_window ? ' target="_blank"':'';
-quickiconButton($row,$newWindow);
-}
-unset($query,$rows);
-?>
-</div>
+	<div class="cpicons">
+	<?php
+		$query = 'SELECT* FROM #__quickicons'
+		.' WHERE published = 1'
+		.' AND gid <= '.$my->gid.' ORDER BY ordering';
+		$database->setQuery($query);
+		$rows = $database->loadObjectList();
+		foreach($rows as $row) {
+			$newWindow = $row->new_window ? ' target="_blank"':'';
+			quickiconButton($row,$newWindow);
+		}
+		unset($query,$rows);
+	?>
+	</div>
 <?php
 $securitycheck = intval($params->get('securitycheck',1));
 if(!empty($securitycheck)) {
-josSecurityCheck('88%');
+	josSecurityCheck('88%');
 } ?>
-<div style="display:block;clear:both;text-align:left;padding-top:10px;">
-<?php if($my->usertype == 'Super Administrator') { ?>
-<a href="index2.php?option=com_quickicons"><img src="<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/templates/joostfree/images/shortcut.png" /><?php echo _CHANGE_QUICK_BUTTONS?></a>
-<?php
+	<div style="display: block; clear: both; text-align:left; padding-top:10px;">
+	<?php if($my->usertype == 'Super Administrator') { ?>
+		<a href="index2.php?option=com_quickicons">
+		<img border="0" src="<?php echo $mosConfig_live_site; ?>/<?php echo ADMINISTRATOR_DIRECTORY?>/templates/joostfree/images/shortcut.png" />
+		<?php echo _CHANGE_QUICK_BUTTONS?>
+		</a>
+	<?php
 }
 ?>
-</div>
+	</div>

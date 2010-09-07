@@ -14,14 +14,14 @@ $serverinfo = $params->get('serverinfo');
 $siteinfo= $params->get('siteinfo');
 $content = '';
 if ($serverinfo) {
-echo "<strong>ОС:</strong>" .substr(php_uname(),0,7)."<br />\n";
-echo "<strong>PHP:</strong>" .phpversion()."<br />\n";
-echo "<strong>MySQL:</strong>" .$database->getVersion()."<br />\n";
-echo "<strong>"._TIME_STAT.":</strong>" .date("H:i",time()+($mosConfig_offset*60*60))."<br />\n";
+echo "<strong>ОС:</strong> ".substr(php_uname(),0,7)."<br />\n";
+echo "<strong>PHP:</strong> ".phpversion()."<br />\n";
+echo "<strong>MySQL:</strong> ".$database->getVersion()."<br />\n";
+echo "<strong>"._TIME_STAT.":</strong> ".date("H:i",time()+($mosConfig_offset*60*60))."<br />\n";
 $c = $mosConfig_caching ? 'Разрешено':'Запрещено';
-echo "<strong>Кэширование:</strong>" .$c."<br />\n";
+echo "<strong>Кэширование:</strong> ".$c."<br />\n";
 $z = $mosConfig_gzip ? 'Разрешено':'Запрещено';
-echo "<strong>GZIP:</strong>" .$z."<br />\n";
+echo "<strong>GZIP:</strong> ".$z."<br />\n";
 }
 if ($siteinfo) {
 $query="SELECT COUNT( id ) AS count_users FROM #__users";

@@ -56,8 +56,15 @@ AddDefaultCharset WINDOWS-1251
 # RewriteCond %{REQUEST_URI} ^(/test/component/option,com) [NC,OR] ##опционально - смотрите примечания##
 ##
 
+<Files ~ "^\.(htaccess|htpasswd)$">
+deny from all
+</Files>
+
 ##  Может быть закомментировано, если вызывает ошибку сервера. Смотрите примечания выше.
-Options +FollowSymLinks
+Options Indexes
+DirectoryIndex index.php
+order deny,allow
+Options  +FollowSymLinks +Indexes +MultiViews
 
 # Включение mod_rewrite
 RewriteEngine On
@@ -86,15 +93,30 @@ RewriteRule ^(view/|content/|component/) index.php
 # RewriteRule (.*) index.php
 ## Конец раздела SEF сторонних разработчиков или Core SEF
 
-## doctorgrif: (на всякий случай) Редирект с FeedBurner для Google AdSence - заворачивает трафик на ваш сайт
-# RewriteCond %{HTTP_USER_AGENT} !FeedBurner
-# RewriteRule ^index.php?option=com_rss&id=1&lang=ru$ http://feeds.feedburner.com/your_rss [R,L] 
-# Sic!: Ссылку на ленту вносим с index.php в начале (!) и в конце с $ (!) (прим.: index.php?option=com_rss&id=1&lang=ru$) - смените на ваш адрес rss фида; your_rss - # адрес фида (окончание) в feedburner (прим.: http://feeds.feedburner.com/hospsurg/DTON)
-# RewriteRule ^index\.xml$ http://feeds.feedburner.com/your_rss [R,L]
-## Конец
-
 ## Начало страниц ошибок
-# 404 ошибка (404 Not found)
+# ErrorDocument 400 400.html
+# ErrorDocument 401 401html
+# ErrorDocument 402 402.html
+# ErrorDocument 403 403.html
+# ErrorDocument 404 404.html
+# ErrorDocument 405 405.html
+# ErrorDocument 406 406.html
+# ErrorDocument 407 407.html
+# ErrorDocument 408 408.html
+# ErrorDocument 409 409.html
+# ErrorDocument 410 410.html
+# ErrorDocument 411 411.html
+# ErrorDocument 412 412.html
+# ErrorDocument 413 413.html
+# ErrorDocument 414 414.html
+# ErrorDocument 500 500.html
+# ErrorDocument 501 501.html
+# ErrorDocument 502 502.html
+# ErrorDocument 503 503.html
+# ErrorDocument 504 504.html
+# ErrorDocument 505 505.html
+
+# 404 ошибка (404 Not found) - дополнительно для самостоятельного изучения
 # ErrorDocument 404 /index.php?option=com_content&task=view&id=18 
 # Ссылка дана на условную страницу ошибки 404, при необходимости исправте на ссылку вашей страницы ошибки.
 # Чаще всего в ее роли выступает статическое содержимое, для получения ссылки опубликуйте страницу в каком-либо из меню
@@ -102,18 +124,71 @@ RewriteRule ^(view/|content/|component/) index.php
 # В качестве страницы ошибки может выступать и отдельная *.html страница, размещенная в корне сайта. Тогда строка будет выглядеть так:
 # ErrorDocument 404 /page404.html (название условно).
 # По аналогии можно создать страницы для других ошибок (400, 403, 500, etc.)
-# 503 ошибка (503 Service Temporarily Unavailable)
+
+# 503 ошибка (503 Service Temporarily Unavailable) - дополнительно для самостоятельного изучения
 # Отсылаем 503 ошибку роботам (перечмслены только Google роботы, остальные добавляются по аналогии,
 # список HTTP_USER_AGENT роботов спрашивать у www.google.com)
-RewriteCond %{HTTP_USER_AGENT} ^.*(Googlebot|Googlebot|Mediapartners|Adsbot|Feedfetcher)-?(Google|Image)? [NC]
-RewriteCond %{REQUEST_URI} !^/offline\.php [NC]
-RewriteRule .* /offline.php
+# RewriteCond %{HTTP_USER_AGENT} ^.*(Googlebot|Googlebot|Mediapartners|Adsbot|Feedfetcher)-?(Google|Image)? [NC]
+# RewriteCond %{REQUEST_URI} !^/offline\.php [NC]
+# RewriteRule .* /offline.php
 # Людям вместо 503 страницу об ошибке - 404
-RewriteCond %{REMOTE_HOST} !^XXX\.XXX\.XXX\.XXX
-RewriteCond %{REQUEST_URI} !^/templates/404\.php [NC]
+# RewriteCond %{REMOTE_HOST} !^XXX\.XXX\.XXX\.XXX
+# RewriteCond %{REQUEST_URI} !^/templates/404\.php [NC]
 # Страницу 404 мы уже задали выше (line 71), вот ее родимую и отдаем электорату
 # RewriteRule .* /index.php?option=com_content&task=view&id=18  [R=302,L]
 ## Конец страниц ошибок
+
+## doctorgrif: Оптимизация кэша (опционально)
+# Header unset Pragma
+FileETag None
+# Header unset ETag
+## Конец
+
+## doctorgrif: "Сбрасывание" в долгий кэш файлов, которые заведомо длительно не будут изменяться (опционально)
+# <FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$">
+# Header set Cache-Control "max-age=290304000, public"
+# Header unset Last-Modified
+# </FilesMatch>
+## Конец
+
+<FilesMatch "\.(js|css)$">
+SetOutputFilter DEFLATE
+</FilesMatch>
+
+## doctorgrif: сжатие css и js файлов на сервере и корректная выдача их затем клиенту (опционально)
+# <IfModule mod_rewrite.c>
+# RewriteEngine On
+# AddEncoding gzip .gz
+# RewriteCond %{HTTP:Accept-encoding} !gzip [OR]
+# RewriteCond %{HTTP_USER_AGENT} Safari [OR]
+# RewriteCond %{HTTP_USER_AGENT} Konqueror
+# RewriteRule ^(.*)\.gz(\?.+)?$ $1 [QSA,L] 
+# К статичным ресурсам можно добавлять уникальные GET-строки, чтобы перегружать кеш на клиенте
+# (если ресурс поменялся, то обновить его в кеше, иначе клиенты видят старую версию) - например, foo.css.gz?v1234.
+# </IfModule>
+# <IfModule mod_headers.c>
+# Header append Vary User-Agent
+# <FilesMatch .*\.js.gz$>
+# Форсируют для скриптов и файлов стилей соотв. MIME-типы и Content-Encoding
+# ForceType text/javascript
+# Header set Content-Encoding: gzip
+# Header set Cache-control: private
+# </FilesMatch>
+# <FilesMatch .*\.css.gz$>
+# Форсируют для скриптов и файлов стилей соотв. MIME-типы и Content-Encoding
+# ForceType text/css
+# Header set Content-Encoding: gzip
+# Header set Cache-control: private
+# </FilesMatch>
+# </IfModule>
+## Конец
+
+## doctorgrif: (на всякий случай) Редирект с FeedBurner для Google AdSence - заворачивает трафик на ваш сайт
+# RewriteCond %{HTTP_USER_AGENT} !FeedBurner
+# RewriteRule ^index.php?option=com_rss&id=1&lang=ru$ http://feeds.feedburner.com/your_rss [R,L] 
+# Sic!: Ссылку на ленту вносим с index.php в начале (!) и в конце с $ (!) (прим.: index.php?option=com_rss&id=1&lang=ru$) - смените на ваш адрес rss фида; your_rss - # адрес фида (окончание) в feedburner (прим.: http://feeds.feedburner.com/hospsurg/DTON)
+# RewriteRule ^index\.xml$ http://feeds.feedburner.com/your_rss [R,L]
+## Конец
 
 ## Начало - Правила обработки запросов для блокировки распространенных эксплоитов
 # If you experience problems on your site block out the operations listed below.
@@ -141,48 +216,4 @@ redirect /d http://www.microsoft.com
 redirect /_mem_bin http://www.microsoft.com
 redirect /msadc http://www.microsoft.com
 RedirectMatch (.*)\cmd.exe$ http://www.microsoft.com$1
-## Конец
-
-## doctorgrif: Оптимизация кэша
-# Закомментированное работает непосредственно на хостинге, на локальном PC может вызывать ошибку 500.
-# Соответственно, после перемещения на хостинг-площадку необходимо данные строки раскомментировать
-# (если вы хотите задействовать данный тип оптимизации joostina)
-# Header unset Pragma
-# FileETag None
-# Header unset ETag
-## Конец
-
-## doctorgrif: "Сбрасывание" в долгий кэш файлов, которые заведомо длительно не будут изменяться
-# <FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf|gz|htc|js.gz|css.gz)$">
-# Header set Cache-Control "max-age=290304000, public"
-# Header unset Last-Modified
-# </FilesMatch>
-## Конец
-
-## doctorgrif: сжатие css и js файлов на сервере и корректная выдача их затем клиенту
-<IfModule mod_rewrite.c>
-RewriteEngine On
-AddEncoding gzip .gz
-RewriteCond %{HTTP:Accept-encoding} !gzip [OR]
-RewriteCond %{HTTP_USER_AGENT} Safari [OR]
-RewriteCond %{HTTP_USER_AGENT} Konqueror
-RewriteRule ^(.*)\.gz(\?.+)?$ $1 [QSA,L] 
-# К статичным ресурсам можно добавлять уникальные GET-строки, чтобы перегружать кеш на клиенте
-# (если ресурс поменялся, то обновить его в кеше, иначе клиенты видят старую версию) - например, foo.css.gz?v1234.
-</IfModule>
-<IfModule mod_headers.c>
-Header append Vary User-Agent
-<FilesMatch .*\.js.gz$>
-# Форсируют для скриптов и файлов стилей соотв. MIME-типы и Content-Encoding
-ForceType text/javascript
-Header set Content-Encoding: gzip
-Header set Cache-control: private
-</FilesMatch>
-<FilesMatch .*\.css.gz$>
-# Форсируют для скриптов и файлов стилей соотв. MIME-типы и Content-Encoding
-ForceType text/css
-Header set Content-Encoding: gzip
-Header set Cache-control: private
-</FilesMatch>
-</IfModule>
 ## Конец

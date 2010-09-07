@@ -207,9 +207,9 @@ $item_title = html_entity_decode($item_title);
 $_Itemid = '';
 $itemid = $mainframe->getItemid($row->id);
 if($itemid) {
-$_Itemid = '&Itemid='.$itemid;
+$_Itemid = '&amp;Itemid='.$itemid;
 }
-$item_link = 'index.php?option=com_content&task=view&id='.$row->id.$_Itemid;
+$item_link = 'index.php?option=com_content&amp;task=view&amp;id='.$row->id.$_Itemid;
 $item_link = sefRelToAbs($item_link);
 // removes all formating from the intro text for the description text
 $item_description = $row->introtext;

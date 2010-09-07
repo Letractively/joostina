@@ -148,7 +148,7 @@ $feed_title = mosCommonHTML::newsfeedEncoding($rssDoc,$feed_title);
 $content_buffer .= "<tr>\n";
 $content_buffer .= "<td>\n";
 $content_buffer .= "<strong>\n";
-$content_buffer .= "<a href=\"".ampReplace($currChannel->getLink())."\" target=\"_blank\">\n";
+$content_buffer .= "<a href=\"".ampReplace($currChannel->getLink())."\" target=\"_blank\" title=\"".$feed_title."\">\n";
 $content_buffer .= $feed_title."</a>\n";
 $content_buffer .= "</strong>\n";
 $content_buffer .= "</td>\n";
@@ -168,7 +168,7 @@ $content_buffer .= "</tr>\n";
 if($rssimage && $iUrl) {
 $content_buffer .= "<tr>\n";
 $content_buffer .= "<td align=\"center\">\n";
-$content_buffer .= "<image src=\"".$iUrl."\" alt=\"".@$iTitle."\"/>\n";
+$content_buffer .= "<image src=\"".$iUrl."\" alt=\"".@$iTitle."\" />\n";
 $content_buffer .= "</td>\n";
 $content_buffer .= "</tr>\n";
 }
@@ -191,21 +191,21 @@ $item_title = mosCommonHTML::newsfeedEncoding($rssDoc,$item_title);
 $content_buffer .= "<li class=\"newsfeed".$moduleclass_sfx."\">\n";
 $content_buffer .= "<strong>\n";
 if($currItem->getLink()) {
-$content_buffer .= "<a href=\"".ampReplace($currItem->getLink())."\" target=\"_blank\">\n";
+$content_buffer .= "<a href=\"".ampReplace($currItem->getLink())."\" target=\"_blank\" title=\"".$item_title."\">\n";
 $content_buffer .= "".$item_title."</a>\n";
 } else
 if($currItem->getEnclosure()) {
 $enclosure = $currItem->getEnclosure();
 $eUrl = $enclosure->getUrl();
-$content_buffer .= "<a href=\"".ampReplace($eUrl)."\" target=\"_blank\">\n";
+$content_buffer .= "<a href=\"".ampReplace($eUrl)."\" target=\"_blank\" title=\"".$item_title."\">\n";
 $content_buffer .= "".$item_title."</a>\n";
 } else
 if(($currItem->getEnclosure()) && ($currItem->getLink())) {
 $enclosure = $currItem->getEnclosure();
 $eUrl = $enclosure->getUrl();
-$content_buffer .= "<a href=\"".ampReplace($currItem->getLink())."\" target=\"_blank\">\n";
+$content_buffer .= "<a href=\"".ampReplace($currItem->getLink())."\" target=\"_blank\" title=\"".$item_title."\">\n";
 $content_buffer .= "".$item_title."</a><br/>\n";
-$content_buffer .= "<a href=\"".ampReplace($eUrl)."\" target=\"_blank\"><u>Download</u></a>\n";
+$content_buffer .= "<a href=\"".ampReplace($eUrl)."\" target=\"_blank\" title=\"Download\"><u>Download</u></a>\n";
 }
 $content_buffer .= "</strong>\n";
 // END fix for RSS enclosure tag url not showing
@@ -223,7 +223,7 @@ $text = '';
 for($i = 0; $i < $words; $i++) {
 $text .= ' '.$texts[$i];
 }
-$text .= '...';
+$text .= '…';
 }
 }
 $content_buffer .= "<div>\n";
@@ -246,9 +246,7 @@ global $mosConfig_live_site,$mosConfig_sitename,$mosConfig_lang,$mosConfig_absol
 global $mainframe,$database,$my;
 ?>
 <table cellpadding="0" cellspacing="0" class="moduletable<?php echo $moduleclass_sfx; ?>">
-<?php
-if($module->showtitle != 0) {
-?>
+<?php if($module->showtitle != 0) { ?>
 <tr><th valign="top"><?php echo htmlspecialchars($module->title); ?></th></tr>
 <?php
 }

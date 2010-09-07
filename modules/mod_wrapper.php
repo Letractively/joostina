@@ -32,7 +32,6 @@ if (!isset($mod_wrapper_count)) {
 $mod_wrapper_count = 0;
 ?>
 <script language="javascript" type="text/javascript">
-<!--
 function iFrameHeightX(iFrameId) {
 var h = 0;
 if (!document.all) {
@@ -43,7 +42,6 @@ h = document.frames(iFrameId).document.body.scrollHeight;
 document.all[iFrameId].style.height = h + 20 + 'px';
 }
 }
-//-->
 </script>
 <?php
 }

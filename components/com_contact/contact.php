@@ -467,7 +467,7 @@ if(!$success) {
 mosErrorAlert(_CONTACT_FORM_NC);
 }
 }
-$link = sefRelToAbs('index.php?option=com_contact&task=view&contact_id='.$contact[0]->id.'&Itemid='.$Itemid);
+$link = sefRelToAbs('index.php?option=com_contact&amp;task=view&amp;contact_id='.$contact[0]->id.'&amp;Itemid='.$Itemid);
 mosRedirect($link,_THANK_MESSAGE);
 }
 }

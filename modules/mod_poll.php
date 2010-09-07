@@ -62,7 +62,6 @@ $voted = mosGetParam($_COOKIE, $cookiename, 'z');
 $validate = josSpoofValue('poll');
 ?>
 <script language="javascript" type="text/javascript">
-<!--
 function submitbutton_Poll<?php echo $z; ?>() {
 var form= document.pollxtd<?php echo $z; ?>;
 var radio= form.voteid;
@@ -83,7 +82,6 @@ if (check == 0) {
 alert('<?php echo addslashes(_NO_SELECTION); ?>');
 }
 }
-//-->
 </script>
 <form name="pollxtd<?php echo $z; ?>" method="post" action="<?php echo sefRelToAbs("index.php?option=com_poll$_Itemid"); ?>">
 <div class="poll<?php echo $moduleclass_sfx; ?>">

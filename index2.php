@@ -17,7 +17,7 @@ if((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) != 'off' || isset
 $mosConfig_live_site = 'https://'.substr($mosConfig_live_site,7);
 }
 require_once ('includes/joomla.php');
-// отображение состояния выключенного сайта
+// doctorgrif: отображение состояния выключенного сайта
 if($mosConfig_offline == 1) {
 header('HTTP/1.1 503 Service Temporarily Unavailable');
 header('Status: 503 Service Temporarily Unavailable');
@@ -124,7 +124,7 @@ $mainframe->addJS($mosConfig_live_site.'/includes/js/joomla.javascript.js');
 initGzip();
 // при активном кэшировании отправим браузеру более "правильные" заголовки
 if(!$mosConfig_caching) { // не кэшируется
-header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+header('Expires: Mon, 22 Jul 2010 05:00:00 GMT');
 header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
 header('Cache-Control: no-store, no-cache, must-revalidate');
 header('Cache-Control: post-check=0, pre-check=0',false);

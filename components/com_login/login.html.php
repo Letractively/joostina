@@ -5,6 +5,7 @@
 * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
 * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* doctorgrif: настроен вывод title для ссылок
 */
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
@@ -27,20 +28,18 @@ $params->get('pageclass_sfx'); ?>">
 <?php
 if($params->get('page_title')) {
 ?>
-<div class="componentheading<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $params->get('header_login'); ?></div>
+<div class="componentheading<?php echo $params->get('pageclass_sfx'); ?>">
+<?php echo $params->get('header_login'); ?>
+</div>
 <?php
 }
 ?>
 <div>
 <?php echo $image; ?>
-<?php
-if($params->get('description_login')) {
-?>
+<?php if($params->get('description_login')) { ?>
 <?php echo $params->get('description_login_text'); ?>
 <br /><br />
-<?php
-}
-?>
+<?php } ?>
 </div>
 </td>
 </tr>
@@ -62,22 +61,26 @@ if($params->get('description_login')) {
 <?php echo _REMEMBER_ME; ?>
 <input type="checkbox" name="remember" class="inputbox" value="yes" />
 <br />
-<a href="<?php echo sefRelToAbs('index.php?option=com_registration&amp;task=lostPassword'); ?>"><?php echo _LOST_PASSWORD; ?></a>
+<a href="<?php echo sefRelToAbs('index.php?option=com_registration&task=lostPassword'); ?>" title="<?php echo _LOST_PASSWORD; ?>"><?php echo _LOST_PASSWORD; ?></a>
 <?php
 if($params->get('registration')) {
 ?>
 <br />
 <?php echo _NO_ACCOUNT; ?>
-<a href="<?php echo sefRelToAbs('index.php?option=com_registration&amp;task=register'); ?>"><?php echo _CREATE_ACCOUNT; ?></a>
+<a href="<?php echo sefRelToAbs('index.php?option=com_registration&task=register'); ?>" title="<?php echo _CREATE_ACCOUNT; ?>"><?php echo _CREATE_ACCOUNT; ?></a>
 <?php
 }
 ?>
-<br /><br /><br />
+<br />
 </td>
 </tr>
 </table>
 </td>
-<td><div align="center"><input type="submit" name="submit" class="button" value="<?php echo _BUTTON_LOGIN; ?>" /></div></td>
+<td>
+<div align="center">
+<input type="submit" name="submit" class="button" value="<?php echo _BUTTON_LOGIN; ?>" />
+</div>
+</td>
 </tr>
 <tr>
 <td colspan="2"><noscript><?php echo _CMN_JAVASCRIPT; ?></noscript></td>
@@ -107,7 +110,9 @@ $params->get('pageclass_sfx'); ?>">
 <?php
 if($params->get('page_title')) {
 ?>
-<div class="componentheading<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $params->get('header_logout'); ?></div>
+<div class="componentheading<?php echo $params->get('pageclass_sfx'); ?>">
+<?php echo $params->get('header_logout'); ?>
+</div>
 <?php
 }
 ?>
@@ -125,7 +130,11 @@ echo $params->get('description_logout_text');
 </td>
 </tr>
 <tr>
-<td align="center"><div align="center"><input type="submit" name="Submit" class="button" value="<?php echo _BUTTON_LOGOUT; ?>" /></div></td>
+<td align="center">
+<div align="center">
+<input type="submit" name="Submit" class="button" value="<?php echo _BUTTON_LOGOUT; ?>" />
+</div>
+</td>
 </tr>
 </table>
 <?php

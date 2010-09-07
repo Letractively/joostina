@@ -17,7 +17,7 @@ p.sml{font-size:0.8em;margin-top:0;}
 .sortdown{background-position:right center;background-image:url(http://www.google.com/webmasters/sitemaps/images/sortdown.gif);background-repeat:no-repeat;font-style:italic;white-space:pre;}
 table.copyright{width:100%;border-top:1px solid #ddad08;margin-top:1em;text-align:center;padding-top:1em;vertical-align:top;}
 table.data{font-size:12px;width:100%;border:1px solid #000;}
-table.data tr.header td{background-color:#CCC;color:#FFF;font-weight:bold;font-size:14px;}
+table.data tr.header td{background-color:#ccc;color:#fff;font-weight:bold;font-size:14px;}
 -->
 ]]>
 </style>

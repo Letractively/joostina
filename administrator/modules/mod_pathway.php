@@ -6,10 +6,14 @@
 * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
 * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
 */
+
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
+
 global $option;
+
 if($option != '') {
-echo '<div class="pathway">'.$option.'</div>';
+	
+	echo '<div class="pathway">'.$option.'</div>';
 }
 ?>

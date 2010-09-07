@@ -31,6 +31,10 @@ Mambo
 Авторское право: 2000 - 2004 Miro International Pty Ltd
 Лицензия: GNU General Public License (GPL)
 
+Joomla! Украинская локализация
+Авторские права: (c) 2006-2008 Denys Nosov dgm.denys@gmail.com, 2006-2008, Joomla! Україна / Joomla! Ukraine (http://www.joomla-ua.org)
+Лицензия: GNU General Public License (GPL)
+
 Fullajax - AJAX и AHAH библиотека для мультипоточной загрузки веб страниц и других данных
 Авторское право: 2007-2008 Ruslan Sinitskiy (http://www.fullajax.ru)
 Лицензия: GNU General Public License (GPL)
@@ -69,6 +73,11 @@ Ebackup
 JCE
 Авторские права: Ryan Demmer (http://www.cellardoor.za.net)
 Лицензия: GNU General Public License (GPL)
+
+Spaw
+Авторские права: Solmetra.
+Портирование для Joostina и общая оптимизация редактора: rav, boston, Hammer, TK, joomlaforum.ru, Components Lab.
+Лицензия: GNU General Public License (GPL) 
 
 MyCheckin
 Авторские права: Bart Eversdijk (http://www.eversdijk.com)
@@ -140,8 +149,6 @@ OptimizeTables
 mod Total Users
 Авторские права: Helder Garcia (www.sounerd.com.br)
 Лицензия: GNU General Public License (GPL)
-
-
 
 KCAPTCHA
 Авторские права: Kruglov Sergei, 2006 (www.captcha.ru, www.kruglov.ru)

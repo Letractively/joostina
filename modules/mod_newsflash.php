@@ -64,21 +64,19 @@ $database->setQuery($query, 0, $items);
 $rows = $database->loadObjectList();
 $numrows = count($rows);
 // check if any results returned
+// doctorgrif: смена  table на div
 if ($numrows) {
 switch ($style) {
 case 'horiz':
-echo '<table class="moduletable'.$moduleclass_sfx.'">';
-echo '<tr>';
+echo '<div class="moduletable'.$moduleclass_sfx.'">';
 foreach ($rows as $row) {
-echo '<td>';
-output_newsflash( $row, $params, $access );
-echo '</td>';
+output_newsflash($row, $params, $access );
 }
-echo '</tr></table>';
+echo '</div>';
 break;
 case 'vert':
 foreach ($rows as $row) {
-output_newsflash($row, $params, $access ;
+output_newsflash($row, $params, $access );
 }
 break;
 case 'flash':

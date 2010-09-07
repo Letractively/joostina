@@ -59,7 +59,7 @@ formValid=false;
 alert('Вы не можете использовать префикс таблиц "old_", так как Joostina использует его для создания резервных таблиц.');
 f.DBPrefix.focus();
 formValid=false;
-} else if ( confirm('Вы уверены, что правильно ввели данные? \Joostina будет заполнять таблицы в БД, параметры которой Вы указали.')) {
+} else if ( confirm('Вы уверены, что правильно ввели данные? Joostina будет заполнять таблицы в БД, параметры которой Вы указали.')) {
 formValid=true;
 }
 return formValid;
@@ -211,6 +211,6 @@ return formValid;
 			</form>
 		</div>
 		<div class="clr"></div>
-		 <div class="ctr" id="footer"><a href="http://www.Joostina.ru" target="_blank">Joostina</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.</div>
+		 <div class="ctr" id="footer"><a href="http://www.Joostina.ru" target="_blank" title="Joostina">Joostina</a> - свободное программное обеспечение, распространяемое по лицензии GNU/GPL.</div>
 	</body>
 </html>

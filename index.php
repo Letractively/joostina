@@ -49,7 +49,7 @@ define('_INSTALL_CHECK',1);
 include ($mosConfig_absolute_path.'/offline.php');
 exit();
 }
-// отображение страницы выключенного сайта
+// doctorgrif: отображение страницы выключенного сайта
 if($mosConfig_offline == 1) {
 header('HTTP/1.1 503 Service Temporarily Unavailable');
 header('Status: 503 Service Temporarily Unavailable');
@@ -185,9 +185,9 @@ $mainframe->login();
 // Всплывающее сообщение JS
 if($message) {
 ?>
-<script language="javascript" type="text/javascript"><!--//
+<script language="javascript" type="text/javascript">
 alert("<?php echo addslashes(_LOGIN_SUCCESS); ?>");
-//--></script>
+</script>
 <?php
 }
 if($return && !(strpos($return,'com_registration') || strpos($return,'com_login'))) {
@@ -212,9 +212,9 @@ $mainframe->logout();
 // Всплывающее сообщение JS
 if($message) {
 ?>
-<script language="javascript" type="text/javascript"><!--//
+<script language="javascript" type="text/javascript">
 alert("<?php echo addslashes(_LOGOUT_SUCCESS); ?>");
-//--></script>
+</script>
 <?php
 }
 if($return && !(strpos($return,'com_registration') || strpos($return,'com_login'))) {
@@ -267,7 +267,7 @@ $_MAMBOTS->trigger('onMainbody');
 initGzip();
 // при активном кэшировании отправим браузеру более "правильные" заголовки
 if(!$mosConfig_caching) { // не кэшируется
-header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+header('Expires: Mon, 22 Jul 2010 05:00:00 GMT');
 header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
 header('Cache-Control: no-store, no-cache, must-revalidate');
 header('Cache-Control: post-check=0, pre-check=0',false);
@@ -302,13 +302,14 @@ unset($_MAMBOTS,$mainframe);
 // вывод стека всего тела страницы, уже после обработки мамботами группы onTemplate
 echo $_MOS_OPTION['mainbody'];
 // подсчет времени генерации страницы
-if($mosConfig_time_gen) {
+// doctorgrif: время генерации страницы видно только Суперадминистратору
+if($mosConfig_time_gen && $my->id == 62) {
 list($usec,$sec) = explode(" ",microtime());
 $sysstop = ((float)$usec + (float)$sec);
 echo '<div id="time_gen">'.round($sysstop - $sysstart,4).'</div>';
 }
 // вывод лога отладки
-//if($mosConfig_debug) {
+// doctorgrif: лог отладки виден только Суперадминистратору
 if($mosConfig_debug && $my->id == 62) {
 if(function_exists('memory_get_usage')) {
 $mem_usage = (memory_get_usage() - _MEM_USAGE_START);

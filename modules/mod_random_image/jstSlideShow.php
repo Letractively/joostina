@@ -17,7 +17,7 @@
 defined('_VALID_MOS') or die();
 ?>
 <script type="text/javascript">
-<!--
+//<![CDATA[
 var simpleGallery_navpanel={
 panel:{
 height:'<?php echo $panel_height;?>',
@@ -46,5 +46,5 @@ persist: false,
 pause: <?php echo $s_pause;?>, //pause between slides (msecs)
 fadeduration: <?php echo $s_fadeduration;?> //transition duration (msecs)
 })
-//-->
+//]]>
 </script>

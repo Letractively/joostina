@@ -63,8 +63,11 @@ if ($option == 'com_content' && $task == 'view') {
 $Itemid = $mainframe->getItemid($item->id);
 }
 $href = sefRelToAbs("index.php?option=com_content&amp;task=view&amp;id=$item->id&amp;Itemid=$Itemid");
+// doctorgrif: добавлен вывод title для ссылки
 ?>
-<li class="related_items<?php echo $moduleclass_sfx; ?>"><a class="related_items" href="<?php echo $href; ?>"><?php echo $item->title; ?></a></li>
+<li class="related_items<?php echo $moduleclass_sfx; ?>">
+    <a class="related_items" href="<?php echo $href; ?>" title="<?php echo $item->title; ?>"><?php echo $item->title; ?></a>
+</li>
 <?php
 }
 ?>

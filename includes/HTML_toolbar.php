@@ -18,9 +18,9 @@ function startTable() {
 ?>
 <style type="text/css">
 table#toolbar{margin-right:10px;}
-table#toolbar a.toolbar{color:#808080;text-decoration:none;display:block;border:1px solid #DDD;width:40px;padding:2px 5px 2px 5px;}
-table#toolbar a.toolbar:hover{color:#C64934;cursor:pointer;border:1px solid #c24733;background-color:#f1e8e6;padding:3px 5px 1px 5px;}
-table#toolbar a.toolbar:active{color:#FF9900;}
+table#toolbar a.toolbar{border:1px solid #ddd;color:#808080;display:block;padding:2px 5px;text-decoration:none;width:40px;}
+table#toolbar a.toolbar:hover{background-color:#f1e8e6;border:1px solid #c24733;color:#c64934;cursor:pointer;padding:3px 5px 1px 5px;}
+table#toolbar a.toolbar:active{color:#f90;}
 </style>
 <table cellpadding="0" cellspacing="3" border="0" id="toolbar">
 <tr height="60" valign="middle" align="center">

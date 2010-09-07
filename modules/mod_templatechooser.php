@@ -23,7 +23,7 @@ while ($templatefile = $templatefolder->read()) {
 if ($templatefile != "." && $templatefile != ".." && $templatefile != ".svn" && $templatefile != "css" && is_dir( $template_path.'/'.$templatefile )  ) {
 if(strlen($templatefile) > $titlelength) {
 $templatename = substr( $templatefile, 0, $titlelength-3 );
-$templatename .= "...";
+$templatename .= "…";
 } else {
 $templatename = $templatefile;
 }
@@ -40,8 +40,8 @@ if ($show_preview) {
 $onchange = "showimage()";
 ?>
 <img src="<?php echo "templates/$cur_template/template_thumbnail.png";?>" name="preview" border="1" width="<?php echo $preview_width;?>" height="<?php echo $preview_height;?>" alt="<?php echo $cur_template; ?>" />
-<script language='JavaScript1.2' type='text/javascript'>
-<!--
+<script type='text/javascript'>
+//<![CDATA[
 function showimage() {
 //if (!document.images) return;
 document.images.preview.src = 'templates/' + getSelectedValue('templateform', 'jos_change_template') + '/template_thumbnail.png';
@@ -56,7 +56,7 @@ return srcList.options[i].value;
 return null;
 }
 }
--->
+//]]>
 </script>
 <?php
 }
