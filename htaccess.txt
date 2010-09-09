@@ -64,7 +64,7 @@ deny from all
 Options Indexes
 DirectoryIndex index.php
 order deny,allow
-Options  +FollowSymLinks +Indexes +MultiViews
+Options +FollowSymLinks +Indexes -MultiViews
 
 # Включение mod_rewrite
 RewriteEngine On
@@ -138,22 +138,48 @@ RewriteRule ^(view/|content/|component/) index.php
 # RewriteRule .* /index.php?option=com_content&task=view&id=18  [R=302,L]
 ## Конец страниц ошибок
 
-## doctorgrif: Оптимизация кэша (опционально)
-# Header unset Pragma
-FileETag None
-# Header unset ETag
-## Конец
-
-## doctorgrif: "Сбрасывание" в долгий кэш файлов, которые заведомо длительно не будут изменяться (опционально)
-# <FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$">
-# Header set Cache-Control "max-age=290304000, public"
-# Header unset Last-Modified
-# </FilesMatch>
-## Конец
-
 <FilesMatch "\.(js|css)$">
 SetOutputFilter DEFLATE
 </FilesMatch>
+
+<IfModule mod_headers.c>
+<FilesMatch "\.(ico|jpeg|jpg|png|gif|swf)$">
+Header set Cache-Control "max-age=2592000, public"
+</FilesMatch>
+<FilesMatch "\.(css)$">
+Header set Cache-Control "max-age=2592000, public"
+</FilesMatch>
+<FilesMatch "\.(js)$">
+Header set Cache-Control "max-age=2592000, private"
+</FilesMatch>
+<FilesMatch "\.(x?html?)$">
+Header set Cache-Control "max-age=3600, private, must-revalidate"
+</FilesMatch>
+</IfModule>
+<ifModule mod_headers.c>
+<filesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$">
+Header unset ETag
+FileETag None
+</filesMatch>
+</ifModule>
+<ifModule mod_headers.c>
+Header unset Last-Modified
+</ifModule>
+
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresDefault "access plus 3600 seconds"
+ExpiresByType image/x-icon "access plus 2592000 seconds"
+ExpiresByType image/jpeg "access plus 2592000 seconds"
+ExpiresByType image/png "access plus 2592000 seconds"
+ExpiresByType image/gif "access plus 2592000 seconds"
+ExpiresByType application/x-shockwave-flash "access plus 2592000 seconds"
+ExpiresByType text/css "access plus 604800 seconds"
+ExpiresByType text/javascript "access plus 216000 seconds"
+ExpiresByType application/x-javascript "access plus 604800 seconds"
+ExpiresByType text/html "access plus 3600 seconds"
+ExpiresByType application/xhtml+xml "access plus 3600 seconds"
+</IfModule>
 
 ## doctorgrif: сжатие css и js файлов на сервере и корректная выдача их затем клиенту (опционально)
 # <IfModule mod_rewrite.c>
@@ -169,13 +195,11 @@ SetOutputFilter DEFLATE
 # <IfModule mod_headers.c>
 # Header append Vary User-Agent
 # <FilesMatch .*\.js.gz$>
-# Форсируют для скриптов и файлов стилей соотв. MIME-типы и Content-Encoding
 # ForceType text/javascript
 # Header set Content-Encoding: gzip
 # Header set Cache-control: private
 # </FilesMatch>
 # <FilesMatch .*\.css.gz$>
-# Форсируют для скриптов и файлов стилей соотв. MIME-типы и Content-Encoding
 # ForceType text/css
 # Header set Content-Encoding: gzip
 # Header set Cache-control: private

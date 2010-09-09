@@ -17,9 +17,7 @@ function displaylist(&$categories,&$rows,$catid,$currentcat = null,&$params,$tab
 global $hide_js;
 if($params->get('page_title')) {
 ?>
-<div class="componentheading<?php echo $params->get('pageclass_sfx'); ?>">
-	<?php echo $currentcat->header; ?>
-</div>
+<div class="componentheading<?php echo $params->get('pageclass_sfx'); ?>"><?php echo $currentcat->header; ?></div>
 <?php } ?>
 <form action="index.php" method="post" name="adminForm">
 <div width="100%" class="contentpane<?php echo $params->get('pageclass_sfx'); ?>">
@@ -143,19 +141,12 @@ global $Itemid;
 foreach($categories as $cat) {
 if($catid == $cat->catid) {
 ?>
-<li>
-	<b><?php echo stripslashes($cat->name); ?></b>&nbsp;
-	<span class="small">(<?php echo $cat->numlinks; ?>)</span>
-</li>
+<li><b><?php echo stripslashes($cat->name); ?></b>&nbsp;<span class="small">(<?php echo $cat->numlinks; ?>)</span></li>
 <?php
 } else {
 $link = 'index.php?option=com_weblinks&amp;catid='.$cat->catid.'&amp;Itemid='.$Itemid;
 ?>
-<li>
-	<a href="<?php echo sefRelToAbs($link); ?>" class="category<?php echo $params->get('pageclass_sfx'); ?>" title="<?php echo stripslashes($cat->name); ?>">
-	<?php echo stripslashes($cat->name); ?></a>&nbsp;
-	<span class="small">(<?php echo $cat->numlinks; ?>)</span>
-	</li>
+<li><a href="<?php echo sefRelToAbs($link); ?>" class="category<?php echo $params->get('pageclass_sfx'); ?>" title="<?php echo stripslashes($cat->name); ?>"><?php echo stripslashes($cat->name); ?></a>&nbsp;<span class="small">(<?php echo $cat->numlinks; ?>)</span></li>
 <?php
 }
 }
@@ -195,7 +186,6 @@ submitform( pressbutton );
 }
 }
 </script>
-
 <form action="<?php echo sefRelToAbs("index.php"); ?>" method="post" name="adminForm" id="adminForm">
 <div style="float:right;">
 <?php

@@ -151,7 +151,7 @@ $class= ($noncss ? '':' class="mostread'.$moduleclass_sfx.'"');
 // doctorgrif: вывод title для ссылки
 ?>
 <li class="<?php echo $class ?>">
-    <a href="<?php echo $link; ?>" title="<?php echo $row->title; ?>" class="<?php echo $class ?>"><?php echo $row->title . (($row->hits) ? ' (' .$row->hits. ')' : ''); ?></a>
+	<a href="<?php echo $link; ?>" title="<?php echo $row->title; ?>" class="<?php echo $class ?>"><?php echo $row->title . (($row->hits) ? ' (' .$row->hits. ')' : ''); ?></a>
 </li>
 <?php } ?>
 </ul>

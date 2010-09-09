@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<mosinstall type="mambot" group="content">
+<name>Joostina socialbot</name>
+<author>Walter Cedric doctorgrif</author>
+<creationDate>Mai 2006 Июль 2010</creationDate>
+<copyright>Walter Cedric doctorgrif</copyright>
+<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+<authorEmail>webmaster@gmail.com | artem.grafov@gmail.com</authorEmail>
+<authorUrl>http://www.waltercedric.com | http://www.hospsurg.ru</authorUrl>
+<version>1.3</version>
+<description>
+<![CDATA[
+<h3>Joostina socialbot</h3><p>Основан на оригинальном мамботе mosSociable 1.1.2 (автор <a href="http://www.waltercedric.com" target="_blank">Walter Cedric</a>, 2006).</p>
+<p>Мамбот выводит ссылки на сервисы социальных закладок.</p>
+]]>
+</description>
+<files>
+<filename mambot="joostinasocialbot">joostinasocialbot.php</filename>
+</files>
+<params>
+<param name="textbefore" type="text" default="" label="Текст до" description="Текст до закладок" />
+<param name="textafter" type="text" default="" label="Текст после" description="Текст после закладок" />
+</params>
+</mosinstall>

@@ -1,3 +1,4 @@
+/*Вынесено в базовый css*/
 /* polls Bar Colors/Formats - Follow the format to add your own. Then update the maxcolors setting for polls in components/com_poll/poll.php -> $polls_maxcolors*/
 .polls_color_1{background-color:#8d1b1b;border:2px ridge #b22222;}
 .polls_color_2{background-color:#6740e1;border:2px ridge #4169e1;}

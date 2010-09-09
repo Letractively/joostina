@@ -552,7 +552,7 @@ return implode("\n",$head)."\n";
 }
 /** добавление js файлов в шапку страницы*/
 function addJS($patch){
-$this->_head['custom'][] = '<script language="JavaScript" src="'.$patch.'" type="text/javascript"></script>';
+$this->_head['custom'][] = '<script language="javascript" src="'.$patch.'" type="text/javascript"></script>';
 }
 /** добавление css файлов в шапку страницы*/
 function addCSS($patch){
@@ -1948,11 +1948,9 @@ function CloseButton(&$params,$hide_js = null) {
 if($params->get('popup') && !$hide_js) {
 ?>
 <script language="javascript" type="text/javascript">
-<!--
 document.write('<div align="center" style="margin-top: 30px; margin-bottom: 30px;">');
 document.write('<a class="print_button" href="#" onclick="javascript:window.close();"><span class="small"><?php echo _PROMPT_CLOSE; ?></span></a>');
 document.write('</div>');
-//-->
 </script>
 <?php
 }
@@ -1998,22 +1996,20 @@ $image = _ICON_SEP.'&nbsp;'._CMN_PRINT.'&nbsp;'._ICON_SEP;
 if($params->get('popup') && !$hide_js) {
 ?>
 <script language="javascript" type="text/javascript">
-<!--
 document.write('<td align="right" width="100%" class="buttonheading">');
 document.write('<a href="#" class="print_button" onclick="javascript:window.print(); return false;" title="<?php echo _CMN_PRINT; ?>">');
 document.write('<?php echo $image; ?>');
 document.write('</a>');
 document.write('</td>');
-//-->
 </script>
 <?php
 } else {
 ?>
 <td align="right" width="100%" class="buttonheading">
 <?php if(!$mosConfig_index_print) { ?>
-<noindex><a href="#" target="_blank" onclick="window.open('<?php echo $link; ?>','win2','<?php echo $status; ?>'); return false;" title="<?php echo _CMN_PRINT; ?>"><?php echo $image; ?></a></noindex>
+<a href="#" target="_blank" onclick="window.open('<?php echo $link; ?>','win2','<?php echo $status; ?>'); return false;" title="<?php echo _CMN_PRINT; ?>"><?php echo $image; ?></a>
 <?php } else { ?>
-<noindex><a href="<?php echo $link; ?>" target="_blank" title="<?php echo _CMN_PRINT; ?>"><?php echo $image; ?></a></noindex>
+<a href="<?php echo $link; ?>" target="_blank" title="<?php echo _CMN_PRINT; ?>" rel="nofollow"><?php echo $image; ?></a>
 <?php } ; ?>
 </td>
 <?php
@@ -2033,7 +2029,7 @@ $mail = explode('@',$mail);
 $mail_parts = explode('.',$mail[1]);
 // random number
 $rand = rand(1,100000);
-$replacement = "\n <script language='JavaScript' type='text/javascript'>";
+$replacement = "\n <script language='javascript' type='text/javascript'>";
 $replacement .= "\n <!--";
 $replacement .= "\n var prefix = '&#109;a' + 'i&#108;' + '&#116;o';";
 $replacement .= "\n var path = 'hr' + 'ef' + '=';";
@@ -2070,13 +2066,13 @@ $replacement .= "\n document.write(addy".$rand.");";
 $replacement .= "\n //-->";
 $replacement .= '\n </script>';
 // XHTML compliance `No Javascript` text handling
-$replacement .= "<script language='JavaScript' type='text/javascript'>";
+$replacement .= "<script language='javascript' type='text/javascript'>";
 $replacement .= "\n <!--";
-$replacement .= "\n document.write('<span style=\'display: none;\'>');";
+$replacement .= "\n document.write('<span style=\'display:none;\'>');";
 $replacement .= "\n //-->";
 $replacement .= "\n </script>";
 $replacement .= _CLOAKING;
-$replacement .= "\n <script language='JavaScript' type='text/javascript'>";
+$replacement .= "\n <script language='javascript' type='text/javascript'>";
 $replacement .= "\n <!--";
 $replacement .= "\n document.write('</');";
 $replacement .= "\n document.write('span>');";
@@ -4712,7 +4708,7 @@ global $mosConfig_live_site,$mainframe;
 if(!defined('_CODEPRESS_LOADED')) {
 define('_CODEPRESS_LOADED',1);
 $mainframe->addJS($mosConfig_live_site.'/includes/js/codepress/codepress.js');
-?><script language="JavaScript">
+?><script language="javascript" type="text/javascript">
 CodePress.run = function() {
 CodePress.path = '<?php echo $mosConfig_live_site; ?>/includes/js/codepress/';
 t = document.getElementsByTagName('textarea');

@@ -35,21 +35,21 @@ $cur_template; ?>/css/template_css.css" type="text/css" />
 <table class="moswarning">
 <?php if($mosConfig_offline == 1) { ?>
 <tr>
-	<td>
-		<h2><?php echo $mosConfig_sitename; echo ' - '; echo $mosConfig_offline_message; ?></h2>
-	</td>
+<td>
+<h2><?php echo $mosConfig_sitename; echo ' - '; echo $mosConfig_offline_message; ?></h2>
+</td>
 </tr>
 <?php } else if(@$mosSystemError) { ?>
 <tr>
-	<td>
-		<h2><?php echo $mosConfig_error_message; ?></h2><?php echo $mosSystemError; ?>
-	</td>
+<td>
+<h2><?php echo $mosConfig_error_message; ?></h2><?php echo $mosSystemError; ?>
+</td>
 </tr>
 <?php } else { ?>
 <tr>
-	<td>
-		<h2><?php echo 'INSTALL_WARN'; ?></h2>
-	</td>
+<td>
+<h2><?php echo 'INSTALL_WARN'; ?></h2>
+</td>
 </tr>
 <?php } ?>
 </table>

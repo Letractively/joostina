@@ -70,12 +70,12 @@ echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
 if(!$mosConfig_favicon) {
 $mosConfig_favicon = 'favicon.ico';
 }
-$icon = $mosConfig_absolute_path.'/images/'.$mosConfig_favicon;
+$icon = $mosConfig_absolute_path.'/'.$mosConfig_favicon;
 // checks to see if file exists
 if(!file_exists($icon)) {
-$icon = $mosConfig_live_site.'/images/favicon.ico';
+$icon = $mosConfig_live_site.'/favicon.ico';
 } else {
-$icon = $mosConfig_live_site.'/images/'.$mosConfig_favicon;
+$icon = $mosConfig_live_site.'/'.$mosConfig_favicon;
 }
 ?>
 <link rel="shortcut icon" href="<?php echo $icon; ?>" />
@@ -87,35 +87,35 @@ $icon = $mosConfig_live_site.'/images/'.$mosConfig_favicon;
 <p>&nbsp;</p><p>&nbsp;</p>
 <table align="center" class="outline">
 <tr>
-	<td align="center" class="image">
-		<img src="<?php echo $mosConfig_live_site; ?>/images/syte_off.png" alt="Сайт выключен!" align="middle" />
-	</td>
+<td align="center" class="image">
+<img src="<?php echo $mosConfig_live_site; ?>/images/syte_off.png" alt="Сайт выключен!" align="middle" />
+</td>
 </tr>
 <tr>
-	<td align="center">
-		<h1><?php echo $mosConfig_sitename; ?></h1>
-	</td>
+<td align="center">
+<h1><?php echo $mosConfig_sitename; ?></h1>
+</td>
 </tr>
 <?php if($mosConfig_offline == 1) { ?>
 <tr>
-	<td align="center" class="offline_message">
-		<b><?php echo $mosConfig_offline_message; ?></b>
-	</td>
+<td align="center" class="offline_message">
+<b><?php echo $mosConfig_offline_message; ?></b>
+</td>
 </tr>
 <?php } else if(@$mosSystemError) { ?>
 <tr>
-	<td align="center" class="error_message">
-		<b><?php echo $mosConfig_error_message; ?></b><br />
-		<span class="err">
-		<?php echo defined('_SYSERR'.$mosSystemError)?constant('_SYSERR'.$mosSystemError):$mosSystemError; ?>
-		</span>
-	</td>
+<td align="center" class="error_message">
+<b><?php echo $mosConfig_error_message; ?></b><br />
+<span class="err">
+<?php echo defined('_SYSERR'.$mosSystemError)?constant('_SYSERR'.$mosSystemError):$mosSystemError; ?>
+</span>
+</td>
 </tr>
 <?php } else { ?>
 <tr>
-	<td align="center" class="instal_warning">
-		<b><?php echo _INSTALL_WARN; ?></b>
-	</td>
+<td align="center" class="instal_warning">
+<b><?php echo _INSTALL_WARN; ?></b>
+</td>
 </tr>
 <?php } ?>
 <tr>
@@ -125,7 +125,7 @@ $icon = $mosConfig_live_site.'/images/'.$mosConfig_favicon;
 </div>
 <div id="break"></div>
 <div id="footer_off" align="center">
-	<div align="center"><?php echo @$_VERSION->URL; ?></div>
+<div align="center"><?php echo @$_VERSION->URL; ?></div>
 </div>
 </body>
 </html>

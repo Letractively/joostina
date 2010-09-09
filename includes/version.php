@@ -28,7 +28,7 @@ var $DEV_LEVEL = '15';
 /** @var int Номер сборки */
 var $BUILD = '$: 191';
 /** @var string Кодовое имя */
-var $CODENAME = 'RC 1';
+var $CODENAME = 'RC 2';
 /** @var string Дата */
 var $RELDATE = '02.09.2010';
 /** @var string Время */

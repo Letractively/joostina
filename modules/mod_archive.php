@@ -28,7 +28,7 @@ $text= $month_name.', '.$created_year;
 // doctorgrif: вывод title для ссылки
 ?>
 <li class="archive">
-    <a class="archive" href="<?php echo $link; ?>" title="<?php echo $text; ?>"><?php echo $text; ?></a>
+	<a class="archive" href="<?php echo $link; ?>" title="<?php echo $text; ?>"><?php echo $text; ?></a>
 </li>
 <?php
 }

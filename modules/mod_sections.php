@@ -60,7 +60,7 @@ $link = sefRelToAbs("index.php?option=com_content&amp;task=blogsection&amp;id=".
 // doctorgrif: добавлен вывод title для ссылки
 ?>
 <li class="section<?php echo $moduleclass_sfx; ?>">
-    <a class="section" href="<?php echo $link;?>" title="<?php echo $row->title;?>"><?php echo $row->title;?></a>
+	<a class="section" href="<?php echo $link;?>" title="<?php echo $row->title;?>"><?php echo $row->title;?></a>
 </li>
 <?php
 }

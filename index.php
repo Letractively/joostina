@@ -266,17 +266,18 @@ $_MAMBOTS->trigger('onMainbody');
 }
 initGzip();
 // при активном кэшировании отправим браузеру более "правильные" заголовки
+// doctorgrif: правка http заголовков
 if(!$mosConfig_caching) { // не кэшируется
-header('Expires: Mon, 22 Jul 2010 05:00:00 GMT');
 header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
-header('Cache-Control: no-store, no-cache, must-revalidate');
+header('Expires: '.gmdate('D, d M Y H:i:s',time() + 3600).' GMT');
+header('Cache-Control: no-cache, must-revalidate');
 header('Cache-Control: post-check=0, pre-check=0',false);
 header('Pragma: no-cache');
-} elseif($option != 'logout' or $option != 'login') { // кэшируется
+} else { // кэшируется
 header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
-// 60*60=3600 - использования кэширования на 1 час
-header('Expires: '.gmdate('D, d M Y H:i:s',time() + 3600).' GMT');
-header('Cache-Control: max-age=3600');
+// 60*60*10=3600 - использования кэширования на 10 часов
+header('Expires: '.gmdate('D, d M Y H:i:s',time() + 36000).' GMT');
+header('Cache-Control: max-age=36000');
 }
 // отображение предупреждения о выключенном сайте, при входе админа
 if(defined('_ADMIN_OFFLINE')) {

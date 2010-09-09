@@ -166,7 +166,7 @@ $class= ($noncss ? '':' class="latestnews'.$moduleclass_sfx.'"');
 // doctorgrif: вывод title для ссылки
 ?>
 <li class="latestnews">
-    <a href="<?php echo $link; ?>" title="<?php echo $row->title; ?>" class="latestnews"><?php echo $row->title; ?></a>
+	<a href="<?php echo $link; ?>" title="<?php echo $row->title; ?>" class="latestnews"><?php echo $row->title; ?></a>
 </li>
 <?php } ?>
 </ul>
