@@ -66,7 +66,7 @@ $href = sefRelToAbs("index.php?option=com_content&amp;task=view&amp;id=$item->id
 // doctorgrif: добавлен вывод title для ссылки
 ?>
 <li class="related_items<?php echo $moduleclass_sfx; ?>">
-    <a class="related_items" href="<?php echo $href; ?>" title="<?php echo $item->title; ?>"><?php echo $item->title; ?></a>
+	<a class="related_items" href="<?php echo $href; ?>" title="<?php echo $item->title; ?>"><?php echo $item->title; ?></a>
 </li>
 <?php
 }

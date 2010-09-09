@@ -16,14 +16,15 @@ class poll_html {
 function showResults(&$poll, &$votes, $first_vote, $last_vote, $pollist, $params) {
 global $mosConfig_live_site;
 ?>
-<script type = "text/javascript">
+<!--Вынесено в базовый css-->
+<!--<script type = "text/javascript">
 var link = document.createElement('link');
 link.setAttribute('href', 'components/com_poll/poll_bars.css');
 link.setAttribute('rel', 'stylesheet');
 link.setAttribute('type', 'text/css');
 var head = document.getElementsByTagName('head').item(0);
 head.appendChild(link);
-</script>
+</script>-->
 <div class="componentheading"><h1>Опросы</h1></div>
 <form action="index.php" method="post" name="poll" id="poll">
 <?php

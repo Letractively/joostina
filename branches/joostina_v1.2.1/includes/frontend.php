@@ -349,11 +349,11 @@ if(!$mosConfig_disable_favicon) {
 if(!$mosConfig_favicon) {
 $mosConfig_favicon = 'favicon.ico';
 }
-$icon = $mosConfig_absolute_path.'/images/'.$mosConfig_favicon;
+$icon = $mosConfig_absolute_path.'/'.$mosConfig_favicon;
 if(!file_exists($icon)) {
-$icon = $mosConfig_live_site.'/images/favicon.ico';
+$icon = $mosConfig_live_site.'/favicon.ico';
 } else {
-$icon = $mosConfig_live_site.'/images/'.$mosConfig_favicon;
+$icon = $mosConfig_live_site.'/'.$mosConfig_favicon;
 }
 echo '<link rel="shortcut icon" href="'.$icon.'" />';
 }

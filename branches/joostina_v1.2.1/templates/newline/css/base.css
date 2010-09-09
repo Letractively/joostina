@@ -873,7 +873,15 @@ table.com_poll th.poll_graph {}
 table.com_poll td {font-size:1em;padding:4px;}
 table.com_poll td.poll_hits {text-align:center;}
 table.com_poll td.poll_percent {text-align:center;}
-table.com_poll th.poll_graph {text-align:center;}
+table.com_poll th.poll_graph {text-align:center;}/* polls Outside Table Border */
+.pollstableborder{border:0;padding:2px;}
+/* polls Bar Colors/Formats - Follow the format to add your own. Then update the maxcolors setting for polls in components/com_poll/poll.php -> $polls_maxcolors*/
+	.polls_color_1{background-color:#8d1b1b;border:2px ridge #b22222;}
+	.polls_color_2{background-color:#6740e1;border:2px ridge #4169e1;}
+	.polls_color_3{background-color:#8d8d8d;border:2px ridge #d2d2d2;}
+	.polls_color_4{background-color:#cc8500;border:2px ridge #ffa500;}
+	.polls_color_5{background-color:#5b781e;border:2px ridge #6b8e23;}
+
 /* Syndicate*/
 .syndicate {float:left;overflow:hidden;}
 	.syndicate a.RSS20, .syndicate a.Yandex, .syndicate a.RSS091, .syndicate a.RSS10, .syndicate a.ATOM03, .syndicate a.OPML {
@@ -909,17 +917,17 @@ white-space:nowrap;
 width:auto;
 z-index:1;
 }
-#userInfo.dynamic-tab-pane-control .tab-page {
-background:#fcfcfe;
-border-top:2px solid #e7e7e7;
-float:left;
-margin-left:1px;
-padding:20px;
-position:relative;
-text-align:left;
-top:0;
-z-index:0;
-}
+	#userInfo.dynamic-tab-pane-control .tab-page {
+	background:#fcfcfe;
+	border-top:2px solid #e7e7e7;
+	float:left;
+	margin-left:1px;
+	padding:20px;
+	position:relative;
+	text-align:left;
+	top:0;
+	z-index:0;
+	}
 table#toolbar a.toolbar, table#toolbar a.toolbar img {border:none;}
 #mosUserForm td.pkey {font-weight:bold;width:200px;}
 #mosUserForm textarea, #mosUserForm input {width:90%;}
