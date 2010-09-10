@@ -46,11 +46,11 @@ $gid = intval($my->gid);
 // в зависимости от использования автоперекодировки в UTF-8
 if($utf_conv){
 header("Content-type: text/html; charset=utf-8");
-header ("Cache-Control: no-cache, must-revalidate ");
+//header ("Cache-Control: no-cache, must-revalidate ");
 ob_start();
-}else{
+} else {
 header("Content-type: text/html; "._ISO);
-header ("Cache-Control: no-cache, must-revalidate ");
+//header ("Cache-Control: no-cache, must-revalidate ");
 }
 // проверяем, какой файл необходимо подключить, данные берутся из пришедшего GET запроса
 if(file_exists($mosConfig_absolute_path."/components/$option/$commponent.ajax.php")) {

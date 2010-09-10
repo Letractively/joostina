@@ -187,7 +187,7 @@ class xajax {
 			if(!empty($_POST["xajaxargs"]))
 				$aArgs = $_POST["xajaxargs"];
 		} else {
-			header("Expires: Mon, 22 Jul 2020 05:00:00 GMT");
+			header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 			header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
 			header("Cache-Control: no-cache, must-revalidate");
 			header("Pragma: no-cache");

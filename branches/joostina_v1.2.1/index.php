@@ -185,9 +185,7 @@ $mainframe->login();
 // Всплывающее сообщение JS
 if($message) {
 ?>
-<script language="javascript" type="text/javascript">
-alert("<?php echo addslashes(_LOGIN_SUCCESS); ?>");
-</script>
+<script language="javascript" type="text/javascript">alert("<?php echo addslashes(_LOGIN_SUCCESS); ?>");</script>
 <?php
 }
 if($return && !(strpos($return,'com_registration') || strpos($return,'com_login'))) {
@@ -212,9 +210,7 @@ $mainframe->logout();
 // Всплывающее сообщение JS
 if($message) {
 ?>
-<script language="javascript" type="text/javascript">
-alert("<?php echo addslashes(_LOGOUT_SUCCESS); ?>");
-</script>
+<script language="javascript" type="text/javascript">alert("<?php echo addslashes(_LOGOUT_SUCCESS); ?>");</script>
 <?php
 }
 if($return && !(strpos($return,'com_registration') || strpos($return,'com_login'))) {
@@ -267,17 +263,19 @@ $_MAMBOTS->trigger('onMainbody');
 initGzip();
 // при активном кэшировании отправим браузеру более "правильные" заголовки
 // doctorgrif: правка http заголовков
-if(!$mosConfig_caching) { // не кэшируется
-header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
-header('Expires: '.gmdate('D, d M Y H:i:s',time() + 3600).' GMT');
-header('Cache-Control: no-cache, must-revalidate');
+if(!$mosConfig_caching == 0) { // не кэшируется
+// не кэшируется
+header('Expires: '.gmdate('D, d M Y H:i:s').' GMT');
+header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); 
+header("Cache-Control: no-cache, must-revalidate"); 
 header('Cache-Control: post-check=0, pre-check=0',false);
 header('Pragma: no-cache');
-} else { // кэшируется
+} else {
+// кэшируется
+header('Expires: '.gmdate('D, d M Y H:i:s').' GMT');
 header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
-// 60*60*10=3600 - использования кэширования на 10 часов
-header('Expires: '.gmdate('D, d M Y H:i:s',time() + 36000).' GMT');
-header('Cache-Control: max-age=36000');
+header('Cache-Control: public');
+header('Cache-Control: max-age=3600');
 }
 // отображение предупреждения о выключенном сайте, при входе админа
 if(defined('_ADMIN_OFFLINE')) {
