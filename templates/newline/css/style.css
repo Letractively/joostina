@@ -234,12 +234,12 @@ a {border:none;}
 			a[href$=".rss"] {background-image: url(../images/typo/icon_rss.gif);}
 			a[href^="aim:"] {background-image: url(../images/typo/icon_aim.gif);}
 			a[class~="popup"] {background-image:url(../images/typo/icon_popup.gif);}
-			a[href^="http://joostina"] { /*Change "joostina" on your site_name.domen_zone (site.ru or www.site.ru - see the name by $mosConfig_live_site) and delete this comment-line*/
+			a[href^="http://joostina"] { /*»змените "joostina" на ваш домен (site.ru or www.site.ru - подсмотреть можно в переменной $mosConfig_live_site конфигурации)*/
 			background:none;
 			padding:0;
 			margin:0;
 			}
-			a[href^="http://www.joostina.ru"], a[class~="mainlevel"], a[class~="ps"], a tablle[class~="banners"], a[class~="sociable"] { /*Don't change!!! If you change its - all on your risk (think by your brane, before anyting changing)*/
+			a[href^="http://www.joostina.ru"], a[class~="mainlevel"], a[class~="ps"], a tablle[class~="banners"], a[class~="sociable"] { /*Ќе мен€йте!!!*/
 			background:none;
 			padding:0;
 			margin:0;
@@ -254,7 +254,6 @@ margin-right:2em;
 margin-top:1em;
 margin-bottom:1em;
 padding-top:1.5em;
-/*quotes: "У" "Ф" "С" "Т";*/
 }
 	blockquote p {
 	font:italic 1.1em/1.4em 'Palatino', Georgia, 'Times New Roman', serif;
@@ -280,7 +279,7 @@ img {-ms-interpolation-mode:bicubic;}
 	margin:0;
 	padding:0;}
 	.mosimage_caption {font:normal .8em/1.1em 'Palatino', Georgia, 'Times New Roman', serif;font-weight:600;}
-	/*Special class for counters, search, socialbookmarcks images with opacity*/
+	/*ѕрозрачность дл€ валидаторов, поисковых систем, социальных закладок*/
 	.valid img, .ps img {
 	border:none;
 	margin:0;
@@ -360,7 +359,6 @@ input, select, textarea {font-size:1em;vertical-align:middle;}
 	input[type="radio"] {vertical-align:middle;}
 	*:first-child + html input [type=radio] {margin:0;}
 	input[type="checkbox"] {vertical-align:baseline;}
-/*.ie6 input {vertical-align:text-bottom;}*/
 	input[type="button"], input[type="submit"] {cursor:pointer;}
 		textarea:focus, input:focus { 
 		background:#f9f9f9;
@@ -1223,6 +1221,7 @@ padding:0 0 0 36px;
 }
 .top_menu_2 {background:url(../images/topmenu_right.png) no-repeat top right;padding:0 24px 0 0;}
 ul#mainlevel-nav {
+background:url(../images/topmenu_bg.png) repeat-x center;
 display:block;
 font-size:18px;
 height:51px;

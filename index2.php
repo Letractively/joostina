@@ -124,17 +124,19 @@ $mainframe->addJS($mosConfig_live_site.'/includes/js/joomla.javascript.js');
 initGzip();
 // при активном кэшировании отправим браузеру более "правильные" заголовки
 // doctorgrif: правка http заголовков
-if(!$mosConfig_caching) { // не кэшируется
-header('Last-Modified: '.gmdate('D, d M Y H:i:s',time() + 3600).' GMT');
+if(!$mosConfig_caching == 0) { // не кэшируется
+// не кэшируется
 header('Expires: '.gmdate('D, d M Y H:i:s').' GMT');
-header('Cache-Control: no-cache, must-revalidate');
+header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); 
+header("Cache-Control: no-cache, must-revalidate"); 
 header('Cache-Control: post-check=0, pre-check=0',false);
 header('Pragma: no-cache');
-} else { // кэшируется
+} else {
+// кэшируется
+header('Expires: '.gmdate('D, d M Y H:i:s').' GMT');
 header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
-// 60*60*10=36000 - использования кэширования на 10 часов
-header('Expires: '.gmdate('D, d M Y H:i:s',time() + 36000).' GMT');
-header('Cache-Control: max-age=36000');
+header('Cache-Control: public');
+header('Cache-Control: max-age=3600');
 }
 // отображение состояния выключенного сайта при входе админа
 if(defined('_ADMIN_OFFLINE')) {
@@ -146,7 +148,7 @@ $customIndex2 = 'templates/'.$mainframe->getTemplate().'/index2.php';
 if(file_exists($customIndex2)) {
 require ($customIndex2);
 } else {
-// требуется для отделения номера ISO от константы  _ISO языкового файла языка
+// требуется для отделения номера ISO от константы _ISO языкового файла языка
 $iso = split('=',_ISO);
 // пролог xml
 echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';

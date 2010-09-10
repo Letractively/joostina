@@ -58,7 +58,6 @@ MooTools
 Авторские права: (c) 2006-2007 Valerio Proietti (http://mad4milk.net)
 Лицензия: MIT Style License.
 
-
 PHP Client Sniffer (phpsniff)
 Авторские права: (с) 2002-2004 Roger Raymond
 Лицензия: GNU Lesser General Public License (LGPL)
@@ -188,7 +187,6 @@ CodePress
 dtree + Andrew Eddie patch
 Авторское право: (c) 2002-2003 Geir Landr (www.destroydrop.com/javascript/tree/)
 Лицензия: GNU General Public License (GPL)
-
 
 patTemplate, patError
 Авторское право: Stephan Schmidt

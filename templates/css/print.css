@@ -17,6 +17,7 @@ h1{font-family:Arial, Helvetica, sans-serif;font-weight:normal;font-size:17px;te
 h2{font-family:Arial, Helvetica, sans-serif;font-weight:normal;font-size:160%;text-align:left!important;}
 .contentheading h1{font-family:Arial, Helvetica, sans-serif !important;font-size:160%!important;text-align:left !important;color:#000 !important;border:none !important;line-height:normal;font-weight:normal !important;padding:15px 0 10px 0 !important;}
 div.logo{font-family:Arial, Helvetica, sans-serif !important;font-size:17px !important;font-weight:bold !important;width:100%;padding-bottom:5px !important;margin-bottom:5px !important;border-bottom:1px solid #999 !important;clear:both;color:#888 !important;}
+div.sociable {display:none;}
 @media screen{
 .printOnly, #ju_foo, span.ju_pr{display:none;}
 }
@@ -33,4 +34,5 @@ div.logo{font-weight:normal !important;}
 #ju_foo{padding-top:10px;font-size:11px;color:#444;line-height:normal !important;}
 span.ju_pr{visibility:visible;font-size:9px;margin-top:20px;display:block;color:#777 !important;line-height:normal !important;text-decoration:none;font-weight:normal !important;}
 span.ju_pr a{color:#777 !important;text-decoration:none;font-weight:normal!important;}
+div.sociable {display:none;}
 }

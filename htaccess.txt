@@ -7,6 +7,7 @@
 # @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 # Joomla! - свободное программное обеспечение.
 # @translator Sourpuss (Sourpuss@mail.ru)
+# @upd doctorgrif (artem.grafov@gmail.com)
 ##
 # ----======= ВНИМАНИЕ!!! ОБЯЗАТЕЛЬНО УСТАНОВИТЕ CHMOD 644 НА ЭТОТ ФАЙЛ  =======---- 
 # Установка кодировки сайта по умолчанию. При необходимости, закомментируйте.
@@ -63,15 +64,39 @@ deny from all
 ##  Может быть закомментировано, если вызывает ошибку сервера. Смотрите примечания выше.
 Options Indexes
 DirectoryIndex index.php
-order deny,allow
+# order deny,allow
 Options +FollowSymLinks +Indexes -MultiViews
+
+AddType "application/x-rar-compressed" .rar
+# AddType "image/x-icon" .ico
+
+## Начало страниц ошибок
+# ErrorDocument 400 400.html
+# ErrorDocument 401 401html
+# ErrorDocument 402 402.html
+# ErrorDocument 403 403.html
+# 404 ошибка (404 Not found) - страницу 404 создаем, публикуем в меню, но не выводим (снимаем с публикации), ссылку копируем.
+# ErrorDocument 404 /index.php?option=com_content&task=view&id=18 
+# По аналогии можно создать страницы для других ошибок (400, 403, 500, etc.)
+# ErrorDocument 405 405.html
+# ErrorDocument 406 406.html
+# ErrorDocument 407 407.html
+# ErrorDocument 408 408.html
+# ErrorDocument 409 409.html
+# ErrorDocument 410 410.html
+# ErrorDocument 411 411.html
+# ErrorDocument 412 412.html
+# ErrorDocument 413 413.html
+# ErrorDocument 414 414.html
+# ErrorDocument 500 500.html
+# ErrorDocument 501 501.html
+# ErrorDocument 502 502.html
+# ErrorDocument 503 503.html
+# ErrorDocument 504 504.html
+# ErrorDocument 505 505.html
 
 # Включение mod_rewrite
 RewriteEngine On
-
-# Раскомментируйте следующую строку, если URL вашего web-сервера не связаны напрямую с физическими путями файлов.
-# Обновите Ваш каталог Joomla (используйте "/" для обозначения корня сервера)
-# RewriteBase /
 
 ## Начало раздела стандартного SEF
 # Используйте эту секцию ТОЛЬКО для работы встроенного SEF Joomla.
@@ -93,38 +118,6 @@ RewriteRule ^(view/|content/|component/) index.php
 # RewriteRule (.*) index.php
 ## Конец раздела SEF сторонних разработчиков или Core SEF
 
-## Начало страниц ошибок
-# ErrorDocument 400 400.html
-# ErrorDocument 401 401html
-# ErrorDocument 402 402.html
-# ErrorDocument 403 403.html
-# ErrorDocument 404 404.html
-# ErrorDocument 405 405.html
-# ErrorDocument 406 406.html
-# ErrorDocument 407 407.html
-# ErrorDocument 408 408.html
-# ErrorDocument 409 409.html
-# ErrorDocument 410 410.html
-# ErrorDocument 411 411.html
-# ErrorDocument 412 412.html
-# ErrorDocument 413 413.html
-# ErrorDocument 414 414.html
-# ErrorDocument 500 500.html
-# ErrorDocument 501 501.html
-# ErrorDocument 502 502.html
-# ErrorDocument 503 503.html
-# ErrorDocument 504 504.html
-# ErrorDocument 505 505.html
-
-# 404 ошибка (404 Not found) - дополнительно для самостоятельного изучения
-# ErrorDocument 404 /index.php?option=com_content&task=view&id=18 
-# Ссылка дана на условную страницу ошибки 404, при необходимости исправте на ссылку вашей страницы ошибки.
-# Чаще всего в ее роли выступает статическое содержимое, для получения ссылки опубликуйте страницу в каком-либо из меню
-# (желательно в том, которое не будет отображаться на сайте) и раскомментируйте данную строку.
-# В качестве страницы ошибки может выступать и отдельная *.html страница, размещенная в корне сайта. Тогда строка будет выглядеть так:
-# ErrorDocument 404 /page404.html (название условно).
-# По аналогии можно создать страницы для других ошибок (400, 403, 500, etc.)
-
 # 503 ошибка (503 Service Temporarily Unavailable) - дополнительно для самостоятельного изучения
 # Отсылаем 503 ошибку роботам (перечмслены только Google роботы, остальные добавляются по аналогии,
 # список HTTP_USER_AGENT роботов спрашивать у www.google.com)
@@ -135,77 +128,8 @@ RewriteRule ^(view/|content/|component/) index.php
 # RewriteCond %{REMOTE_HOST} !^XXX\.XXX\.XXX\.XXX
 # RewriteCond %{REQUEST_URI} !^/templates/404\.php [NC]
 # Страницу 404 мы уже задали выше (line 71), вот ее родимую и отдаем электорату
-# RewriteRule .* /index.php?option=com_content&task=view&id=18  [R=302,L]
+# RewriteRule .* /index.php?option=com_content&task=view&id=18 [R=302,L]
 ## Конец страниц ошибок
-
-<FilesMatch "\.(js|css)$">
-SetOutputFilter DEFLATE
-</FilesMatch>
-
-<IfModule mod_headers.c>
-<FilesMatch "\.(ico|jpeg|jpg|png|gif|swf)$">
-Header set Cache-Control "max-age=2592000, public"
-</FilesMatch>
-<FilesMatch "\.(css)$">
-Header set Cache-Control "max-age=2592000, public"
-</FilesMatch>
-<FilesMatch "\.(js)$">
-Header set Cache-Control "max-age=2592000, private"
-</FilesMatch>
-<FilesMatch "\.(x?html?)$">
-Header set Cache-Control "max-age=3600, private, must-revalidate"
-</FilesMatch>
-</IfModule>
-<ifModule mod_headers.c>
-<filesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$">
-Header unset ETag
-FileETag None
-</filesMatch>
-</ifModule>
-<ifModule mod_headers.c>
-Header unset Last-Modified
-</ifModule>
-
-<IfModule mod_expires.c>
-ExpiresActive On
-ExpiresDefault "access plus 3600 seconds"
-ExpiresByType image/x-icon "access plus 2592000 seconds"
-ExpiresByType image/jpeg "access plus 2592000 seconds"
-ExpiresByType image/png "access plus 2592000 seconds"
-ExpiresByType image/gif "access plus 2592000 seconds"
-ExpiresByType application/x-shockwave-flash "access plus 2592000 seconds"
-ExpiresByType text/css "access plus 604800 seconds"
-ExpiresByType text/javascript "access plus 216000 seconds"
-ExpiresByType application/x-javascript "access plus 604800 seconds"
-ExpiresByType text/html "access plus 3600 seconds"
-ExpiresByType application/xhtml+xml "access plus 3600 seconds"
-</IfModule>
-
-## doctorgrif: сжатие css и js файлов на сервере и корректная выдача их затем клиенту (опционально)
-# <IfModule mod_rewrite.c>
-# RewriteEngine On
-# AddEncoding gzip .gz
-# RewriteCond %{HTTP:Accept-encoding} !gzip [OR]
-# RewriteCond %{HTTP_USER_AGENT} Safari [OR]
-# RewriteCond %{HTTP_USER_AGENT} Konqueror
-# RewriteRule ^(.*)\.gz(\?.+)?$ $1 [QSA,L] 
-# К статичным ресурсам можно добавлять уникальные GET-строки, чтобы перегружать кеш на клиенте
-# (если ресурс поменялся, то обновить его в кеше, иначе клиенты видят старую версию) - например, foo.css.gz?v1234.
-# </IfModule>
-# <IfModule mod_headers.c>
-# Header append Vary User-Agent
-# <FilesMatch .*\.js.gz$>
-# ForceType text/javascript
-# Header set Content-Encoding: gzip
-# Header set Cache-control: private
-# </FilesMatch>
-# <FilesMatch .*\.css.gz$>
-# ForceType text/css
-# Header set Content-Encoding: gzip
-# Header set Cache-control: private
-# </FilesMatch>
-# </IfModule>
-## Конец
 
 ## doctorgrif: (на всякий случай) Редирект с FeedBurner для Google AdSence - заворачивает трафик на ваш сайт
 # RewriteCond %{HTTP_USER_AGENT} !FeedBurner
@@ -240,4 +164,102 @@ redirect /d http://www.microsoft.com
 redirect /_mem_bin http://www.microsoft.com
 redirect /msadc http://www.microsoft.com
 RedirectMatch (.*)\cmd.exe$ http://www.microsoft.com$1
+## Конец
+
+# Раскомментируйте следующую строку, если URL вашего web-сервера не связаны напрямую с физическими путями файлов.
+# Обновите Ваш каталог Joomla (используйте "/" для обозначения корня сервера)
+# RewriteBase /
+
+<FilesMatch "\.(js|css)$">
+SetOutputFilter DEFLATE
+</FilesMatch>
+
+## Для Apache 1.* - если у вас эта версия - расскомментируйте, закомментировав правила для Apache 2.*
+FileETag MTime Size
+Header unset Pragma
+FileETag None
+Header unset ETag
+<FilesMatch "\.(pdf|flv|jpg|jpeg|png|gif|js|css|swf|flv|doc|xls|zip|rar|tar|gz|tgz|7z)$">
+Header set Cache-Control "max-age=290304000, public"
+Header unset Last-Modified
+</FilesMatch>
+<FilesMatch "\.(ico)$">
+Header set Cache-Control "max-age=290304000, public"
+Header unset Last-Modified
+</FilesMatch>
+<FilesMatch "\.(php|html|htm|xml)$">
+Header set Cache-Control "max-age=3600, public"
+</FilesMatch>
+
+## Для Apache 2.* - если у вас эта версия - расскомментируйте правила ниже (до вызова mod_rewrite.c), закомментировав правила для Apache 1.*
+# <ifmodule mod_expires.c>
+# <filesmatch ".(ico|jpg|gif|png|css|js)$">
+# ExpiresActive on
+# ExpiresDefault "access plus 1 year"
+# </filesmatch>
+# </ifmodule>
+
+# <IfModule mod_headers.c>
+# <FilesMatch "\.(ico|jpeg|jpg|png|gif|swf)$">
+# Header set Cache-Control "max-age=2592000, public"
+# </FilesMatch>
+# <FilesMatch "\.(css)$">
+# Header set Cache-Control "max-age=2592000, public"
+# </FilesMatch>
+# <FilesMatch "\.(js)$">
+# Header set Cache-Control "max-age=2592000, private"
+# </FilesMatch>
+# <FilesMatch "\.(x?html?)$">
+# Header set Cache-Control "max-age=3600, private, must-revalidate"
+# </FilesMatch>
+# </IfModule>
+# <ifModule mod_headers.c>
+# <filesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$">
+# Header unset ETag
+# FileETag None
+# </filesMatch>
+# </ifModule>
+# <ifModule mod_headers.c>
+# Header unset Last-Modified
+# </ifModule>
+
+# <IfModule mod_expires.c>
+# ExpiresActive On
+# ExpiresDefault "access plus 3600 seconds"
+# ExpiresByType image/x-icon "access plus 1 year"
+# ExpiresByType image/jpeg "access plus 1 year"
+# ExpiresByType image/png "access plus 1 year"
+# ExpiresByType image/gif "access plus 1 year"
+# ExpiresByType application/x-shockwave-flash "access plus 1 year"
+# ExpiresByType text/css "access plus 604800 seconds"
+# ExpiresByType text/javascript "access plus 1 year"
+# ExpiresByType application/x-javascript "access plus 1 year"
+# ExpiresByType text/html "access plus 3600 seconds"
+# ExpiresByType application/xhtml+xml "access plus 3600 seconds"
+# </IfModule>
+
+## doctorgrif: сжатие css и js файлов на сервере и корректная выдача их затем клиенту (опционально)
+# <IfModule mod_rewrite.c>
+# RewriteEngine On
+# AddEncoding gzip .gz
+# RewriteCond %{HTTP:Accept-encoding} !gzip [OR]
+# RewriteCond %{HTTP_USER_AGENT} Safari [OR]
+# RewriteCond %{HTTP_USER_AGENT} Konqueror
+# RewriteRule ^(.*)\.gz(\?.+)?$ $1 [QSA,L] 
+# К статичным ресурсам можно добавлять уникальные GET-строки, чтобы перегружать кеш на клиенте
+# (если ресурс поменялся, то обновить его в кеше, иначе клиенты видят старую версию) - например, foo.css.gz?v1234.
+# </IfModule>
+# <IfModule mod_headers.c>
+# Header append Vary User-Agent
+# <FilesMatch .*\.js.gz$>
+# ForceType text/javascript
+# Header set Content-Encoding: gzip
+# Header set Cache-control: private
+# </FilesMatch>
+# <FilesMatch .*\.css.gz$>
+# ForceType text/css
+# Header set Content-Encoding: gzip
+# Header set Cache-control: private
+# </FilesMatch>
+# </IfModule>
 ## Конец
