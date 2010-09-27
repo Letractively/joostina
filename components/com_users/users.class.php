@@ -371,7 +371,7 @@ class mosUser extends mosDBTable {
         }else {
             $delta = DateAndTime::getDelta(DateAndTime::mysql_to_unix($user->user_extra->birthdate), DateAndTime::mysql_to_unix(_CURRENT_SERVER_TIME));
             $age = $delta['year'];
-            return $age.' '.Text::_declension($age ,array(_YEAR, _YEAR_, _YEARS));
+            return $age.' '.Text::declension($age ,array(_YEAR, _YEAR_, _YEARS));
         }
 
     }

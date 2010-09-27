@@ -9,6 +9,7 @@
 
 define('_VALID_MOS',1);
 
+
 if(file_exists('../configuration.php') && filesize('../configuration.php') > 10) {
 	header("Location: ../index.php");
 	exit();

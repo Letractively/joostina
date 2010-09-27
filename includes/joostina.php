@@ -5185,6 +5185,7 @@ class mosAdminMenus {
 		foreach($menus as $menu) {
 			$params = mosParseParams($menu->params);
 			if(!in_array($params->menutype, $menus_arr)) {
+				$menuselect[$i] = new stdClass();
 				$menuselect[$i]->value = $params->menutype;
 				$menuselect[$i]->text = $params->menutype;
 				$menus_arr[$i]= $params->menutype;
@@ -5600,7 +5601,7 @@ class mosCommonHTML {
 		if($overlib) {
 			$date = mosFormatDate($row->checked_out_time,'%A, %d %B %Y');
 			$time = mosFormatDate($row->checked_out_time,'%H:%M');
-			$editor = addslashes(htmlspecialchars(html_entity_decode($row->editor,ENT_QUOTES)));
+			$editor = addslashes(htmlspecialchars(html_entity_decode($row->editor,ENT_QUOTES,'UTF-8')));
 			$checked_out_text = '<table>';
 			$checked_out_text = '<tr><td>'.$editor.'</td></tr>';
 			$checked_out_text .= '<tr><td>'.$date.'</td></tr>';
@@ -6451,7 +6452,7 @@ class joostina_api {
 	 * $type - параметр конвертации, по умолчанию конвертируется из utf-8.
 	 **/
 	// это больше НЕ требуется
-	function convert($text,$type = null) {
+	public static function convert($text,$type = null) {
 		return $text;
 	}
 
@@ -6459,7 +6460,7 @@ class joostina_api {
 	 * Оптимизация таблиц базы данных
 	 * Основано на мамботе OptimizeTables - smart (C) 2006, Joomlaportal.ru. All rights reserved
 	 */
-	function optimizetables() {
+	public static function optimizetables() {
 		if(mt_rand(1,50)==1) {
 			register_shutdown_function('_optimizetables');
 		}

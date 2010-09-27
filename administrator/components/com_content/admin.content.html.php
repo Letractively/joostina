@@ -43,7 +43,7 @@ class ContentView {
 	 * Writes a list of the content items
 	 * @param array An array of content objects
 	 */
-	function showArchive(&$rows,$section,&$lists,$search,$pageNav,$option,$all = null,$redirect) {
+	public static function showArchive(&$rows,$section,&$lists,$search,$pageNav,$option,$all = null,$redirect) {
 		global $my,$acl;
 		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
@@ -59,7 +59,7 @@ class ContentView {
 	 * @param mosContent The category object
 	 * @param string The html for the groups select list
 	 */
-	function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$params,$option,$redirect,&$menus) {
+	public static function editContent(&$row,$section,&$lists,&$sectioncategories,&$images,&$params,$option,$redirect,&$menus) {
 
 		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images';
@@ -95,7 +95,7 @@ class ContentView {
 	 * @param int The current section we are looking at
 	 * @param array The list of sections and categories to move to
 	 */
-	function moveSection($cid,$sectCatList,$option,$sectionid,$items) {
+	public static function moveSection($cid,$sectCatList,$option,$sectionid,$items) {
 		$mainframe = mosMainFrame::getInstance();
 		include_once($mainframe->adminView('movesection'));
 	}
@@ -103,11 +103,12 @@ class ContentView {
 	/**
 	 * Form to select Section/Category to copys item(s) to
 	 */
-	function copySection($option,$cid,$sectCatList,$sectionid,$items) {
+	public static function copySection($option,$cid,$sectCatList,$sectionid,$items) {
 		$mainframe = mosMainFrame::getInstance();
 		include_once($mainframe->adminView('copysection'));
 	}
-	function submit($params) {
+
+	public static function submit($params) {
 		mosCommonHTML::loadOverlib();
 		echo $params->render(null);
 	}

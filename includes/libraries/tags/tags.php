@@ -191,7 +191,7 @@ class TagsCloud {
 	}
 
 	// проверить необходимость
-	function tagscloud($tags) {
+	function gettagscloud($tags) {
 		$tags_list = array();
 
 		foreach ($tags as $tag) {
@@ -216,7 +216,7 @@ class TagsCloud {
 
 		$cloud = Array();
 
-		$tags_list = self::tagscloud($this->tags);
+		$tags_list = self::gettagscloud($this->tags);
 		$min_count = self::get_min_count($tags_list);
 
 		foreach ($tags_list as $tag => $count) {

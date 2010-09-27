@@ -558,7 +558,7 @@ class mosParameters {
     /**
      * special handling for textarea param
      */
-    function textareaHandling(&$txt) {
+	public static function textareaHandling(&$txt) {
         $total = count($txt);
         for($i = 0; $i < $total; $i++) {
             if(strstr($txt[$i],"\n")) {

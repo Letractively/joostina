@@ -46,7 +46,7 @@ class joomlaVersion {
 	/** @var string Whether site has restricted functionality mostly used for demo sites: 0 is default*/
 	var $RESTRICT = 0;
 	/** @var string Whether site is still in development phase (disables checks for /installation folder) - should be set to 0 for package release: 0 is default*/
-	var $SVN = 1;
+	var $SVN = 0;
 	/** @var string ссылки на сайты поддержки*/
 	var $SUPPORT = 'Поддержка: <a href="http://www.joostina.ru" target="_blank" title="Официальный сайт CMS Joostina">www.joostina.ru</a> | <a href="http://www.joomlaportal.ru" target="_blank" title="Joomla! CMS по-русски">www.joomlaportal.ru</a> | <a href="http://www.joom.ru" target="_blank" title="Русский дом Joomla">www.joom.ru</a> | <a href="http://www.joomla.ru" target="_blank" title="Бесплатная система управления сайтом Joomla!">www.joomla.ru</a>';
 	/** * @return string Длинный формат версии */

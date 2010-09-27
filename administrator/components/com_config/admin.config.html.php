@@ -518,11 +518,11 @@ class HTML_config {
 				<td><?php echo $lists['offset'];?></td>
 			</tr>
 			<tr>
-				<td width="185"><?php echo mosToolTip(_LINK_TITLES2,'','','',_TIME_DIFF)?>:</td>
+				<td width="185"><?php echo mosToolTip(_TIME_DIFF2,'','','',_TIME_DIFF)?>:</td>
 				<td><input class="text_area" type="text" name="config_offset" size="15" value="<?php echo $row->config_offset; ?>" disabled="disabled"/></td>
 			</tr>
 			<tr>
-				<td width="185"><?php echo mosToolTip(_CURR_DATE_TIME_RSS.": ".mosCurrentDate(_DATE_FORMAT_LC2),'','','',_TIME_DIFF2)?>:</td>
+				<td width="185"><?php echo mosToolTip(_CURR_DATE_TIME_RSS.": ".mosCurrentDate(_DATE_FORMAT_LC2),'','','',_CURR_DATE_TIME_RSS)?>:</td>
 				<td><?php echo $lists['feed_timeoffset']; ?></td>
 			</tr>
 			<tr>

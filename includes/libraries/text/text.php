@@ -20,7 +20,7 @@ class Text {
 	 * @param integer $int
 	 * @param array $expressions Например: array("ответ", "ответа", "ответов")
 	 */
-	function _declension($int, $expressions) {
+	public static function declension($int, $expressions) {
 		if (count($expressions) < 3) {
 			$expressions[2] = $expressions[1];
 		};
@@ -53,7 +53,7 @@ class Text {
 	 * @param	string	the end character. Usually an ellipsis
 	 * @return	string
 	 */
-	function word_limiter($str, $limit = 100, $end_char = '&#8230;') {
+	public static function word_limiter($str, $limit = 100, $end_char = '&#8230;') {
 		if (Jstring::trim($str) == '') {
 			return $str;
 		}
@@ -115,7 +115,7 @@ class Text {
 	 * @param	string	the optional replacement value
 	 * @return	string
 	 */
-	function word_censor($str, $censored, $replacement = '') {
+	public static function word_censor($str, $censored, $replacement = '') {
 		if ( ! is_array($censored)) {
 			return $str;
 		}
@@ -168,7 +168,7 @@ class Text {
 	 * @charset  ANSI
 	 * @version  4.0.14
 	 */
-	function strip_tags_smart(
+	public static function strip_tags_smart(
 	/*string*/ $s,
 			array $allowable_tags = null,
 			/*boolean*/ $is_format_spaces = true,
@@ -331,25 +331,22 @@ class Text {
 		return $s;
 	}
 
-	function msword_clean($text) {
+	public static function msword_clean($text) {
 		$text = str_replace("&nbsp;","",$text);
 		$text = str_replace("</html>","",$text);
 		$text = preg_replace("/FONT-SIZE: [0-9]+pt;/miu", "", $text);
-		$text = preg_replace("/([ \f\r\t\n\'\"])on[a-z]+=[^>]+/iu", "\\1", $text);
-		return $text;
+		return preg_replace("/([ \f\r\t\n\'\"])on[a-z]+=[^>]+/iu", "\\1", $text);
 	}
 
-	function semantic_replacer($text) {
+	public static function semantic_replacer($text) {
 		$text = preg_replace("!<b>(.*?)</b>!si","<strong>\\1</strong>",$text);
 		$text = preg_replace("!<i>(.*?)</i>!si","<em>\\1</em>",$text);
 		$text = preg_replace("!<u>(.*?)</u>!si","<strike>\\1</strike>",$text);
-		$text = str_replace("<br>","<br />",$text);
-		return $text;
+		return str_replace("<br>","<br />",$text);
 	}
 
-	function simple_clean($text) {
+	public static function simple_clean($text) {
 		$text = html_entity_decode ($text, ENT_QUOTES, 'utf-8') ;
-		$text = mosHTML::cleanText($text);
-		return $text;
+		return  mosHTML::cleanText($text);
 	}
 }
