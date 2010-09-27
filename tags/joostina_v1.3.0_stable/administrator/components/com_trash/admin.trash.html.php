@@ -19,7 +19,7 @@ class HTML_trash {
 	/**
 	 * Writes a list of the Trash items
 	 */
-	function showList($option,$content,$pageNav,$list,$catid) {
+	public static function showList($option,$content,$pageNav,$list,$catid) {
 		global $my;
 		?>
 <script language="javascript" type="text/javascript">
@@ -136,7 +136,7 @@ class HTML_trash {
 	 * A delete confirmation page
 	 * Writes list of the items that have been selected for deletion
 	 */
-	function showDelete($option,$cid,$items,$type) {
+	public static function showDelete($option,$cid,$items,$type) {
 
 		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/file_ico';
@@ -198,7 +198,7 @@ class HTML_trash {
 	 * A restore confirmation page
 	 * Writes list of the items that have been selected for restore
 	 */
-	function showRestore($option,$cid,$items,$type) {
+	public static function showRestore($option,$cid,$items,$type) {
 
 		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';

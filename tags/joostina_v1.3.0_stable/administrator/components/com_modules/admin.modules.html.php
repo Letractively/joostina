@@ -20,7 +20,7 @@ class HTML_modules {
 	 * Writes a list of the defined modules
 	 * @param array An array of category objects
 	 */
-	function showModules(&$rows,$myid,$client,&$pageNav,$option,&$lists,$search) {
+	public static function showModules(&$rows,$myid,$client,&$pageNav,$option,&$lists,$search) {
 		global $my;
 		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
@@ -190,7 +190,7 @@ class HTML_modules {
 	 * @param array An array of select lists
 	 * @param object Parameters
 	 */
-	function editModule(&$row,&$orders2,&$lists,&$params,$option) {
+	public static function editModule(&$row,&$orders2,&$lists,&$params,$option) {
 		global $mosConfig_cachepath,$my;
 		$row->title = htmlspecialchars($row->title);
 		$row->titleA = '';
