@@ -3377,7 +3377,7 @@ class mosHTML {
 		$text = preg_replace('/&amp;/',' ',$text);
 		$text = preg_replace('/&quot;/',' ',$text);
 		$text = strip_tags($text);
-		$text = htmlspecialchars($text);
+		$text = htmlspecialchars($text,null,'UTF-8');
 		return $text;
 	}
 

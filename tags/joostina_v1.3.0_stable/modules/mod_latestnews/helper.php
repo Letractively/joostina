@@ -96,8 +96,7 @@ class mod_latestnews_Helper {
 				. ( $show_front == '0' ? " AND f.content_id IS NULL" : '' )
 				. " ORDER BY a.created DESC";
 
-		$database->setQuery( $query, 0, $count );
-		$temp = $database->loadObjectList();
+		$temp = $database->setQuery( $query, 0, $count )->loadObjectList();
 
 		$rows = array();
 		if (count($temp)) {
@@ -160,10 +159,7 @@ class mod_latestnews_Helper {
 			AND cc.published = 1
 			ORDER BY a.created DESC";
 
-		$database->setQuery( $query, 0, $count );
-		$rows = $database->loadObjectList();
-
-		return $rows;
+		return $database->setQuery( $query, 0, $count )->loadObjectList();
 	}
 
 	function get_itemid($row, $params) {
@@ -216,7 +212,7 @@ class mod_latestnews_Helper {
 		$readmore = ContentView::ReadMore($row,$params);
 
 		$text = $row->introtext;
-		$text = mosHTML::cleanText($text);
+		$text = Text::simple_clean($text);
 		if($params->get('crop_text', 1)) {
 
 			switch ($params->get('crop_text', 1)) {

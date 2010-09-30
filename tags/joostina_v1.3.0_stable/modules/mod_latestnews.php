@@ -45,9 +45,9 @@ $params->set('intro_only',1);
 if(!$def_itemid>0) {
 	// требование уменьшить запросы, используемые getItemid для объектов содержимого
 	if (($type == 1) || ($type == 3)) {
-		$params->def('bs', $mainframe->getBlogSectionCount());
-		$params->def('bc', $mainframe->getBlogCategoryCount());
-		$params->def('gbs',$mainframe->getGlobalBlogSectionCount());
+		$params->def('bs', 1);
+		$params->def('bc', 1);
+		$params->def('gbs',1);
 	}
 }
 

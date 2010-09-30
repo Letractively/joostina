@@ -43,6 +43,7 @@ if($config->config_enable_admin_secure_code) {
 			}
 			var _js_defines = [];
 		</script>
+		<link rel="shortcut icon" href="<?php echo JPATH_SITE; ?>/images/favicon.ico" />
 	</head>
 	<body onload="setFocus();">
 		<div id="joo">
