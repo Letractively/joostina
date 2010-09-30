@@ -238,7 +238,7 @@ class PageModel {
 				}
 			}
 			$theURI = str_replace(JPATH_SITE.'/','',$theURI);
-			echo '<base href="'.sefRelToAbs($theURI).'" />'."\r\n";
+			echo '<base href="'.sefRelToAbs( ampReplace($theURI)).'" />'."\r\n";
 		}
 
 		if($my->id || $mainframe->get('joomlaJavascript')) {
