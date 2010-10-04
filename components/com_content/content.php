@@ -1199,9 +1199,11 @@ function _showFullItem($id) {
 		}
 
 		//Тэги
-		$tags = new contentTags($database);
-		$row->tags = $tags->load_by($row);
-		$row->tags = $tags->arr_to_links($row->tags, ', ');
+		if( $params->get('tags')==1 ){
+			$tags = new contentTags($database);
+			$row->tags = $tags->load_by($row);
+			$row->tags = $tags->arr_to_links($row->tags, ', ');
+		}
 
 		// Мета-данные страницы
 		$meta_params = new mosParameters('');
@@ -1273,7 +1275,7 @@ function _showItem($row, $params, $gid, &$access, $pop, $template = '',$mainfram
 		$row->rating_count = null;
 	}
 
-	$row->category = htmlspecialchars(stripslashes($row->category), ENT_QUOTES);
+	$row->category = htmlspecialchars(stripslashes($row->category), ENT_QUOTES,'UTF-8');
 
 	//Ссылка на раздел/категорию
 	if($params->get('section_link') || $params->get('category_link')) {

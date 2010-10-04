@@ -20,7 +20,7 @@ class ArrayHelper {
 	 * @param   type	 $param  param_descr
 	 * @return  Array
 	 */
-	function clear($array) {
+	 public static function clear($array) {
 		$res = array();
 		foreach ($array as $key => $val) {
 			if (!empty($val)) {
@@ -44,7 +44,7 @@ class ArrayHelper {
 	 * @access  public
 	 * @return  mixed
 	 */
-	function first($array) {
+	public static function first($array) {
 		$first = array_shift($array);
 		array_unshift($array, $first);
 
@@ -59,7 +59,7 @@ class ArrayHelper {
 	 * @access  public
 	 * @return  mixed
 	 */
-	function last($array) {
+	public static function last($array) {
 		$lastt = array_pop($array);
 		array_push($array, $last);
 

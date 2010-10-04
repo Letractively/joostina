@@ -115,12 +115,12 @@ class mosCategory extends mosDBTable {
 		return $link;
 	}
 
-	function get_category_blog_url($params) {
+	public static function get_category_blog_url($params) {
 		$link = sefRelToAbs('index.php?option=com_content&amp;task=blogcategory&amp;id=' . $params->get('catid') . $params->get('Itemid'));
 		return $link;
 	}
 
-	function get_category_menu($cat_id, $type = null) {
+	public static function get_category_menu($cat_id, $type = null) {
 		$database = database::getInstance();
 
 		if(!$type) {
@@ -152,7 +152,7 @@ class mosCategory extends mosDBTable {
 		return $result;
 	}
 
-	function get_category_link($row, $params) {
+	public static function get_category_link($row, $params) {
 		$mainframe = mosMainFrame::getInstance();
 
 		$catLinkID = $mainframe->get('catID_'.$row->catid,-1);
@@ -441,16 +441,14 @@ class mosSection extends mosDBTable {
 	}
 
 	function get_section_table_url($params) {
-		$link = sefRelToAbs('index.php?option=com_content&amp;task=section&amp;id=' . $params->get('sectionid') . $params->get('Itemid'));
-		return $link;
+		return sefRelToAbs('index.php?option=com_content&amp;task=section&amp;id=' . $params->get('sectionid') . $params->get('Itemid'));
 	}
 
 	function get_section_blog_url($params) {
-		$link = sefRelToAbs('index.php?option=com_content&amp;task=blogsection&amp;id=' . $params->get('sectionid') . $params->get('Itemid'));
-		return $link;
+		return sefRelToAbs('index.php?option=com_content&amp;task=blogsection&amp;id=' . $params->get('sectionid') . $params->get('Itemid'));
 	}
 
-	function get_section_menu($section_id, $type = null) {
+	public static function get_section_menu($section_id, $type = null) {
 		$database = database::getInstance();
 
 		if(!$type) {
@@ -476,11 +474,10 @@ class mosSection extends mosDBTable {
 				.' AND componentid = '.(int)$section_id
 				.' ORDER BY type DESC, ordering';
 		$database->setQuery($query);
-		$result = $database->loadRow();
-		return $result;
+		return $database->loadRow();
 	}
 
-	function get_section_link($row, $params) {
+	public static function get_section_link($row, $params) {
 		$mainframe = mosMainFrame::getInstance();
 
 		// pull values from mainframe
