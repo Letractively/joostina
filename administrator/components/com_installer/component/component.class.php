@@ -118,6 +118,7 @@ class mosInstallerComponent extends mosInstaller {
 			return false;
 		}
 		$this->parseFiles('images');
+		$this->parseFiles('languages');
 
 		if ($this->parseFiles('administration/files','','',1) === false) {
 			$this->cleanAfterError();
