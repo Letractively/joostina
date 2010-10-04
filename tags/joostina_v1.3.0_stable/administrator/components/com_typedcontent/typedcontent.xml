@@ -48,7 +48,7 @@
 			<option value="0">Скрыть</option>
 			<option value="1">Показать</option>
 		</param>
-		<param name="view_tags" type="radio" default="1" label="Тэги" description="Показать/Скрыть тэги материалов">
+		<param name="tags" type="radio" default="1" label="Тэги" description="Показать/Скрыть тэги материалов">
 			<option value="0">Скрыть</option>
 			<option value="1">Показать</option>
 		</param>

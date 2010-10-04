@@ -20,7 +20,7 @@ class HTML_typedcontent {
 	 * Writes a list of the content items
 	 * @param array An array of content objects
 	 */
-	function showContent(&$rows,&$pageNav,$option,$search,&$lists) {
+	public static function showContent(&$rows,&$pageNav,$option,$search,&$lists) {
 		global $my,$acl,$database;
 		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
@@ -182,7 +182,7 @@ class HTML_typedcontent {
 		<?php
 	}
 
-	function edit(&$row,&$images,&$lists,&$params,$option,&$menus,$nullDate) {
+	public static function edit(&$row,&$images,&$lists,&$params,$option,&$menus,$nullDate) {
 
 		mosMakeHtmlSafe($row);
 		$create_date = null;
