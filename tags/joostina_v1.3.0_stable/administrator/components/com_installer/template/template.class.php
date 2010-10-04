@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package Joostina
  * @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
@@ -6,7 +7,6 @@
  * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
  * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
  */
-
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
@@ -35,6 +35,7 @@ class mosInstallerTemplate extends mosInstaller {
 		$this->i_hasinstallfile = $pre_installer->i_hasinstallfile;
 		$this->i_installfile = $pre_installer->i_installfile;
 	}
+
 	/**
 	 * Custom install method
 	 * @param boolean True if installing from directory
@@ -44,7 +45,7 @@ class mosInstallerTemplate extends mosInstaller {
 		$database = database::getInstance();
 
 		josSpoofCheck();
-		if(!$this->preInstallCheck($p_fromdir,'template')) {
+		if (!$this->preInstallCheck($p_fromdir, 'template')) {
 			return false;
 		}
 
@@ -52,71 +53,74 @@ class mosInstallerTemplate extends mosInstaller {
 		$mosinstall = &$xmlDoc->documentElement;
 
 		$client = '';
-		if($mosinstall->getAttribute('client')) {
+		if ($mosinstall->getAttribute('client')) {
 			$validClients = array('administrator');
-			if(!in_array($mosinstall->getAttribute('client'),$validClients)) {
-				$this->setError(1,_UNKNOWN_CLIENT.' ['.$mosinstall->getAttribute('client').']');
+			if (!in_array($mosinstall->getAttribute('client'), $validClients)) {
+				$this->setError(1, _UNKNOWN_CLIENT . ' [' . $mosinstall->getAttribute('client') . ']');
 				return false;
 			}
 			$client = 'admin';
 		}
 
 		// Set some vars
-		$e = &$mosinstall->getElementsByPath('name',1);
-		$this->elementName($e->getText());
-		$this->elementDir(mosPathName(JPATH_BASE.($client == 'admin'?'/'.JADMIN_BASE:'').'/templates/'.strtolower(str_replace(" ","_",$this->elementName()))));
-
-		if(!file_exists($this->elementDir()) && !mosMakePath($this->elementDir())) {
-			$this->setError(1,_CANNOT_CREATE_DIR.' "'.$this->elementDir().'"');
+		$e = &$mosinstall->getElementsByPath('name', 1);
+		$f = &$mosinstall->getElementsByPath('folder', 1);
+		$this->elementName($f->getText() . '/' . $e->getText());
+		$base = mosPathName(JPATH_BASE . ($client == 'admin' ? '/' . JADMIN_BASE : '') . '/templates');
+		$path = strtolower(str_replace(" ", "_", $this->elementName()));
+		if (!file_exists($this->elementDir()) && !mosMakePath($base, $path)) {
+			$this->setError(1, _CANNOT_CREATE_DIR . ' "' . $this->elementDir() . '"');
 			return false;
 		}
 
-		if($this->parseFiles('files') === false) {
+		if ($this->parseFiles('files') === false) {
 			$this->cleanAfterError();
 			return false;
 		}
-		if($this->parseFiles('images') === false) {
+		if ($this->parseFiles('images') === false) {
 			$this->cleanAfterError();
 			return false;
 		}
-		if($this->parseFiles('css') === false) {
+		if ($this->parseFiles('css') === false) {
 			$this->cleanAfterError();
 			return false;
 		}
-		if($this->parseFiles('media') === false) {
+		if ($this->parseFiles('media') === false) {
 			$this->cleanAfterError();
 			return false;
 		}
-		if($e = &$mosinstall->getElementsByPath('description',1)) {
-			$this->setError(0,$this->elementName().'<p>'.$e->getText().'</p>');
+		if ($e = &$mosinstall->getElementsByPath('description', 1)) {
+			$this->setError(0, $this->elementName() . '<p>' . $e->getText() . '</p>');
 		}
 
 		return $this->copySetupFile('front');
 	}
+
 	/**
 	 * Custom install method
 	 * @param int The id of the module
 	 * @param string The URL option
 	 * @param int The client id
 	 */
-	function uninstall($id,$option,$client = 0) {
+	function uninstall($id, $option, $client = 0) {
 		global $database;
 		josSpoofCheck(null, null, 'request');
 		// Delete directories
-		$path = JPATH_BASE.($client == 'admin' ? '/'.JADMIN_BASE:'').'/templates/'.$id;
+		$path = JPATH_BASE . ($client == 'admin' ? '/' . JADMIN_BASE : '') . '/templates/' . $id;
 
-		$id = str_replace('..','',$id);
-		if(trim($id)) {
-			if(is_dir($path)) {
+		$id = str_replace('..', '', $id);
+		if (trim($id)) {
+			if (is_dir($path)) {
 				return deldir(mosPathName($path));
 			} else {
-				HTML_installer::showInstallMessage(_CANNOT_DEL_FILE_NO_DIR,_UNINSTALL_ERROR,$this->returnTo($option,'template',$client));
+				HTML_installer::showInstallMessage(_CANNOT_DEL_FILE_NO_DIR, _UNINSTALL_ERROR, $this->returnTo($option, 'template', $client));
 			}
 		} else {
-			HTML_installer::showInstallMessage(_WRONG_ID,_UNINSTALL_ERROR,$this->returnTo($option,'template',$client));
+			HTML_installer::showInstallMessage(_WRONG_ID, _UNINSTALL_ERROR, $this->returnTo($option, 'template', $client));
 			exit();
 		}
 	}
+
 	/**
 	 * Custom install method
 	 * @param int The id of the module
@@ -124,19 +128,21 @@ class mosInstallerTemplate extends mosInstaller {
 	 * @param int The client id
 	 */
 	function cleanAfterError() {
-		global $database,$client;
+		global $database, $client;
 		josSpoofCheck(null, null, 'request');
 		// Delete directories
-		$path = JPATH_BASE.($client == 'admin' ? '/'.JADMIN_BASE:'').'/templates/'.$this->elementName();
+		$path = JPATH_BASE . ($client == 'admin' ? '/' . JADMIN_BASE : '') . '/templates/' . $this->elementName();
 		// get the files element
-		if(is_dir($path)) {
+		if (is_dir($path)) {
 			return deldir(mosPathName($path));
 		}
 	}
+
 	/**
 	 * return to method
 	 */
-	function returnTo($option,$element,$client) {
+	function returnTo($option, $element, $client) {
 		return "index2.php?option=com_installer&element=template&client=$client";
 	}
+
 }
