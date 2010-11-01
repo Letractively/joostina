@@ -99,7 +99,7 @@ function viewTemplates($option,$client) {
 				continue;
 			}
 
-			$root = &$xmlDoc->documentElement;
+			$root = $xmlDoc->documentElement;
 
 			if($root->getTagName() != 'mosinstall') {
 				continue;
@@ -111,25 +111,25 @@ function viewTemplates($option,$client) {
 			$row = new StdClass();
 			$row->id = $rowid;
 			$row->directory = $templateDir;
-			$element = &$root->getElementsByPath('name',1);
+			$element = $root->getElementsByPath('name',1);
 			$row->name = $element->getText();
 
-			$element = &$root->getElementsByPath('creationDate',1);
+			$element = $root->getElementsByPath('creationDate',1);
 			$row->creationdate = $element?$element->getText():'Unknown';
 
-			$element = &$root->getElementsByPath('author',1);
+			$element = $root->getElementsByPath('author',1);
 			$row->author = $element?$element->getText():'Unknown';
 
-			$element = &$root->getElementsByPath('copyright',1);
+			$element = $root->getElementsByPath('copyright',1);
 			$row->copyright = $element?$element->getText():'';
 
-			$element = &$root->getElementsByPath('authorEmail',1);
+			$element = $root->getElementsByPath('authorEmail',1);
 			$row->authorEmail = $element?$element->getText():'';
 
-			$element = &$root->getElementsByPath('authorUrl',1);
+			$element = $root->getElementsByPath('authorUrl',1);
 			$row->authorUrl = $element?$element->getText():'';
 
-			$element = &$root->getElementsByPath('version',1);
+			$element = $root->getElementsByPath('version',1);
 			$row->version = $element?$element->getText():'';
 
 			// Get info from db

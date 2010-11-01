@@ -20,7 +20,7 @@ class HTML_mambot {
 	 * @param array An array of mambot object
 	 * @param strong The URL option
 	 */
-	function showInstalledMambots(&$rows, $option) {
+	public static function showInstalledMambots(&$rows, $option) {
 		mosCommonHTML::loadPrettyTable();
 ?>
 		<form action="index2.php" method="post" name="adminForm">
@@ -28,12 +28,10 @@ class HTML_mambot {
 				<tr>
 					<th class="install"><?php echo _INSTALLED_MAMBOTS ?></th>
 				</tr>
-				<tr>
-<?php HTML_installer::cPanel(); ?>
-				</tr>
+				<tr><?php HTML_installer::cPanel(); ?></tr>
 				<tr>
 					<td><div class="jwarning"><?php echo _INSTALLED_COMPONENTS2 ?></div></td>
-		</tr>
+				</tr>
 	</table>
 <?php if (count($rows)) { ?>
 

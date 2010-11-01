@@ -87,7 +87,7 @@ if(isset($_POST['submit'])) {
 		$captcha = mosGetParam($_POST,'captcha','');
 		$captcha_keystring = mosGetParam($_SESSION,'captcha_keystring','');
 		if($captcha_keystring!=$captcha) {
-			mosRedirect(JPATH_SITE.'/'.JADMIN_BASE.'/',_BAD_CAPTCHA_STRING);
+			mosRedirect(JPATH_SITE.'/'.JADMIN_BASE.'/?'.$config->config_admin_secure_code  ,_BAD_CAPTCHA_STRING);
 			unset($_SESSION['captcha_keystring']);
 			exit;
 		}

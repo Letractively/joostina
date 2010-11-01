@@ -554,3 +554,10 @@ DEFINE('_BUTTON_LINK_IN_NEW_WINDOW','В новом окне');
 DEFINE('_SQL_CONSOLE','SQL консоль');
 DEFINE('_XMAP_MSG_NO_SITEMAP', 'Данная карта недоступна');
 DEFINE('_CACHE_MANAGEMENT', 'Управление кешем');
+
+DEFINE('_GUEST','Гость');
+DEFINE('_EDITOR','Редактор');
+DEFINE('_PUBLISHER','Издатель');
+DEFINE('_MANAGER','Менеджер');
+DEFINE('_ADMINISTRATOR','Администратор');
+DEFINE('_SUPER_ADMINISTRATOR','Супер-Администратор');

@@ -247,9 +247,9 @@ function editMambot($option,$uid,$client) {
 		$xmlDoc = new DOMIT_Lite_Document();
 		$xmlDoc->resolveErrors(true);
 		if($xmlDoc->loadXML($xmlfile,false,true)) {
-			$root = &$xmlDoc->documentElement;
+			$root = $xmlDoc->documentElement;
 			if($root->getTagName() == 'mosinstall' && $root->getAttribute('type') =='mambot') {
-				$element = &$root->getElementsByPath('description',1);
+				$element = $root->getElementsByPath('description',1);
 				$row->description = $element ? trim($element->getText()):'';
 			}
 		}

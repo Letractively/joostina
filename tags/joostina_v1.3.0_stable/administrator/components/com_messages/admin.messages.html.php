@@ -15,7 +15,7 @@ defined('_VALID_MOS') or die();
  * @subpackage Messages
  */
 class HTML_messages {
-	function showMessages(&$rows,$pageNav,$search,$option) {
+	public static function showMessages(&$rows,$pageNav,$search,$option) {
 		?>
 <form action="index2.php" method="post" name="adminForm">
 	<table class="adminheading">
@@ -78,7 +78,7 @@ class HTML_messages {
 		<?php
 	}
 
-	function editConfig(&$vars,$option) {
+	public static function editConfig(&$vars,$option) {
 		$tabs = new mosTabs(0);
 		?>
 <form action="index2.php" method="post" name="adminForm">
@@ -123,7 +123,7 @@ class HTML_messages {
 		<?php
 	}
 
-	function viewMessage(&$row,$option) {
+	public static function viewMessage(&$row,$option) {
 		?>
 <form action="index2.php" method="post" name="adminForm">
 
@@ -165,7 +165,7 @@ class HTML_messages {
 		<?php
 	}
 
-	function newMessage($option,$recipientslist,$subject) {
+	public static function newMessage($option,$recipientslist,$subject) {
 		global $my;
 		?>
 <script language="javascript" type="text/javascript">

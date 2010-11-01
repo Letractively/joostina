@@ -113,10 +113,10 @@ class mosInstallerTemplate extends mosInstaller {
 			if (is_dir($path)) {
 				return deldir(mosPathName($path));
 			} else {
-				HTML_installer::showInstallMessage(_CANNOT_DEL_FILE_NO_DIR, _UNINSTALL_ERROR, $this->returnTo($option, 'template', $client));
+				HTML_installer::showInstallMessage(_CANNOT_DEL_FILE_NO_DIR, _UNINSTALL_ERROR, $this->returnTo($option, $client));
 			}
 		} else {
-			HTML_installer::showInstallMessage(_WRONG_ID, _UNINSTALL_ERROR, $this->returnTo($option, 'template', $client));
+			HTML_installer::showInstallMessage(_WRONG_ID, _UNINSTALL_ERROR, $this->returnTo($option, $client));
 			exit();
 		}
 	}
@@ -141,7 +141,7 @@ class mosInstallerTemplate extends mosInstaller {
 	/**
 	 * return to method
 	 */
-	function returnTo($option, $element, $client) {
+	function returnTo($option,  $client) {
 		return "index2.php?option=com_installer&element=template&client=$client";
 	}
 

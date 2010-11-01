@@ -96,7 +96,7 @@ class mosUser extends mosDBTable {
             $this->password = substr($password,0,50);
         }
 
-        if(eregi("[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-]",$this->username) || strlen($this->username) <3) {
+        if(preg_match("/[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-]/",$this->username) || strlen($this->username) <3) {
             $this->_error = sprintf(addslashes(_VALID_AZ09),addslashes(_PROMPT_USERNAME),2);
             return false;
         }

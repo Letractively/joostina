@@ -31,12 +31,7 @@ DEFINE('_ERROR_OF_UPLOAD','Ошибка загрузки');
 DEFINE('_IS_SUCCESS','успешна');
 DEFINE('_HAS_ERROR','завершилась ошибкой');
 DEFINE('_CANNOT_DELETE_LANG_FILE','Нельзя удалять используемый языковой пакет');
-DEFINE('_GUEST','Гость');
-DEFINE('_EDITOR','Редактор');
-DEFINE('_PUBLISHER','Издатель');
-DEFINE('_MANAGER','Менеджер');
-DEFINE('_ADMINISTRATOR','Администратор');
-DEFINE('_SUPER_ADMINISTRATOR','Супер-Администратор');
+
 DEFINE('_CHANGES_FOR_PLUGIN','Изменения для плагина');
 DEFINE('_SUCCESS_SAVE','успешное сохранение');
 DEFINE('_PLUGIN','Плагин');

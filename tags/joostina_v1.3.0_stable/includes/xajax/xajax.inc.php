@@ -1,10 +1,10 @@
 <?php
 /**
 * @package Joostina
-* @copyright Авторские права (C) 2008 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+* @copyright пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (C) 2008 Joostina team. пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+* @license пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, пїЅпїЅпїЅ help/license.php
+* Joostina! - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ GNU/GPL
+* пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ help/copyright.php.
 * xajax version 0.2.4
 * copyright (c) 2005 by Jared White & J. Max Wilson
 * http://www.xajaxproject.org
@@ -256,7 +256,7 @@ class xajax {
 				} else {
 					$sPreResponse = $mPreResponse;
 				}
-				if(is_a($sPreResponse,"xajaxResponse")) {
+				if($sPreResponse instanceof  xajaxResponse) {
 					$sPreResponse = $sPreResponse->getXML();
 				}
 				if($bEndRequest)
@@ -273,7 +273,7 @@ class xajax {
 					}
 					$sResponse = $this->_callFunction($sFunctionName,$aArgs);
 				}
-				if(is_a($sResponse,"xajaxResponse")) {
+				if($sResponse instanceof  xajaxResponse) {
 					$sResponse = $sResponse->getXML();
 				}
 				if(!is_string($sResponse) || strpos($sResponse,"<xjx>") === false) {

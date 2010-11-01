@@ -66,7 +66,7 @@ function showInstalledMambots($_option) {
 	$id = 0;
 	$n = count($rows);
 	for($i = 0; $i < $n; $i++) {
-		$row = &$rows[$i];
+		$row = $rows[$i];
 		// xml file for module
 		$xmlfile = $mambotBaseDir.DS.$row->folder.DS.$row->element.".xml";
 
@@ -77,7 +77,7 @@ function showInstalledMambots($_option) {
 				continue;
 			}
 
-			$root = &$xmlDoc->documentElement;
+			$root = $xmlDoc->documentElement;
 
 			if($root->getTagName() != 'mosinstall') {
 				continue;
@@ -86,22 +86,22 @@ function showInstalledMambots($_option) {
 				continue;
 			}
 
-			$element = &$root->getElementsByPath('creationDate',1);
+			$element = $root->getElementsByPath('creationDate',1);
 			$row->creationdate = $element?$element->getText():'';
 
-			$element = &$root->getElementsByPath('author',1);
+			$element = $root->getElementsByPath('author',1);
 			$row->author = $element?$element->getText():'';
 
-			$element = &$root->getElementsByPath('copyright',1);
+			$element = $root->getElementsByPath('copyright',1);
 			$row->copyright = $element?$element->getText():'';
 
-			$element = &$root->getElementsByPath('authorEmail',1);
+			$element = $root->getElementsByPath('authorEmail',1);
 			$row->authorEmail = $element?$element->getText():'';
 
-			$element = &$root->getElementsByPath('authorUrl',1);
+			$element = $root->getElementsByPath('authorUrl',1);
 			$row->authorUrl = $element?$element->getText():'';
 
-			$element = &$root->getElementsByPath('version',1);
+			$element = $root->getElementsByPath('version',1);
 			$row->version = $element?$element->getText():'';
 		}
 	}

@@ -20,7 +20,7 @@ class HTML_modules {
 	 * Writes a list of the defined modules
 	 * @param array An array of category objects
 	 */
-	function showMambots(&$rows,$client,&$pageNav,$option,&$lists,$search) {
+	public static function showMambots(&$rows,$client,&$pageNav,$option,&$lists,$search) {
 		global $my;
 
 		$mainframe = mosMainFrame::getInstance();
@@ -120,7 +120,7 @@ class HTML_modules {
 	 * @param array An array of select lists
 	 * @param object Parameters
 	 */
-	function editMambot(&$row,&$lists,&$params,$option) {
+	public static function editMambot(&$row,&$lists,&$params,$option) {
 		mosCommonHTML::loadOverlib();
 		$row->nameA = '';
 		if($row->id) {
@@ -198,8 +198,7 @@ class HTML_modules {
 					</tr>
 					<tr>
 						<td valign="top" class="key"><?php echo _DESCRIPTION?>:</td>
-						<td><?php echo $text = joostina_api::convert($row->description,true);
-		; ?></td>
+						<td><?php echo $text = joostina_api::convert($row->description,true); ?></td>
 					</tr>
 				</table>
 			</td>

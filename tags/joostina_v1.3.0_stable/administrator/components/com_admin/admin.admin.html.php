@@ -30,7 +30,7 @@ class HTML_admin_misc {
 		}
 	}
 
-	function get_php_setting($val,$colour = 0,$yn = 1) {
+	public static function get_php_setting($val,$colour = 0,$yn = 1) {
 		$r = (ini_get($val) == '1'?1:0);
 
 		if($colour) {
@@ -46,7 +46,7 @@ class HTML_admin_misc {
 		}
 	}
 
-	function get_server_software() {
+	public static function get_server_software() {
 		if(isset($_SERVER['SERVER_SOFTWARE'])) {
 			return $_SERVER['SERVER_SOFTWARE'];
 		} else
@@ -57,7 +57,7 @@ class HTML_admin_misc {
 		}
 	}
 
-	function system_info($version) {
+	public static function system_info($version) {
 		global $mosConfig_cachepath;
 
 		$mainframe = mosMainFrame::getInstance();
@@ -73,11 +73,6 @@ class HTML_admin_misc {
 		<th class="info"><?php echo _INFO?></th>
 	</tr>
 </table>
-<div>
-	<ul>
-		<li><a href="http://www.joostina.ru/?from_2" target="_blank">купить тут рекламу ВАШЕГО хостинга ( позиция 2 )</a></li>
-	</ul>
-</div>
 		<?php
 		$tabs->startPane("sysinfo");
 		$tabs->startTab(_ABOUT_JOOSTINA,"joostina-page");
@@ -361,14 +356,14 @@ class HTML_admin_misc {
 		<?php
 	}
 	// получение информации о базе данных
-	function db_info() {
+	public static function db_info() {
 		global $database,$mosConfig_db;
 		$sql = 'SHOW TABLE STATUS FROM '.$mosConfig_db;
 		$database->setQuery($sql);
 		return $database->loadObjectList();
 	}
 
-	function ListComponents() {
+	public static function ListComponents() {
 		global $database;
 
 		$query = "SELECT params FROM #__modules WHERE module = 'mod_components'";
@@ -382,7 +377,7 @@ class HTML_admin_misc {
 	/**
 	 * Display Help Page
 	 */
-	function help() {
+	public static function help() {
 		$helpurl = strval(mosGetParam($GLOBALS,'mosConfig_helpurl',''));
 
 		if($helpurl == 'http://help.mamboserver.com') {
@@ -504,7 +499,7 @@ class HTML_admin_misc {
 	/**
 	 * Preview site
 	 */
-	function preview($tp = 0) {
+	public static function preview($tp = 0) {
 		$tp = intval($tp);
 		?>
 <style type="text/css">
@@ -534,7 +529,7 @@ class HTML_admin_misc {
 	/*
 	* Displays contents of Changelog.php file
 	*/
-	function changelog() {
+	public static function changelog() {
 		?>
 <pre>
 			<?php
