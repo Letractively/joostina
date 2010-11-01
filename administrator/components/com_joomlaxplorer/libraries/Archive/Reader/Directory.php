@@ -83,7 +83,7 @@ class File_Archive_Reader_Directory extends File_Archive_Reader_Relay {
 		return $writer;
 	}
 	function &getLastSource() {
-		if($this->source === null || is_a($this->source,'File_Archive_Reader_File')) {
+		if($this->source === null || ($this->source instanceof  File_Archive_Reader_File)) {
 			return $this->source;
 		} else {
 			return $this->source->getLastSource();
@@ -104,7 +104,7 @@ class File_Archive_Reader_Directory extends File_Archive_Reader_Relay {
 	}
 	function makeAppendWriter() {
 		require_once dirname(__file__)."/../Writer/Files.php";
-		if($this->source === null || is_a($this->source,'File_Archive_Reader_File')) {
+		if($this->source === null || ($this->source instanceof  File_Archive_Reader_File)) {
 			$writer = new File_Archive_Writer_Files($this->directory);
 		} else {
 			$writer = $this->source->makeAppendWriter($seek);

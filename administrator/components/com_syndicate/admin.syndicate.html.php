@@ -16,7 +16,7 @@ defined('_VALID_MOS') or die();
  */
 class HTML_syndicate {
 
-	function settings($option,&$params,$id) {
+	public static function settings($option,&$params,$id) {
 		global $mosConfig_cachepath,$my;
 		mosCommonHTML::loadOverlib();
 		?>

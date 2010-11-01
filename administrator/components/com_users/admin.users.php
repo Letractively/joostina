@@ -290,7 +290,7 @@ function editUser($uid = '0',$option = 'users') {
 	$lists['sendEmail'] = mosHTML::yesnoRadioList('sendEmail','class="inputbox" size="1"',$row->sendEmail);
 
 	$file = $mainframe->getPath('com_xml','com_users');
-	$params = &new mosUserParameters($row->params,$file,'component');
+	$params = new mosUserParameters($row->params,$file,'component');
 
 	$user_extra = new userUsersExtra($database);
 	$user_extra->load((int)$uid);

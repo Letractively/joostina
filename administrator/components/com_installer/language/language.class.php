@@ -84,7 +84,7 @@ class mosInstallerLanguage extends mosInstaller {
 				}
 			}
 		} else {
-			HTML_installer::showInstallMessage(_CANNOT_DEL_LANG_ID,_UNINSTALL_ERROR,$this->returnTo($option,'language',$client));
+			HTML_installer::showInstallMessage(_CANNOT_DEL_LANG_ID,_UNINSTALL_ERROR,$this->returnTo($option,$client));
 			exit();
 		}
 
@@ -96,7 +96,7 @@ class mosInstallerLanguage extends mosInstaller {
 	/**
 	 * return to method
 	 */
-	function returnTo($option,$element,$client) {
+	function returnTo($option,$client) {
 		return "index2.php?option=com_languages";
 	}
 }

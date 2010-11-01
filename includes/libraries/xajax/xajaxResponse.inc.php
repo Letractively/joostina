@@ -132,7 +132,7 @@ class xajaxResponse {
 		return $sXML;
 	}
 	function loadXML($mXML) {
-		if(is_a($mXML,"xajaxResponse")) {
+		if($mXML instanceof  xajaxResponse) {
 			$mXML = $mXML->getXML();
 		}
 		$sNewXML = "";

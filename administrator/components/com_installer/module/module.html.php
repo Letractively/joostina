@@ -15,7 +15,7 @@ defined('_VALID_MOS') or die();
  * @subpackage Installer
  */
 class HTML_module {
-	function showInstalledModules(&$rows,$option,&$xmlfile,&$lists) {
+	public static function showInstalledModules(&$rows,$option,&$xmlfile,&$lists) {
 		if(count($rows)) {
 			// подключение скрипта чудесных таблиц
 			mosCommonHTML::loadPrettyTable();

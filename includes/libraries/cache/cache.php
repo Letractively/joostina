@@ -282,7 +282,7 @@ class JCache {
 	 * @since	1.3
 	 */
 	function _getStorage() {
-		if (is_a($this->_handler, 'JCacheStorage')) {
+		if ($this->_handler instanceof JCacheStorage) {
 			return $this->_handler;
 		}
 

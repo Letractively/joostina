@@ -256,7 +256,7 @@ class xajax {
 				} else {
 					$sPreResponse = $mPreResponse;
 				}
-				if(is_a($sPreResponse,"xajaxResponse")) {
+				if($sPreResponse instanceof  xajaxResponse) {
 					$sPreResponse = $sPreResponse->getXML();
 				}
 				if($bEndRequest)
@@ -273,7 +273,7 @@ class xajax {
 					}
 					$sResponse = $this->_callFunction($sFunctionName,$aArgs);
 				}
-				if(is_a($sResponse,"xajaxResponse")) {
+				if($sResponse instanceof xajaxResponse) {
 					$sResponse = $sResponse->getXML();
 				}
 				if(!is_string($sResponse) || strpos($sResponse,"<xjx>") === false) {

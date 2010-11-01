@@ -34,7 +34,7 @@ class domit_doctor {
 		return $xmlText;
 	}
 
-	function evaluateCharacter($xmlText,$illegalChar,$startIndex) {
+	public static function evaluateCharacter($xmlText,$illegalChar,$startIndex) {
 		$total = strlen($xmlText);
 		$searchingForCDATASection = false;
 		for($i = $startIndex; $i < $total; $i++) {

@@ -21,7 +21,7 @@ class HTML_language {
 	 * @param object A page navigation object
 	 * @param string The option
 	 */
-	function showLanguages($cur_lang,&$rows,&$pageNav,$option) {
+	public static function showLanguages($cur_lang,&$rows,&$pageNav,$option) {
 		global $my;
 		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';

@@ -15,7 +15,7 @@ defined('_VALID_MOS') or die();
  */
 class HTML_users {
 
-	function showUsers(&$rows, $pageNav, $search, $option, $lists) {
+	public static function showUsers(&$rows, $pageNav, $search, $option, $lists) {
 		global $my;
 		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
@@ -83,7 +83,7 @@ class HTML_users {
 </form>
 		<?php }
 	/* редактирование пользователя */
-	function edituser(&$row, &$contact, &$lists, $option, $uid, &$params) {
+	public static function edituser(&$row, &$contact, &$lists, $option, $uid, &$params) {
 		global $my;
 
 		$acl = &gacl::getInstance();

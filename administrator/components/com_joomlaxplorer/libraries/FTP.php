@@ -648,14 +648,14 @@ function getTimeout() {
 return ftp_get_option($this->_handle,FTP_TIMEOUT_SEC);
 }
 function attach(&$observer) {
-if(!is_a($observer,'Net_FTP_Observer')) {
+if(!($observer instanceof Net_FTP_Observer)) {
 return false;
 }
 $this->_listeners[$observer->getId()] = &$observer;
 return true;
 }
 function detach($observer) {
-if(!is_a($observer,'Net_FTP_Observer') || !isset($this->_listeners[$observer->getId
+if(!($observer instanceof Net_FTP_Observer) || !isset($this->_listeners[$observer->getId
 ()])) {
 return false;
 }

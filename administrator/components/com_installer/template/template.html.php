@@ -20,7 +20,7 @@ class HTML_templates {
 	 * @param object A page navigation object
 	 * @param string The option
 	 */
-	function showTemplates(&$rows,&$pageNav,$option,$client) {
+	public static function showTemplates(&$rows,&$pageNav,$option,$client) {
 		global $my;
 		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
