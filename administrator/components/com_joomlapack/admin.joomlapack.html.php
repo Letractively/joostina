@@ -12,32 +12,32 @@ defined('_VALID_MOS') or die();
 
 class jpackScreens {
 	// страница конфигурации
-	function fConfig() {
+	public static function fConfig() {
 		global $option;
 		require_once (JPATH_BASE_ADMIN.'/components/com_joomlapack/includes/html.config.php');
 	}
 	// страница выполнения процесса бэкапа
-	function fPack() {
+	public static function fPack() {
 		global $option;
 		require_once (JPATH_BASE_ADMIN.'/components/com_joomlapack/includes/html.pack.php');
 	}
 	// самая первая страница
-	function fMain() {
+	public static function fMain() {
 		global $option;
 		require_once (JPATH_BASE_ADMIN.'/components/com_joomlapack/includes/html.main.php');
 	}
 	// список сохранённых бэкапов
-	function fBUAdmin() {
+	public static function fBUAdmin() {
 		global $option;
 		require_once (JPATH_BASE_ADMIN.'/components/com_joomlapack/includes/html.files.php');
 	}
 	// страница со списком каталогов исключаемых из бэкапа
-	function fDirExclusion() {
+	public static function fDirExclusion() {
 		global $option;
 		require_once (JPATH_BASE_ADMIN.'/components/com_joomlapack/includes/html.dirs.php');
 	}
 	// страница с логом выполнения работы
-	function fLog() {
+	public static function fLog() {
 		global $option;
 		require_once (JPATH_BASE_ADMIN.'/components/com_joomlapack/includes/html.log.php');
 	}
@@ -45,7 +45,7 @@ class jpackScreens {
 
 
 class HTML_joomlapack {
-	function showTables($option,$list,&$table_lists,$stats_list) {
+	public static function showTables($option,$list,&$table_lists,$stats_list) {
 		// подключение скрипта чудесных таблиц
 		mosCommonHTML::loadPrettyTable();
 		$content = "<form action=\"index2.php?option=com_joomlapack\" method=\"post\" name=\"adminForm\" id=\"adminForm\">\n"
@@ -83,7 +83,7 @@ class HTML_joomlapack {
 		echo $content;
 	}
 
-	function showCheckResults($list,$title) {
+	public static function showCheckResults($list,$title) {
 		$content =
 				"<table class=\"adminheading\">\n"
 				."<tr>\n"

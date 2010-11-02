@@ -25,7 +25,7 @@ class DOMIT_Utilities {
 			'DOMIT_Utilities::methodName(parameters)');
 	}
 
-	function toNormalizedString(&$node,$subEntities = false,$definedEntities) {
+	public static function toNormalizedString(&$node,$subEntities = false,$definedEntities) {
 		$node_level = 0;
 		$response = '';
 
@@ -49,7 +49,7 @@ class DOMIT_Utilities {
 		return $result;
 	}
 
-	function getNormalizedString(&$node,$node_level,$subEntities = false,$definedEntities) {
+	public static function getNormalizedString(&$node,$node_level,$subEntities = false,$definedEntities) {
 		$response = '';
 		switch($node->nodeType) {
 			case DOMIT_ELEMENT_NODE:
@@ -100,7 +100,7 @@ class DOMIT_Utilities {
 		return $response;
 	}
 
-	function getNormalizedElementString(&$node,$response,$node_level,$subEntities,$definedEntities) {
+	public static function getNormalizedElementString(&$node,$response,$node_level,$subEntities,$definedEntities) {
 		$response .= '<'.$node->nodeName;
 
 		if(is_object($node->attributes)) {
@@ -160,12 +160,12 @@ class DOMIT_Utilities {
 		return $response;
 	}
 
-	function isTextNode(&$node) {
+	public static function isTextNode(&$node) {
 		$type = $node->nodeType;
 		return (($type == DOMIT_TEXT_NODE) || ($type == DOMIT_CDATA_SECTION_NODE));
 	}
 
-	function getIndentation($node_level) {
+	public static function getIndentation($node_level) {
 		$INDENT_LEN = '    ';
 		$indentation = "\n";
 		for($i = 0; $i < $node_level; $i++) {
@@ -209,7 +209,7 @@ class DOMIT_Utilities {
 		echo header('Content-type: '.$contentType.'; charset=utf-8');
 	}
 
-	function forHTML($text,$doPrint = false) {
+	public static function forHTML($text,$doPrint = false) {
 		if($doPrint) {
 			print ('<pre>'.htmlspecialchars($text).'</pre>');
 		} else {

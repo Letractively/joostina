@@ -156,7 +156,7 @@ class modules_html {
 
 		$rssDoc = new xml_domit_rss_document();
 		$rssDoc->setRSSTimeout(2);
-		$rssDoc->useCacheLite(true,$LitePath,$cacheDir,$rsscache);
+		$rssDoc->useCacheLite(false,$LitePath,$cacheDir,$rsscache);
 		$success = $rssDoc->loadRSS($rssurl);
 
 		if($success) {

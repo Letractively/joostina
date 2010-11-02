@@ -51,19 +51,19 @@ class DOMIT_Node {
 		$this->uid = $uidFactory->generateUID();
 	}
 
-	function &appendChild() {
+	function &appendChild(&$child) {
 		DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Method appendChild cannot be called by class '.get_class($this)));
 	}
 
-	function &insertBefore() {
+	function &insertBefore(&$newChild,&$refChild) {
 		DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Method insertBefore cannot be called by class '.get_class($this)));
 	}
 
-	function &replaceChild() {
+	function &replaceChild(&$newChild,&$oldChild) {
 		DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Method replaceChild cannot be called by class '.get_class($this)));
 	}
 
-	function &removeChild() {
+	function &removeChild(&$oldChild) {
 		DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Method removeChild cannot be called by class '.get_class($this)));
 	}
 
@@ -98,7 +98,7 @@ class DOMIT_Node {
 		DOMIT_DOMException::raiseException(DOMIT_ABSTRACT_METHOD_INVOCATION_ERR,'Cannot invoke abstract method DOMIT_Node->cloneNode($deep). Must provide an overridden method in your subclass.');
 	}
 
-	function getNamedElements() {
+	function getNamedElements(&$nodeList,$tagName) {
 		return;
 	}
 
@@ -121,19 +121,19 @@ class DOMIT_Node {
 		return $value;
 	}
 
-	function &getElementsByPath() {
+	function &getElementsByPath($pattern,$nodeIndex = 0) {
 		DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Method getElementsByPath cannot be called by class '.get_class($this)));
 	}
 
-	function &getElementsByAttributePath() {
+	function &getElementsByAttributePath($pattern,$nodeIndex = 0) {
 		DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Method getElementsByAttributePath cannot be called by class '.get_class($this)));
 	}
 
-	function getTypedNodes() {
+	function getTypedNodes(&$nodeList,$type) {
 		DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Method getTypedNodes cannot be called by class '.get_class($this)));
 	}
 
-	function getValuedNodes() {
+	function getValuedNodes(&$nodeList,$value) {
 		DOMIT_DOMException::raiseException(DOMIT_HIERARCHY_REQUEST_ERR,('Method getValuedNodes cannot be called by class '.get_class($this)));
 	}
 

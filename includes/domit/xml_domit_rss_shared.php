@@ -108,7 +108,7 @@ class xml_domit_rss_collection extends xml_domit_rss_elementindexer {
 		return $this->elementCount;
 	}
 
-	function getElementText() {
+	function getElementText($elementName = false) {
 		$total = $this->getElementCount();
 		$result = '';
 		for($i = 0; $i < $total; $i++) {
@@ -458,7 +458,7 @@ class xml_domit_rss_base_document extends xml_domit_rss_elementindexer {
 		return $this->node;
 	}
 
-	function &getNode() {
+	function getNode() {
 		return $this->node->documentElement;
 	}
 
@@ -513,7 +513,7 @@ class xml_domit_rss_simpleelement extends xml_domit_rss_elementindexer {
 		$this->node = &$element;
 	}
 
-	function getElementText() {
+	function getElementText($elementName = false) {
 		$element = &$this->node;
 		$result = '';
 		$total = $element->childCount;
