@@ -302,7 +302,7 @@ class CJPLogger {
 	/**
 	 * Clears the logfile
 	 */
-	function ResetLog() {
+	public static function ResetLog() {
 		$logName = CJPLogger::logName();
 		@unlink($logName);
 		touch($logName);
@@ -314,7 +314,7 @@ class CJPLogger {
 	 * @param integer $level The log level (_JP_LOG_XXXXX constants)
 	 * @param string $message The message to write to the log
 	 */
-	function WriteLog($level,$message) {
+	public static function WriteLog($level,$message) {
 		global $JPConfiguration;
 
 		if($JPConfiguration->logLevel >= $level) {
@@ -346,7 +346,7 @@ class CJPLogger {
 	/**
 	 * Parses the log file and outputs formatted HTML to the standard output
 	 */
-	function VisualizeLogDirect() {
+	public static function VisualizeLogDirect() {
 		$logName = CJPLogger::logName();
 		if(!file_exists($logName)) return false; //joostina pach
 		$fp = fopen($logName,"rt");
@@ -387,7 +387,7 @@ class CJPLogger {
 	/**
 	 * Calculates the absolute path to the log file
 	 */
-	function logName() {
+	public static function logName() {
 		global $JPConfiguration;
 		return $JPConfiguration->TranslateWinPath($JPConfiguration->OutputDirectory.'/joomlapack.log');
 	}

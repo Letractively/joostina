@@ -37,7 +37,7 @@ class php_file_utilities {
 		return $fileContents;
 	}
 
-	function putDataToFile($fileName,&$data,$writeAttributes) {
+	public static function putDataToFile($fileName,&$data,$writeAttributes) {
 		$fileHandle = @fopen($fileName,$writeAttributes);
 		/* нехорошо так делать, но работает */
 		$data = str_ireplace(' encoding="windows-1251"',' encoding="utf-8"',$data);
@@ -49,7 +49,3 @@ class php_file_utilities {
 	}
 
 }
-
-
-
-?>
