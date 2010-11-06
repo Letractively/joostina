@@ -22,7 +22,7 @@ function jx_show_file($dir, $item) {
 	}
 	echo '<a class="componentheading" href="#bottom">[ '._BOTTOM.' ]</a>';
 	echo '<br /><br />';
-	if(@eregi($GLOBALS["images_ext"], $item)) {
+	if(preg_match("/".$GLOBALS["images_ext"]."/i", $item)) {
 		echo '<img src="'.$GLOBALS['home_url'].'/'.$dir.'/'.$item.'" alt="'.$GLOBALS["messages"]["actview"].": ".$item.'" /><br /><br />';
 	} else {
 		if(file_exists(JPATH_BASE.'/includes/domit/xml_saxy_shared.php')) {

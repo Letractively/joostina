@@ -15,7 +15,7 @@ class menubanners {
 	/**
 	 * Draws the menu for a New banner
 	 */
-	function NEW_EDIT_MENU() {
+	public static function NEW_EDIT_MENU() {
 		mosMenuBar::startTable();
 		mosMenuBar::save('savebanner');
 		mosMenuBar::apply('applybanner');
@@ -23,7 +23,7 @@ class menubanners {
 		mosMenuBar::endTable();
 	}
 
-	function DEFAULT_MENU() {
+	public static function DEFAULT_MENU() {
 		mosMenuBar::startTable();
 		mosMenuBar::ext(_TASK_UPLOAD,'#','-media-manager','id="tb-media-manager" onclick="popupWindow(\'components/com_banners/uploadbanners.php\',\'win1\',250,100,\'no\');"');
 		mosMenuBar::publishList('publishbanner');
@@ -35,7 +35,7 @@ class menubanners {
 		mosMenuBar::endTable();
 	}
 
-	function MAIN_MENU() {
+	public static function MAIN_MENU() {
 		mosMenuBar::startTable();
 		mosMenuBar::back(_BANNERS_PANEL,'index2.php?option=com_banners');
 		mosMenuBar::endTable();
@@ -47,7 +47,7 @@ class menubannerClient {
 	/**
 	 * Draws the menu for a New client
 	 */
-	function NEW_MENU() {
+	public static function NEW_MENU() {
 		mosMenuBar::startTable();
 		mosMenuBar::save('saveclient');
 		mosMenuBar::cancel('cancelclient');
@@ -57,7 +57,7 @@ class menubannerClient {
 	/**
 	 * Draws the menu for a client
 	 */
-	function EDIT_MENU() {
+	public static function EDIT_MENU() {
 		mosMenuBar::startTable();
 		mosMenuBar::save('saveclient');
 		mosMenuBar::cancel('cancelclient');
@@ -66,7 +66,7 @@ class menubannerClient {
 	/**
 	 * Draws the default menu
 	 */
-	function DEFAULT_MENU() {
+	public static function DEFAULT_MENU() {
 		mosMenuBar::startTable();
 		mosMenuBar::publishList('publishclient');
 		mosMenuBar::unpublishList('unpublishclient');
@@ -82,7 +82,7 @@ class menubannerCategory {
 	/**
 	 * Draws the menu for a New category
 	 */
-	function NEW_MENU() {
+	public static function NEW_MENU() {
 		mosMenuBar::startTable();
 		mosMenuBar::save('savecategory');
 		mosMenuBar::cancel('cancelcategory');
@@ -92,7 +92,7 @@ class menubannerCategory {
 	 * Draws the menu for Editting an existing category
 	 * @param int The published state (to display the inverse button)
 	 */
-	function EDIT_MENU() {
+	public static function EDIT_MENU() {
 		mosMenuBar::startTable();
 		mosMenuBar::save('savecategory');
 		mosMenuBar::cancel('cancelcategory');
@@ -102,7 +102,7 @@ class menubannerCategory {
 	/**
 	 * Draws the menu for Editting an existing category
 	 */
-	function DEFAULT_MENU() {
+	public static function DEFAULT_MENU() {
 		mosMenuBar::startTable();
 		mosMenuBar::publishList('publishcategory');
 		mosMenuBar::unpublishList('unpublishcategory');

@@ -1442,7 +1442,7 @@ $v_extract = true;
 } else
 if((isset($p_options[PCLZIP_OPT_BY_EREG])) && ($p_options[PCLZIP_OPT_BY_EREG] !=
 "")) {
-if(ereg($p_options[PCLZIP_OPT_BY_EREG],$v_header['stored_filename'])) {
+if(preg_match("/".$p_options[PCLZIP_OPT_BY_EREG]."/",$v_header['stored_filename'])) {
 $v_extract = true;
 }
 } else
@@ -2034,7 +2034,7 @@ $v_found = true;
 } else
 if((isset($p_options[PCLZIP_OPT_BY_EREG])) && ($p_options[PCLZIP_OPT_BY_EREG] !=
 "")) {
-if(ereg($p_options[PCLZIP_OPT_BY_EREG],$v_header_list[$v_nb_extracted]['stored_filename'])) {
+if(preg_match("/".$p_options[PCLZIP_OPT_BY_EREG]."/",$v_header_list[$v_nb_extracted]['stored_filename'])) {
 $v_found = true;
 }
 } else

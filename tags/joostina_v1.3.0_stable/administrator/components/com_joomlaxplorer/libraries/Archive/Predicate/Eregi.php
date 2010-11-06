@@ -15,7 +15,7 @@ class File_Archive_Predicate_Eregi extends File_Archive_Predicate {
 		$this->ereg = $ereg;
 	}
 	function isTrue(&$source) {
-		return eregi($this->ereg,$source->getFilename());
+		return preg_match("/".$this->ereg."/i",$source->getFilename());
 	}
 }
 

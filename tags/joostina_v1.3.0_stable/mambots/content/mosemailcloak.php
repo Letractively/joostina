@@ -62,7 +62,7 @@ function botMosEmailCloak($published,&$row) {
 
 	// поиск кода ссылок вида <a href="mailto:email@amail.com">email@amail.com</a>
 	$pattern = botMosEmailCloak_searchPattern($search_email,$search_email);
-	while(eregi($pattern,$row->text,$regs)) {
+	while(preg_match("/".$pattern."/",$row->text,$regs)) {
 		$mail = $regs[2].$regs[3].$regs[4];
 		$mail_text = $regs[5].$regs[6].$regs[7];
 
@@ -79,7 +79,7 @@ function botMosEmailCloak($published,&$row) {
 
 	// search for derivativs of link code <a href="mailto:email@amail.com">anytext</a>
 	$pattern = botMosEmailCloak_searchPattern($search_email,$search_text);
-	while(eregi($pattern,$row->text,$regs)) {
+	while(preg_match("/".$pattern."/i",$row->text,$regs)) {
 		$mail = $regs[2].$regs[3].$regs[4];
 		$mail_text = $regs[5];
 
@@ -91,7 +91,7 @@ function botMosEmailCloak($published,&$row) {
 
 	// search for derivativs of link code <a href="mailto:email@amail.com?subject=Text&body=Text">email@amail.com</a>
 	$pattern = botMosEmailCloak_searchPattern($search_email_msg,$search_email);
-	while(eregi($pattern,$row->text,$regs)) {
+	while(preg_match("/".$pattern."/i",$row->text,$regs)) {
 		$mail = $regs[2].$regs[3].$regs[4].$regs[5];
 		$mail_text = $regs[6].$regs[7].$regs[8];
 		//needed for handling of Body parameter
@@ -110,7 +110,7 @@ function botMosEmailCloak($published,&$row) {
 
 	// search for derivativs of link code <a href="mailto:email@amail.com?subject=Text&body=Text">anytext</a>
 	$pattern = botMosEmailCloak_searchPattern($search_email_msg,$search_text);
-	while(eregi($pattern,$row->text,$regs)) {
+	while(preg_match("/".$pattern."/i",$row->text,$regs)) {
 		$mail = $regs[2].$regs[3].$regs[4].$regs[5];
 		$mail_text = $regs[6];
 		//needed for handling of Body parameter
@@ -123,7 +123,7 @@ function botMosEmailCloak($published,&$row) {
 	}
 
 	// search for plain text email@amail.com
-	while(eregi($search_email,$row->text,$regs)) {
+	while(preg_match("/".$search_email."/i",$row->text,$regs)) {
 		$mail = $regs[0];
 
 		$replacement = mosHTML::emailCloaking($mail,$mode);

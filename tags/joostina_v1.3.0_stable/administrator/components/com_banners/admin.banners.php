@@ -420,7 +420,7 @@ function editBanner($bannerid, $option) {
 	$images = array();
 	$images[] = mosHTML::makeOption('', _ABP_PSANIMG);
 	foreach($imgFiles as $file) {
-		if(eregi("(\.bmp|\.gif|\.jpg|\.jpeg|\.png|\.swf)$", $file)) {
+		if(preg_match("/(\.bmp|\.gif|\.jpg|\.jpeg|\.png|\.swf)$/i", $file)) {
 			$images[] = mosHTML::makeOption($file);
 			// get image info
 			$image_info = @getimagesize(JPATH_BASE . "/images/show/" . $file);
@@ -502,7 +502,7 @@ function saveBanner($option, $task) {
 		$banner->publish_up_date = $_publish_up_date;
 
 		// verifica formalita' della data inizio
-		if(ereg("([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})", $banner->publish_up_date, $regs)) {
+		if(preg_match("/([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})/", $banner->publish_up_date, $regs)) {
 			if(!checkdate($regs[2], $regs[3], $regs[1])) {
 				echo "<script> alert('"._CHECK_PUBLISH_DATE."'); window.history.go(-1); </script>\n";
 				exit();
@@ -517,7 +517,7 @@ function saveBanner($option, $task) {
 
 	$banner->publish_up_time = "$_publish_up_hour:$_publish_up_minute:00";
 
-	if(ereg("([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", $banner->publish_up_time, $regs)) {
+	if(preg_match("/([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})/", $banner->publish_up_time, $regs)) {
 		if($regs[1] > 24 || $regs[2] > 60 || $regs[3] > 60) {
 			echo "<script> alert('"._CHECK_START_PUBLICATION_DATE."'); window.history.go(-1); </script>\n";
 			exit();
@@ -532,7 +532,7 @@ function saveBanner($option, $task) {
 		$banner->publish_down_date = $_publish_down_date;
 
 		// verifica formalita' della data fine
-		if(ereg("([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})", $banner->publish_down_date, $regs)) {
+		if(preg_match("/([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})/", $banner->publish_down_date, $regs)) {
 			if(!checkdate($regs[2], $regs[3], $regs[1])) {
 				echo "<script> alert('"._CHECK_END_PUBLICATION_DATE."'); window.history.go(-1); </script>\n";
 				exit();
@@ -548,7 +548,7 @@ function saveBanner($option, $task) {
 
 	$banner->publish_down_time = "$_publish_down_hour:$_publish_down_minute:00";
 
-	if(ereg("([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", $banner->publish_down_time, $regs)) {
+	if(preg_match("/([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})/", $banner->publish_down_time, $regs)) {
 		if($regs[1] > 24 || $regs[2] > 60 || $regs[3] > 60) {
 			echo "<script> alert('"._CHECK_END_PUBLICATION_DATE."'); window.history.go(-1); </script>\n";
 			exit();
@@ -1225,7 +1225,7 @@ function doRestore($option) {
 
 		$filename = split("\.", $userfile_name);
 
-		if(eregi("[^0-9a-zA-Z_]", $filename[0])) {
+		if(preg_match("/[^0-9a-zA-Z_]/i", $filename[0])) {
 			mosErrorAlert(_ABP_ERROR_FILENAME);
 			mosRedirect("index2.php?option=$option&task=restore");
 		}
@@ -1244,7 +1244,7 @@ function doRestore($option) {
 	require_once (JPATH_BASE . '/includes/domit/xml_domit_include.php');
 
 	//instantiate a new DOMIT! document
-	$xmldoc = &new DOMIT_Document();
+	$xmldoc = new DOMIT_Document();
 
 	$success = $xmldoc->loadXML($media_path . $userfile_name);
 
@@ -1427,9 +1427,9 @@ function doBackup() {
 
 	$UserAgent = $_SERVER['HTTP_USER_AGENT'];
 
-	if(ereg('Opera(/| )([0-9].[0-9]{1,2})', $UserAgent)) {
+	if(preg_match('/Opera(/| )([0-9].[0-9]{1,2})/', $UserAgent)) {
 		$UserBrowser = "Opera";
-	} elseif(ereg('MSIE ([0-9].[0-9]{1,2})', $UserAgent)) {
+	} elseif(preg_match('/MSIE ([0-9].[0-9]{1,2})/', $UserAgent)) {
 		$UserBrowser = "IE";
 	} else {
 		$UserBrowser = '';
@@ -1459,7 +1459,7 @@ function doBackup() {
 	require_once (JPATH_BASE . '/includes/domit/xml_domit_include.php');
 
 	//instantiate a new DOMIT! document
-	$xmldoc = &new DOMIT_Document();
+	$xmldoc = new DOMIT_Document();
 
 	//create XML declaration
 	$xmlDecl = &$xmldoc->createProcessingInstruction('xml', 'version="1.2"');

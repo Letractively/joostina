@@ -39,7 +39,7 @@ class UserContactsEmail {
 
 	function send_message() {
 
-		if(eregi("[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-]",$this->fromname) || strlen($this->fromname) <3) {
+		if(preg_match("/[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-]/i",$this->fromname) || strlen($this->fromname) <3) {
 			$this->_error = BOT_USER_CONTACTS_CHECK_NAME;
 			return false;
 		}

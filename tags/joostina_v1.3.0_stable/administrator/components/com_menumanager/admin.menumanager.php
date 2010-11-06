@@ -88,6 +88,7 @@ function showMenu($option) {
 	$total = count($menuTypes);
 	$i = 0;
 	foreach($menuTypes as $a) {
+		$menus[$i] = new stdClass();
 		$menus[$i]->type = $a;
 		//$count = strlen($a);
 

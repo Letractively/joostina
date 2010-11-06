@@ -49,7 +49,7 @@ if(isset($_FILES['userfile'])) {
 
 	$filename = split("\.", $userfile_name);
 
-	if(eregi("[^0-9a-zA-Z_]", $filename[0])) {
+	if(preg_match("/[^0-9a-zA-Z_]/i", $filename[0])) {
 		mosErrorAlert(_BAD_FILENAME);
 	}
 

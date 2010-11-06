@@ -194,7 +194,7 @@ class XmapAdminHtml {
 
 								<?php
 								// currently selected external link marker image
-								if( eregi( 'gif|jpg|jpeg|png', @$sitemap->ext_image )) {
+								if( preg_match( '/gif|jpg|jpeg|png/i', @$sitemap->ext_image )) {
 									$ext_imgurl = $xmapSiteURL.'/components/com_xmap/images/'.$sitemap->ext_image;
 		} else {
 			$ext_imgurl = $xmapSiteURL.'/images/blank.png';

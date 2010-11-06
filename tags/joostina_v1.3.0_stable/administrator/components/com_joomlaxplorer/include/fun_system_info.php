@@ -242,19 +242,19 @@ function system_info($version, $option) {
 		<?php
 	$cf = file(JPATH_BASE.'/configuration.php');
 	foreach($cf as $k => $v) {
-		if(eregi('mosConfig_host', $v)) {
+		if(preg_match('/mosConfig_host/i', $v)) {
 			$cf[$k] = '$mosConfig_host = \'xxxxxx\'';
 		} else
-			if(eregi('mosConfig_user', $v)) {
+			if(preg_match('/mosConfig_user/i', $v)) {
 				$cf[$k] = '$mosConfig_user = \'xxxxxx\'';
 			} else
-				if(eregi('mosConfig_password', $v)) {
+				if(preg_match('/mosConfig_password/i', $v)) {
 					$cf[$k] = '$mosConfig_password = \'xxxxxx\'';
 				} else
-					if(eregi('mosConfig_db ', $v)) {
+					if(preg_match('/mosConfig_db/i', $v)) {
 						$cf[$k] = '$mosConfig_db = \'xxxxxx\'';
 					} else
-						if(eregi('<?php', $v)) {
+						if(preg_match('/<?php/i', $v)) {
 							$cf[$k] = '&lt;?php';
 						}
 	}

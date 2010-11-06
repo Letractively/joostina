@@ -170,7 +170,7 @@ function get_is_image($abs_item) {
 	if(isset($abs_item['name'])) {
 		$abs_item = $abs_item['name'];
 	}
-	return @eregi($GLOBALS["images_ext"], $abs_item);
+	return @preg_match("/".$GLOBALS["images_ext"]."/i", $abs_item);
 }
 function get_is_editable($abs_item) {
 	if(!get_is_file($abs_item))
@@ -179,7 +179,7 @@ function get_is_editable($abs_item) {
 		$abs_item = $abs_item['name'];
 	}
 	foreach($GLOBALS["editable_ext"] as $pat)
-		if(@eregi($pat, $abs_item))
+		if(@preg_match("/".$pat."/i", $abs_item))
 			return true;
 	return strpos(basename($abs_item), ".")?false:true;
 }
@@ -199,7 +199,7 @@ function get_mime_type($abs_item, $query) {
 	}
 	foreach($GLOBALS["used_mime_types"] as $mime) {
 		list($desc, $img, $ext) = $mime;
-		if(@eregi($ext, basename($abs_item))) {
+		if(@preg_match("/".$ext."/i", basename($abs_item))) {
 			$mime_type = $desc;
 			$image = $img;
 			if($query == "img")
@@ -208,7 +208,7 @@ function get_mime_type($abs_item, $query) {
 				return $mime_type.$extra;
 		}
 	}
-	if((function_exists("is_executable") && @is_executable($abs_item)) || @eregi($GLOBALS["super_mimes"]["exe"][2],
+	if((function_exists("is_executable") && @is_executable($abs_item)) || @preg_match("/".$GLOBALS["super_mimes"]["exe"][2]."/i",
 		$abs_item)) {
 		$mime_type = $GLOBALS["super_mimes"]["exe"][0];
 		$image = $GLOBALS["super_mimes"]["exe"][1];
@@ -227,7 +227,7 @@ function get_show_item($dir, $item) {
 	}
 	if($item == "." || $item == ".." || (substr($item, 0, 1) == "." && $GLOBALS["show_hidden"] == false))
 		return false;
-	if($GLOBALS["no_access"] != "" && @eregi($GLOBALS["no_access"], $item))
+	if($GLOBALS["no_access"] != "" && @preg_match("/".$GLOBALS["no_access"]."/i", $item))
 		return false;
 	if($GLOBALS["show_hidden"] == false) {
 		$dirs = explode("/", $dir);
@@ -371,13 +371,13 @@ function get_max_upload_limit() {
 	return calc_php_setting_bytes(ini_get('post_max_size'));
 }
 function calc_php_setting_bytes($value) {
-	if(@eregi("G$", $value)) {
+	if(@preg_match("/G$/i", $value)) {
 		$value = substr($value, 0, -1);
 		$value = round($value * 1073741824);
-	} elseif(@eregi("M$", $value)) {
+	} elseif(@preg_match("/M$/i", $value)) {
 		$value = substr($value, 0, -1);
 		$value = round($value * 1048576);
-	} elseif(@eregi("K$", $value)) {
+	} elseif(@preg_match("/K$/i", $value)) {
 		$value = substr($value, 0, -1);
 		$value = round($value * 1024);
 	}
@@ -390,7 +390,7 @@ function down_home($abs_dir) {
 	$real_home = @realpath($GLOBALS["home_dir"]);
 	$real_dir = @realpath($abs_dir);
 	if($real_home === false || $real_dir === false) {
-		if(@eregi("\\.\\.", $abs_dir))
+		if(@preg_match("/\\.\\./i", $abs_dir))
 			return false;
 	} else
 		if(strcmp($real_home, @substr($real_dir, 0, strlen($real_home)))) {
@@ -400,19 +400,19 @@ function down_home($abs_dir) {
 }
 function id_browser() {
 	$browser = $GLOBALS['__SERVER']['HTTP_USER_AGENT'];
-	if(ereg('Opera(/| )([0-9].[0-9]{1,2})', $browser)) {
+	if(preg_match('/Opera(/| )([0-9].[0-9]{1,2})/', $browser)) {
 		return 'OPERA';
 	} else
-		if(ereg('MSIE ([0-9].[0-9]{1,2})', $browser)) {
+		if(preg_match('/MSIE ([0-9].[0-9]{1,2})/', $browser)) {
 			return 'IE';
 		} else
-			if(ereg('OmniWeb/([0-9].[0-9]{1,2})', $browser)) {
+			if(preg_match('/OmniWeb/([0-9].[0-9]{1,2})/', $browser)) {
 				return 'OMNIWEB';
 			} else
-				if(ereg('(Konqueror/)(.*)', $browser)) {
+				if(preg_match('/(Konqueror/)(.*)/', $browser)) {
 					return 'KONQUEROR';
 				} else
-					if(ereg('Mozilla/([0-9].[0-9]{1,2})', $browser)) {
+					if(preg_match('/Mozilla/([0-9].[0-9]{1,2})/', $browser)) {
 						return 'MOZILLA';
 					} else {
 						return 'OTHER';
@@ -435,7 +435,7 @@ if(!extension_loaded('posix')) {
 	}
 }
 function jx_isIE() {
-	return (ereg('MSIE ([0-9].[0-9]{1,2})', $_SERVER['HTTP_USER_AGENT']));
+	return (preg_match('/MSIE ([0-9].[0-9]{1,2})/', $_SERVER['HTTP_USER_AGENT']));
 }
 if(!function_exists('mosToolTip')) {
 	function mosToolTip($tooltip, $title = '', $width = '', $image = 'tooltip.png',

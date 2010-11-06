@@ -391,7 +391,7 @@ class HTML_admin_misc {
 
 		$page = strval(mosGetParam($_REQUEST,'page','joomla.whatsnew100.html'));
 		$toc = getHelpToc($helpsearch);
-		if(!eregi('\.html$',$page)) {
+		if(!preg_match('/\.html$/',$page)) {
 			$page .= '.xml';
 		}
 

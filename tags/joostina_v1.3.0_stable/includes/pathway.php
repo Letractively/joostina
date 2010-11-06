@@ -241,7 +241,7 @@ function showPathway($Itemid) {
 	}
 
 	while($i--) {
-		if(!$mid || empty($mitems[$mid]) || $Itemid == $home_menu->id || !eregi("option",
+		if(!$mid || empty($mitems[$mid]) || $Itemid == $home_menu->id || !preg_match("/option/i",
 				$optionstring)) {
 			break;
 		}
@@ -255,7 +255,7 @@ function showPathway($Itemid) {
 			$newlink = '<li>'.$itemname.'</li>';
 		} else
 		if(isset($item->type) && $item->type == 'url') {
-			$correctLink = eregi('http://',$item->link);
+			$correctLink = preg_match('/http:\/\//i',$item->link);
 			if($correctLink == 1) {
 				$newlink = '<li><a href="'.$item->link.'" target="_window" class="pathway" title="'.$itemname.'">'.$itemname.'</a></li>';
 			} else {
@@ -277,7 +277,7 @@ function showPathway($Itemid) {
 		$mid = $item->parent;
 	}
 
-	if(eregi('option',$optionstring) && trim($path)) {
+	if(preg_match('/option/i',$optionstring) && trim($path)) {
 		$home = '<li class="pahway_home"><a href="'.sefRelToAbs(JPATH_SITE).'" class="pathway" title="'.$home.'">'.$home.'</a></li>';
 	}
 

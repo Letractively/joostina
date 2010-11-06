@@ -122,7 +122,7 @@ class mosArtBanner extends mosDBTable {
 		$this->custom_banner_code = trim($this->custom_banner_code);
 		if($this->custom_banner_code == "") {
 			// if is not banner swf
-			if(!eregi(".swf", $this->image_url)) {
+			if(!preg_match("/.swf/", $this->image_url)) {
 				if(trim($this->image_url) == "") {
 					$this->_error = _ABP_BN_MSIB;
 					return false;
@@ -202,7 +202,7 @@ class mosArtBannersTime {
 			$time = mosCurrentDate("%H:%M:%S");
 		}
 
-		if(ereg("([0-9]{2}):([0-9]{2}):([0-9]{2})", $time, $regs)) {
+		if(preg_match("/([0-9]{2}):([0-9]{2}):([0-9]{2})/", $time, $regs)) {
 			$this->hour = $regs[1];
 			$this->minute = $regs[2];
 			$this->second = $regs[3];
