@@ -191,7 +191,7 @@ function unzipzipfile($curdirpath,$curfile,$destindir) {
 	$path2 = JWMMXTD_STARTABSPATH.$destindir.DS; // каталог для распаковки
 
 	if(is_file($path)) {
-		if(eregi(".zip",$path)) {
+		if(preg_match("/.zip/i",$path)) {
 			$zip = new PclZip($path);
 			$list = $zip->extract($path2);
 			if($list > 0) {
@@ -368,12 +368,12 @@ function listofImages($listdir) {
 		$folders = array();
 		$docs = array();
 		// к изображениям относятся только файлы перечисленного типа
-		$allowable = 'xcf|odg|gif|jpg|png|bmp';
+		$allowable = '/xcf|odg|gif|jpg|png|bmp/i';
 		while(false !== ($entry = $d->read())) {
 			$img_file = $entry;
 			if(is_file($listdir.'/'.$img_file) && substr($entry,0,1) != '.' && strtolower($entry)
 					!== 'index.html') {
-				if(eregi($allowable,$img_file)) {
+				if(preg_match($allowable,$img_file)) {
 					$image_info = @getimagesize($listdir.'/'.$img_file);
 					$file_details['file'] = $listdir."/".$img_file;
 					$file_details['img_info'] = $image_info;
@@ -451,7 +451,7 @@ function listImagesBak($dirname = '.') {
 function create_folder($curdirectory,$folder_name) {
 	$folder_name = str_replace(" ","_",$folder_name);
 	if(strlen($folder_name) > 0) {
-		if(eregi("[^0-9a-zA-Z_]",$folder_name)) {
+		if(preg_match("/[^0-9a-zA-Z_]/i",$folder_name)) {
 			mosRedirect("index2.php?option=com_jwmmxtd&curdirectory=".$curdirectory,_JWMM_FILE_NAME_WARNING);
 		}
 		$folder = JWMMXTD_STARTABSPATH.$curdirectory.DS.$folder_name;

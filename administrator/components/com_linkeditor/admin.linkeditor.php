@@ -145,7 +145,7 @@ function ReadImages($imagePath,$folderPath,&$folders,&$images) {
 	foreach($imgFiles as $file) {
 		$ff = $folderPath.$file;
 		$i_f = $imagePath.'/'.$file;
-		if(eregi("bmp|gif|jpg|png",$file) && is_file($i_f)) {
+		if(preg_match("/bmp|gif|jpg|png/i",$file) && is_file($i_f)) {
 			$imageFile = substr($ff,1);
 			$images[$folderPath][] = mosHTML::makeOption($imageFile,$file);
 		}

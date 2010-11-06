@@ -28,8 +28,8 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 				break;
 
 			case 'url':
-				if ( eregi( 'index.php\?', $mitem->link ) && !eregi( 'http', $mitem->link ) && !eregi( 'https', $mitem->link ) ) {
-					if ( !eregi( 'Itemid=', $mitem->link ) ) {
+				if ( preg_match( '/index.php\?/', $mitem->link ) && !preg_match( '/http/', $mitem->link ) && !preg_match( '/https/', $mitem->link ) ) {
+					if ( !preg_match( '/Itemid=/', $mitem->link ) ) {
 						$mitem->link .= '&Itemid='. $mitem->id;
 					}
 				}

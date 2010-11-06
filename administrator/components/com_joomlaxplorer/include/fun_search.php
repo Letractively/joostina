@@ -20,7 +20,7 @@ function find_item($dir, $pat, &$list, $recur) {
 			continue;
 		if(!get_show_item($dir, $new_item))
 			continue;
-		if(@eregi($pat, $new_item))
+		if(@preg_match("/".$pat."/i", $new_item))
 			$list[] = array($dir, $new_item);
 		if(get_is_dir($dir, $new_item) && $recur) {
 			find_item(get_rel_item($dir, $new_item), $pat, $list, $recur);

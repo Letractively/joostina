@@ -367,7 +367,7 @@ if(!class_exists('mosMenuBar')) {
 					if($com) {
 						// help file for 3PD Components
 						$url = JPATH_SITE.'/'.JADMIN_BASE.'/components/'.$GLOBALS['option'].'/help/';
-						if(!eregi('\.html$',$ref) && !eregi('\.xml$',$ref)) {
+						if(!preg_match('/\.html$/i',$ref) && !preg_match('/\.xml$/i',$ref)) {
 							$ref = $ref.'.html';
 						}
 						$url .= $ref;
@@ -380,7 +380,7 @@ if(!class_exists('mosMenuBar')) {
 					} else {
 						// Included html help files
 						$url = JPATH_SITE.'/help/';
-						if(!eregi('\.html$',$ref) && !eregi('\.xml$',$ref)) {
+						if(!preg_match('/\.html$/i',$ref) && !preg_match('/\.xml$/i',$ref)) {
 							$ref = $ref.'.html';
 						}
 						$url .= $ref;

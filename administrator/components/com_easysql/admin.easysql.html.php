@@ -170,7 +170,7 @@ function record_html($query) {
 				$key = $var;
 				$f = 0;
 			}
-			if(ereg("[a-zA-Z]+",$var,$array)) $body .= '<th>'.$var."</th>\n";
+			if(preg_match("/[a-zA-Z]+/",$var,$array)) $body .= '<th>'.$var."</th>\n";
 		}
 		$body .= "</tr></thead>\n";
 		// Get unique field of table
@@ -192,7 +192,7 @@ function record_html($query) {
 						.base64_encode($query)
 						.'"><img border=0 src="'.$cur_file_icons_path.'/ico/publish_x.png" alt="'._DELETE.'" /></a></td>';
 			foreach($row as $var => $val) {
-				if(ereg("[a-zA-Z]+",$var,$array)) $body .= '<td>&nbsp;'.prepare(substr($val,0,50))."</td>\n";
+				if(preg_match("/[a-zA-Z]+/",$var,$array)) $body .= '<td>&nbsp;'.prepare(substr($val,0,50))."</td>\n";
 			}
 			$body .= "</tbody></tr>\n";
 			$k = 1 - $k;

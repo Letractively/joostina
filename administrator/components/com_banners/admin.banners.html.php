@@ -12,7 +12,7 @@ defined('_VALID_MOS') or die();
 
 class HTML_banners {
 
-	function showBanners(&$rows, &$clist, &$clientlist, $myid, &$pageNav, $option) {
+	public static function showBanners(&$rows, &$clist, &$clientlist, $myid, &$pageNav, $option) {
 		mosCommonHTML::loadOverlib();
 		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
@@ -73,7 +73,7 @@ class HTML_banners {
 					$info .= _ABP_TOTAL_PRICE . ': ' . _ABP_CURRENCY . ' ' . $row->click_value . ' / ' . _ABP_CURRENCY . ' ' . $total_clickvalue;
 					$info .= '<br>' . _ABP_PRICE_IMPRESSION . ': ' . _ABP_CURRENCY . ' ' . $row->imp_value . ' / ' . _ABP_CURRENCY . ' ' . $pay_imp;
 
-					if(eregi("(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$", $row->image_url)) {
+					if(preg_match("/(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$/i", $row->image_url)) {
 						$over = 'onmouseover="return overlib(\'<img border=0 src=../images/show/' . str_replace(' ', '%20', $row->image_url) . '\><br>' . $info . '\',CAPTION,\'' . _ABP_PREVIEW . '\',WIDTH,468);" onmouseout="return nd();"';
 					}
 					else {
@@ -217,7 +217,7 @@ class HTML_banners {
 
 	} // end showBanners
 
-	function editBanner(&$row, &$clientlist, &$categorylist, &$imagelist, $glist, $option, &$dimension) {
+	public static function editBanner(&$row, &$clientlist, &$categorylist, &$imagelist, $glist, $option, &$dimension) {
 		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 
@@ -548,7 +548,7 @@ class HTML_banners {
 		<?php
 									$image_blank = '<img src="images/blank.png" name="imagelib" />';
 									if($row->image_url != '') {
-										if(eregi(".swf", $row->image_url)) {
+										if(preg_match("/.swf/", $row->image_url)) {
 											echo $image_blank;
 											echo '<script language="javascript" type="text/javascript">
 				<!--
@@ -556,7 +556,7 @@ class HTML_banners {
 				//-->
 				</script>';
 										} else
-										if(eregi("(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$", $row->image_url)) {
+										if(preg_match("/(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$/", $row->image_url)) {
 											?>
 							<img src="../images/show/<?php echo $row->image_url; ?>" name="imagelib" />
 				<?php
@@ -823,7 +823,7 @@ class HTML_banners {
 		<?php
 	}
 
-	function cPanel($info_banner, $info_clients, $info_categories, $option) {?>
+	public static function cPanel($info_banner, $info_clients, $info_categories, $option) {?>
 
 <table class="adminheading" border="0">
 	<tr>
@@ -894,7 +894,7 @@ class HTML_banners {
 	}
 
 	// прорисовка кнопок управления
-	function quickiconButton($link,$image,$text) {
+	public static function quickiconButton($link,$image,$text) {
 		?>
 <span>
 	<a href="<?php echo $link; ?>" title="<?php echo $text; ?>">
@@ -913,7 +913,7 @@ class HTML_banners {
  * Banner clients
  */
 class HTML_bannerClient {
-	function showClients(&$rows, &$info_banner, $myid, &$pageNav, $option, $stateslist) {
+	public static function showClients(&$rows, &$info_banner, $myid, &$pageNav, $option, $stateslist) {
 
 		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
@@ -984,7 +984,7 @@ class HTML_bannerClient {
 		<?php
 	}
 
-	function editClient(&$row, $option) {
+	public static function editClient(&$row, $option) {
 		?>
 <script language="javascript" type="text/javascript">
 	<!--
@@ -1053,7 +1053,7 @@ class HTML_bannerCategory {
 	 * @param array An array of category objects
 	 * @param string The name of the category section
 	 */
-	function showCategories(&$rows, $myid, &$pageNav, $option, $stateslist) {
+	public static function showCategories(&$rows, $myid, &$pageNav, $option, $stateslist) {
 		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		?>
@@ -1121,7 +1121,7 @@ class HTML_bannerCategory {
 	 * even for a new record.
 	 * @param mosCategory The category object
 	 */
-	function editCategory(&$row) {
+	public static function editCategory(&$row) {
 		?>
 <script language="javascript" type="text/javascript">
 	<!--
@@ -1164,7 +1164,7 @@ class HTML_bannerCategory {
 } // end HTML_bannerCategory
 
 class HTML_bannersOther {
-	function restore($option) {?>
+	public static function restore($option) {?>
 <form action="index2.php" method="POST" name="adminForm" enctype="multipart/form-data">
 	<table class="adminform">
 		<tr>

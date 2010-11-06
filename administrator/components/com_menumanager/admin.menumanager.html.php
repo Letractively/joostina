@@ -19,7 +19,7 @@ class HTML_menumanager {
 	/**
 	 * Writes a list of the menumanager items
 	 */
-	function show($option,$menus,$pageNav) {
+	public static function show($option,$menus,$pageNav) {
 		?>
 <script language="javascript" type="text/javascript">
 	function menu_listItemTask( id, task, option ) {
@@ -118,7 +118,7 @@ class HTML_menumanager {
 	 * writes a form to take the name of the menu you would like created
 	 * @param option	display options for the form
 	 */
-	function edit(&$row,$option) {
+	public static function edit(&$row,$option) {
 		$new = $row->menutype ? 0:1;
 		mosCommonHTML::loadOverlib();
 		$row->menutype = htmlspecialchars($row->menutype);
@@ -230,7 +230,7 @@ class HTML_menumanager {
 	 * A delete confirmation page
 	 * Writes list of the items that have been selected for deletion
 	 */
-	function showDelete($option,$type,$items,$modules) {
+	public static function showDelete($option,$type,$items,$modules) {
 		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
 		?>
@@ -317,7 +317,7 @@ class HTML_menumanager {
 	 * A copy confirmation page
 	 * Writes list of the items that have been selected for copy
 	 */
-	function showCopy($option,$type,$items) {
+	public static function showCopy($option,$type,$items) {
 		?>
 <script language="javascript" type="text/javascript">
 	function submitbutton(pressbutton) {

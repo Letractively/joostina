@@ -36,7 +36,7 @@ function clickArtBanner($id) {
 	$banner->clicks();
 
 	$click_url = $banner->click_url; //default
-	if(!eregi('http://', $banner->click_url))
+	if(!preg_match('/http:\/\//i', $banner->click_url))
 		$click_url = "http://$banner->click_url";
 
 	mosRedirect($click_url);
@@ -63,7 +63,7 @@ function showStatistics($id) {
 			if($banner->custom_banner_code != "") {
 				echo $banner->custom_banner_code;
 			} else
-			if(eregi("(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$", $banner->image_url)) {
+			if(preg_match("/(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$/i", $banner->image_url)) {
 				$image_url = JPATH_SITE."/images/show/$banner->image_url";
 				$imginfo = @getimagesize("JPATH_BASE/images/show/" . $banner->image_url);
 				$border_value = $banner->border_value;
@@ -73,7 +73,7 @@ function showStatistics($id) {
 				$height = $imginfo[1] / 1.23;
 				echo "<img src=\"" . $image_url . "\" style=\"border:" . $border_value . "px " . $border_style . " " . $border_color . "\" vspace=\"0\" alt=\"$banner->name\" width=\"$width\" height=\"$height\" />";
 			} else
-			if(eregi(".swf", $banner->image_url)) {
+			if(preg_match("/.swf/i", $banner->image_url)) {
 				$image_url = JPATH_SITE."/images/show/" . $banner->image_url;
 				$swfinfo = @getimagesize("JPATH_BASE/images/show/" . $banner->image_url);
 				$width = $swfinfo[0] / 1.23;
