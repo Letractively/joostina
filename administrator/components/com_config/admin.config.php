@@ -222,10 +222,10 @@ function showconfig($option) {
 	$lists['session_type']= mosHTML::selectList($session,'config_session_type','class="inputbox" size="1"','value','text',$row->config_session_type);
 
 	$errors = array(
+            mosHTML::makeOption(E_ALL,_COM_CONFIG_ERROR_ALL),
 			mosHTML::makeOption(-1,_COM_CONFIG_ERROR_SYSTEM),
 			mosHTML::makeOption(0,_COM_CONFIG_ERROR_HIDE),
 			mosHTML::makeOption(E_ERROR | E_WARNING | E_PARSE,_COM_CONFIG_ERROR_TINY),
-			mosHTML::makeOption(E_ALL,_COM_CONFIG_ERROR_ALL),
 			mosHTML::makeOption(E_ALL & ~E_NOTICE,_COM_CONFIG_ERROR_PARANOIDAL),
 	);
 
