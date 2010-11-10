@@ -510,6 +510,19 @@ class database {
 		return $array;
 	}
 
+	public function loadRowArray($key, $value) {
+		if (!($cur = $this->query())) {
+			return null;
+		}
+		$array = array();
+		while ($row = mysql_fetch_object($cur)) {
+			$array[$row->$key] = $row->$value;
+		}
+		mysql_free_result($cur);
+
+		return $array;
+	}
+
 	/**
 	 * Document::db_insertObject()
 	 * @param string $table This is expected to be a valid (and safe!) table name
