@@ -66,7 +66,7 @@ function feedFrontpage($showFeed) {
 	}
 
 	$now = _CURRENT_SERVER_TIME;
-	$iso = split('=',_ISO);
+	$iso = explode('=',_ISO);
 
 	// parameter intilization
 	$info['date'] = date('r');
@@ -264,7 +264,7 @@ function feedFrontpage($showFeed) {
 		if($info['limit_text']) {
 			if($info['text_length']) {
 				// limits description text to x words
-				$item_description_array = split(' ',$item_description);
+				$item_description_array = explode(' ',$item_description);
 				$count = count($item_description_array);
 				if($count > $info['text_length']) {
 					$item_description = '';

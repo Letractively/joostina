@@ -1223,7 +1223,7 @@ function doRestore($option) {
 			mosRedirect("index2.php?option=$option&task=restore");
 		}
 
-		$filename = split("\.", $userfile_name);
+		$filename = explode("\.", $userfile_name);
 
 		if(preg_match("/[^0-9a-zA-Z_]/i", $filename[0])) {
 			mosErrorAlert(_ABP_ERROR_FILENAME);

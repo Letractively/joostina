@@ -47,7 +47,7 @@ if(isset($_FILES['userfile'])) {
 		echo "<script>alert("._CHOOSE_BANNER_IMAGE."); document.location.href='uploadbanners.php';</script>";
 	}
 
-	$filename = split("\.", $userfile_name);
+	$filename = explode("\.", $userfile_name);
 
 	if(preg_match("/[^0-9a-zA-Z_]/i", $filename[0])) {
 		mosErrorAlert(_BAD_FILENAME);
@@ -73,7 +73,7 @@ if(isset($_FILES['userfile'])) {
 	echo $base_Dir . $_FILES['userfile']['name'];
 }
 
-$iso = split('=', _ISO);
+$iso = explode('=', _ISO);
 // xml prolog
 echo '<?xml version="1.0" encoding="' . $iso[1] . '"?' . '>';
 ?>

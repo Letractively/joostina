@@ -46,7 +46,7 @@ if($css != '' && is_file(JPATH_BASE.DS.'templates'.DS.$css.'/css/template_css.cs
 	}
 }
 
-$iso = split('=',_ISO);
+$iso = explode('=',_ISO);
 // xml prolog
 echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
 ?>

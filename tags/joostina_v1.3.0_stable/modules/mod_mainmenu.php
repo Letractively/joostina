@@ -45,7 +45,7 @@ if (!defined( '_MOS_MAINMENU_MODULE' )) {
 				if ( $unique_itemid ) {
 					$mitem->link .= '&Itemid='. $mitem->id;
 				} else {
-					$temp = split('&task=view&id=', $mitem->link);
+					$temp = explode('&task=view&id=', $mitem->link);
 
 					if ( $mitem->type == 'content_typed' ) {
 						$mitem->link .= '&Itemid='. $mainframe->getItemid($temp[1], 1, 0);
