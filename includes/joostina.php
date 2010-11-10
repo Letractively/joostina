@@ -1478,7 +1478,7 @@ class mosMainFrame {
 			$this->_db->query();
 
 			// tease out the last element of the domain
-			$tldomain = split("\.",$domain);
+			$tldomain = explode("\.",$domain);
 			$tldomain = $tldomain[count($tldomain) - 1];
 
 			if(is_numeric($tldomain)) {
@@ -4789,7 +4789,7 @@ class mosAdminMenus {
 					if($params->get('unique_itemid')) {
 						$row->link .= '&Itemid='.$row->id;
 					} else {
-						$temp = split('&task=view&id=',$row->link);
+						$temp = explode('&task=view&id=',$row->link);
 						$row->link .= '&Itemid='.$mainframe->getItemid($temp[1],0,0);
 					}
 

@@ -431,7 +431,7 @@ class php_http_response {
 	}
 
 	function getStatusCode() {
-		$statusArray = split(' ',$this->statusLine);
+		$statusArray = explode(' ',$this->statusLine);
 		if(count($statusArray > 1)) {
 			return intval($statusArray[1],10);
 		}

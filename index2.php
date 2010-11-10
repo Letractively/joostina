@@ -190,7 +190,7 @@ if($no_html == 0) {
 		require ($customIndex2);
 	} else {
 		// требуется для отделения номера ISO от константы  _ISO языкового файла языка
-		$iso = split('=',_ISO);
+		$iso = explode('=',_ISO);
 		// пролог xml
 		echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
 		?>

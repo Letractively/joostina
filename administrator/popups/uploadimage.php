@@ -97,7 +97,7 @@ if(isset($_FILES['userfile'])) {
 		mosErrorAlert(_CHOOSE_IMAGE_FOR_UPLOAD,$action);
 	}
 
-	$filename = split("\.",$userfile_name);
+	$filename = explode("\.",$userfile_name);
 
 	if(preg_match("/[^0-9a-zA-Z_]/i",$filename[0])) {
 		mosErrorAlert(_BAD_UPLOAD_FILE_NAME,$action);
@@ -135,7 +135,7 @@ if($css == '') {
 	$css = 'joostfree';
 }
 
-$iso = split('=',_ISO);
+$iso = explode('=',_ISO);
 // xml prolog
 echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>';
 ?>

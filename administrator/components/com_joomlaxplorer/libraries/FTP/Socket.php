@@ -168,7 +168,7 @@ function ftp_pasv(&$control,$pasv) {
 	$pos = strpos($cont,'(') + 1;
 	$pos2 = strrpos($cont,')') - $pos;
 	$string = substr($cont,$pos,$pos2);
-	$array = split(',',$string);
+	$array = explode(',',$string);
 	$ip = $array[0].'.'.$array[1].'.'.$array[2].'.'.$array[3];
 	$port = ($array[4] << 8) + $array[5];
 	$data = fsockopen($ip,$port,$iError,$sError,$GLOBALS['_NET_FTP']['timeout']);
