@@ -488,8 +488,10 @@ class mosInstaller {
 			foreach ($files as $file) {
 				$lang_path = $file->getAttribute('folder');
 				$installTo = mosPathName(JPATH_BASE . DS . $lang_path);
-				$fil = array($file->getText());
-				$this->copyFiles($installFrom, $installTo, $fil);
+				$fil = $file->getText();
+                $file_path = dirname($fil);
+                $file_name = basename($fil);
+				$this->copyFiles($installFrom.$file_path.DS, $installTo, array($file_name));
 			}
 		} elseif ($adminFiles) {
 			$installTo = $this->componentAdminDir();
