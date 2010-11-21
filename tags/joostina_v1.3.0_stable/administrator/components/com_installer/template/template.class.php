@@ -70,7 +70,7 @@ class mosInstallerTemplate extends mosInstaller {
         $f = (!empty($f)) ? $f = $f.DS : '';
 
 		$this->elementName($f . $e->getText());
-        $this->elementDir(mosPathName(JPATH_BASE . DS . 'templates' . DS . $f . $e->getText()));
+        $this->elementDir(mosPathName(JPATH_BASE.($client == 'admin'? DS.JADMIN_BASE:'').DS.'templates'.DS.strtolower(str_replace(" ","_",$this->elementName()))));
 		$base = mosPathName(JPATH_BASE . ($client == 'admin' ? '/' . JADMIN_BASE : '') . '/templates');
 		$path = strtolower(str_replace(" ", "_", $this->elementName()));
 		if (!file_exists($this->elementDir()) && !mosMakePath($base, $path)) {
