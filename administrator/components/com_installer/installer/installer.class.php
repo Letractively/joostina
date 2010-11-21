@@ -491,8 +491,9 @@ class mosInstaller {
 				$fil = $file->getText();
                 $file_path = dirname($fil);
                 $file_name = basename($fil);
-				$this->copyFiles($installFrom.$file_path.DS, $installTo, array($file_name));
+				$result = $this->copyFiles($installFrom.$file_path.DS, $installTo, array($file_name));
 			}
+            return $result;
 		} elseif ($adminFiles) {
 			$installTo = $this->componentAdminDir();
 		} else {
@@ -515,7 +516,6 @@ class mosInstaller {
 			foreach ($p_files as $_file) {
 				$filesource = mosPathName(mosPathName($p_sourcedir) . $_file, false);
 				$filedest = mosPathName(mosPathName($p_destdir) . $_file, false);
-
 				if (!file_exists($filesource)) {
 					$this->setError(1, _FILE_NOT_EXISTSS . " $filesource");
 					return false;
