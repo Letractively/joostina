@@ -64,8 +64,13 @@ class mosInstallerTemplate extends mosInstaller {
 
 		// Set some vars
 		$e = &$mosinstall->getElementsByPath('name', 1);
+
 		$f = &$mosinstall->getElementsByPath('folder', 1);
-		$this->elementName($f->getText() . '/' . $e->getText());
+        $f = (!empty($f)) ? @$f->getText() : '';
+        $f = (!empty($f)) ? $f = $f.DS : '';
+
+		$this->elementName($f . $e->getText());
+        $this->elementDir(mosPathName(JPATH_BASE . DS . 'templates' . DS . $f . $e->getText()));
 		$base = mosPathName(JPATH_BASE . ($client == 'admin' ? '/' . JADMIN_BASE : '') . '/templates');
 		$path = strtolower(str_replace(" ", "_", $this->elementName()));
 		if (!file_exists($this->elementDir()) && !mosMakePath($base, $path)) {
