@@ -1547,9 +1547,9 @@ function seccatli($act = 0,$filter_authorid=0) {
 	$sectli .= "\n t.add(0,-1,'"._COM_CONTENT_TYPES."');";
 	$sectli .= $showarchive ? "\n t.add(1,0,'"._COM_CONTENT_ARCHIVE_CONTENT."');" : "\n t.add(1,0,'<a href=\"index2.php?option=com_content&showarchive=1\">"._COM_CONTENT_ARCHIVE_CONTENT."</a>');";
 
-	$sectli .= "\n document.write(c);";
-	$sectli .= "\n document.write(u);";
-	$sectli .= "\n document.write(t);";
+	$sectli .= "\n document.write(c+'<br />');";
+	$sectli .= "\n document.write(u+'<br />');";
+	$sectli .= "\n document.write(t+'<br />');";
 	$sectli .= '//--></script></div>';
 	return $sectli;
 }

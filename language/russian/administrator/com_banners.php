@@ -23,7 +23,6 @@ DEFINE('_ABP_BN_DATE', 'Дата начала публикации должна 
 DEFINE('_ABP_BN_REC', 'Вы должны установить дни по которым баннер должен быть видимым');
 DEFINE('_ABP_SELECT_CLIENT', 'Выберите клиента');
 DEFINE('_ABP_FAILED_TO_COPY', 'Ошибка при копировании %s');
-DEFINE('_ABP_FAILED_ACCESS', 'Ошибка доступа'); 
 DEFINE('_ABP_SELECT_ITEM_TO', 'Выберите объект для %s');
 DEFINE('_ABP_CICBEBAA', 'Клиент %s в текущее время редактируется другим администратором');
 DEFINE('_ABP_CDCATTATHABSR', 'Не могу удалить клиента %s, т.к. в настоящие время у него запущены баннеры.');
@@ -210,5 +209,3 @@ DEFINE('_BNR_CLIENT','Вы должны выбрать клиента,');
 DEFINE('_BNR_NAME','Введите имя баннера.');
 DEFINE('_BNR_IMAGE','Выберите изображения баннера.');
 DEFINE('_BNR_URL','Вы должны ввести URL/Код баннера.');
-DEFINE('_COM_BANNERS_NONE_ACCESS','Доступ не возможен');
-?>
