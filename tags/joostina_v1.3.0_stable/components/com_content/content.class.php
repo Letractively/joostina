@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package Joostina
  * @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
@@ -6,7 +7,6 @@
  * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
  * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
  */
-
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
@@ -17,49 +17,49 @@ mosMainFrame::addLib('tags');
  * @package Joostina
  */
 class mosCategory extends mosDBTable {
+
 	/**
-	 *  *  * @var int Primary key*/
+	 *  *  * @var int Primary key */
 	var $id = null;
 	/**
-	 *  *  * @var int*/
+	 *  *  * @var int */
 	var $parent_id = null;
 	/**
-	 *  *  * @var string The menu title for the Category (a short name)*/
+	 *  *  * @var string The menu title for the Category (a short name) */
 	var $title = null;
 	/**
-	 *  *  * @var string The full name for the Category*/
+	 *  *  * @var string The full name for the Category */
 	var $name = null;
 	/**
-	 *  *  * @var string*/
+	 *  *  * @var string */
 	var $image = null;
 	/**
-	 *  *  * @var string*/
+	 *  *  * @var string */
 	var $section = null;
 	/**
-	 *  *  * @var int*/
+	 *  *  * @var int */
 	var $image_position = null;
 	/**
-	 *  *  * @var string*/
+	 *  *  * @var string */
 	var $description = null;
 	/**
-	 *  *  * @var boolean*/
+	 *  *  * @var boolean */
 	var $published = null;
 	/**
-	 *  *  * @var boolean*/
+	 *  *  * @var boolean */
 	var $checked_out = null;
 	/**
-	 *  *  * @var time*/
+	 *  *  * @var time */
 	var $checked_out_time = null;
 	/**
-	 *  *  * @var int*/
+	 *  *  * @var int */
 	var $ordering = null;
 	/**
-	 *  *  * @var int*/
+	 *  *  * @var int */
 	var $access = null;
 	/**
-	 *  *  * @var string*/
+	 *  *  * @var string */
 	var $params = null;
-
 	var $templates = null;
 
 	/**
@@ -68,6 +68,7 @@ class mosCategory extends mosDBTable {
 	function mosCategory(&$db) {
 		$this->mosDBTable('#__categories', 'id', $db);
 	}
+
 	// overloaded check function
 	function check() {
 		// check for valid name
@@ -102,16 +103,15 @@ class mosCategory extends mosDBTable {
 	}
 
 	public static function get_category_url($params) {
-		if($params->get('cat_link_type')=='blog') {
+		if ($params->get('cat_link_type') == 'blog') {
 			return self::get_category_blog_url($params);
-		}
-		else {
+		} else {
 			return self::get_category_table_url($params);
 		}
 	}
 
 	public static function get_category_table_url($params) {
-		$link = sefRelToAbs('index.php?option=com_content&amp;task=category&amp;sectionid=' . $params->get('sectionid') . '&amp;id=' . $params->get('catid'). $params->get('Itemid'));
+		$link = sefRelToAbs('index.php?option=com_content&amp;task=category&amp;sectionid=' . $params->get('sectionid') . '&amp;id=' . $params->get('catid') . $params->get('Itemid'));
 		return $link;
 	}
 
@@ -123,11 +123,10 @@ class mosCategory extends mosDBTable {
 	public static function get_category_menu($cat_id, $type = null) {
 		$database = database::getInstance();
 
-		if(!$type) {
+		if (!$type) {
 			$and_type = "AND type IN ( 'content_category', 'content_blog_category' )";
-		}
-		else {
-			switch($type) {
+		} else {
+			switch ($type) {
 				case 'blog':
 				default:
 					$and_type = "AND type = 'content_blog_category' ";
@@ -137,14 +136,13 @@ class mosCategory extends mosDBTable {
 					$and_type = "AND type = 'content_category' ";
 					break;
 			}
-
 		}
 
 		$query = "SELECT id, link
 				FROM #__menu
 				WHERE published = 1
-				".$and_type."
-				AND componentid = ".$cat_id."
+				" . $and_type . "
+				AND componentid = " . $cat_id . "
 				ORDER BY type DESC, ordering";
 		$database->setQuery($query);
 		$result = $database->loadRow();
@@ -155,44 +153,43 @@ class mosCategory extends mosDBTable {
 	public static function get_category_link($row, $params) {
 		$mainframe = mosMainFrame::getInstance();
 
-		$catLinkID = $mainframe->get('catID_'.$row->catid,-1);
-		$catLinkURL = $mainframe->get('catURL_'.$row->catid);
+		$catLinkID = $mainframe->get('catID_' . $row->catid, -1);
+		$catLinkURL = $mainframe->get('catURL_' . $row->catid);
 
 		// check if values have already been placed into mainframe memory
-		if($catLinkID == -1) {
+		if ($catLinkID == -1) {
 			$result = self::get_category_menu($row->catid, $params->get('cat_link_type'));
 
 			$catLinkID = $result[0];
 			$catLinkURL = $result[1];
 
-			if($catLinkID == null) {
+			if ($catLinkID == null) {
 				$catLinkID = 0;
 				// save 0 query result to mainframe
-				$mainframe->set('catID_'.$row->catid,0);
+				$mainframe->set('catID_' . $row->catid, 0);
 			} else {
 				// save query result to mainframe
-				$mainframe->set('catID_'.$row->catid,$catLinkID);
-				$mainframe->set('catURL_'.$row->catid,$catLinkURL);
+				$mainframe->set('catID_' . $row->catid, $catLinkID);
+				$mainframe->set('catURL_' . $row->catid, $catLinkURL);
 			}
 		}
 
 		$_Itemid = '';
 		// use Itemid for category found in query
-		if($catLinkID != -1 && $catLinkID) {
-			$_Itemid = '&amp;Itemid='.$catLinkID;
-		}else if($mainframe->get('secID_'.$row->sectionid,-1) != -1  && $mainframe->get('secID_'.$row->sectionid,-1)) {
+		if ($catLinkID != -1 && $catLinkID) {
+			$_Itemid = '&amp;Itemid=' . $catLinkID;
+		} else if ($mainframe->get('secID_' . $row->sectionid, -1) != -1 && $mainframe->get('secID_' . $row->sectionid, -1)) {
 			// use Itemid for section found in query
-			$_Itemid = '&amp;Itemid='.$mainframe->get('secID_'.$row->sectionid,-1);
+			$_Itemid = '&amp;Itemid=' . $mainframe->get('secID_' . $row->sectionid, -1);
 		}
 
 		$params->set('catid', $row->catid);
 		$params->set('sectionid', $row->sectionid);
 		$params->set('Itemid', $_Itemid);
 
-		if($params->get('cat_link_type')=='blog') {
+		if ($params->get('cat_link_type') == 'blog') {
 			$link = mosCategory::get_category_blog_url($params);
-		}
-		else {
+		} else {
 			$link = mosCategory::get_category_table_url($params);
 		}
 
@@ -208,14 +205,15 @@ class mosCategory extends mosDBTable {
 
 		// show/hide empty categories
 		$empty = '';
-		if (!$params->get('empty_cat')) $empty = " HAVING COUNT( a.id ) > 0";
+		if (!$params->get('empty_cat'))
+			$empty = " HAVING COUNT( a.id ) > 0";
 
 		// get the list of other categories
 		$query = "	SELECT c.*, COUNT( a.id ) AS numitems
 					FROM #__categories AS c
 					LEFT JOIN #__content AS a ON a.catid = c.id 
 					" . $xwhere2 . "
-					WHERE c.section = '" . (int)$category->section . "'  
+					WHERE c.section = '" . (int) $category->section . "'  
 					GROUP BY c.id
 					" . $empty . "
 					ORDER BY c.ordering";
@@ -253,7 +251,7 @@ class mosCategory extends mosDBTable {
 		}
 
 		$order[] = mosHTML::makeOption('order', _ORDER_DROPDOWN_O);
-		$lists['order'] = mosHTML::selectList($order, 'order', 'class="inputbox" size="1"  onchange="document.adminForm.submit();"','value', 'text', $params->get('selected'));
+		$lists['order'] = mosHTML::selectList($order, 'order', 'class="inputbox" size="1"  onchange="document.adminForm.submit();"', 'value', 'text', $params->get('selected'));
 		if ($check < 1) {
 			$lists['order'] = '';
 			$params->set('order_select', 0);
@@ -263,56 +261,55 @@ class mosCategory extends mosDBTable {
 		$lists['filter'] = $params->get('cur_filter');
 
 		return $lists;
-
 	}
-}
 
+}
 
 /**
  * Section database table class
  * @package Joostina
  */
 class mosSection extends mosDBTable {
+
 	/**
-	 *  *  * @var int Primary key*/
+	 *  *  * @var int Primary key */
 	var $id = null;
 	/**
-	 *  *  * @var string The menu title for the Section (a short name)*/
+	 *  *  * @var string The menu title for the Section (a short name) */
 	var $title = null;
 	/**
-	 *  *  * @var string The full name for the Section*/
+	 *  *  * @var string The full name for the Section */
 	var $name = null;
 	/**
-	 *  *  * @var string*/
+	 *  *  * @var string */
 	var $image = null;
 	/**
-	 *  *  * @var string*/
+	 *  *  * @var string */
 	var $scope = null;
 	/**
-	 *  *  * @var int*/
+	 *  *  * @var int */
 	var $image_position = null;
 	/**
-	 *  *  * @var string*/
+	 *  *  * @var string */
 	var $description = null;
 	/**
-	 *  *  * @var boolean*/
+	 *  *  * @var boolean */
 	var $published = null;
 	/**
-	 *  *  * @var boolean*/
+	 *  *  * @var boolean */
 	var $checked_out = null;
 	/**
-	 *  *  * @var time*/
+	 *  *  * @var time */
 	var $checked_out_time = null;
 	/**
-	 *  *  * @var int*/
+	 *  *  * @var int */
 	var $ordering = null;
 	/**
-	 *  *  * @var int*/
+	 *  *  * @var int */
 	var $access = null;
 	/**
-	 *  *  * @var string*/
+	 *  *  * @var string */
 	var $params = null;
-
 	var $templates = null;
 
 	/**
@@ -321,6 +318,7 @@ class mosSection extends mosDBTable {
 	function mosSection(&$db) {
 		$this->mosDBTable('#__sections', 'id', $db);
 	}
+
 	// overloaded check function
 	function check() {
 		// check for valid name
@@ -367,8 +365,8 @@ class mosSection extends mosDBTable {
 		$orderby = contentSqlHelper::_orderby_sec($params->get('orderby'));
 
 		//Дополнительные условия
-		if($access->canEdit) {
-			if($params->get('unpublished')) {
+		if ($access->canEdit) {
+			if ($params->get('unpublished')) {
 				// shows unpublished items for publishers and above
 				$xwhere2 = " AND (b.state >= 0 or b.state is null)";
 			} else {
@@ -378,33 +376,33 @@ class mosSection extends mosDBTable {
 		} else {
 			$xwhere = " AND a.published = 1 ";
 			$xwhere2 = "AND b.state = 1
-						AND ( b.publish_up = ".$this->_db->Quote($nullDate)." OR b.publish_up <= ".$this->_db->Quote($now)." )
-						AND ( b.publish_down = ".$this->_db->Quote($nullDate)." OR b.publish_down >= ".$this->_db->Quote($now)." )";
+						AND ( b.publish_up = " . $this->_db->Quote($nullDate) . " OR b.publish_up <= " . $this->_db->Quote($now) . " )
+						AND ( b.publish_down = " . $this->_db->Quote($nullDate) . " OR b.publish_down >= " . $this->_db->Quote($now) . " )";
 		}
-		if($params->get('type') == 'section') {
+		if ($params->get('type') == 'section') {
 			// show/hide empty categories in section
-			if(!$params->get('empty_cat_section')) {
+			if (!$params->get('empty_cat_section')) {
 				$empty_sec = " HAVING numitems > 0";
 			}
 		}
-		if($noauth) {
-			$access_check = " AND a.access <= ".(int)$gid;
-			$access_check_content = " AND ( b.access <= ".(int)$gid." OR b.access is null)";
+		if ($noauth) {
+			$access_check = " AND a.access <= " . (int) $gid;
+			$access_check_content = " AND ( b.access <= " . (int) $gid . " OR b.access is null)";
 		}
 
 		// Query of categories within section
 		$query = "SELECT a.*, COUNT( b.id ) AS numitems
 					FROM #__categories AS a
 					LEFT JOIN #__content AS b ON b.catid = a.id
-					".$xwhere2."
-					WHERE a.section = '".(int)$section->id."'
-					".$xwhere
-				.$access_check
-				.$access_check_content."
+					" . $xwhere2 . "
+					WHERE a.section = '" . (int) $section->id . "'
+					" . $xwhere
+				. $access_check
+				. $access_check_content . "
 					GROUP BY a.id"
-				.$empty
-				.$empty_sec."
-					ORDER BY ". $orderby;
+				. $empty
+				. $empty_sec . "
+					ORDER BY " . $orderby;
 		$this->_db->setQuery($query);
 		return $this->_db->loadObjectList();
 	}
@@ -419,15 +417,15 @@ class mosSection extends mosDBTable {
 
 		$access_check = '';
 
-		if($noauth) {
-			$access_check = " AND a.access <= ".(int)$gid;
-			$access_check_content = " AND ( b.access <= ".(int)$gid." OR b.access is null)";
+		if ($noauth) {
+			$access_check = " AND a.access <= " . (int) $gid;
+			$access_check_content = " AND ( b.access <= " . (int) $gid . " OR b.access is null)";
 		}
 
 		$query = "SELECT count(*) as numCategories
 					FROM #__categories as a
-					WHERE a.section = '".(int)$section->id."'
-					".$access_check;
+					WHERE a.section = '" . (int) $section->id . "'
+					" . $access_check;
 		$this->_db->setQuery($query);
 		return ($this->_db->loadResult()) > 0;
 	}
@@ -451,28 +449,26 @@ class mosSection extends mosDBTable {
 	public static function get_section_menu($section_id, $type = null) {
 		$database = database::getInstance();
 
-		if(!$type) {
+		if (!$type) {
 			$and_type = "AND type IN ( 'content_section', 'content_blog_section' )";
-		}
-		else {
-			switch($type) {
+		} else {
+			switch ($type) {
 				case 'blog':
 				default:
 					$and_type = "AND type = 'content_blog_section' ";
 					break;
-				
+
 				case 'list':
 					$and_type = "AND type = 'content_section' ";
 					break;
 			}
-
 		}
 
 		$query = 'SELECT id, link FROM #__menu'
-				.' WHERE published = 1 '
-				.$and_type
-				.' AND componentid = '.(int)$section_id
-				.' ORDER BY type DESC, ordering';
+				. ' WHERE published = 1 '
+				. $and_type
+				. ' AND componentid = ' . (int) $section_id
+				. ' ORDER BY type DESC, ordering';
 		$database->setQuery($query);
 		return $database->loadRow();
 	}
@@ -481,49 +477,48 @@ class mosSection extends mosDBTable {
 		$mainframe = mosMainFrame::getInstance();
 
 		// pull values from mainframe
-		$secLinkID = $mainframe->get('secID_'.$row->sectionid,-1);
-		$secLinkURL = $mainframe->get('secURL_'.$row->sectionid);
+		$secLinkID = $mainframe->get('secID_' . $row->sectionid, -1);
+		$secLinkURL = $mainframe->get('secURL_' . $row->sectionid);
 
 		// check if values have already been placed into mainframe memory
-		if($secLinkID == -1) {
+		if ($secLinkID == -1) {
 
 			$result = self::get_section_menu($row->sectionid, $params->get('section_link_type'));
 			$secLinkID = $result[0];
 			$secLinkURL = $result[1];
 
-			if($secLinkID == null) {
+			if ($secLinkID == null) {
 				$secLinkID = 0;
 				// save 0 query result to mainframe
-				$mainframe->set('secID_'.$row->sectionid,0);
+				$mainframe->set('secID_' . $row->sectionid, 0);
 			} else {
 				// save query result to mainframe
-				$mainframe->set('secID_'.$row->sectionid,$secLinkID);
-				$mainframe->set('secURL_'.$row->sectionid,$secLinkURL);
+				$mainframe->set('secID_' . $row->sectionid, $secLinkID);
+				$mainframe->set('secURL_' . $row->sectionid, $secLinkURL);
 			}
 		}
 
 		$_Itemid = '';
-		if($secLinkID != -1 && $secLinkID) {
-			$_Itemid = '&amp;Itemid='.$secLinkID;
+		if ($secLinkID != -1 && $secLinkID) {
+			$_Itemid = '&amp;Itemid=' . $secLinkID;
 		}
-		if($secLinkURL) {
+		if ($secLinkURL) {
 			$secLinkURL = ampReplace($secLinkURL);
-			$link = sefRelToAbs($secLinkURL.$_Itemid);
+			$link = sefRelToAbs($secLinkURL . $_Itemid);
 		} else {
 			$params->set('catid', $row->id);
 			$params->set('sectionid', $row->sectionid);
 			$params->set('Itemid', $_Itemid);
-			if($params->get('section_link_type')=='blog') {
+			if ($params->get('section_link_type') == 'blog') {
 				$link = mosSection::get_section_blog_url($params);
-			}
-			else {
+			} else {
 				$link = mosSection::get_section_table_url($params);
 			}
-
 		}
 
 		return $link;
 	}
+
 }
 
 /**
@@ -531,101 +526,102 @@ class mosSection extends mosDBTable {
  * @package Joostina
  */
 class mosContent extends mosDBTable {
+
 	/**
-	 *  *  * @var int Primary key*/
+	 *  *  * @var int Primary key */
 	var $id = null;
 	/**
-	 *  *  * @var string*/
+	 *  *  * @var string */
 	var $title = null;
 	/**
-	 *  *  * @var string*/
+	 *  *  * @var string */
 	var $title_alias = null;
 	/**
-	 *  *  * @var string*/
+	 *  *  * @var string */
 	var $introtext = null;
 	/**
-	 *  *  * @var string*/
+	 *  *  * @var string */
 	var $fulltext = null;
 	/**
-	 *  *  * @var int*/
+	 *  *  * @var int */
 	var $state = null;
 	/**
-	 *  *  * @var int The id of the category section*/
+	 *  *  * @var int The id of the category section */
 	var $sectionid = null;
 	/**
-	 *  *  * @var int DEPRECATED*/
+	 *  *  * @var int DEPRECATED */
 	var $mask = null;
 	/**
-	 *  *  * @var int*/
+	 *  *  * @var int */
 	var $catid = null;
 	/**
-	 *  *  * @var datetime*/
+	 *  *  * @var datetime */
 	var $created = null;
 	/**
-	 *  *  * @var int User id*/
+	 *  *  * @var int User id */
 	var $created_by = null;
 	/**
-	 *  *  * @var string An alias for the author*/
+	 *  *  * @var string An alias for the author */
 	var $created_by_alias = null;
 	/**
-	 *  *  * @var datetime*/
+	 *  *  * @var datetime */
 	var $modified = null;
 	/**
-	 *  *  * @var int User id*/
+	 *  *  * @var int User id */
 	var $modified_by = null;
 	/**
-	 *  *  * @var boolean*/
+	 *  *  * @var boolean */
 	var $checked_out = null;
 	/**
-	 *  *  * @var time*/
+	 *  *  * @var time */
 	var $checked_out_time = null;
 	/**
-	 *  *  * @var datetime*/
+	 *  *  * @var datetime */
 	var $frontpage_up = null;
 	/**
-	 *  *  * @var datetime*/
+	 *  *  * @var datetime */
 	var $frontpage_down = null;
 	/**
-	 *  *  * @var datetime*/
+	 *  *  * @var datetime */
 	var $publish_up = null;
 	/**
-	 *  *  * @var datetime*/
+	 *  *  * @var datetime */
 	var $publish_down = null;
 	/**
-	 *  *  * @var string*/
+	 *  *  * @var string */
 	var $images = null;
 	/**
-	 *  *  * @var string*/
+	 *  *  * @var string */
 	var $urls = null;
 	/**
-	 *  *  * @var string*/
+	 *  *  * @var string */
 	var $attribs = null;
 	/**
-	 *  *  * @var int*/
+	 *  *  * @var int */
 	var $version = null;
 	/**
-	 *  *  * @var int*/
+	 *  *  * @var int */
 	var $parentid = null;
 	/**
-	 *  *  * @var int*/
+	 *  *  * @var int */
 	var $ordering = null;
 	/**
-	 *  *  * @var string*/
+	 *  *  * @var string */
 	var $metakey = null;
 	/**
-	 *  *  * @var string*/
+	 *  *  * @var string */
 	var $metadesc = null;
 	/**
-	 *  *  * @var int*/
+	 *  *  * @var int */
 	var $access = null;
 	/**
-	 *  *  * @var int*/
+	 *  *  * @var int */
 	var $hits = null;
 	/**
-	 *  *  * @var string*/
+	 *  *  * @var string */
 	var $notetext = null;
-
 	var $templates = null;
+
 	/**
 	 * @param database A database connector object
 	 */
@@ -638,7 +634,7 @@ class mosContent extends mosDBTable {
 	 */
 	function check() {
 		// filter malicious code
-		$ignoreList = array('introtext', 'fulltext','notetext');
+		$ignoreList = array('introtext', 'fulltext', 'notetext');
 		$this->filter($ignoreList);
 
 		if (trim(str_replace('&nbsp;', '', $this->fulltext)) == '') {
@@ -668,9 +664,9 @@ class mosContent extends mosDBTable {
 
 	function _load_user_items($user_id, $params) {
 
-		$orderby = strval(mosGetParam($_REQUEST,'order',''));
+		$orderby = strval(mosGetParam($_REQUEST, 'order', ''));
 		if (!$orderby) {
-			$orderby = $params->get( 'orderby', 'rdate' );
+			$orderby = $params->get('orderby', 'rdate');
 		}
 		$params->set('orderby', $orderby);
 		$orderby = contentSqlHelper::_orderby_sec($orderby);
@@ -678,14 +674,14 @@ class mosContent extends mosDBTable {
 		// filter functionality
 		$and = '';
 		$filter = '';
-		if ( $params->get( 'filter',0 ) ) {
-			$filter = Jstring::clean(urldecode(stripslashes(strval(mosGetParam( $_REQUEST, 'filter', '' )))));
+		if ($params->get('filter', 0)) {
+			$filter = Jstring::clean(urldecode(stripslashes(strval(mosGetParam($_REQUEST, 'filter', '')))));
 
-			if ( $filter ) {
+			if ($filter) {
 				// clean filter variable
-				$filter = Jstring::strtolower( $filter );
+				$filter = Jstring::strtolower($filter);
 
-				switch ( $params->get( 'filter_type',0 ) ) {
+				switch ($params->get('filter_type', 0)) {
 
 					case 'title':
 						$and = "\n AND LOWER( a.title ) LIKE '%$filter%'";
@@ -723,14 +719,14 @@ class mosContent extends mosDBTable {
 
 		// filter functionality
 		$and = '';
-		if ( $params->get( 'filter',0 ) ) {
-			$filter = Jstring::clean(urldecode(stripslashes(strval(mosGetParam( $_REQUEST, 'filter', '' )))));
+		if ($params->get('filter', 0)) {
+			$filter = Jstring::clean(urldecode(stripslashes(strval(mosGetParam($_REQUEST, 'filter', '')))));
 
-			if ( $filter ) {
+			if ($filter) {
 				// clean filter variable
-				$filter = Jstring::strtolower( $filter );
+				$filter = Jstring::strtolower($filter);
 
-				switch ( $params->get( 'filter_type',0 ) ) {
+				switch ($params->get('filter_type', 0)) {
 
 					case 'title':
 						$and = " AND LOWER( a.title ) LIKE '%$filter%'";
@@ -760,15 +756,15 @@ class mosContent extends mosDBTable {
 	function toXML($mapKeysToText = false) {
 		$database = database::getInstance();
 		if ($mapKeysToText) {
-			$query = "SELECT name FROM #__sections WHERE id = " . (int)$this->sectionid;
+			$query = "SELECT name FROM #__sections WHERE id = " . (int) $this->sectionid;
 			$database->setQuery($query);
 			$this->sectionid = $database->loadResult();
 
-			$query = "SELECT name FROM #__categories WHERE id = " . (int)$this->catid;
+			$query = "SELECT name FROM #__categories WHERE id = " . (int) $this->catid;
 			$database->setQuery($query);
 			$this->catid = $database->loadResult();
 
-			$query = "SELECT name FROM #__users WHERE id = " . (int)$this->created_by;
+			$query = "SELECT name FROM #__users WHERE id = " . (int) $this->created_by;
 			$database->setQuery($query);
 			$this->created_by = $database->loadResult();
 		}
@@ -778,7 +774,7 @@ class mosContent extends mosDBTable {
 
 	function ReadMore(&$row, &$params, $template = '') {
 		$return = '';
-		if ($params->get('readmore',0) && $params->get('intro_only',0) && $row->link_text) {
+		if ($params->get('readmore', 0) && $params->get('intro_only', 0) && $row->link_text) {
 			$return = '<a href="' . $row->link_on . '" title="' . $row->title . '" class="readon">' . $row->link_text . '</a>';
 		}
 		return $return;
@@ -806,7 +802,7 @@ class mosContent extends mosDBTable {
 		}
 
 		if (!$config->config_disable_access_control) {
-			$where_ac = ' AND a.access <= ' . (int)$gid;
+			$where_ac = ' AND a.access <= ' . (int) $gid;
 		}
 
 		return $xwhere . $where_ac;
@@ -820,7 +816,7 @@ class mosContent extends mosDBTable {
 
 		// Paramters for menu item as determined by controlling Itemid
 
-		if($params->get('pop')) {
+		if ($params->get('pop')) {
 			$row->prev = '';
 			$row->next = '';
 			return $row;
@@ -834,7 +830,7 @@ class mosContent extends mosDBTable {
 		$mparams_list = $mparams->toArray();
 		if (array_key_exists('orderby_sec', $mparams_list)) {
 			$order_method = $mparams->get('orderby_sec', '');
-		}else {
+		} else {
 			$order_method = $mparams->get('orderby', '');
 		}
 
@@ -854,8 +850,8 @@ class mosContent extends mosDBTable {
 
 		// array of content items in same category correctly ordered
 		$query = "SELECT a.id, a.title $uname FROM #__content AS a $ufrom "
-				." WHERE a.catid = " . (int)$row->catid . " AND a.state = " . (int)$row->state . $where
-				." ORDER BY $orderby";
+				. " WHERE a.catid = " . (int) $row->catid . " AND a.state = " . (int) $row->state . $where
+				. " ORDER BY $orderby";
 		$database->setQuery($query);
 		$list = $database->loadObjectList();
 
@@ -882,7 +878,7 @@ class mosContent extends mosDBTable {
 		return $row;
 	}
 
-	public static function Author(&$row, &$params = '',$config_author_name=4) {
+	public static function Author(&$row, &$params = '', $config_author_name=4) {
 
 		$author_name = '';
 		if (!$params) {
@@ -917,11 +913,9 @@ class mosContent extends mosDBTable {
 					$author_seflink = sefRelToAbs($author_link);
 					$author_name = '<a href="' . $author_seflink . '">' . $author_name . '</a>';
 				}
-
 			} else {
 				$author_name = $row->created_by_alias;
 			}
-
 		}
 		return $author_name;
 	}
@@ -940,18 +934,18 @@ class mosContent extends mosDBTable {
 		}
 
 		//mosCommonHTML::loadJqueryPlugins('tooltip/jquery.tooltip', false, true);
-		/*		static $_js_load;
-		if(!isset($_js_load)){
-			?><script language="JavaScript" type="text/javascript">_comcontent_defines.push('load_tooltip');</script><?php
-		}
-		*/
+		/* 		static $_js_load;
+		  if(!isset($_js_load)){
+		  ?><script language="JavaScript" type="text/javascript">_comcontent_defines.push('load_tooltip');</script><?php
+		  }
+		 */
 		$link = 'index.php?option=com_content&amp;task=edit&amp;id=' . $row->id . $row->Itemid_link . '&amp;Returnid=' . $row->_Itemid;
 		$image = mosCommonHTML::get_element('edit.png');
-		$image = JPATH_SITE.'/'.$image;
+		$image = JPATH_SITE . '/' . $image;
 
 		if ($row->state == 0) {
 			$info = _UNPUBLISHED;
-		}else {
+		} else {
 			$info = _PUBLISHED;
 		}
 		$date = mosFormatDate($row->created);
@@ -964,19 +958,19 @@ class mosContent extends mosDBTable {
 		$info .= $author;
 
 
-		$return = '<span class="button"><a class="button edit_button" href="' . sefRelToAbs($link) . '" title="'.$info.'" ><img src="' . $image . '" /> '.$text.'</a></span>';
+		$return = '<span class="button"><a class="button edit_button" href="' . sefRelToAbs($link) . '" title="' . $info . '" ><img src="' . $image . '" /> ' . $text . '</a></span>';
 
 		return $return;
 	}
 
 	function check_archives_categories($category, $params) {
-		if($params->get('module')) {
+		if ($params->get('module')) {
 			$check = '';
 		} else {
-			$check = " AND a.catid = ".(int)$category->id;
+			$check = " AND a.catid = " . (int) $category->id;
 		}
 
-		$query = "SELECT COUNT(a.id) FROM #__content as a WHERE a.state = -1".$check;
+		$query = "SELECT COUNT(a.id) FROM #__content as a WHERE a.state = -1" . $check;
 		$this->_db->setQuery($query);
 		return $this->_db->loadResult();
 	}
@@ -988,14 +982,14 @@ class mosContent extends mosDBTable {
 		$voting = $voting->_construct_sql();
 
 		//Дополнительные условия
-		$where = contentSqlHelper::construct_where_blog(1, $section, $access, $params,$this->_db);
+		$where = contentSqlHelper::construct_where_blog(1, $section, $access, $params, $this->_db);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
 		//Параметры сортировки
 		$order_sec = contentSqlHelper::_orderby_sec($params->get('orderby_sec'));
 		$order_pri = contentSqlHelper::_orderby_pri($params->get('orderby_pri'));
 
-		if($params->get('group_cat')) {
+		if ($params->get('group_cat')) {
 			$params->set('limitstart', 0);
 			$params->set('limit', 0);
 		}
@@ -1025,7 +1019,7 @@ class mosContent extends mosDBTable {
 
 	function _get_result_blog_section($section, $params, $access) {
 
-		$where = contentSqlHelper::construct_where_blog(1, $section, $access, $params,$this->_db);
+		$where = contentSqlHelper::construct_where_blog(1, $section, $access, $params, $this->_db);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
 		$query = "SELECT COUNT(a.id)
@@ -1044,7 +1038,7 @@ class mosContent extends mosDBTable {
 		$voting = $voting->_construct_sql();
 
 		//Дополнительные условия
-		$where = contentSqlHelper::construct_where_blog(2, $category, $access, $params,$this->_db);
+		$where = contentSqlHelper::construct_where_blog(2, $category, $access, $params, $this->_db);
 		$where = (count($where) ? " WHERE " . implode("\n AND ", $where) : '');
 
 		//Параметры сортировки
@@ -1075,7 +1069,7 @@ class mosContent extends mosDBTable {
 
 	function _get_result_blog_category($category, $params, $access) {
 
-		$where = contentSqlHelper::construct_where_blog(2, $category, $access, $params,$this->_db);
+		$where = contentSqlHelper::construct_where_blog(2, $category, $access, $params, $this->_db);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
 		$query = 'SELECT COUNT(a.id)
@@ -1085,18 +1079,17 @@ class mosContent extends mosDBTable {
 				' . $where;
 		$this->_db->setQuery($query);
 		return $this->_db->loadResult();
-
 	}
 
 	function _get_result_archive_section($section, $params, $access) {
 
-		$where = contentSqlHelper::construct_where_blog(-1, $section, $access, $params,$this->_db);
+		$where = contentSqlHelper::construct_where_blog(-1, $section, $access, $params, $this->_db);
 		$where = (count($where) ? " WHERE " . implode(" AND ", $where) : '');
 
 		// query to determine total number of records
 		$query = "SELECT COUNT(a.id) FROM #__content AS a
 				INNER JOIN #__categories AS cc ON cc.id = a.catid
-				".$where;
+				" . $where;
 		$this->_db->setQuery($query);
 		return $this->_db->loadResult();
 	}
@@ -1108,7 +1101,7 @@ class mosContent extends mosDBTable {
 		$voting = $voting->_construct_sql();
 
 		//Дополнительные условия
-		$where = contentSqlHelper::construct_where_blog(-1, $section, $access, $params,$this->_db);
+		$where = contentSqlHelper::construct_where_blog(-1, $section, $access, $params, $this->_db);
 		$where = (count($where) ? " WHERE " . implode(" AND ", $where) : '');
 
 		//Параметры сортировки
@@ -1125,29 +1118,29 @@ class mosContent extends mosDBTable {
 				s.name AS section,
 				cc.name AS category,
 				g.name AS groups
-				".$voting['select']."
+				" . $voting['select'] . "
 				FROM #__content AS a
 				INNER JOIN #__categories AS cc ON cc.id = a.catid
 				LEFT JOIN #__users AS u ON u.id = a.created_by
 				LEFT JOIN #__sections AS s ON a.sectionid = s.id
 				LEFT JOIN #__groups AS g ON a.access = g.id
-				".$voting['join']
-				.$where."
-				ORDER BY ". $order_pri.$order_sec;
+				" . $voting['join']
+				. $where . "
+				ORDER BY " . $order_pri . $order_sec;
 		$this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
 		return $this->_db->loadObjectList();
 	}
 
 	function _get_result_blog_archive_category($category, $params, $access) {
 
-		$where = contentSqlHelper::construct_where_blog(-2, $category, $access, $params,$this->_db);
+		$where = contentSqlHelper::construct_where_blog(-2, $category, $access, $params, $this->_db);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
 		// query to determine total number of records
 		$query = "SELECT COUNT(a.id)
 				FROM #__content AS a
 				INNER JOIN #__categories AS cc ON cc.id = a.catid
-				".$where;
+				" . $where;
 		$this->_db->setQuery($query);
 		return $this->_db->loadResult();
 	}
@@ -1159,7 +1152,7 @@ class mosContent extends mosDBTable {
 		$voting = $voting->_construct_sql();
 
 		//Дополнительные условия
-		$where = contentSqlHelper::construct_where_blog(-2, $category, $access, $params,$this->_db);
+		$where = contentSqlHelper::construct_where_blog(-2, $category, $access, $params, $this->_db);
 		$where = (count($where) ? " WHERE " . implode("\n AND ", $where) : '');
 
 		//Параметры сортировки
@@ -1176,15 +1169,15 @@ class mosContent extends mosDBTable {
 				s.name AS section,
 				cc.name AS category,
 				g.name AS groups
-				".$voting['select']."
+				" . $voting['select'] . "
 				FROM #__content AS a
 				INNER JOIN #__categories AS cc ON cc.id = a.catid
 				LEFT JOIN #__users AS u ON u.id = a.created_by
 				LEFT JOIN #__sections AS s ON a.sectionid = s.id
 				LEFT JOIN #__groups AS g ON a.access = g.id
-				".$voting['join']
-				.$where."
-				ORDER BY ". $order_sec;
+				" . $voting['join']
+				. $where . "
+				ORDER BY " . $order_sec;
 		$this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
 		return $this->_db->loadObjectList();
 	}
@@ -1208,8 +1201,8 @@ class mosContent extends mosDBTable {
 				FROM #__content AS a
 				LEFT JOIN #__users AS u ON u.id = a.created_by
 				LEFT JOIN #__groups AS g ON a.access = g.id
-				WHERE a.catid = ' . (int)$category->id . $xwhere . '
-				AND ' . (int)$category->access . ' <= ' . (int)$my->gid . $and . '
+				WHERE a.catid = ' . (int) $category->id . $xwhere . '
+				AND ' . (int) $category->access . ' <= ' . (int) $my->gid . $and . '
 				ORDER BY ' . $orderby;
 		$this->_db->setQuery($query, $params->get('limitstart'), $params->get('limit'));
 		return $this->_db->loadObjectList();
@@ -1222,14 +1215,13 @@ class mosContent extends mosDBTable {
 
 		$query = 'SELECT COUNT(a.id) as numitems
 				FROM #__content AS a
-				WHERE a.catid = ' . (int)$category->id . $xwhere . $and;
+				WHERE a.catid = ' . (int) $category->id . $xwhere . $and;
 		$this->_db->setQuery($query);
 		$counter = $this->_db->loadObjectList();
 		$total = $counter[0]->numitems;
 
 		return $total;
 	}
-
 
 	function _load_frontpage($params, $access) {
 
@@ -1238,7 +1230,7 @@ class mosContent extends mosDBTable {
 		$voting = $voting->_construct_sql();
 
 		//Дополнительные условия
-		$where = contentSqlHelper::construct_where_blog(1, null, $access, $params,$this->_db);
+		$where = contentSqlHelper::construct_where_blog(1, null, $access, $params, $this->_db);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
 		//Параметры сортировки
@@ -1270,7 +1262,7 @@ class mosContent extends mosDBTable {
 
 	function _get_result_frontpage($params, $access) {
 
-		$where = contentSqlHelper::construct_where_blog(1, null, $access, $params,$this->_db);
+		$where = contentSqlHelper::construct_where_blog(1, null, $access, $params, $this->_db);
 		$where = (count($where) ? "\n WHERE " . implode("\n AND ", $where) : '');
 
 		$query = 'SELECT COUNT(a.id)
@@ -1282,18 +1274,19 @@ class mosContent extends mosDBTable {
 		$this->_db->setQuery($query);
 		return $this->_db->loadResult();
 	}
+
 }
 
 class contentMeta {
-	var $_params = null;
 
+	var $_params = null;
 
 	function contentMeta($params) {
 		$this->_params = $params;
 	}
 
 	function set_meta() {
-		if(!$this->_params) {
+		if (!$this->_params) {
 			return;
 		}
 
@@ -1309,7 +1302,6 @@ class contentMeta {
 			case 'item_static':
 				$this->_meta_item();
 				break;
-
 		}
 	}
 
@@ -1325,7 +1317,7 @@ class contentMeta {
 			} else {
 				$mainframe->SetPageTitle($this->_params->menu->name, $this->_params);
 			}
-		}else {
+		} else {
 			$mainframe->SetPageTitle($this->_params->get('header'), $this->_params);
 		}
 
@@ -1353,35 +1345,35 @@ class contentMeta {
 
 		$row = $this->_params->object;
 
-		$mainframe->setPageTitle($row->title,$this->_params);
+		$mainframe->setPageTitle($row->title, $this->_params);
 
-		$mainframe->appendMetaTag('description',$row->description);
-		$mainframe->appendMetaTag('keywords',$row->metakey);
+		$mainframe->appendMetaTag('description', $row->description);
+		$mainframe->appendMetaTag('keywords', $row->metakey);
 
-		if($mainframe->getCfg('MetaTitle') == '1') {
-			$mainframe->addMetaTag('title',$row->title);
+		if ($mainframe->getCfg('MetaTitle') == '1') {
+			$mainframe->addMetaTag('title', $row->title);
 		}
-		if($mainframe->getCfg('MetaAuthor') == '1') {
-			if($row->created_by_alias != "") {
-				$mainframe->addMetaTag('author',$row->created_by_alias);
+		if ($mainframe->getCfg('MetaAuthor') == '1') {
+			if ($row->created_by_alias != "") {
+				$mainframe->addMetaTag('author', $row->created_by_alias);
 			} else {
-				$mainframe->addMetaTag('author',$row->author);
+				$mainframe->addMetaTag('author', $row->author);
 			}
-
 		}
-		if($this->_params->get('robots') == 0) {
-			$mainframe->addMetaTag('robots','index, follow');
+		if ($this->_params->get('robots') == 0) {
+			$mainframe->addMetaTag('robots', 'index, follow');
 		}
-		if($this->_params->get('robots') == 1) {
-			$mainframe->addMetaTag('robots','index, nofollow');
+		if ($this->_params->get('robots') == 1) {
+			$mainframe->addMetaTag('robots', 'index, nofollow');
 		}
-		if($this->_params->get('robots') == 2) {
-			$mainframe->addMetaTag('robots','noindex, follow');
+		if ($this->_params->get('robots') == 2) {
+			$mainframe->addMetaTag('robots', 'noindex, follow');
 		}
-		if($this->_params->get('robots') == 3) {
-			$mainframe->addMetaTag('robots','noindex, nofollow');
+		if ($this->_params->get('robots') == 3) {
+			$mainframe->addMetaTag('robots', 'noindex, nofollow');
 		}
 	}
+
 }
 
 class contentVoiting {
@@ -1408,25 +1400,28 @@ class contentVoiting {
 		$results = array('select' => $select, 'join' => $join);
 		return $results;
 	}
+
 }
 
 class contentHelper {
+
 	public static function _load_core_js(&$mainframe) {
-		$mainframe->addJS(JPATH_SITE.'/components/com_content/js/com_content.js','custom');
+		$mainframe->addJS(JPATH_SITE . '/components/com_content/js/com_content.js', 'custom');
 	}
+
 }
 
 class contentSqlHelper {
-
 	/*
-	* @param int 0 = Archives, 1 = Section, 2 = Category
-	*/
-	public static function construct_where_blog($type = 1, $obj = null, $access, $params = null,$database=null) {
+	 * @param int 0 = Archives, 1 = Section, 2 = Category
+	 */
+
+	public static function construct_where_blog($type = 1, $obj = null, $access, $params = null, $database=null) {
 		global $my;
 
 		static $config;
 
-		if(!is_array($config)) {
+		if (!is_array($config)) {
 			$config_ = Jconfig::getInstance();
 			$config['config_shownoauth'] = $config_->config_shownoauth;
 			$config['config_disable_date_state'] = $config_->config_disable_date_state;
@@ -1434,7 +1429,7 @@ class contentSqlHelper {
 			unset($config_);
 		}
 
-		if(!isset($database)) {
+		if (!isset($database)) {
 			$database = database::getInstance();
 		}
 
@@ -1479,8 +1474,9 @@ class contentSqlHelper {
 			}
 
 			// add query checks for category or section ids
-			if ($id > 0) {
-				$ids = explode(',', $id);
+			$ids = $type == 2 ? $params->get('categoryid') : $params->get('sectionid');
+			if ($id == 0 && trim($ids) != '') {
+				$ids = explode(',', $ids);
 				mosArrayToInts($ids);
 				if ($type == 1) {
 					$where[] = '( a.sectionid=' . implode(' OR a.sectionid=', $ids) . ' )';
@@ -1501,20 +1497,20 @@ class contentSqlHelper {
 			}
 			if ($id > 0) {
 				if ($type == -1) {
-					$where[] = "a.sectionid = " . (int)$id;
+					$where[] = "a.sectionid = " . (int) $id;
 				} elseif ($type == -2 && !$params->get('module')) {
-					$where[] = "a.catid = " . (int)$id;
+					$where[] = "a.catid = " . (int) $id;
 				}
 			}
 		}
 
 		$where[] = "s.published = 1";
 		$where[] = "cc.published = 1";
-		/* если сессии на фронте отключены - то значит авторизация не возможна, и проверять доступ по авторизации бесполезно*/
+		/* если сессии на фронте отключены - то значит авторизация не возможна, и проверять доступ по авторизации бесполезно */
 		if ($noauth and !$config['config_disable_access_control']) {
-			$where[] = "a.access <= " . (int)$gid;
-			$where[] = "s.access <= " . (int)$gid;
-			$where[] = "cc.access <= " . (int)$gid;
+			$where[] = "a.access <= " . (int) $gid;
+			$where[] = "s.access <= " . (int) $gid;
+			$where[] = "cc.access <= " . (int) $gid;
 		}
 
 		return $where;
@@ -1542,24 +1538,23 @@ class contentSqlHelper {
 				// unpublished items NOT shown for publishers and above
 				$xwhere .= "\n AND a.state = 1";
 			}
-		}else {
+		} else {
 			//$xwhere .= ' AND c.published = 1';
 			$xwhere .= " AND a.state = 1"
-					." AND ( publish_up = " . $database->Quote($nullDate)
-					." OR publish_up <= " . $database->Quote($now)." )"
-					." AND ( publish_down = " . $database->Quote($nullDate)
-					." OR publish_down >= " . $database->Quote($now)." )";
+					. " AND ( publish_up = " . $database->Quote($nullDate)
+					. " OR publish_up <= " . $database->Quote($now) . " )"
+					. " AND ( publish_down = " . $database->Quote($nullDate)
+					. " OR publish_down >= " . $database->Quote($now) . " )";
 		}
 
 		if ($noauth) {
-			$xwhere .= ' AND a.access <=' . (int)$gid;
+			$xwhere .= ' AND a.access <=' . (int) $gid;
 		}
 
 		return $xwhere;
-
 	}
 
-	public static  function construct_filter_table_category($category, $access, $params) {
+	public static function construct_filter_table_category($category, $access, $params) {
 
 		// filter functionality
 		$and = null;
@@ -1576,7 +1571,7 @@ class contentSqlHelper {
 						break;
 
 					case 'author':
-						$and = " AND ( ( LOWER( u.name ) LIKE '%" . $database->getEscaped($filter, true) ."%' ) OR ( LOWER( a.created_by_alias ) LIKE '%" . $database->getEscaped($filter, true) . "%' ) )";
+						$and = " AND ( ( LOWER( u.name ) LIKE '%" . $database->getEscaped($filter, true) . "%' ) OR ( LOWER( a.created_by_alias ) LIKE '%" . $database->getEscaped($filter, true) . "%' ) )";
 						break;
 
 					case 'hits':
@@ -1611,14 +1606,14 @@ class contentSqlHelper {
 			}
 		} else {
 			$xwhere2 = "\n AND a.state = 1"
-					." AND ( a.publish_up = " . $database->Quote($nullDate)
-					." OR a.publish_up <= " . $database->Quote($now) . " )"
-					." AND ( a.publish_down = " . $database->Quote($nullDate)
-					." OR a.publish_down >= " . $database->Quote($now) ." )";
+					. " AND ( a.publish_up = " . $database->Quote($nullDate)
+					. " OR a.publish_up <= " . $database->Quote($now) . " )"
+					. " AND ( a.publish_down = " . $database->Quote($nullDate)
+					. " OR a.publish_down >= " . $database->Quote($now) . " )";
 		}
 
 		if ($noauth) {
-			$xwhere2 .= " AND a.access <= " . (int)$gid;
+			$xwhere2 .= " AND a.access <= " . (int) $gid;
 		}
 
 		return $xwhere2;
@@ -1645,7 +1640,6 @@ class contentSqlHelper {
 
 		return $orderby;
 	}
-
 
 	public static function _orderby_sec($orderby) {
 		switch ($orderby) {
@@ -1713,6 +1707,7 @@ class contentSqlHelper {
 
 		return $orderby;
 	}
+
 }
 
 class ContentTemplate {
@@ -1725,52 +1720,52 @@ class ContentTemplate {
 
 		$dir = str_replace('_', '/', $page_type);
 
-		/*			switch($page_type){
-		case 'blog_section':
-		$dir = 'section/blog';
-		break;
+		/* 			switch($page_type){
+		  case 'blog_section':
+		  $dir = 'section/blog';
+		  break;
 
-		case 'groupcats_section':
-		$dir = 'section/groupcats';
-		break;
+		  case 'groupcats_section':
+		  $dir = 'section/groupcats';
+		  break;
 
-		case 'table_cats_section':
-		$dir = 'section/table_cats';
-		break;
+		  case 'table_cats_section':
+		  $dir = 'section/table_cats';
+		  break;
 
-		case 'table_items_section':
-		$dir = 'section/table_items';
-		break;
+		  case 'table_items_section':
+		  $dir = 'section/table_items';
+		  break;
 
-		case 'blog_category':
-		$dir = 'category/blog';
-		break;
+		  case 'blog_category':
+		  $dir = 'category/blog';
+		  break;
 
-		case 'table_category':
-		$dir = 'category/table';
-		break;
+		  case 'table_category':
+		  $dir = 'category/table';
+		  break;
 
-		case 'archive':
-		$dir = 'archive';
-		break;
+		  case 'archive':
+		  $dir = 'archive';
+		  break;
 
-		case 'item':
-		$dir = 'item/full_view';
-		break;
+		  case 'item':
+		  $dir = 'item/full_view';
+		  break;
 
-		case 'item_static':
-		$dir = 'item/static_content';
-		break;
+		  case 'item_static':
+		  $dir = 'item/static_content';
+		  break;
 
-		case 'item_editform':
-		$dir = 'item/edit_form';
-		break;
+		  case 'item_editform':
+		  $dir = 'item/edit_form';
+		  break;
 
-		default:
-		$dir = null;
-		break;
+		  default:
+		  $dir = null;
+		  break;
 
-		}*/
+		  } */
 		return $dir;
 	}
 
@@ -1801,19 +1796,14 @@ class ContentTemplate {
 					$this->template_file = JPATH_BASE . DS . $this->template_dir . DS . $template_file;
 				}
 			}
-
-
 		}
 		//смотрим, что у нас в глобальной конфигурации сказано по поводу размещения шаблонов по-умолчанию
-		else if(Jconfig::getInstance()->config_global_templates==1) {
+		else if (Jconfig::getInstance()->config_global_templates == 1) {
 			if (is_file(JPATH_BASE . DS . self::get_currtemplate_path($page_type) . DS . $this->template_file)) {
 				$this->template_file = JPATH_BASE . DS . self::get_currtemplate_path($page_type) . DS . $this->template_file;
-			}
-			else {
+			} else {
 				$this->template_file = JPATH_BASE . DS . $this->template_dir . DS . $this->template_file;
 			}
-
-
 		}
 		//шаблон мы так и не нашли, так что цепляем что-нибудь по-умолчанию
 		else {
@@ -1823,7 +1813,7 @@ class ContentTemplate {
 
 	function get_system_path($page_type) {
 		$template_dir = self::get_template_dir($page_type);
-		$system_path = 'components'.DS.'com_content'.DS.'view'.DS.$template_dir;
+		$system_path = 'components' . DS . 'com_content' . DS . 'view' . DS . $template_dir;
 		return $system_path;
 	}
 
@@ -1832,7 +1822,7 @@ class ContentTemplate {
 		$mainframe->_setTemplate();
 		$template = $mainframe->getTemplate();
 		$template_dir = self::get_template_dir($page_type);
-		$currtemplate_path = 'templates'.DS.$template.DS.'html'.DS.'com_content'.DS.$template_dir;
+		$currtemplate_path = 'templates' . DS . $template . DS . 'html' . DS . 'com_content' . DS . $template_dir;
 		return $currtemplate_path;
 	}
 
@@ -1843,7 +1833,7 @@ class ContentTemplate {
 		$currtemplate_path = self::get_currtemplate_path($page_type);
 
 		$files_system = mosReadDirectory(JPATH_BASE . DS . $system_path, '\.php$');
-		$files_from_currtemplate = mosReadDirectory(JPATH_BASE. DS . $currtemplate_path, '\.php$');
+		$files_from_currtemplate = mosReadDirectory(JPATH_BASE . DS . $currtemplate_path, '\.php$');
 
 		$options = array();
 		$options[] = mosHTML::makeOption('0', _DEFAULT);
@@ -1859,7 +1849,6 @@ class ContentTemplate {
 			$curr_value = $curr_value_arr[$page_type];
 		}
 		return mosHTML::selectList($options, 'templates[' . $page_type . ']', 'class="inputbox"', 'value', 'text', $curr_value);
-
 	}
 
 	function prepare_for_save($templates) {
@@ -1902,7 +1891,6 @@ class ContentTemplate {
 	}
 
 }
-
 
 class contentAccess {
 
@@ -1952,12 +1940,12 @@ class contentPageConfig {
 		$params->category_data = null;
 		if (!$row->sectionid) {
 			$params->page_type = 'item_static';
-		}else {
+		} else {
 			$database = $mainframe->getDBO();
 			$section = new mosSection($database);
-			$section->load((int)$row->sectionid);
+			$section->load((int) $row->sectionid);
 			$category = new mosCategory($database);
-			$category->load((int)$row->catid);
+			$category->load((int) $row->catid);
 
 			$params->page_type = 'item_full';
 			$params->section_data = $section;
@@ -2027,7 +2015,6 @@ class contentPageConfig {
 	 *
 	 * @return object $params
 	 */
-
 	public static function setup_blog_section_page($id) {
 		global $Itemid;
 
@@ -2041,7 +2028,7 @@ class contentPageConfig {
 
 		if ($menu && strpos($menu->link, 'task=blogsection&id=' . $id) !== false) {
 			$params = new mosParameters($menu->params);
-		}else {
+		} else {
 			$menu = '';
 			//$params = new mosParameters('');
 			$database = $mainframe->getDBO();
@@ -2061,7 +2048,6 @@ class contentPageConfig {
 		}
 
 		return $params;
-
 	}
 
 	/**
@@ -2111,7 +2097,6 @@ class contentPageConfig {
 	 *
 	 * @return object $params
 	 */
-
 	public static function setup_blog_archive_section_page($id) {
 		global $Itemid;
 
@@ -2139,7 +2124,6 @@ class contentPageConfig {
 		}
 
 		return $params;
-
 	}
 
 	/**
@@ -2197,7 +2181,7 @@ class contentPageConfig {
 
 		if (($menu && strpos($menu->link, 'task=category&sectionid=' . $category->section . '&id=' . $category->id) !== false) || (strpos($menu->link, 'task=section&amp;id=' . $category->section) !== false)) {
 			$params = new mosParameters($menu->params);
-		}else {
+		} else {
 			$menu = '';
 			require_once ($mainframe->getPath('config', 'com_content'));
 			$params = new configContent_categorytable($database);
@@ -2212,7 +2196,6 @@ class contentPageConfig {
 		$params->def('date', $mainframe->getCfg('showCreateDate'));
 
 		return $params;
-
 	}
 
 	/**
@@ -2224,14 +2207,13 @@ class contentPageConfig {
 	 *
 	 * @return object $params
 	 */
-
 	public static function setup_section_catlist_page($section) {
 		global $Itemid;
 
 		$mainframe = mosMainFrame::getInstance();
 		$menu = $mainframe->get('menu');
 
-		if($menu && strpos($menu->link, 'task=section&id=' . $section->id) !== false) {
+		if ($menu && strpos($menu->link, 'task=section&id=' . $section->id) !== false) {
 			$params = new mosParameters($menu->params);
 		} else {
 			$menu = '';
@@ -2240,7 +2222,7 @@ class contentPageConfig {
 		}
 
 		$params->menu = $menu;
-		$params->set('type','section');
+		$params->set('type', 'section');
 
 		return $params;
 	}
@@ -2325,7 +2307,7 @@ class contentPageConfig {
 		//Сделать заголовки объектов в виде ссылок на объекты
 		$params->def('link_titles', '');
 		//Показать/Скрыть вводный текст
-		$params->def('view_introtext',1);
+		$params->def('view_introtext', 1);
 		//Лимит слов для интротекста. Если текст не нуждается в обрезке - оставьте поле пустым
 		$params->def('introtext_limit', '');
 		//Только интротекст
@@ -2370,10 +2352,9 @@ class contentPageConfig {
 		}
 
 		return $params;
-
 	}
 
-	public static function setup_blog_item(&$params,&$mainframe) {
+	public static function setup_blog_item(&$params, &$mainframe) {
 
 		$params->def('link_titles', $mainframe->config->config_link_titles);
 		$params->def('author', $mainframe->config->config_showAuthor);
@@ -2404,4 +2385,5 @@ class contentPageConfig {
 
 		return $params;
 	}
+
 }

@@ -50,15 +50,15 @@ function dTree(objName,basePath) {
 		inOrder			: false
 	}
 	this.icon = {
-		root		: basePath+'empty.gif',
+		root			: basePath+'folder.gif',
 		folder		: basePath+'folder.gif',
 		folderOpen	: basePath+'folderopen.gif',
 		//node		: basePath+'empty.gif',
 		empty		: basePath+'empty.gif',
-		line		: basePath+'line.gif',
-		join		: basePath+'join.gif',
+		line			: basePath+'line.gif',
+		join			: basePath+'join.gif',
 		joinBottom	: basePath+'joinbottom.gif',
-		plus		: basePath+'plus.gif',
+		plus			: basePath+'plus.gif',
 		plusBottom	: basePath+'plusbottom.gif',
 		minus		: basePath+'minus.gif',
 		minusBottom	: basePath+'minusbottom.gif',
@@ -119,9 +119,9 @@ dTree.prototype.addNode = function(pNode) {
 			if (cn._hc && !cn._io && this.config.useCookies) cn._io = this.isOpen(cn.id);
 			if (!this.config.folderLinks && cn._hc) cn.url = null;
 			if (this.config.useSelection && cn.id == this.selectedNode && !this.selectedFound) {
-					cn._is = true;
-					this.selectedNode = n;
-					this.selectedFound = true;
+				cn._is = true;
+				this.selectedNode = n;
+				this.selectedFound = true;
 			}
 			str += this.node(cn, n);
 			if (cn._ls) break;
@@ -140,7 +140,7 @@ dTree.prototype.node = function(node, nodeId) {
 			node.icon = this.icon.root;
 			node.iconOpen = this.icon.root;
 		}
-		str += ( node.iconOpen || node.icon ) ? '<img id="i' + this.obj + nodeId + '" src="' + ((node._io) ? node.iconOpen : node.icon) + '" alt="" />' : '';
+		str += ( node.iconOpen && node.icon ) ? '<img id="i' + this.obj + nodeId + '" src="' + ((node._io) ? node.iconOpen : node.icon) + '" alt="" />' : '';
 	}
 	if (node.url) {
 		str += '<a id="s' + this.obj + nodeId + '" class="' + ((this.config.useSelection) ? ((node._is ? 'nodeSel' : 'node')) : 'node') + '" href="' + node.url + '"';
@@ -303,11 +303,11 @@ dTree.prototype.clearCookie = function() {
 // [Cookie] Sets value in a cookie
 dTree.prototype.setCookie = function(cookieName, cookieValue, expires, path, domain, secure) {
 	document.cookie =
-		escape(cookieName) + '=' + escape(cookieValue)
-		+ (expires ? '; expires=' + expires.toGMTString() : '')
-		+ (path ? '; path=' + path : '')
-		+ (domain ? '; domain=' + domain : '')
-		+ (secure ? '; secure' : '');
+	escape(cookieName) + '=' + escape(cookieValue)
+	+ (expires ? '; expires=' + expires.toGMTString() : '')
+	+ (path ? '; path=' + path : '')
+	+ (domain ? '; domain=' + domain : '')
+	+ (secure ? '; secure' : '');
 };
 
 // [Cookie] Gets a value from a cookie

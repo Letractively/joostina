@@ -151,7 +151,7 @@ function viewSearch() {
 	search_html::openhtml($params);
 
 	$searchphrase = mosGetParam( $_REQUEST, 'searchphrase', 'any' );
-	$searchphrase = preg_replace( '/[^a-z]/', '', strtolower( $searchphrase ) );
+	$searchphrase = preg_replace( '/[^a-z]/u', '', strtolower( $searchphrase ) );
 
 	$searchword = strval(mosGetParam($_REQUEST,'searchword',''));
 	$searchword = trim(stripslashes($searchword));
@@ -193,7 +193,7 @@ function viewSearch() {
 	$orders[] = mosHTML::makeOption('alpha',_SEARCH_ALPHABETICAL);
 	$orders[] = mosHTML::makeOption('category',_SEARCH_CATEGORY);
 	$ordering = mosGetParam($_REQUEST,'ordering','newest');
-	$ordering = preg_replace('/[^a-z]/','',strtolower($ordering));
+	$ordering = preg_replace('/[^a-z]/u','',strtolower($ordering));
 	$lists = array();
 	$lists['ordering'] = mosHTML::selectList($orders,'ordering','id="search_ordering" class="inputbox" onchange="this.form.submit()"','value','text',$ordering);
 
@@ -272,7 +272,7 @@ function viewSearch() {
 			$text = mosPrepareSearchContent($text,200,$needle);
 
 			foreach ($searchwords as $k=>$hlword) {
-				$searchwords[$k] = htmlspecialchars( stripslashes( $hlword ) );
+				$searchwords[$k] = htmlspecialchars( stripslashes( $hlword ), ENT_QUOTES, 'UTF-8' );
 			}
 			$searchRegex = implode( '|', $searchwords );
 			$text = preg_replace( '/'.$searchRegex.'/iu', '<span class="highlight">\0</span>', $text );

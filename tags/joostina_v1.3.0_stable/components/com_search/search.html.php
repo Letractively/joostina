@@ -75,7 +75,7 @@ class search_html {
 			$image7 = mosAdminMenus::ImageCheck('yahoo.gif', '/components/com_search/images/', null, null, 'Yahoo', 'Yahoo', 1);
 			$image8 = mosAdminMenus::ImageCheck('yandex.gif', '/components/com_search/images/', null, null, 'Yandex', 'Yandex', 1);
 			$searchword = urldecode($searchword);
-			$searchword = htmlspecialchars($searchword, ENT_QUOTES);
+			$searchword = htmlspecialchars($searchword, ENT_QUOTES, 'UTF-8');
 			?>
 </div>
 <br />
@@ -83,8 +83,8 @@ class search_html {
 		echo $pageNav->writePagesCounter();
 		$ordering = strtolower(strval(mosGetParam($_REQUEST, 'ordering', 'newest')));
 		$searchphrase = strtolower(strval(mosGetParam($_REQUEST, 'searchphrase', 'any')));
-		$searchphrase = htmlspecialchars($searchphrase);
-		$cleanWord = htmlspecialchars($searchword);
+		$searchphrase = htmlspecialchars($searchphrase, ENT_QUOTES, 'UTF-8');
+		$cleanWord = htmlspecialchars($searchword, ENT_QUOTES, 'UTF-8');
 		$link = JPATH_SITE . "/index.php?option=$option&amp;Itemid=$Itemid&amp;searchword=$cleanWord&amp;searchphrase=$searchphrase&amp;ordering=$ordering";
 		//if($total>0){
 		echo $pageNav->getLimitBox($link);
@@ -155,6 +155,7 @@ class search_html {
 	</tr>
 </table>
 <br />
+<nofollow>
 <a href="http://sm.aport.ru/search?That=std&r=<?php echo $searchword; ?>" target="_blank"><?php echo $image; ?></a>
 <a href="http://www.bing.com/search?q=<?php echo $searchword; ?>" target="_blank"><?php echo $image1; ?></a>
 <a href="http://gogo.ru/go?q=<?php echo $searchword; ?>" target="_blank"><?php echo $image2; ?></a>
@@ -164,6 +165,7 @@ class search_html {
 <a href="http://nova.rambler.ru/srch?words=<?php echo $searchword; ?>" target="_blank"><?php echo $image6; ?></a>
 <a href="http://ru.search.yahoo.com/search?p=<?php echo $searchword; ?>" target="_blank"><?php echo $image7; ?></a>
 <a href="http://yandex.ru/yandsearch?text=<?php echo $searchword; ?>" target="_blank"><?php echo $image8; ?></a>
+</nofollow>
 <br />
 		<?php
 	}

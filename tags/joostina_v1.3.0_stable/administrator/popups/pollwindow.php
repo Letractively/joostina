@@ -11,7 +11,7 @@ define("_VALID_MOS",1);
 
 require_once ('../includes/auth.php');
 include_once (JPATH_BASE.'/language/'.$mosConfig_lang.'/system.php');
-include_once (JPATH_BASE.'/language/'.$mosConfig_lang.'/frontend/mod_poll.php');
+include_once (JPATH_BASE.'/language/'.$mosConfig_lang.'/frontend/com_poll.php');
 include_once (JPATH_BASE.'/language/'.$mosConfig_lang.'/administrator/com_poll.php');
 
 $database = database::getInstance();
