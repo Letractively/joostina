@@ -5681,10 +5681,10 @@ class mosCommonHTML {
 		if(!defined('_JQUERY_LOADED')) {
 			define('_JQUERY_LOADED',1);
 			if($ret) {
-				return '<script language="javascript" type="text/javascript" src="'.JPATH_SITE.'/includes/js/jquery/jquery-1.4.3.min.js"></script>';
+				return '<script language="javascript" type="text/javascript" src="'.JPATH_SITE.'/includes/js/jquery/jquery.js"></script>';
 			}else {
 				$mainframe = mosMainFrame::getInstance();
-				$mainframe->addJS(JPATH_SITE.'/includes/js/jquery/jquery-1.4.3.min.js');
+				$mainframe->addJS(JPATH_SITE.'/includes/js/jquery/jquery.min.js');
 				return true;
 			}
 		}
