@@ -150,6 +150,7 @@ if($print) {
 
 		$pg_link	= str_replace(array('&pop=1','&page=0'),'',$_SERVER['REQUEST_URI']);
 		$pg_link	= str_replace('index2.php','index.php',$pg_link);
+		$pg_link = ltrim($pg_link,'/');
 
 		$_MOS_OPTION['buffer'] = '<div class="logo">'. $mosConfig_sitename .'</div><div id="main">'.$_MOS_OPTION['buffer']."\n</div>\n<div id=\"ju_foo\">"._PRINT_PAGE_LINK." :<br /><i>".sefRelToAbs($pg_link)."</i><br /><br />&copy; ".$mosConfig_sitename.",&nbsp;".date('Y').'</div>';
 	}
