@@ -561,3 +561,5 @@ DEFINE('_PUBLISHER','Издатель');
 DEFINE('_MANAGER','Менеджер');
 DEFINE('_ADMINISTRATOR','Администратор');
 DEFINE('_SUPER_ADMINISTRATOR','Супер-Администратор');
+DEFINE('_IN_ARCHIVE','В архиве');
+DEFINE('_SEARCH_NEWSFEEDS','Ленты новостей');
