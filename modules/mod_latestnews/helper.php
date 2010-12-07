@@ -43,10 +43,7 @@ class mod_latestnews_Helper {
 			'.( $access ? 'AND a.access <= ' . (int) $my->gid : '' ).'
 			ORDER BY a.created DESC';
 
-		$database->setQuery($query, 0, intval($params->get('count',5)));
-		$rows = $database->loadObjectList();
-
-		return $rows;
+		return $database->setQuery($query, 0, intval($params->get('count',5)))->loadObjectList();
 	}
 
 	function get_items_both($params) {

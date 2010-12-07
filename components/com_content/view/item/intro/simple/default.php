@@ -97,4 +97,4 @@ $loadbot_onBeforeDisplayContent; ?>
 <span class="tags"><?php echo _TAGS_NOT_DEFINED ?></span>
 	<?php endif; ?>
 <?php endif; ?>
-<?php echo ContentView::afterDisplayContent(&$row, &$params, $page); ?>
+<?php echo ContentView::afterDisplayContent($row, $params, $page); ?>

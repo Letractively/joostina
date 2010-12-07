@@ -201,6 +201,7 @@ class HTML_modules {
 		?>
 <script language="javascript" type="text/javascript">
 	function ch_apply(){
+		<?php $row->module == "" ? getEditorContents('editor1','content') : NULL ?>
 		SRAX.get('tb-apply').className='tb-load';
 		dax({
 			url: 'ajax.index.php?option=com_mambots&task=apply',

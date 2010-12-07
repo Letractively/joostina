@@ -62,7 +62,6 @@ DEFINE('_HIDE_NAV_TREE','Скрыть дерево навигации');
 DEFINE('_HIDE_PARAMS_PANEL','Скрыть панель параметров');
 DEFINE('_COUNTER_RESET','Счетчик просмотров сброшен');
 DEFINE('_IMAGE_EXAMPLE','Пример изображения');
-DEFINE('_IN_ARCHIVE','В архиве');
 DEFINE('_INTROTEXT_M','Вводный Текст: (обязательно)');
 DEFINE('_LAST_CHANGE','Последнее изменение');
 DEFINE('_MAINTEXT_M','Основной текст: (необязательно)');
