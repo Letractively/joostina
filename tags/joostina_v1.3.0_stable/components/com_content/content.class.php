@@ -1483,7 +1483,7 @@ class contentSqlHelper {
 				} elseif ($type == 2) {
 					$where[] = '( a.catid=' . implode(' OR a.catid=', $ids) . ' )';
 				}
-			} else {
+			} elseif( $id>0 ) {
 				if ($type == 1) {
 					$where[] = '( a.sectionid=' . $id. ' )';
 				} elseif ($type == 2) {
