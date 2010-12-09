@@ -110,7 +110,7 @@ function botSearchContent($text,$phrase = '',$ordering = '') {
 
 	// search content items
 	$query = "SELECT a.title AS title,"."\n a.created AS created,"."\n CONCAT(a.introtext, a.fulltext) AS text,".
-			"\n CONCAT_WS( '/', u.title, b.title ) AS section,"."\n CONCAT( 'index.php?option=com_content&task=view&id=', a.id ) AS href,".
+			"\n CONCAT_WS( '/', u.name, b.name ) AS section,"."\n CONCAT( 'index.php?option=com_content&task=view&id=', a.id ) AS href,".
 			"\n '2' AS browsernav,"."\n 'content' AS type"."\n, u.id AS sec_id, b.id as cat_id".
 			"\n FROM #__content AS a"."\n INNER JOIN #__categories AS b ON b.id=a.catid"."\n INNER JOIN #__sections AS u ON u.id = a.sectionid".
 			"\n WHERE ( $where )"."\n AND a.state = 1"."\n AND u.published = 1"."\n AND b.published = 1".
@@ -137,7 +137,7 @@ function botSearchContent($text,$phrase = '',$ordering = '') {
 	// поиск архивного содержимого
 	$query = "SELECT a.title AS title,"."\n a.created AS created,"."\n a.introtext AS text,".
 			"\n CONCAT_WS( '/', ".$database->Quote(_IN_ARCHIVE).
-			", u.title, b.title ) AS section,"."\n CONCAT('index.php?option=com_content&task=view&id=',a.id) AS href,".
+			", u.name, b.name ) AS section,"."\n CONCAT('index.php?option=com_content&task=view&id=',a.id) AS href,".
 			"\n '2' AS browsernav,"."\n 'content' AS type"."\n FROM #__content AS a"."\n INNER JOIN #__categories AS b ON b.id=a.catid".
 			"\n INNER JOIN #__sections AS u ON u.id = a.sectionid"."\n WHERE ( $where )"."\n AND a.state = -1".
 			"\n AND u.published = 1"."\n AND b.published = 1"."\n AND a.access <= ".(int)$my->gid.
