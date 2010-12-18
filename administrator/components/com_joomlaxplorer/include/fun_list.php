@@ -286,8 +286,7 @@ function print_table($dir, $list, $allow) {
 		if(get_is_file($abs_item)) {
 			if($allow && $GLOBALS['jx_File']->is_deletable($abs_item)) {
 				$confirm_msg = sprintf($GLOBALS["messages"]["confirm_delete_file"], $item);
-				echo "<a name=\"link_item_$i\" href=\"#link_item_$i\" title=\"".$GLOBALS["messages"]["dellink"]."\" onclick=\"javascript: ClearAll(); getElementById('item_$i').checked = true; if( confirm('".
-					$confirm_msg."') ) { document.selform.do_action.value='delete'; document.selform.submit(); } else { getElementById('item_$i').checked = false; return false;}\">";
+				echo "<a name=\"link_item_$i\" href=\"#link_item_$i\" title=\"".$GLOBALS["messages"]["dellink"]."\" onclick=\"javascript: ClearAll(); document.getElementById('item_$i').checked = true; if( confirm('".$confirm_msg."') ) { document.selform.do_action.value='delete'; document.selform.submit(); } else { document.getElementById('item_$i').checked = false; return false;}\">";
 				echo "<img border=\"0\" src=\"{$cur_file_icons_path}delete.png\" alt=\"".$GLOBALS["messages"]["dellink"]."\" title=\"".$GLOBALS["messages"]["dellink"]."\" /></a>\n";
 			} else {
 				echo "<img border=\"0\" src=\"/{$cur_file_icons_path}delete.png\" alt=\"".$GLOBALS["messages"]["dellink"];
