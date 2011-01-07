@@ -82,6 +82,8 @@ class search_html {
 		<?php
 		echo $pageNav->writePagesCounter();
 		$ordering = strtolower(strval(mosGetParam($_REQUEST, 'ordering', 'newest')));
+		$ordering_exist = array( 'newest','oldest','popular','alpha','category' );
+		$ordering = isset( $ordering_exist[$ordering] ) ? $ordering : 'newest';
 		$searchphrase = strtolower(strval(mosGetParam($_REQUEST, 'searchphrase', 'any')));
 		$searchphrase = htmlspecialchars($searchphrase, ENT_QUOTES, 'UTF-8');
 		$cleanWord = htmlspecialchars($searchword, ENT_QUOTES, 'UTF-8');
