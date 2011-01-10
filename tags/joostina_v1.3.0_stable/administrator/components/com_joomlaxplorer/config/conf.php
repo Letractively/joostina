@@ -42,7 +42,7 @@ if(strstr(JPATH_BASE,"/")) {
 if(($mosConfig_joomlaxplorer_dir=='') OR ($mosConfig_joomlaxplorer_dir=='0') ) $mosConfig_joomlaxplorer_dir = JPATH_BASE;
 // the home directory for the filemanager: (use '/', not '\' or '\\', no trailing '/')
 
-$GLOBALS["home_dir"] = JPATH_BASE;
+$GLOBALS["home_dir"] = $mosConfig_joomlaxplorer_dir;
 $GLOBALS["home_url"] = JPATH_SITE;
 
 // show hidden files in QuiXplorer: (hide files starting with '.', as in Linux/UNIX)
@@ -53,5 +53,3 @@ $GLOBALS["no_access"] = "^\.ht";
 
 // user permissions bitfield: (1=modify, 2=password, 4=admin, add the numbers)
 $GLOBALS["permissions"] = 7;
-
-?>
