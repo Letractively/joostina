@@ -12,7 +12,7 @@
 CodePress = function(obj) {
 	var self = document.createElement('iframe');
 	self.textarea = obj;
-	self.textarea.disabled = true;
+	self.textarea.disabled = false;
 	self.textarea.style.overflow = 'hidden';
 	self.style.height = self.textarea.clientHeight +'px';
 	self.style.width = self.textarea.clientWidth +'px';

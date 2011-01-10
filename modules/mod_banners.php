@@ -81,7 +81,7 @@ if(!function_exists('showBanners')) {
 			}
 
 			if($numrows) {
-				$result .= '<tr><td>' . showSingleBanner($text, $moduleclass_sfx, $rows[$bannum]) . '</td></tr></table>';
+				$result .= '<tr><td>' . showSingleBanner($text, $moduleclass_sfx, $rows[$bannum],$mainframe) . '</td></tr></table>';
 				return $result;
 			}
 		}

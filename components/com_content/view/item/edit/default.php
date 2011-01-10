@@ -20,7 +20,6 @@ defined('_VALID_MOS') or die(); ?>
 		});
 		$("#cancel").click(function () {
 			$("input#task").val('cancel');
-			$("#addContent").submit();
 		});
 		jQuery.validator.messages.required = "";
 		$("#addContent").validate();
@@ -85,7 +84,7 @@ getEditorContents('editor2', 'fulltext');
 	<table class="cedit_main" cellspacing="0" cellpadding="0" border="0" width="100%">
 		<tr>
 			<td width="25"><strong><?php echo _CAPTION ?>:</strong></td>
-			<td><input class="inputbox required title" type="text" name="title" size="30" maxlength="255" style="width:99%" value="<?php echo $row->title; ?>" /></td>
+			<td><input class="inputbox required title" type="text" name="title" id="title" size="30" maxlength="255" style="width:99%" value="<?php echo $row->title; ?>" /></td>
 		</tr>
 		<?php if($allow_alias) { ?>
 		<tr>
