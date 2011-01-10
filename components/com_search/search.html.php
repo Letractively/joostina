@@ -175,6 +175,8 @@ class search_html {
 	public static function conclusion($searchword, $pageNav) {
 		global $option, $Itemid;
 		$ordering = strtolower(strval(mosGetParam($_REQUEST, 'ordering', 'newest')));
+		$ordering_exist = array( 'newest','oldest','popular','alpha','category' );
+		$ordering = isset( $ordering_exist[$ordering] ) ? $ordering : 'newest';
 		$searchphrase = strtolower(strval(mosGetParam($_REQUEST, 'searchphrase', 'any')));
 		$searchphrase = htmlspecialchars($searchphrase);
 		$link = JPATH_SITE . "/index.php?option=$option&amp;Itemid=$Itemid&amp;searchword=$searchword&amp;searchphrase=$searchphrase&amp;ordering=$ordering";
