@@ -448,7 +448,7 @@ function sefRelToAbs($string) {
 			$url['query'] = stripslashes(str_replace('+', '%2b', $url['query']));
 			// clean possible xss attacks
 			$url['query'] = preg_replace("'%3Cscript[^%3E]*%3E.*?%3C/script%3E'si", '', $url['query']);
-
+		
 			// break url into component parts
 			parse_str($url['query'], $parts);
 

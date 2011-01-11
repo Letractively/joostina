@@ -223,6 +223,7 @@ class PageModel {
 
 		// очистка ссылки на главную страницу даже при отключенном sef
 		if ( $mainframe->getCfg('mtage_base') == 1) {
+		
 			// вычисление ткущего адреса страницы. Код взят из Joomla 1.5.x
 			if (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) != 'off')) {
 				$https = 's://';
@@ -238,7 +239,8 @@ class PageModel {
 				}
 			}
 			$theURI = str_replace(JPATH_SITE.'/','',$theURI);
-			echo '<base href="'.sefRelToAbs( ampReplace($theURI)).'" />'."\r\n";
+			echo '<base href="'.htmlentities(sefRelToAbs( ampReplace($theURI))).'" />'."\r\n";
+			//echo '<base href="'.JPATH_SITE.'" />'."\r\n";		
 		}
 
 		if($my->id || $mainframe->get('joomlaJavascript')) {
