@@ -257,6 +257,15 @@ echo '<?xml version="1.0" encoding="utf-8"?'.'>';?>
 									<td><b><font color="green">установлено</font></b></td>
 									<?php endif ?>
 								</tr>
+								<tr>
+									<td class="item">iconv</td>
+									<td class="toggle">установлено</td>
+									<?php if ( !extension_loaded('iconv') ): ?>
+									<td colspan="2"><b><font color="red"><a href="http://php.net/iconv" target="_blank">iconv</a> не установлено</font></b></td>
+									<?php else: ?>
+									<td><b><font color="green">установлено</font></b></td>
+									<?php endif ?>
+								</tr>
 							</table>
 						</div>
 					</div>
