@@ -20,10 +20,10 @@ global $task, $Itemid, $option, $my;
 //Подключаем js com_content-а
 contentHelper::_load_core_js($mainframe);
 
-$id = intval(mosGetParam($_REQUEST, 'id', 0));
-$pop = intval(mosGetParam($_REQUEST, 'pop', 0));
-$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
-$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
+$id = (int) mosGetParam($_REQUEST, 'id', 0);
+$pop = (int) mosGetParam($_REQUEST, 'pop', 0);
+$limit = (int)mosGetParam($_REQUEST, 'limit', 0);
+$limitstart = (int) mosGetParam($_REQUEST, 'limitstart', 0);
 
 
 // loads function for frontpage component
