@@ -1508,14 +1508,17 @@ class contentSqlHelper {
 					$where[] = "a.catid = " . (int) $id;
 				}
 			}
+		}else{
+			$where[] = "s.published = 1";			
 		}
 
-		$where[] = "s.published = 1";
 		$where[] = "cc.published = 1";
 		/* если сессии на фронте отключены - то значит авторизация не возможна, и проверять доступ по авторизации бесполезно */
 		if ($noauth and !$config['config_disable_access_control']) {
+			if ($type >= 0) {
+				$where[] = "s.access <= " . (int) $gid;
+			}
 			$where[] = "a.access <= " . (int) $gid;
-			$where[] = "s.access <= " . (int) $gid;
 			$where[] = "cc.access <= " . (int) $gid;
 		}
 
@@ -2165,7 +2168,7 @@ class contentPageConfig {
 			$header = $params->def('header', $menu->name);
 		}
 
-
+		$params->_params = $params;
 		return $params;
 	}
 

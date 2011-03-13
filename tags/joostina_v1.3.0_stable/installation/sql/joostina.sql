@@ -1094,3 +1094,5 @@ ALTER TABLE `#__content` ADD INDEX ( `hits` );
 
 # 1.3.0.4
 ALTER TABLE `#__core_acl_aro` CHANGE `value` `value` INT( 11 ) NOT NULL;
+# 1.3.0.5
+ALTER TABLE `#__users` CHANGE `username` `username` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL;
