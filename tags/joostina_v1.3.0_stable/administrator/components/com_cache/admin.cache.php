@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package Joostina
  * @copyright Авторские права (C) 2009 Joostina team. Все права защищены.
@@ -6,16 +7,15 @@
  * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
  * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
  */
-
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
 /*
  * Make sure the user is authorized to view this page
-*/
+ */
 
 // ensure user has access to this function
-if(!($acl->acl_check('administration', 'edit', 'users', $my->usertype, 'components', 'all') | $acl->acl_check('administration', 'edit', 'users', $my->usertype, 'components', 'com_cache'))) {
+if (!($acl->acl_check('administration', 'edit', 'users', $my->usertype, 'components', 'all') | $acl->acl_check('administration', 'edit', 'users', $my->usertype, 'components', 'com_cache'))) {
 	mosRedirect('index2.php', _NOT_AUTH);
 }
 
@@ -23,14 +23,14 @@ if(!($acl->acl_check('administration', 'edit', 'users', $my->usertype, 'componen
 require_once ($mainframe->getPath('admin_html'));
 require_once ($mainframe->getPath('class'));
 
-$cid = mosGetParam($_REQUEST,'cid',0);
+$cid = mosGetParam($_REQUEST, 'cid', 0);
 
 /*
  * This is our main control structure for the component
  *
  * Each view is determined by the $task variable
-*/
-switch($task) {
+ */
+switch ($task) {
 	case 'delete':
 		CacheController::deleteCache($cid);
 		CacheController::showCache();
@@ -50,6 +50,7 @@ switch($task) {
  * @since		1.3
  */
 class CacheController {
+
 	/**
 	 * Show the cache
 	 *
@@ -58,23 +59,24 @@ class CacheController {
 	function showCache() {
 		global $mainframe, $option;
 
-		$client = intval(mosGetParam($_REQUEST,'client',0));
+		$client = intval(mosGetParam($_REQUEST, 'client', 0));
 
-		$limit		= $mainframe->getUserStateFromRequest( 'global.list.limit', 'limit', $mainframe->getCfg('list_limit'));
-		$limitstart = $mainframe->getUserStateFromRequest( $option.'.limitstart', 'limitstart', 0 );
+		$limit = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'));
+		$limitstart = $mainframe->getUserStateFromRequest($option . '.limitstart', 'limitstart', 0);
 
 		$cmData = new CacheData(JPATH_BASE . '/cache');
-
-		require_once (JPATH_BASE . '/'.JADMIN_BASE.'/includes/pageNavigation.php');
+		
+		require_once (JPATH_BASE . '/' . JADMIN_BASE . '/includes/pageNavigation.php');
 		$pageNav = new mosPageNav($cmData->getGroupCount(), $limitstart, $limit);
-		CacheView::displayCache( $cmData->getRows( $limitstart, $limit ), $client, $pageNav );
+		CacheView::displayCache($cmData->getRows($limitstart, $limit), $client, $pageNav);
 	}
 
 	function deleteCache($cid) {
 
-		$client = intval(mosGetParam($_REQUEST,'client',0));
+		$client = intval(mosGetParam($_REQUEST, 'client', 0));
 
 		$cmData = new CacheData(JPATH_BASE . '/cache');
-		$cmData->cleanCacheList( $cid );
+		$cmData->cleanCacheList($cid);
 	}
+
 }

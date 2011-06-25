@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @version		$Id: cache.class.php 11074 2009-05-03 04:54:12Z ian $
  * @package		Joostina
@@ -11,12 +12,9 @@
  * other free or open source software licenses.
  * See COPYRIGHT.php for copyright notices and details.
  */
-
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-//require_once(JPATH_BASE . '/includes/libraries/cache/object.php');
-//error_reporting(E_ALL);
 /**
  * Class used to hold Cache data
  *
@@ -25,6 +23,7 @@ defined('_VALID_MOS') or die();
  * @since		1.3
  */
 class CacheData {
+
 	/**
 	 * An Array of CacheItems indexed by cache group ID
 	 *
@@ -32,7 +31,6 @@ class CacheData {
 	 * @var Array
 	 */
 	var $_items = null;
-
 	/**
 	 * The cache path
 	 *
@@ -46,7 +44,7 @@ class CacheData {
 	 *
 	 * @access protected
 	 */
-	function __construct( $path ) {
+	function __construct($path) {
 		$this->_path = $path;
 		$this->_parse();
 		//echo " 1hgh";
@@ -60,7 +58,7 @@ class CacheData {
 	 * @param	String $path
 	 */
 	function _parse() {
-		//echo $this->_path;
+
 		require_once(JPATH_BASE . '/includes/libraries/filesystem/folder.php');
 		require_once(JPATH_BASE . '/includes/libraries/filesystem/file.php');
 
@@ -68,11 +66,11 @@ class CacheData {
 
 		foreach ($folders as $folder) {
 			$files = array();
-			$files = JFolder::files($this->_path.DS.$folder);
-			$this->_items[$folder] = new CacheItem( $folder );
+			$files = JFolder::files($this->_path . DS . $folder);
+			$this->_items[$folder] = new CacheItem($folder);
 
 			foreach ($files as $file) {
-				$this->_items[$folder]->updateSize( filesize( $this->_path.DS.$folder.DS.$file )/ 1024 );
+				$this->_items[$folder]->updateSize(filesize($this->_path . DS . $folder . DS . $file));
 			}
 		}
 	}
@@ -96,7 +94,7 @@ class CacheData {
 	 * @param Int $limit
 	 * @return Array
 	 */
-	function getRows( $start, $limit ) {
+	function getRows($start, $limit) {
 		$i = 0;
 		$rows = array();
 		if (!is_array($this->_items)) {
@@ -104,7 +102,7 @@ class CacheData {
 		}
 
 		foreach ($this->_items as $item) {
-			if ( (($i >= $start) && ($i < $start+$limit)) || ($limit == 0) ) {
+			if ((($i >= $start) && ($i < $start + $limit)) || ($limit == 0)) {
 				$rows[] = $item;
 			}
 			$i++;
@@ -118,18 +116,19 @@ class CacheData {
 	 *
 	 * @param String $group
 	 */
-	function cleanCache( $group='' ) {
-		$cache =& mosCache::getCache('', 'callback', 'file');
-		if($cache != NULL) {
-			$cache->clean( $group );
+	function cleanCache($group='') {
+		$cache = mosCache::getCache('', 'callback', 'file');
+		if ($cache != NULL) {
+			$cache->clean($group);
 		}
 	}
 
-	function cleanCacheList( $array ) {
+	function cleanCacheList($array) {
 		foreach ($array as $group) {
-			$this->cleanCache( $group );
+			$this->cleanCache($group);
 		}
 	}
+
 }
 
 /**
@@ -140,16 +139,34 @@ class CacheData {
  * @since		1.3
  */
 class CacheItem {
-	var $group 	= "";
-	var $size 	= 0;
-	var $count 	= 0;
 
-	function CacheItem ( $group ) {
+	var $group = "";
+	var $size = 0;
+	var $count = 0;
+
+	function CacheItem($group) {
 		$this->group = $group;
 	}
 
-	function updateSize( $size ) {
-		$this->size = number_format( $this->size + $size, 2 );
+	function updateSize($size) {
+		$this->size = $this->size + $size;
 		$this->count++;
 	}
+
+	public static function convert_size($num) {
+
+		$num = (int) $num;
+
+		if ($num >= 1073741824) {
+			$num = round($num / 1073741824 * 100) / 100 . ' ' . 'gb';
+		} else if ($num >= 1048576) {
+			$num = round($num / 1048576 * 100) / 100 . ' ' . 'mb';
+		} else if ($num >= 1024) {
+			$num = round($num / 1024 * 100) / 100 . ' ' . 'kb';
+		} else {
+			$num .= ' ' . 'byte';
+		}
+		return $num;
+	}
+
 }

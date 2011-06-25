@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package Joostina
  * @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
@@ -6,7 +7,6 @@
  * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
  * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
  */
-
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
@@ -27,7 +27,6 @@ if ($mosConfig_sef) {
 			$sSef_option = mosGetParam($_GET, 'option', ''); // Получение опции (компонента)
 			$sSef_task = mosGetParam($_GET, 'task', '');   // Получение задачи
 			$sSef_tp = mosGetParam($_GET, 'tp', 0);   // Предпросмотр
-
 			//Режим предпросмотра и компонент поиска
 			$bSefGoto = ($sSef_tp == '1' || $sSef_option == 'com_search' ) ? false : true;
 
@@ -58,21 +57,21 @@ if ($mosConfig_sef) {
 		$_GET['tag'] = $url_array[$pos + 1];
 
 		$QUERY_STRING = 'option=com_search&tag=' . $_GET['tag'];
-	} elseif(in_array('register', $url_array)) {
+	} elseif (in_array('register', $url_array)) {
 		$_GET['option'] = 'com_users';
 		$_REQUEST['option'] = 'com_users';
 		$_GET['task'] = 'register';
 		$_REQUEST['task'] = 'register';
 
 		$QUERY_STRING = 'option=com_users&task=register';
-	} elseif(in_array('lostpassword', $url_array)) {
+	} elseif (in_array('lostpassword', $url_array)) {
 		$_GET['option'] = 'com_users';
 		$_REQUEST['option'] = 'com_users';
 		$_GET['task'] = 'lostPassword';
 		$_REQUEST['task'] = 'lostPassword';
 
 		$QUERY_STRING = 'option=com_users&task=lostPassword';
-	} elseif(strpos($_SERVER['REQUEST_URI'], 'sitemap.xml')) {
+	} elseif (strpos($_SERVER['REQUEST_URI'], 'sitemap.xml')) {
 		$_GET['option'] = 'com_xmap';
 		$_REQUEST['option'] = 'com_xmap';
 		$_GET['sitemap'] = '1';
@@ -83,7 +82,7 @@ if ($mosConfig_sef) {
 		$_REQUEST['no_html'] = '1';
 
 		$QUERY_STRING = 'option=com_xmap&sitemap=1&view=xml&no_html=1';
-	} elseif(in_array('content', $url_array)) { // обработка компонента com_content
+	} elseif (in_array('content', $url_array)) { // обработка компонента com_content
 
 		/**
 		 * Content
@@ -341,13 +340,12 @@ if ($mosConfig_sef) {
 		$_SERVER['QUERY_STRING'] = $QUERY_STRING;
 		$REQUEST_URI = $uri[0] . 'index.php?' . $QUERY_STRING;
 		$_SERVER['REQUEST_URI'] = $REQUEST_URI;
-
-	} elseif(in_array('component', $url_array)) {
+	} elseif (in_array('component', $url_array)) {
 
 		/*
-			* Components
-			* http://www.domain.com/component/$name,$value
-		*/
+		 * Components
+		 * http://www.domain.com/component/$name,$value
+		 */
 		$uri = explode('component/', $_SERVER['REQUEST_URI']);
 		$uri_array = explode('/', $uri[1]);
 		$QUERY_STRING = '';
@@ -380,9 +378,9 @@ if ($mosConfig_sef) {
 		$_SERVER['REQUEST_URI'] = $REQUEST_URI;
 	} else {
 		/*
-			* Unknown content
-			* http://www.domain.com/unknown
-		*/
+		 * Unknown content
+		 * http://www.domain.com/unknown
+		 */
 		$jdir = str_replace('index.php', '', $_SERVER['PHP_SELF']);
 		$juri = str_replace($jdir, '', $_SERVER['REQUEST_URI']);
 //  TODO раскомментировать при ошибках с SEF
@@ -408,8 +406,6 @@ function sefRelToAbs($string) {
 
 	//multilingual code url support
 	if ($mosConfig_sef && $mosConfig_multilingual_support && $string != 'index.php' && !preg_match("/^(([^:\/\?#]+):)/i", $string) && !strcasecmp(substr($string, 0, 9), 'index.php') && !preg_match('/lang=/', $string)) {
-//  TODO раскомментировать при ошибках с SEF
-//	if($mosConfig_sef && $mosConfig_multilingual_support && $string != 'index.php' &&!eregi("^(([^:/?#]+):)",$string) && !strcasecmp(substr($string,0,9),'index.php') && !eregi('lang=',$string)) {
 		$string .= '&amp;lang=' . _LANGUAGE;
 	}
 
@@ -420,9 +416,6 @@ function sefRelToAbs($string) {
 
 	// SEF URL Handling
 	if ($mosConfig_sef && !preg_match("/^(([^:\/\?#]+):)/i", $string) && !strcasecmp(substr($string, 0, 9), 'index.php')) {
-//  TODO раскомментировать при ошибках с SEF
-//	if($mosConfig_sef && !eregi("^(([^:/?#]+):)",$string) && !strcasecmp(substr($string,0,9),'index.php')) {
-		// Replace all &amp; with &
 		$string = str_replace('&amp;', '&', $string);
 
 		// Home index.php
@@ -448,13 +441,13 @@ function sefRelToAbs($string) {
 			$url['query'] = stripslashes(str_replace('+', '%2b', $url['query']));
 			// clean possible xss attacks
 			$url['query'] = preg_replace("'%3Cscript[^%3E]*%3E.*?%3C/script%3E'si", '', $url['query']);
-		
+
 			// break url into component parts
 			parse_str($url['query'], $parts);
 
 			// TODO удаляем Itemid
-			if(_SEF_DELETE_ITEMID==true){
-				unset($parts['Itemid'], $parts['ItemId'] );
+			if (_SEF_DELETE_ITEMID == true) {
+				unset($parts['Itemid'], $parts['ItemId']);
 			}
 			$sefstring = '';
 
@@ -523,13 +516,13 @@ function sefRelToAbs($string) {
 
 				// all other components
 				// index.php?option=com_xxxx &...
-			} elseif(isset($parts['option']) && $parts['option'] == 'com_search' && isset($parts['tag'])) {
+			} elseif (isset($parts['option']) && $parts['option'] == 'com_search' && isset($parts['tag'])) {
 				$string = 'tag/' . $parts['tag'];
-			} elseif(isset($parts['option']) && $parts['option'] == 'com_users' && isset($parts['task']) && $parts['task'] == 'register') {
+			} elseif (isset($parts['option']) && $parts['option'] == 'com_users' && isset($parts['task']) && $parts['task'] == 'register') {
 				$string = 'register/';
-			} elseif(isset($parts['option']) && $parts['option'] == 'com_users' && isset($parts['task']) && $parts['task'] == 'lostPassword') {
+			} elseif (isset($parts['option']) && $parts['option'] == 'com_users' && isset($parts['task']) && $parts['task'] == 'lostPassword') {
 				$string = 'lostpassword/';
-			} elseif(isset($parts['option']) && (strpos($parts['option'], 'com_') !== false)) {
+			} elseif (isset($parts['option']) && (strpos($parts['option'], 'com_') !== false)) {
 				// do not SEF where com_content - `edit` or `new` task link
 				if (!(($parts['option'] == 'com_content') && ((isset($parts['task']) == 'new') || (isset($parts['task']) == 'edit')))) {
 					$sefstring = 'component/';
@@ -553,11 +546,10 @@ function sefRelToAbs($string) {
 
 		// allows SEF without mod_rewrite
 		// comment line below if you dont have mod_rewrite
-		return JPATH_SITE . '/' . $string.$fragment;
+		return JPATH_SITE . '/' . $string . $fragment;
 
 		// allows SEF without mod_rewrite
 		// uncomment Line 512 and comment out Line 514
-
 		// uncomment line below if you dont have mod_rewrite
 		// return $mosConfig_live_site .'/index.php/'. $string . $fragment;
 		// If the above doesnt work - try uncommenting this line instead
@@ -571,7 +563,7 @@ function sefRelToAbs($string) {
 			if (isset($string['host'])) {
 				return isset($string['scheme']) ? $string['scheme'] . '://' . $string['host'] : $string['host'];
 			}
-			
+
 			isset($string['query']) ? parse_str($string['query'], $q) : ( $q = array() );
 			// TODO удаляем Itemid !!!
 			unset($q['Itemid'], $q['ItemId']);
@@ -589,7 +581,7 @@ function sefRelToAbs($string) {
 				$live_site_parts = array();
 				preg_match("/^(https?:[\/]+[^\/]+)(.*$)/i", JPATH_SITE, $live_site_parts);
 
-				$string = $live_site_parts[1].$string;
+				$string = $live_site_parts[1] . $string;
 			} else {
 				$check = 1;
 
