@@ -5909,7 +5909,7 @@ class mosCommonHTML {
 	public static function get_element($file) {
 
 		$file_templ = 'templates/'.JTEMPLATE.'/images/elements/'.$file;
-		$file_system = 'M_images/'.$file;
+		$file_system = '/images/M_images/'.$file;
 
 		$return = $file_templ;
 		if(!is_file(JPATH_BASE.DS.$file_templ)) {
