@@ -1949,7 +1949,7 @@ class mosMainFrame {
 					. "\n WHERE menutype = 'mainmenu'"
 					. "\n AND id = " . (int) $Itemid
 					. "\n AND published = 1";
-			$menu = new mosMenu($database);
+			$menu = new mosMenu($this->_db);
 			$this->_db->setQuery($query)->loadObject($menu);
 		} else {
 			// получение пурвого элемента главного меню
@@ -2927,6 +2927,7 @@ class mosModule extends mosDBTable {
 			// custom or new modules
 			if ($params->get('cache') == 1 && $config->config_caching == 1) {
 				// module caching
+				$cache = mosCache::getCache('modules', '', null, null, $this->_view);
 				$cache->call('module', $module, $params, $Itemid, $style, 0, $my->gid);
 			} else {
 				$this->_view->module($module, $params, $Itemid, $style);
