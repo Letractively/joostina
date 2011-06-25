@@ -225,12 +225,12 @@ if(!$mainframe->getCfg('disable_image_tab')) {
 						<td><?php echo $row->version; ?> <?php echo _TIMES?></td>
 					</tr>
 					<tr>
-						<td><?php echo _CREATED?>:</td>
+						<td><?php echo _CREATED?></td>
 						<td><?php echo $create_date ? $create_date : _NEW_DOCUMENT;?></td>
 					</tr>
 					<tr>
 						<td><?php echo _LAST_CHANGE?>:</td>
-						<td><?php echo $mod_date ? $mod_date.$row->modifier : _NOT_CHANGED;?></td>
+						<td><?php echo $mod_date ? $mod_date.' '.$row->modifier : _NOT_CHANGED;?></td>
 					</tr>
 					<tr>
 						<td><?php echo _AUTHOR?>:</td>
