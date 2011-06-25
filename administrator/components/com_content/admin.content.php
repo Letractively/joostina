@@ -909,7 +909,7 @@ function saveContent($sectionid,$task) {
 		/* boston, после сохранения возвращаемся в окно добавления нового содержимого*/
 		case 'save_and_new':
 			$msg = $row->title.' - '._E_ITEM_SAVED;
-			mosRedirect('index2.php?option=com_content&sectionid=0&task=new&sectionid='.$row->sectionid.'&catid='.$row->catid,$msg);
+			mosRedirect('index2.php?option=com_content&task=new&sectionid='.$row->sectionid.'&catid='.$row->catid,$msg);
 			break;
 
 		case 'save':
@@ -1574,7 +1574,7 @@ function _cat_d($act) {
 			$row->title = Jstring::substr($row->title,0,30).'...';
 		}
 		if($act!=$row->id) {
-			$row->title= '<a href="index2.php?option=com_content&sectionid=0&catid='.$row->id.'">'.$row->title.'<\/a>';
+			$row->title= '<a href="index2.php?option=com_content&sectionid='.$row->section.'&catid='.$row->id.'">'.$row->title.'<\/a>';
 		}
 		$ret .= "\n c.add(0$n$row->id,$row->section,'$row->title ($row->countcon)');";
 	}
