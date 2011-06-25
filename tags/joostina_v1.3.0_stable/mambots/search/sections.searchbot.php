@@ -51,7 +51,7 @@ function botSearchSections($text,$phrase = '',$ordering = '') {
 
 	switch($ordering) {
 		case 'alpha':
-			$order = 'a.name ASC';
+			$order = 'a.title ASC';
 			break;
 
 		case 'category':
@@ -59,13 +59,13 @@ function botSearchSections($text,$phrase = '',$ordering = '') {
 		case 'newest':
 		case 'oldest':
 		default:
-			$order = 'a.name DESC';
+			$order = 'a.title DESC';
 	}
 
-	$query = "SELECT a.name AS title,"."\n a.description AS text,"."\n '' AS created,".
+	$query = "SELECT a.title AS title,"."\n a.description AS text,"."\n '' AS created,".
 			"\n '2' AS browsernav,"."\n a.id AS secid, m.id AS menuid, m.type AS menutype".
 			"\n FROM #__sections AS a"."\n LEFT JOIN #__menu AS m ON m.componentid = a.id".
-			"\n WHERE ( a.name LIKE '%$text%'"."\n OR a.title LIKE '%$text%'"."\n OR a.description LIKE '%$text%' )".
+			"\n WHERE ( a.title LIKE '%$text%'"."\n OR a.title LIKE '%$text%'"."\n OR a.description LIKE '%$text%' )".
 			"\n AND a.published = 1"."\n AND a.access <= ".(int)$my->gid."\n AND ( m.type = 'content_section' OR m.type = 'content_blog_section' )".
 			"\n GROUP BY a.id"."\n ORDER BY $order";
 	$database->setQuery($query,0,$limit);

@@ -51,7 +51,7 @@ function botSearchCategories($text,$phrase = '',$ordering = '') {
 
 	switch($ordering) {
 		case 'alpha':
-			$order = 'a.name ASC';
+			$order = 'a.title ASC';
 			break;
 
 		case 'category':
@@ -59,13 +59,13 @@ function botSearchCategories($text,$phrase = '',$ordering = '') {
 		case 'newest':
 		case 'oldest':
 		default:
-			$order = 'a.name DESC';
+			$order = 'a.title DESC';
 	}
 
-	$query = "SELECT a.name AS title,"."\n a.description AS text,"."\n '' AS created,".
+	$query = "SELECT a.title AS title,"."\n a.description AS text,"."\n '' AS created,".
 			"\n '2' AS browsernav,"."\n '' AS section,"."\n '' AS href,"."\n s.id AS secid, a.id AS catid,".
 			"\n m.id AS menuid, m.type AS menutype"."\n FROM #__categories AS a"."\n INNER JOIN #__sections AS s ON s.id = a.section".
-			"\n LEFT JOIN #__menu AS m ON m.componentid = a.id"."\n WHERE ( a.name LIKE '%$text%'".
+			"\n LEFT JOIN #__menu AS m ON m.componentid = a.id"."\n WHERE ( a.title LIKE '%$text%'".
 			"\n OR a.title LIKE '%$text%'"."\n OR a.description LIKE '%$text%' )"."\n AND a.published = 1".
 			"\n AND s.published = 1"."\n AND a.access <= ".(int)$my->gid."\n AND s.access <= ".(int)
 			$my->gid."\n AND ( m.type = 'content_section' OR m.type = 'content_blog_section'".
