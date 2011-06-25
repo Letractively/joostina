@@ -1,18 +1,18 @@
 <?php
-/**
-* @package Joostina
-* @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
-* @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
-* Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
-* Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
-*/
 
+/**
+ * @package Joostina
+ * @copyright Авторские права (C) 2008-2010 Joostina team. Все права защищены.
+ * @license Лицензия http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, или help/license.php
+ * Joostina! - свободное программное обеспечение распространяемое по условиям лицензии GNU/GPL
+ * Для получения информации о используемых расширениях и замечаний об авторском праве, смотрите файл help/copyright.php.
+ */
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-define('EXT','.php');
+define('EXT', '.php');
 
-define('SYSPATH',JPATH_BASE.'/includes/libraries/utf8/');
+define('SYSPATH', JPATH_BASE . '/includes/libraries/utf8/');
 
 
 /**
@@ -42,33 +42,29 @@ define('SYSPATH',JPATH_BASE.'/includes/libraries/utf8/');
  * @copyright  (c) 2005 Harry Fuecks
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
  */
-
-if ( ! preg_match('/^.$/u', 'ñ'))
-{
+if (!preg_match('/^.$/u', 'ñ')) {
 	die
-	(
-		'<a href="http://php.net/pcre">PCRE</a> has not been compiled with UTF-8 support. '.
-		'See <a href="http://php.net/manual/reference.pcre.pattern.modifiers.php">PCRE Pattern Modifiers</a> '.
-		'for more information. This application cannot be run without UTF-8 support.'
+			(
+			'<a href="http://php.net/pcre">PCRE</a> has not been compiled with UTF-8 support. ' .
+			'See <a href="http://php.net/manual/reference.pcre.pattern.modifiers.php">PCRE Pattern Modifiers</a> ' .
+			'for more information. This application cannot be run without UTF-8 support.'
 	);
 }
 
-if ( ! extension_loaded('iconv'))
-{
+if (!extension_loaded('iconv')) {
 	die
-	(
-		'The <a href="http://php.net/iconv">iconv</a> extension is not loaded. '.
-		'Without iconv, strings cannot be properly translated to UTF-8 from user input. '.
-		'This application cannot be run without UTF-8 support.'
+			(
+			'The <a href="http://php.net/iconv">iconv</a> extension is not loaded. ' .
+			'Without iconv, strings cannot be properly translated to UTF-8 from user input. ' .
+			'This application cannot be run without UTF-8 support.'
 	);
 }
 
-if (extension_loaded('mbstring') AND (ini_get('mbstring.func_overload') & MB_OVERLOAD_STRING))
-{
+if (extension_loaded('mbstring') AND (ini_get('mbstring.func_overload') & MB_OVERLOAD_STRING)) {
 	die
-	(
-		'The <a href="http://php.net/mbstring">mbstring</a> extension is overloading PHP\'s native string functions. '.
-		'Disable this by setting mbstring.func_overload to 0, 1, 4 or 5 in php.ini or a .htaccess file.'
+			(
+			'The <a href="http://php.net/mbstring">mbstring</a> extension is overloading PHP\'s native string functions. ' .
+			'Disable this by setting mbstring.func_overload to 0, 1, 4 or 5 in php.ini or a .htaccess file.'
 	);
 }
 
@@ -78,10 +74,10 @@ define('PCRE_UNICODE_PROPERTIES', (bool) preg_match('/^\pL$/u', 'ñ'));
 error_reporting($ER);
 
 // SERVER_UTF8 ? use mb_* functions : use non-native functions
-if (extension_loaded('mbstring')){
+if (extension_loaded('mbstring')) {
 	mb_internal_encoding('UTF-8');
 	define('SERVER_UTF8', TRUE);
-}else{
+} else {
 	define('SERVER_UTF8', FALSE);
 }
 
@@ -91,8 +87,7 @@ if (extension_loaded('mbstring')){
 //$_COOKIE = utf8::clean($_COOKIE);
 //$_SERVER = utf8::clean($_SERVER);
 
-if (PHP_SAPI == 'cli')
-{
+if (PHP_SAPI == 'cli') {
 	// Convert command line arguments
 	$_SERVER['argv'] = utf8::clean($_SERVER['argv']);
 }
@@ -110,17 +105,17 @@ class utf8 {
 	 * @param   string  string to clean
 	 * @return  string
 	 */
-	public static function clean($str){
-		if (is_array($str) OR is_object($str)){
-			foreach ($str as $key => $val){
+	public static function clean($str) {
+		if (is_array($str) OR is_object($str)) {
+			foreach ($str as $key => $val) {
 				// Recursion!
 				$str[self::clean($key)] = self::clean($val);
 			}
-		}elseif (is_string($str) AND $str !== ''){
+		} elseif (is_string($str) AND $str !== '') {
 			// Remove control characters
 			$str = self::strip_ascii_ctrl($str);
 
-			if ( !self::is_ascii($str)){
+			if (!self::is_ascii($str)) {
 
 				// Disable notices
 				$ER = error_reporting(~E_NOTICE);
@@ -143,9 +138,8 @@ class utf8 {
 	 * @param   string  string to check
 	 * @return  bool
 	 */
-	public static function is_ascii($str)
-	{
-		return ! preg_match('/[^\x00-\x7F]/S', $str);
+	public static function is_ascii($str) {
+		return!preg_match('/[^\x00-\x7F]/S', $str);
 	}
 
 	/**
@@ -154,8 +148,7 @@ class utf8 {
 	 * @param   string  string to clean
 	 * @return  string
 	 */
-	public static function strip_ascii_ctrl($str)
-	{
+	public static function strip_ascii_ctrl($str) {
 		return preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S', '', $str);
 	}
 
@@ -165,8 +158,7 @@ class utf8 {
 	 * @param   string  string to clean
 	 * @return  string
 	 */
-	public static function strip_non_ascii($str)
-	{
+	public static function strip_non_ascii($str) {
 		return preg_replace('/[^\x00-\x7F]+/S', '', $str);
 	}
 
@@ -179,11 +171,9 @@ class utf8 {
 	 * @param   integer  -1 lowercase only, +1 uppercase only, 0 both cases
 	 * @return  string
 	 */
-	public static function transliterate_to_ascii($str, $case = 0)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function transliterate_to_ascii($str, $case = 0) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -199,11 +189,9 @@ class utf8 {
 	 * @param   string   string being measured for length
 	 * @return  integer
 	 */
-	public static function strlen($str)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function strlen($str) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -224,11 +212,9 @@ class utf8 {
 	 * @return  integer  position of needle
 	 * @return  boolean  FALSE if the needle is not found
 	 */
-	public static function strpos($str, $search, $offset = 0)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function strpos($str, $search, $offset = 0) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -249,11 +235,9 @@ class utf8 {
 	 * @return  integer  position of needle
 	 * @return  boolean  FALSE if the needle is not found
 	 */
-	public static function strrpos($str, $search, $offset = 0)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function strrpos($str, $search, $offset = 0) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -273,11 +257,9 @@ class utf8 {
 	 * @param   integer  length limit
 	 * @return  string
 	 */
-	public static function substr($str, $offset, $length = NULL)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function substr($str, $offset, $length = NULL) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -297,11 +279,9 @@ class utf8 {
 	 * @param   integer  offset
 	 * @return  string
 	 */
-	public static function substr_replace($str, $replacement, $offset, $length = NULL)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function substr_replace($str, $replacement, $offset, $length = NULL) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -319,11 +299,9 @@ class utf8 {
 	 * @param   string   mixed case string
 	 * @return  string
 	 */
-	public static function strtolower($str)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function strtolower($str) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -341,11 +319,9 @@ class utf8 {
 	 * @param   string   mixed case string
 	 * @return  string
 	 */
-	public static function strtoupper($str)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function strtoupper($str) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -363,11 +339,9 @@ class utf8 {
 	 * @param   string   mixed case string
 	 * @return  string
 	 */
-	public static function ucfirst($str)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function ucfirst($str) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -385,11 +359,9 @@ class utf8 {
 	 * @param   string   mixed case string
 	 * @return  string
 	 */
-	public static function ucwords($str)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function ucwords($str) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -410,11 +382,9 @@ class utf8 {
 	 * @return  integer  greater than 0 if str1 is greater than str2
 	 * @return  integer  0 if they are equal
 	 */
-	public static function strcasecmp($str1, $str2)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function strcasecmp($str1, $str2) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -438,11 +408,9 @@ class utf8 {
 	 * @return  string        if the input was a string
 	 * @return  array         if the input was an array
 	 */
-	public static function str_ireplace($search, $replace, $str, & $count = NULL)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function str_ireplace($search, $replace, $str, & $count = NULL) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -463,11 +431,9 @@ class utf8 {
 	 * @return  string   matched substring if found
 	 * @return  boolean  FALSE if the substring was not found
 	 */
-	public static function stristr($str, $search)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function stristr($str, $search) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -488,11 +454,9 @@ class utf8 {
 	 * @param   integer  length of the string to examine
 	 * @return  integer  length of the initial segment that contains characters in the mask
 	 */
-	public static function strspn($str, $mask, $offset = NULL, $length = NULL)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function strspn($str, $mask, $offset = NULL, $length = NULL) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -513,11 +477,9 @@ class utf8 {
 	 * @param   integer  length of the string to examine
 	 * @return  integer  length of the initial segment that contains characters not in the mask
 	 */
-	public static function strcspn($str, $mask, $offset = NULL, $length = NULL)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function strcspn($str, $mask, $offset = NULL, $length = NULL) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -538,11 +500,9 @@ class utf8 {
 	 * @param   string   padding type: STR_PAD_RIGHT, STR_PAD_LEFT, or STR_PAD_BOTH
 	 * @return  string
 	 */
-	public static function str_pad($str, $final_str_length, $pad_str = ' ', $pad_type = STR_PAD_RIGHT)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function str_pad($str, $final_str_length, $pad_str = ' ', $pad_type = STR_PAD_RIGHT) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -561,11 +521,9 @@ class utf8 {
 	 * @param   integer  maximum length of each chunk
 	 * @return  array
 	 */
-	public static function str_split($str, $split_length = 1)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function str_split($str, $split_length = 1) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -583,11 +541,9 @@ class utf8 {
 	 * @param   string   string to be reversed
 	 * @return  string
 	 */
-	public static function strrev($str)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function strrev($str) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -607,11 +563,9 @@ class utf8 {
 	 * @param   string   string of characters to remove
 	 * @return  string
 	 */
-	public static function trim($str, $charlist = NULL)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function trim($str, $charlist = NULL) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -630,11 +584,9 @@ class utf8 {
 	 * @param   string   string of characters to remove
 	 * @return  string
 	 */
-	public static function ltrim($str, $charlist = NULL)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function ltrim($str, $charlist = NULL) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -653,11 +605,9 @@ class utf8 {
 	 * @param   string   string of characters to remove
 	 * @return  string
 	 */
-	public static function rtrim($str, $charlist = NULL)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function rtrim($str, $charlist = NULL) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -675,11 +625,9 @@ class utf8 {
 	 * @param   string   UTF-8 encoded character
 	 * @return  integer
 	 */
-	public static function ord($chr)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function ord($chr) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -703,11 +651,9 @@ class utf8 {
 	 * @return  array    unicode code points
 	 * @return  boolean  FALSE if the string is invalid
 	 */
-	public static function to_unicode($str)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function to_unicode($str) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -731,11 +677,9 @@ class utf8 {
 	 * @return  string   utf8 string of characters
 	 * @return  boolean  FALSE if a code point cannot be found
 	 */
-	public static function from_unicode($arr)
-	{
-		if ( ! isset(self::$called[__FUNCTION__]))
-		{
-			require SYSPATH.__FUNCTION__.EXT;
+	public static function from_unicode($arr) {
+		if (!isset(self::$called[__FUNCTION__])) {
+			require SYSPATH . __FUNCTION__ . EXT;
 
 			// Function has been called
 			self::$called[__FUNCTION__] = TRUE;
@@ -744,28 +688,31 @@ class utf8 {
 		return _from_unicode($arr);
 	}
 
-} // End utf8
+}
 
-class Jstring extends utf8{
+// End utf8
 
-	public static function to_utf8($text){
-		if (is_array($text) OR is_object($text)){
+class Jstring extends utf8 {
+
+	public static function to_utf8($text) {
+		if (is_array($text) OR is_object($text)) {
 			$d = array();
-			foreach ($text as $k => &$v){
+			foreach ($text as $k => &$v) {
 				$d[Jstring::to_utf8($k)] = Jstring::to_utf8($v);
 			}
 			return $d;
 		}
-		if (is_string($text)){
-			if(self::is_utf8($text)){ // если это юникод - сразу его возвращаем
+		if (is_string($text)) {
+			// TODO проверить правильно ли, было то self::is_utf8, но только до Jostina 1.3.0.5
+			if (self::utf8_check($text)) { // если это юникод - сразу его возвращаем
 				return $text;
 			}
-			if (function_exists('iconv')){ // пробуем конвертировать через iconv
+			if (function_exists('iconv')) { // пробуем конвертировать через iconv
 				return iconv('cp1251', 'utf-8//IGNORE//TRANSLIT', $text);
 			}
 
-			if (! function_exists('cp1259_to_utf8')){ // конвертируем собственнвми средствами
-				include_once JPATH_BASE.'/includes/libraries/utf8/to_utf8.php';
+			if (!function_exists('cp1259_to_utf8')) { // конвертируем собственнвми средствами
+				include_once JPATH_BASE . '/includes/libraries/utf8/to_utf8.php';
 			}
 			return cp1259_to_utf8($text);
 		}
@@ -773,49 +720,59 @@ class Jstring extends utf8{
 	}
 
 	/* проверка на юникод */
-	public static function is_utf8(&$data, $is_strict = true){
-		if (is_array($data)){ // массив
-			foreach ($data as $k => &$v){
-				if (!self::is_utf8($v, $is_strict)){
+
+	public static function is_utf8(&$data, $is_strict = true) {
+		if (is_array($data)) { // массив
+			foreach ($data as $k => &$v) {
+				if (!self::is_utf8($v, $is_strict)) {
 					return false;
 				}
 			}
 			return true;
-		}elseif(is_string($data)){ // строка
-			if (function_exists('iconv')){
+		} elseif (is_string($data)) { // строка
+			if (function_exists('iconv')) {
 				$distance = strlen($data) - strlen(iconv('UTF-8', 'UTF-8//IGNORE', $data));
-				if ($distance > 0){
+				if ($distance > 0) {
 					return false;
 				}
-				if($is_strict && preg_match('/[^\x09\x0A\x0D\x20-\xFF]/sS', $data)){
+				if ($is_strict && preg_match('/[^\x09\x0A\x0D\x20-\xFF]/sS', $data)) {
 					return false;
 				}
 				return true;
 			}
 
 			return self::utf8_check($data, $is_strict);
-
-		}elseif(is_scalar($data) || is_null($data)){ //числа, булево и ничего
+		} elseif (is_scalar($data) || is_null($data)) { //числа, булево и ничего
 			return true;
 		}
 		return false;
 	}
+
 	/* проверка на юникод */
+
 	public static function utf8_check($str, $is_strict = true) {
-		for($i = 0, $len = strlen($str); $i < $len; $i++) {
+		for ($i = 0, $len = strlen($str); $i < $len; $i++) {
 			$c = ord($str[$i]);
-			if($c < 0x80){
-				if($is_strict === false || ($c > 0x1F && $c < 0x7F) || $c == 0x09 || $c == 0x0A || $c == 0x0D) continue;
+			if ($c < 0x80) {
+				if ($is_strict === false || ($c > 0x1F && $c < 0x7F) || $c == 0x09 || $c == 0x0A || $c == 0x0D)
+					continue;
 			}
-			if(($c & 0xE0) == 0xC0) $n = 1;
-			elseif(($c & 0xF0) == 0xE0) $n = 2;
-			elseif(($c & 0xF8) == 0xF0) $n = 3;
-			elseif(($c & 0xFC) == 0xF8) $n = 4;
-			elseif(($c & 0xFE) == 0xFC) $n = 5;
-			else  return false;
-			for($j = 0; $j < $n; $j++) {
+			if (($c & 0xE0) == 0xC0)
+				$n = 1;
+			elseif (($c & 0xF0) == 0xE0)
+				$n = 2;
+			elseif (($c & 0xF8) == 0xF0)
+				$n = 3;
+			elseif (($c & 0xFC) == 0xF8)
+				$n = 4;
+			elseif (($c & 0xFE) == 0xFC)
+				$n = 5;
+			else
+				return false;
+			for ($j = 0; $j < $n; $j++) {
 				$i++;
-				if($i == $len || ((ord($str[$i]) & 0xC0) != 0x80)) return false;
+				if ($i == $len || ((ord($str[$i]) & 0xC0) != 0x80))
+					return false;
 			}
 		}
 		return true;

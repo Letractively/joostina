@@ -1483,11 +1483,11 @@ class contentSqlHelper {
 				} elseif ($type == 2) {
 					$where[] = '( a.catid=' . implode(' OR a.catid=', $ids) . ' )';
 				}
-			} elseif( $id>0 ) {
+			} elseif ($id > 0) {
 				if ($type == 1) {
-					$where[] = '( a.sectionid=' . $id. ' )';
+					$where[] = '( a.sectionid=' . $id . ' )';
 				} elseif ($type == 2) {
-					$where[] = '( a.catid=' . $id. ' )';
+					$where[] = '( a.catid=' . $id . ' )';
 				}
 			}
 		}
@@ -1508,8 +1508,8 @@ class contentSqlHelper {
 					$where[] = "a.catid = " . (int) $id;
 				}
 			}
-		}else{
-			$where[] = "s.published = 1";			
+		} else {
+			$where[] = "s.published = 1";
 		}
 
 		$where[] = "cc.published = 1";
