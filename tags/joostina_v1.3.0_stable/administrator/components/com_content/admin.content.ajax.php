@@ -236,9 +236,20 @@ function x_save() {
 	}
 
 	$row->version++;
+
+	if ($mainframe->getCfg('use_content_save_mambots')) {
+		global $_MAMBOTS;
+		$_MAMBOTS->loadBotGroup('content');
+		$_MAMBOTS->trigger('onSaveContent', array($row));
+	}
+
 	if (!$row->store()) {
 		echo $row->getError();
 		exit();
+	}
+
+	if ($mainframe->getCfg('use_content_save_mambots')) {
+		$_MAMBOTS->trigger('onAfterSaveContent', array($row));
 	}
 
 	//Подготовка тэгов
@@ -252,7 +263,6 @@ function x_save() {
 		$row->obj_type = 'com_content';
 		$tag->update($tags, $row);
 	}
-
 
 	// manage frontpage items
 	require_once ($mainframe->getPath('class', 'com_frontpage'));
@@ -302,7 +312,7 @@ function x_publish($id = null) {
 
 	$state = 0;
 	$ret_img = 'publish_x.png';
-	
+
 	$query = "SELECT state, publish_up, publish_down FROM #__content WHERE id = " . (int) $id;
 	$database->setQuery($query);
 	$row = $database->loadobjectList();
