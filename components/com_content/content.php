@@ -22,7 +22,7 @@ contentHelper::_load_core_js($mainframe);
 
 $id = (int) mosGetParam($_REQUEST, 'id', 0);
 $pop = (int) mosGetParam($_REQUEST, 'pop', 0);
-$limit = (int)mosGetParam($_REQUEST, 'limit', 0);
+$limit = (int) mosGetParam($_REQUEST, 'limit', 0);
 $limitstart = (int) mosGetParam($_REQUEST, 'limitstart', 0);
 
 
@@ -207,8 +207,7 @@ function showUserItems($user_id) {
 		}
 
 		$lists['task'] = 'category';
-//		echo $filter = strval(mosGetParam($_REQUEST, 'filter', ''));
-//		$lists['filter'] = $filter;
+
 		$lists['filter'] = $params->get('filter_value');
 		$lists['limit'] = $limit;
 		$lists['limitstart'] = $limitstart;
@@ -349,7 +348,7 @@ function showTableCategory($id) {
 	$limit = intval(mosGetParam($_REQUEST, 'limit', 0));
 	$limitstart = intval(mosGetParam($_REQUEST, 'limitstart', 0));
 	$sectionid = intval(mosGetParam($_REQUEST, 'sectionid', 0));
-	$selected = strval(mosGetParam($_REQUEST, 'order', ''));
+	echo $selected = strval(mosGetParam($_REQUEST, 'order', ''));
 	$filter = stripslashes(strval(mosGetParam($_REQUEST, 'filter', '')));
 
 	if (Jconfig::getInstance()->config_caching == 1) {
@@ -370,9 +369,6 @@ function showTableCategory($id) {
 function _showTableCategory($id, $gid, $limit, $limitstart, $sectionid, $selected, $filter) {
 	global $Itemid, $my;
 
-	$mainframe = mosMainFrame::getInstance();
-	$database = $mainframe->getDBO();
-
 	$selected = preg_replace('/[^a-z]/i', '', $selected);
 
 	if (!$id) {
@@ -382,6 +378,9 @@ function _showTableCategory($id, $gid, $limit, $limitstart, $sectionid, $selecte
 
 	//права доступа
 	$access = new contentAccess();
+
+	$mainframe = mosMainFrame::getInstance();
+	$database = $mainframe->getDBO();
 
 	//Грузим данные категории
 	$category = new mosCategory($database);
