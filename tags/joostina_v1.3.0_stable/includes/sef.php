@@ -113,7 +113,7 @@ if ($mosConfig_sef) {
 			$id = $url_array[$pos + 3];
 			$Itemid = $url_array[$pos + 4];
 			$order = str_replace('order,', '', $url_array[$pos + 5]);
-			$filter = str_replace('filter,', '', $url_array[$pos + 6]);
+			$filter = urldecode(str_replace('filter,', '', $url_array[$pos + 6]));
 			$limit = $url_array[$pos + 7];
 			$limitstart = $url_array[$pos + 8];
 
