@@ -99,9 +99,25 @@ class database {
 		};
 	}
 
-	// получение объекта базы данных
-	public static function getInstance() {
-
+	/**
+	 * Get database Singleton-object. For what is Singleton, 
+	 * @see http://www.oodesign.com/singleton-pattern.html 
+	 * @param bool $ignoreMainframe if true, the result will always be 
+	 * an instance of Database class. If false (default), result will be taken
+	 * from $mainframe->getDBO() which means it could be replaced with instance
+	 * of other class elsewhere earlier in runtime
+	 * @return object 
+	 */
+	public static function getInstance($ignoreMainframe = false) {
+		
+		// force using DBO from mosMainframe always when it does exist. This is
+		// a workaround for calls of database::getInstance() while DBO should be
+		// replaced in a runtime (particularly by JoomFish)
+		if (!$ignoreMainframe && class_exists('mosMainframe')
+				&& mosMainframe::hasInstance()) {
+			self::$_instance = mosMainFrame::getInstance()->getDBO();
+		}
+		
 		if (self::$_instance === NULL) {
 			$config = & Jconfig::getInstance();
 

@@ -121,6 +121,12 @@ class mosMainFrame {
 	 * текущий язык
 	 */
 	public $lang = null;
+	
+	/**
+	 * The Singleton instance of the class
+	 * @var mosMainframe 
+	 */
+	private static $_instance = null;
 
 	/**
 	 * Class constructor
@@ -167,16 +173,23 @@ class mosMainFrame {
 	}
 
 	public static function &getInstance($isAdmin = false) {
-		static $instance;
-
 		//jd_inc('mosMainFrame::getInstance()');
 
-		if (!is_object($instance)) {
-			$instance = new mosMainFrame(null, null, null, $isAdmin);
+		if (!is_object( self::$_instance )) {
+			self::$_instance = new mosMainFrame(null,null,null,$isAdmin);
 		}
 
-		return $instance;
+		return self::$_instance;
 	}
+	
+	/**
+	 * Check if there are any instance of mosMainframe initialized
+	 * @return bool 
+	 */
+	public static function hasInstance() {
+		$result = is_object(self::$_instance);
+		return $result;
+	}	
 
 	function adminView($target) {
 		global $option;
@@ -2472,12 +2485,48 @@ class mosMenu extends mosDBTable {
 		$this->_menu = array();
 	}
 
-	// получение инстанции меню
+	/**
+	 * Get list of all published menu items indexed by menu types.
+	 * @staticvar bool $frameworkCreated
+	 * @return array 
+	 */
 	public static function get_all() {
-
+		// we need this variable to detect the moment when this method is being
+		// called first time after DBO substitution.
+		static $frameworkCreated;
+		
+		// The problem is, this method is called both before initialization of
+		// mosMainframe and after it. So in case of substitution of
+		// $mainframe->_db object (particularly with JoomFish's mlDatabase) the
+		// static attribute $_all_menus_instance remains populated with menu
+		// items from first call, done with original database object and not
+		// the [potentially] substituted one.
+		// 
+		// In the other words, translation of menu items with JoomFish did not
+		// show up on the front end.
+		//
+		// So the solution is:
+		
+		// remember if framework was already initialized on previous calls
+		$frameworkWasCreatedOnPreviousCallsToo = $frameworkCreated;
+		// get know if it is now
+		$frameworkCreated = mosMainFrame::hasInstance();
+		
+		// if it is the first call since initialization of mosMainframe then
+		// we need to refresh $_all_menus_instance
+		if($frameworkCreated && !$frameworkWasCreatedOnPreviousCallsToo) {
+			self::$_all_menus_instance = null;
+		}
+		
+		// PRODUCTIVITY NOTE: for all cases this solution means +1 SELECT query
+		// for populating $_all_menus_instance. Live with it or just comment the
+		// whole 'solution' code section if you don't need it.
+		
+		//// End of solution. The rest remains unchanged.
+		
 		if (self::$_all_menus_instance === NULL) {
 			$database = database::getInstance();
-			// ведёргиваем из базы все пункты меню, они еще пригодяться несколько раз
+			// выдёргиваем из базы все пункты меню, они еще пригодятся несколько раз
 			$sql = 'SELECT id,menutype,name,link,type,parent,params,access,browserNav FROM #__menu WHERE published=1 ORDER BY parent, ordering ASC';
 			$menus = $database->setQuery($sql)->loadObjectList();
 
