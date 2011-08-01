@@ -309,7 +309,7 @@ class mosUser extends mosDBTable {
     }
 
     function send_mail_to_user($email_info) {
-        mosMail($email_info['adminEmail'],
+        return mosMail($email_info['adminEmail'],
                 $email_info['adminName'],
                 $email_info['email'],
                 $email_info['subject'],
@@ -323,10 +323,13 @@ class mosUser extends mosDBTable {
         $query = "SELECT email, sendEmail FROM #__users WHERE ( gid = 24 OR gid = 25 ) AND sendEmail = 1 AND block = 0";
         $database->setQuery($query);
         $admins = $database->loadObjectList();
+		
+		$result = false;
 
         foreach($admins as $admin) {
             // send email to admin & super admin set to recieve system emails
-            mosMail($email_info['adminEmail'],
+			// $result will be true if at least one sending was successful
+            $result |= mosMail($email_info['adminEmail'],
                     $email_info['adminName'],
                     $admin->email,
                     $email_info['subject'],
