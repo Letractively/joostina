@@ -305,7 +305,7 @@ class configUser_lostpass extends dbConfig {
 
 		<tr>
 			<th class="key"><?php echo _TEMPLATE?></th>
-			<td><input size="100" class="inputbox" type="text" name="title" value="<?php echo $this->template; ?>" /></td>
+			<td><input size="100" class="inputbox" type="text" name="template" value="<?php echo $this->template; ?>" /></td>
 		</tr>
 
 		<tr>
