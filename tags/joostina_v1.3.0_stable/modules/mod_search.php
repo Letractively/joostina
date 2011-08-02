@@ -79,7 +79,7 @@ if ( $set_Itemid ) {
 	} else {
 		// Assign no Itemid
 		$_Itemid	= '';
-		$link		= 'index.php';
+		$link		= JPATH_SITE . '/index.php';
 	}
 }
 
