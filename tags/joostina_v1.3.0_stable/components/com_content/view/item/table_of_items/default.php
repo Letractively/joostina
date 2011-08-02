@@ -56,7 +56,7 @@ if ($params->get('navigation')) {
 		$filter = '&amp;filter=' . $lists['filter'];
 	}
 
-	echo $link = 'index.php?option=com_content&amp;task=category&amp;sectionid=' . $sectionid . '&amp;id=' . $catid . '&amp;Itemid=' . $Itemid . $order . $filter;
+	$link = 'index.php?option=com_content&amp;task=category&amp;sectionid=' . $sectionid . '&amp;id=' . $catid . '&amp;Itemid=' . $Itemid . $order . $filter;
 }
 
 $link.= sprintf('&amp;limit=%s&amp;limitstart=%s',$params->get('limit'),$params->get('limitstart'));
