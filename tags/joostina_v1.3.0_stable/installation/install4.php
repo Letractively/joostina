@@ -18,7 +18,7 @@ if($DBtype == 'mysqli'){
     require_once ('../includes/libraries/database/database.php');
 }
 else{
-    require_once ('../includes/libraries/database/database_old.php');
+    require_once ('../includes/libraries/database_old/database_old.php');
 }
 
 $DBhostname		= mosGetParam($_POST,'DBhostname','');
