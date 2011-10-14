@@ -10,4 +10,7 @@
 // запрет прямого доступа
 defined('_VALID_MOS') or die();
 
-mosMainFrame::addLib('database');
+/*определяем дип бвзы данных*/
+$dbType = ($mosConfig_dbtype == 'mysql') ? 'database_old' : 'database';
+/* класс работы с базой данных */
+mosMainFrame::addLib($dbType);
