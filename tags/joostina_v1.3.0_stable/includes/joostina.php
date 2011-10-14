@@ -2029,6 +2029,8 @@ class JConfig {
 	var $config_password = null;
 	/** @var string */
 	var $config_db = null;
+    /** @var string */
+	var $config_dbtype = 'mysql';
 	/** @var string */
 	var $config_dbprefix = null;
 	/** @var string */
