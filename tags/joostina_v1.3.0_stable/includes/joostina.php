@@ -48,8 +48,11 @@ require_once (JPATH_BASE . '/includes/version.php');
 require_once (JPATH_BASE . '/includes/parameters.xml.php');
 /* класс фильтрации данных */
 mosMainFrame::addLib('inputfilter');
+/*определяем дип бвзы данных*/
+$dbType = ($mosConfig_dbtype == 'mysql') ? 'database_old' : 'database';
 /* класс работы с базой данных */
-mosMainFrame::addLib('database');
+mosMainFrame::addLib($dbType);
+
 // TODO запретить к 1.3.2!!!
 $database = database::getInstance();
 
