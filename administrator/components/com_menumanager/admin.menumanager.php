@@ -173,7 +173,7 @@ function showMenu($option) {
  */
 function editMenu($option,$menu) {
 	global $database;
-
+        $row = null;
 	if($menu) {
 		$row->menutype = $menu;
 	} else {

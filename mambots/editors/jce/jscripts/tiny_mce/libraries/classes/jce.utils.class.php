@@ -233,10 +233,7 @@ class JFile
 				$destFile = JPath::makePath( $baseDir, JFile::createCopy( $baseDir, $destFile ) );
 			}
 		}
-		//File does not exist or file exists and overwrite is true
-		if( !JFile::exists( $destFile ) || ( JFile::exists( $destFile ) && $overwrite ) ){
-			$destFile = $destFile;
-		}
+
 		//File exists, overwrite & unique are false, return error
 		if( JFile::exists( $destFile ) && !$overwrite ){
 			$error = $cl['upload_exists_err'];
