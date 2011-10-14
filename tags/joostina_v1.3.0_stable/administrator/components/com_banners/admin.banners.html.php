@@ -803,7 +803,7 @@ class HTML_banners {
 	<input type="hidden" name="option" value="<?php echo $option; ?>">
 	<input type="hidden" name="id" value="<?php echo $row->id; ?>">
 	<input type="hidden" name="task" value="">
-	<input type="hidden" name="catid" value="<?php echo $_REQUEST['catid']; ?>">
+	<input type="hidden" name="catid" value="<?php echo mosGetParam($_REQUEST, 'catid', 0); ?>">
 	<input type="hidden" name="imp_made" value="<?php echo $row->imp_made; ?>">
 	<input type="hidden" name="complete_clicks" value="<?php echo $row->complete_clicks; ?>">
 	<input type="hidden" name="clicks" value="<?php echo $row->clicks; ?>">
@@ -1056,6 +1056,7 @@ class HTML_bannerCategory {
 	public static function showCategories(&$rows, $myid, &$pageNav, $option, $stateslist) {
 		$mainframe = mosMainFrame::getInstance();
 		$cur_file_icons_path = JPATH_SITE.'/'.JADMIN_BASE.'/templates/'.JTEMPLATE.'/images/ico';
+        global $my;
 		?>
 <form action="index2.php" method="POST" name="adminForm">
 	<table border="0" class="adminheading">
