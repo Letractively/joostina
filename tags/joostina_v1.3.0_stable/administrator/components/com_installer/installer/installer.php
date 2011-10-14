@@ -81,10 +81,10 @@ class mosGeneralInstaller {
 		global $classMap;
 		$pre_installer = new mosInstaller();
 		josSpoofCheck();
-
+        $msg = '';
 		// Check if url is available for fopen
 		if(!(bool)ini_get('allow_url_fopen')) {
-			HTML_installer::showInstallMessage(_CANNOT_INSTALL_DISABLED_UPLOAD,_INSTALL_ERROR,$pre_installer->returnTo($option,$element,$client));
+			HTML_installer::showInstallMessage(_CANNOT_INSTALL_DISABLED_UPLOAD,_INSTALL_ERROR,$pre_installer->returnTo('com_installer','installer',$client));
 			return false;
 		}
 
@@ -92,12 +92,12 @@ class mosGeneralInstaller {
 
 		// Was the package downloaded?
 		if (!$p_file) {
-			HTML_installer::showInstallMessage($pre_installer->getError(),_UPLOADING_ERROR.' '.$element,$pre_installer->returnTo('com_installer','installer',$client));
+			HTML_installer::showInstallMessage($pre_installer->getError(),_UPLOADING_ERROR.' '.'installer',$pre_installer->returnTo('com_installer','installer',$client));
 			return false;
 		}
 
 		if (!$pre_installer->upload($p_file)) {
-			HTML_installer::showInstallMessage($pre_installer->getError(),_UPLOADING_ERROR.' '.$element,$pre_installer->returnTo($option,$element,$client));
+			HTML_installer::showInstallMessage($pre_installer->getError(),_UPLOADING_ERROR.' '.'installer',$pre_installer->returnTo('com_installer','installer',$client));
 		}
 		$installType = $pre_installer->getInstallType();
 		if ($installType != "" && array_key_exists($installType,$classMap)) {
@@ -108,10 +108,10 @@ class mosGeneralInstaller {
 
 			$ret = $installer->install();
 
-			HTML_installer::showInstallMessage($installer->getError(),$element.' - '.($ret? _SUCCESS :_UNSUCCESS),$installer->returnTo($option,$element,$client));
+			HTML_installer::showInstallMessage($installer->getError(),'installer'.' - '.($ret? _SUCCESS :_UNSUCCESS),$installer->returnTo('com_installer','installer',$client));
 			cleanupInstall($p_file,$installer->unpackDir());
 		} else {
-			HTML_installer::showInstallMessage($msg,$element.' - '._UPLOADING_ERROR,$pre_installer->returnTo($option,$element,$client));
+			HTML_installer::showInstallMessage($msg,'installer'.' - '._UPLOADING_ERROR,$pre_installer->returnTo('com_installer','installer',$client));
 		}
 	}
 	function uploadPackage($option,$element,$client) {
