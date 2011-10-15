@@ -2322,7 +2322,7 @@ return $v_result;
 }
 $this->magic_quotes_status = @get_magic_quotes_runtime();
 if($this->magic_quotes_status == 1) {
-@set_magic_quotes_runtime(0);
+ini_set("magic_quotes_runtime", 0);
 }
 return $v_result;
 }
@@ -2335,7 +2335,7 @@ if($this->magic_quotes_status != -1) {
 return $v_result;
 }
 if($this->magic_quotes_status == 1) {
-@set_magic_quotes_runtime($this->magic_quotes_status);
+ini_set("magic_quotes_runtime", $this->magic_quotes_status);
 }
 return $v_result;
 }

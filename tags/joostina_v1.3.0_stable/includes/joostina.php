@@ -29,7 +29,7 @@ DEFINE('_ISO2', 'utf-8');
 DEFINE('_ISO', 'charset=UTF-8');
 
 // пробуем устанавить более удобный режим работы
-@set_magic_quotes_runtime(0);
+ini_set("magic_quotes_runtime", 0);
 
 // установка режима отображения ошибок
 if ($mosConfig_error_reporting == 0) {

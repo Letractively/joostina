@@ -38,7 +38,6 @@ function read_bookmarks() {
 	} else {
 		if(!is_writable(dirname($bookmarkfile))) {
 			return array();
-			;
 		} else {
 			file_put_contents($bookmarkfile,
 				";<?php if( !defined( '_JEXEC' ) && !defined( '_VALID_MOS' ) ) die( 'Restricted access' ); ?>\n{$GLOBALS['messages']['homelink']}=\n");

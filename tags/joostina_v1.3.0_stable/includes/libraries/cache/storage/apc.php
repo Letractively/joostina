@@ -95,7 +95,6 @@ class JCacheStorageApc extends JCacheStorage {
 	function clean($group, $mode) {
 		// Now it's clearing ALL cached data
 		return apc_clear_cache("user");
-		;
 	}
 
 	/**

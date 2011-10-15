@@ -64,8 +64,6 @@ function x_jsave($id) {
 		mosCache::cleanCache('com_content');
 		return 'Saved: ' . date('Y-m-d H:i:s') . ', id=' . $id;
 	}
-
-	return;
 }
 
 /* публикация объекта
