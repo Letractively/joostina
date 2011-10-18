@@ -357,7 +357,7 @@ class modules_html {
 		$database = $this->_mainframe->getDBO();
 
 		?>
-<div class="moduletable<?php echo $moduleclass_sfx; ?>">
+<div class="moduletable<?php echo $moduleclass_sfx; ?>" id="module_<?php echo $module->id; ?>">
 			<?php if($module->showtitle != 0) {?>
 	<h3><?php echo htmlspecialchars($module->title); ?></h3>
 				<?php
