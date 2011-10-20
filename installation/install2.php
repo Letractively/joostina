@@ -159,9 +159,9 @@ function populate_db(&$database,$sqlfile = 'joostina.sql') {
 
 	$database->query();
 	$mqr = @get_magic_quotes_runtime();
-	@set_magic_quotes_runtime(0);
+	@ini_set('magic_quotes_runtime', 0);
 	$query = fread(fopen($sqlfile,'r'),filesize($sqlfile));
-	@set_magic_quotes_runtime($mqr);
+	@ini_set('magic_quotes_runtime', $mqr);
 	$pieces = split_sql($query);
 
 	for($i = 0; $i < count($pieces); $i++) {
