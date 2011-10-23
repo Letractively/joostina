@@ -694,6 +694,11 @@ class ContentView {
 
 		mosMakeHtmlSafe($row);
 
+		//Загрузка скрипта ajax-валидации
+	    $mainframe->addJS(JPATH_SITE . '/includes/js/jquery/plugins/jquery.validate.js', 'js');
+		//mosCommonHTML::loadJqueryPlugins('jquery.validate');
+		mosCommonHTML::loadCalendar();
+
 		require_once (JPATH_BASE.DS.'includes/HTML_toolbar.php');
 		$s_id = mosGetParam($_REQUEST, 'section', 0);
 		// used for spoof hardening
@@ -720,18 +725,11 @@ class ContentView {
 		$auto_publish = $params->get('auto_publish', 0); // настройки автопубликации
 		$allow_frontpage = $params->get('allow_frontpage', 0); // переключатель "На главной"
 		$front_label = $params->get('front_label', _E_SHOW_FP); // подпись переключателя "На главной"
-        
+
 		if($p_wwig) {
 			$mainframe->set('allow_wysiwyg', 1);
-            $mainframe->set('loadEditor',true);
-            initEditor();
 			$wwig_params = array('m_buttons' => $wwig_buttons);
 		}
-
-		//Загрузка скрипта ajax-валидации
-		mosCommonHTML::loadJqueryPlugins('jquery.validate');
-		mosCommonHTML::loadCalendar();
-        
 		$access = $page->access;
 		$lists = $row->lists;
 
