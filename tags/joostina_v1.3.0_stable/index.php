@@ -111,6 +111,13 @@ $my = $mainframe->getUser();
 
 $gid = intval($my->gid);
 
+if ($my->id) {
+    $_MAMBOTS->loadBot('editors', $mosConfig_editor, 1);
+	$_MAMBOTS->trigger('onInitEditor');
+}
+
+
+
 if ($option == 'login') {
 	$mainframe->login();
 	// Всплывающее сообщение JS

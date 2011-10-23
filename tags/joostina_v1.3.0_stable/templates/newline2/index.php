@@ -19,7 +19,7 @@ $iso = explode('=',_ISO); echo '<?xml version="1.0" encoding="'.$iso[1].'"?'.'>'
 	mosShowHead(array('js'=>1,'css'=>1,'jquery'=>1));
 
 	//Инициализация визуального редактора
-	if ($my->id && $mainframe->allow_wysiwyg) { initEditor(); }
+	//if ($my->id && $mainframe->allow_wysiwyg) { initEditor(); }
 
 	//Принудительно настраиваем модуль авторизации
 	$login_params = new stdClass();
