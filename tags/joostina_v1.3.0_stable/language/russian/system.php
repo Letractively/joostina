@@ -420,7 +420,7 @@ DEFINE('_TEMPLATE_NOT_FOUND','Шаблон не обнаружен');
 
 /* users */
 DEFINE('_USERS_USERLIST','Список пользователей');
-DEFINE('_REGISTERED_USERS_COUNT','Зарегистрированно');
+DEFINE('_REGISTERED_USERS_COUNT','Зарегистрировано');
 
 /* section,category */
 DEFINE('_MENU_LINK_AVAILABLE_AFTER_SAVE','Связь с меню будет доступна после сохранения');

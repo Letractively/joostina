@@ -18,19 +18,19 @@
 			<option value="1">Да</option>
 			<option value="0">Нет</option>
 		</param>
-		<param name="show_total" type="radio" default="1" label="Зарегистрированно всего на сайте" description="Отображать общее число пользователй зарегистрированных на сайте">
+		<param name="show_total" type="radio" default="1" label="Зарегистрировано всего на сайте" description="Отображать общее число пользователй зарегистрированных на сайте">
 			<option value="1">Да</option>
 			<option value="0">Нет</option>
 		</param>
-		<param name="show_today" type="radio" default="1" label="Зарегистрированно сегодня" description="Отображать число пользователей зарегистрированных сегодня">
+		<param name="show_today" type="radio" default="1" label="Зарегистрировано сегодня" description="Отображать число пользователей зарегистрированных сегодня">
 			<option value="1">Да</option>
 			<option value="0">Нет</option>
 		</param>
-		<param name="show_week" type="radio" default="1" label="Зарегистрированно за эту неделю" description="Отображать число пользователей зарегистрированных в течении текущей недели">
+		<param name="show_week" type="radio" default="1" label="Зарегистрировано за эту неделю" description="Отображать число пользователей зарегистрированных в течении текущей недели">
 			<option value="1">Да</option>
 			<option value="0">Нет</option>
 		</param>
-		<param name="show_month" type="radio" default="1" label="Зарегистрированно за этот месяц" description="Отображать число пользователей зарегистрированных в течении текущего месяца">
+		<param name="show_month" type="radio" default="1" label="Зарегистрировано за этот месяц" description="Отображать число пользователей зарегистрированных в течении текущего месяца">
 			<option value="1">Да</option>
 			<option value="0">Нет</option>
 		</param>
