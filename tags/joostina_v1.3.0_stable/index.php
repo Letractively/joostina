@@ -111,13 +111,6 @@ $my = $mainframe->getUser();
 
 $gid = intval($my->gid);
 
-if ($my->id) {
-    $_MAMBOTS->loadBot('editors', $mosConfig_editor, 1);
-	$_MAMBOTS->trigger('onInitEditor');
-}
-
-
-
 if ($option == 'login') {
 	$mainframe->login();
 	// Всплывающее сообщение JS
@@ -189,6 +182,8 @@ $_MOS_OPTION = array();
 if ($mosConfig_frontend_login == 1) {
 	require_once (JPATH_BASE . DS . 'includes' . DS . 'editor.php');
 }
+
+
 // начало буферизации основного содержимого
 
 ob_start();
@@ -229,6 +224,9 @@ header('Content-type: text/html; charset=UTF-8');
   header('Cache-Control: max-age=3600');
   }
  */
+
+
+
 
 ($mosConfig_mmb_system_off == 0) ? $_MAMBOTS->trigger('onAfterDispatch') : null;
 
