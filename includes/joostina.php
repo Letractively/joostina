@@ -5811,12 +5811,14 @@ class mosCommonHTML {
 		if (!defined($const)) {
 			define($const, 1);
 			if ($ret) {
-				?><script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE; ?>/includes/js/jquery/plugins/<?php echo $name; ?>.js"></script>
-				<script language="JavaScript" type="text/javascript">if(_js_defines) {_js_defines.push('<?php echo $name; ?>')} else {var _js_defines = ['<?php echo $name; ?>']}</script>
-				<?php
+				$return = '
+                <script language="javascript" type="text/javascript" src="'.JPATH_SITE.'/includes/js/jquery/plugins/'.$name.'.js"></script>
+				<script language="JavaScript" type="text/javascript">if(_js_defines) {_js_defines.push(\''.$name.'\')} else {var _js_defines = [\''.$name.'\']}</script>
+				';
 				if ($css) {
-					?><link type="text/css" rel="stylesheet" href="<?php echo JPATH_SITE; ?>/includes/js/jquery/plugins/<?php echo $name; ?>.css" /><?php } ?>
-			<?php
+					$return .= '<link type="text/css" rel="stylesheet" href="'.JPATH_SITE.'/includes/js/jquery/plugins/'.$name.'.css" />';
+                }
+			    return $return;
 			} else {
 				$mainframe = mosMainFrame::getInstance();
 				$mainframe->addJS(JPATH_SITE . '/includes/js/jquery/plugins/' . $name . '.js', $footer);
@@ -5835,9 +5837,7 @@ class mosCommonHTML {
 		if (!defined('_JQUERY_UI_LOADED')) {
 			define('_JQUERY_UI_LOADED', 1);
 			if ($ret) {
-				?>
-				<script language="javascript" type="text/javascript" src="<?php echo JPATH_SITE ?>/includes/js/jquery/ui.js"></script>
-			<?php
+				return '<script language="javascript" type="text/javascript" src="'.JPATH_SITE.'/includes/js/jquery/ui.js"></script>';
 			} else {
 				$mainframe = mosMainFrame::getInstance();
 				$mainframe->addJS(JPATH_SITE . '/includes/js/jquery/ui.js');

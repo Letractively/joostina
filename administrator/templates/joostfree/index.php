@@ -40,12 +40,14 @@ $option = mosGetParam( $_REQUEST, 'option', '' );
 			$mainframe->addJS(JPATH_SITE.'/includes/js/ThemeOffice/theme.js');
 			$mainframe->addJS(JPATH_SITE.'/includes/js/joomla.javascript.js');
 		};
-		include_once (JPATH_BASE.DS.'includes/editor.php');
-		initEditor();
-		/**
+        /**
 		 * вывод подключения js и css
 		 */
 		adminHead($mainframe);
+
+		include_once (JPATH_BASE.DS.'includes/editor.php');
+		initEditor();
+
 		?>
 		<link rel="shortcut icon" href="<?php echo JPATH_SITE; ?>/images/favicon.ico" />
 	</head>
