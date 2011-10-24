@@ -41,9 +41,9 @@ function display_form() {
 	$user_id = intval(mosGetParam( $_REQUEST, 'user_id', 0 ));
 
 	//Подключение плагина валидации форм
-	mosCommonHTML::loadJqueryPlugins('jquery.validate',1);
+	echo mosCommonHTML::loadJqueryPlugins('jquery.validate',1);
 	//Подключение плагина ajax-форм
-	mosCommonHTML::loadJqueryPlugins('jquery.form',1);
+	echo mosCommonHTML::loadJqueryPlugins('jquery.form',1);
 
 	//Параметры формы для отправки сообщения пользователю
 	$form_params = new UserContactsEmail();

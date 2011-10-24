@@ -98,7 +98,7 @@ class HTML_users {
 			$mainframe->addJS($mainframe->getCfg('live_site').'/includes/js/jquery/jquery.js');
 		}
 		mosCommonHTML::loadOverlib();
-		mosCommonHTML::loadJqueryPlugins('jquery.form', true, false);
+		echo mosCommonHTML::loadJqueryPlugins('jquery.form', true, false);
 
 		$canBlockUser = $acl->acl_check('administration', 'edit', 'users', $my->usertype, 'user properties', 'block_user');
 		$canEmailEvents = $acl->acl_check('workflow', 'email_events', 'users', $acl->get_group_name($row->gid, 'ARO'));
