@@ -14,6 +14,7 @@ global $JPConfiguration,$option;
 
 $subtask	= mosGetParam($_REQUEST,'subtask','main');
 $filename	= mosGetParam($_REQUEST,'filename','');
+$filename = str_replace(array('/////', '////', '///', '//'), '/', $filename);
 
 switch($subtask) {
 	// удаление файле
@@ -107,7 +108,7 @@ function JP_GetFileList() {
 <tr class="row<?php echo $k;?>">
 	<td align="left"><img src="<?php echo $cur_file_icons_path;?>/<?php echo $ico; ?>" border="0"><?php echo $onlyName.'<br />'._JP_FILE_CREATION_DATE.': <b>'.$createdTime.'</b>, '._JWMM_FILESIZE.': <b>'.$fileSizeKb; ?> <?php echo _JWMM_KBYTES?></b></td>
 <td align="center">
-	<img src="<?php echo $cur_file_icons_path;?>/down.png" border="0">&nbsp;&nbsp;<a href="<?php echo $linkDownload; ?>"><?php echo _JP_DOWNLOAD_FILE?></a></td>
+	<img src="<?php echo $cur_file_icons_path;?>/downarrow.png" border="0">&nbsp;&nbsp;<a href="<?php echo $linkDownload; ?>"><?php echo _JP_DOWNLOAD_FILE?></a></td>
 <td align="center">
 	<img src="<?php echo $cur_file_icons_path;?>/publish_x.png" border="0">&nbsp;&nbsp;<a href="<?php echo $linkDelete; ?>"><?php echo _DELETE?></a>
 </td>
