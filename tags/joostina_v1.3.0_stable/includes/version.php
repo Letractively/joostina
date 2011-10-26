@@ -16,23 +16,23 @@ defined('_VALID_MOS') or die();
  */
 class joomlaVersion {
 	/** @var строка Продукт*/
-	var $PRODUCT = 'Joomla!';
+	var $PRODUCT = 'Joostina';
 	/** @var строка CMS*/
 	var $CMS = 'Joostina';
 	/** @var версия*/
-	var $CMS_ver = '1.3.0.4::837 build';
+	var $CMS_ver = '1.3.0.5::885 build';
 	/** @var int Номер основной версии*/
-	var $RELEASE = '1.0';
+	var $RELEASE = '1.3';
 	/** @var строка  статус разработки*/
 	var $DEV_STATUS = '';
 	/** @var int Подверсия*/
 	var $DEV_LEVEL = '15';
 	/** @var int Номер сборки*/
-	var $BUILD = '837';
+	var $BUILD = '885';
 	/** @var string Кодовое имя*/
 	var $CODENAME = '';
 	/** @var string Дата*/
-	var $RELDATE = '14:01:2011';
+	var $RELDATE = '26:10:2011';
 	/** @var string Время*/
 	var $RELTIME = '01:57';
 	/** @var string Временная зона*/
