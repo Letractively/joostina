@@ -337,7 +337,6 @@ INSERT INTO `#__mambots` VALUES (22, 'Материалы пользовател�
 INSERT INTO `#__mambots` VALUES (23, 'Информация ', 'user_info', 'profile', 0, 1, 1, 0, 0, 0, '0000-00-00 00:00:00', 'header=Информация\nshow_header=1\nshow_location=1\ngender=1');
 INSERT INTO `#__mambots` VALUES (24, 'Библиотека MyLib', 'mylib', 'system', 0, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '');
 
-
 # --------------------------------------------------------
 
 #
@@ -1072,6 +1071,7 @@ CREATE TABLE `#__content_tags` (
   PRIMARY KEY  (`id`),
   KEY `obj_id` (`obj_id`,`tag`)
 ) ENGINE=MYISAM  CHARACTER SET utf8 COLLATE utf8_general_ci;
+
 
 # новые поля в таблицах
 ALTER TABLE `#__sections` ADD `templates` text ;
