@@ -1,72 +1,75 @@
 <?php /**
  * @package Joostina
- * @copyright ÐÐ²Ñ‚Ð¾Ñ€ÑÐºÐ¸Ðµ Ð¿Ñ€Ð°Ð²Ð° (C) 2008-2010 Joostina team. Ð’ÑÐµ Ð¿Ñ€Ð°Ð²Ð° Ð·Ð°Ñ‰Ð¸Ñ‰ÐµÐ½Ñ‹.
- * @license Ð›Ð¸Ñ†ÐµÐ½Ð·Ð¸Ñ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, Ð¸Ð»Ð¸ help/license.php
- * Joostina! - ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð½Ð¾Ðµ Ð¾Ð±ÐµÑÐ¿ÐµÑ‡ÐµÐ½Ð¸Ðµ Ñ€Ð°ÑÐ¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÐµÐ¼Ð¾Ðµ Ð¿Ð¾ ÑƒÑÐ»Ð¾Ð²Ð¸ÑÐ¼ Ð»Ð¸Ñ†ÐµÐ½Ð·Ð¸Ð¸ GNU/GPL
- * Ð”Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ñ‹Ñ… Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸ÑÑ… Ð¸ Ð·Ð°Ð¼ÐµÑ‡Ð°Ð½Ð¸Ð¹ Ð¾Ð± Ð°Ð²Ñ‚Ð¾Ñ€ÑÐºÐ¾Ð¼ Ð¿Ñ€Ð°Ð²Ðµ, ÑÐ¼Ð¾Ñ‚Ñ€Ð¸Ñ‚Ðµ Ñ„Ð°Ð¹Ð» help/copyright.php.
+ * @copyright Àâòîðñêèå ïðàâà (C) 2008-2010 Joostina team. Âñå ïðàâà çàùèùåíû.
+ * @license Ëèöåíçèÿ http://www.gnu.org/licenses/gpl-2.0.htm GNU/GPL, èëè help/license.php
+ * Joostina! - ñâîáîäíîå ïðîãðàììíîå îáåñïå÷åíèå ðàñïðîñòðàíÿåìîå ïî óñëîâèÿì ëèöåíçèè GNU/GPL
+ * Äëÿ ïîëó÷åíèÿ èíôîðìàöèè î èñïîëüçóåìûõ ðàñøèðåíèÿõ è çàìå÷àíèé îá àâòîðñêîì ïðàâå, ñìîòðèòå ôàéë help/copyright.php.
  */
 
-// Ð·Ð°Ð¿Ñ€ÐµÑ‚ Ð¿Ñ€ÑÐ¼Ð¾Ð³Ð¾ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð°
+// çàïðåò ïðÿìîãî äîñòóïà
 defined('_VALID_MOS') or die(); ?>
-<?php if($params->get('item_title')) { ?>
-<div <?php echo $news_uid_css_title; ?>class="item_title">
-	<div class="contentheading"><h1><?php echo $row->title; ?></h1></div>
-</div>
-<?php }
-$loadbot_onAfterDisplayTitle;
-$loadbot_onBeforeDisplayContent;
-?>
-<div class="buttons_wrap">
-	<table width="100%" cellpadding="0" cellspacing="0">
-		<tr>
-			<td>
-				<?php if($params->get('createdate', 0)) { ?>
-				<span class="date"><strong><?php echo _E_START_PUB; ?></strong> <?php echo $create_date; ?></span>
+<div class="page_user_items<?php echo $params->get('pageclass_sfx'); ?>">
+	<?php if ($params->get('item_title')) { ?>
+	<div <?php echo $news_uid_css_title; ?>class="item_title">
+		<div class="contentheading"><h1><?php echo $row->title; ?></h1></div>
+	</div>
+	<?php
+}
+	$loadbot_onAfterDisplayTitle;
+	$loadbot_onBeforeDisplayContent;
+	?>
+	<div class="buttons_wrap">
+		<table width="100%" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+					<?php if ($params->get('createdate', 0)) { ?>
+					<span class="date"><strong><?php echo _E_START_PUB; ?></strong> <?php echo $create_date; ?></span>
 					<?php } ?>
-				<?php if($params->get('author', 0)) { ?>
-				<span class="author"><strong><?php echo _AUTHOR; ?>:</strong> <?php echo $author; ?></span>
+					<?php if ($params->get('author', 0)) { ?>
+					<span class="author"><strong><?php echo _AUTHOR; ?>:</strong> <?php echo $author; ?></span>
 					<?php } ?>
-			</td>
-			<td width="200"  align="right">
-				<div class="icons_c">
-					<?php if($params->get('print')) { ?>
+				</td>
+				<td width="200" align="right">
+					<div class="icons_c">
+						<?php if ($params->get('print')) { ?>
 						<?php mosHTML::PrintIcon($row, $params, $hide_js, $print_link); ?>
 						<?php } ?>
-					<?php if($params->get('email')) { ?>
+						<?php if ($params->get('email')) { ?>
 						<?php ContentView::EmailIcon($row, $params, $hide_js); ?>
 						<?php } ?>
-				</div>
-			</td>
-		</tr>
-	</table>
-</div>
-<div <?php echo $news_uid_css_body; ?>class="item_body">
-	<?php if($params->get('url') && $row->urls) { ?>
-	<div class="blog_urls">
-		<a href="http://<?php echo $row->urls; ?>" target="_blank"><?php echo $row->urls; ?></a>
+					</div>
+				</td>
+			</tr>
+		</table>
 	</div>
+	<div <?php echo $news_uid_css_body; ?>class="item_body">
+		<?php if ($params->get('url') && $row->urls) { ?>
+		<div class="blog_urls">
+			<a href="http://<?php echo $row->urls; ?>" target="_blank"><?php echo $row->urls; ?></a>
+		</div>
 		<?php } ?>
-	<?php if(isset($row->toc)) { ?>
-	<div class="toc"><?php echo $row->toc; ?></div>
+		<?php if (isset($row->toc)) { ?>
+		<div class="toc"><?php echo $row->toc; ?></div>
 		<?php } ?>
-	<?php if($params->get('view_introtext', 1)) { ?>
-	<div class="item_text"><?php echo ampReplace($row->text); ?></div>
+		<?php if ($params->get('view_introtext', 1)) { ?>
+		<div class="item_text"><?php echo ampReplace($row->text); ?></div>
 		<?php } ?>
-		<?php if($params->get('tags', 1)) { ?>
-	<span class="tags"><strong><?php echo _TAGS; ?></strong> <?php echo isset($row->tags) ? $row->tags : _TAGS_NOT_DEFINED; ?></span>
+		<?php if ($params->get('tags', 1)) { ?>
+		<span class="tags"><strong><?php echo _TAGS; ?></strong> <?php echo isset($row->tags) ? $row->tags : _TAGS_NOT_DEFINED; ?></span>
 		<?php } ?>
-	<?php if($params->get('modifydate')) { ?>
-	<div class="modified_date">
-		<strong><?php echo _LAST_UPDATED; ?> </strong> <?php echo $mod_date; ?>
+		<?php if ($params->get('modifydate')) { ?>
+		<div class="modified_date">
+			<strong><?php echo _LAST_UPDATED; ?> </strong> <?php echo $mod_date; ?>
+		</div>
+		<?php } ?>
+		<?php if ($params->get('readmore')) { ?>
+		<div class="readmore"><?php echo $readmore; ?></div>
+		<?php } ?>
 	</div>
-		<?php } ?>
-	<?php if($params->get('readmore')) { ?>
-	<div class="readmore"><?php echo $readmore; ?></div>
-		<?php } ?>
+	<?php echo ContentView::afterDisplayContent(&$row, &$params, $page); ?>
+	<div class="edit_item"><?php echo $edit; ?></div>
+	<?php echo $row->rating; ?>
+	<?php ContentView::Navigation($row, $params); ?>
+	<?php mosHTML::CloseButton($params, $hide_js); ?>
+	<?php mosHTML::BackButton($params, $hide_js); ?>
 </div>
-<?php echo ContentView::afterDisplayContent(&$row, &$params, $page); ?>
-<div class="edit_item"><?php echo $edit; ?></div>
-<?php echo $row->rating; ?>
-<?php ContentView::Navigation($row, $params); ?>
-<?php mosHTML::CloseButton($params, $hide_js); ?>
-<?php mosHTML::BackButton($params, $hide_js); ?>
