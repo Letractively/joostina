@@ -5828,7 +5828,6 @@ class mosCommonHTML {
 				}
 			}
 		}
-		return true;
 	}
 
 	/* подключение файла Jquery UI */
