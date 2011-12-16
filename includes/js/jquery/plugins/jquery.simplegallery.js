@@ -101,7 +101,7 @@ simpleGallery.prototype={
 		setting.$gallerylayers.eq(setting.bglayer).css({zIndex:1000, opacity:0}) //background layer becomes foreground
 			.stop().css({opacity:0}).animate({opacity:1}, setting.fadeduration, function(){ //Callback function after fade animation is complete:
 				clearTimeout(setting.playtimer)
-				setting.gallerylayers[setting.bglayer].innerHTML=null  //empty bglayer (previously fglayer before setting.fglayer=setting.bglayer was set below)
+				setting.gallerylayers[setting.bglayer].innerHTML=''  //empty bglayer (previously fglayer before setting.fglayer=setting.bglayer was set below)
 				try{
 					setting.onslide(setting.gallerylayers[setting.fglayer], setting.curimage)
 				}catch(e){
