@@ -5398,6 +5398,9 @@ class mosAdminMenus {
 	public static function GetSavedImages(&$row, $path) {
 		$images2 = array();
 		foreach ($row->images as $file) {
+            if(empty($file)){
+                continue;
+            }
 			$temp = explode('|', $file);
 			if (strrchr($temp[0], '/')) {
 				$filename = substr(strrchr($temp[0], '/'), 1);
